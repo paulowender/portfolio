@@ -67,9 +67,25 @@ A comprehensive portfolio and project management system for freelance developers
 ### Database Setup
 
 1. Create a new Supabase project
-2. Set up the following tables:
-   - `users`: For user profiles
-   - `projects`: For portfolio projects
+2. Get your Supabase URL and anon key from the project settings
+3. Create a `.env.local` file based on the `.env.example` template and add your Supabase credentials
+4. Generate the SQL for database migration:
+
+   ```bash
+   npm run migrate
+   ```
+
+   This will output the SQL that you need to run in the Supabase SQL Editor.
+
+5. (Optional) Generate the SQL for seeding the database with sample data:
+
+   ```bash
+   npm run seed
+   ```
+
+   This will output the SQL that you need to run in the Supabase SQL Editor.
+
+6. Go to your Supabase project dashboard, navigate to the SQL Editor, and run the SQL scripts generated in steps 4 and 5.
 
 ## Project Structure
 
