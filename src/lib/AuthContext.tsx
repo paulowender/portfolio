@@ -29,41 +29,43 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     // Check active session
     const getSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
       if (session?.user) {
         const { data } = await supabase
           .from('users')
           .select('*')
           .eq('id', session.user.id)
           .single();
-        
+
         setUser(data);
       }
-      
+
       setLoading(false);
     };
 
     getSession();
 
     // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        if (session?.user) {
-          const { data } = await supabase
-            .from('users')
-            .select('*')
-            .eq('id', session.user.id)
-            .single();
-          
-          setUser(data);
-        } else {
-          setUser(null);
-        }
-        
-        setLoading(false);
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (session?.user) {
+        const { data } = await supabase
+          .from('users')
+          .select('*')
+          .eq('id', session.user.id)
+          .single();
+
+        setUser(data);
+      } else {
+        setUser(null);
       }
-    );
+
+      setLoading(false);
+    });
 
     return () => {
       subscription.unsubscribe();
@@ -71,8 +73,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    return { error };
+    console.time('signIn');
+    console.log('Starting sign in process...');
+
+    try {
+      console.time('supabase.auth.signInWithPassword');
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      console.timeEnd('supabase.auth.signInWithPassword');
+
+      if (error) {
+        console.error('Sign in error:', error);
+        return { error };
+      }
+
+      console.log('Sign in successful, user:', data.user?.id);
+      return { error: null };
+    } catch (err) {
+      console.error('Exception during sign in:', err);
+      return { error: err };
+    } finally {
+      console.timeEnd('signIn');
+    }
   };
 
   const signUp = async (email: string, password: string, name: string) => {
@@ -83,25 +104,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         data: { name },
       },
     });
-    
+
     if (authError) return { error: authError };
-    
+
     // Create user profile
-    const { data: { user: authUser } } = await supabase.auth.getUser();
-    
+    const {
+      data: { user: authUser },
+    } = await supabase.auth.getUser();
+
     if (authUser) {
-      const { error: profileError } = await supabase
-        .from('users')
-        .insert({
-          id: authUser.id,
-          email,
-          name,
-          created_at: new Date().toISOString(),
-        });
-      
+      const { error: profileError } = await supabase.from('users').insert({
+        id: authUser.id,
+        email,
+        name,
+        created_at: new Date().toISOString(),
+      });
+
       if (profileError) return { error: profileError };
     }
-    
+
     return { error: null };
   };
 

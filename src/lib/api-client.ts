@@ -1,4 +1,5 @@
 // API client for browser-side code
+import { supabase } from '@/lib/supabase';
 
 // Projects
 export async function fetchProjects(userId?: string) {
@@ -55,10 +56,19 @@ export async function fetchProject(id: string) {
 
 export async function createProjectApi(projectData: any) {
   try {
+    // Get the session token
+    const { data: sessionData } = await supabase.auth.getSession();
+    const token = sessionData?.session?.access_token;
+
+    if (!token) {
+      throw new Error('Authentication required. Please log in again.');
+    }
+
     const response = await fetch('/api/projects/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(projectData),
     });
@@ -78,10 +88,19 @@ export async function createProjectApi(projectData: any) {
 
 export async function updateProjectApi(id: string, projectData: any) {
   try {
+    // Get the session token
+    const { data: sessionData } = await supabase.auth.getSession();
+    const token = sessionData?.session?.access_token;
+
+    if (!token) {
+      throw new Error('Authentication required. Please log in again.');
+    }
+
     const response = await fetch(`/api/projects/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(projectData),
     });
@@ -101,8 +120,19 @@ export async function updateProjectApi(id: string, projectData: any) {
 
 export async function deleteProjectApi(id: string) {
   try {
+    // Get the session token
+    const { data: sessionData } = await supabase.auth.getSession();
+    const token = sessionData?.session?.access_token;
+
+    if (!token) {
+      throw new Error('Authentication required. Please log in again.');
+    }
+
     const response = await fetch(`/api/projects/${id}`, {
       method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
 
     if (!response.ok) {

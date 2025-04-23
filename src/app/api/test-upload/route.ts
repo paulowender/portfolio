@@ -1,9 +1,7 @@
 import { NextResponse } from 'next/server';
-import { createProject } from '@/lib/db';
 import { createClient } from '@supabase/supabase-js';
-// import { supabase } from '@/lib/supabase'; // Not needed anymore
 
-export async function POST(request: Request) {
+export async function GET(request: Request) {
   try {
     // Get the authorization header
     const authHeader = request.headers.get('authorization');
@@ -47,23 +45,41 @@ export async function POST(request: Request) {
       );
     }
 
-    const body = await request.json();
+    // List files in the user's folder
+    const { data: files, error: listError } = await supabaseWithAuth.storage
+      .from('portfolio')
+      .list(`${user.id}/project-images`);
 
-    // Make sure the user_id matches the authenticated user
-    if (body.user && body.user.connect && body.user.connect.id !== user.id) {
-      return NextResponse.json(
-        { error: 'Unauthorized: Cannot create project for another user' },
-        { status: 403 },
-      );
-    }
+    // Check if the folder exists
+    const folderExists = !listError || listError.message !== 'The resource was not found';
 
-    const { data, error } = await createProject(body);
+    // Get storage bucket info
+    const { data: buckets, error: bucketsError } = await supabaseWithAuth.storage.listBuckets();
 
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    }
+    // Get RLS policies for storage
+    const { data: policies, error: policiesError } = await supabaseWithAuth.rpc(
+      'get_policies_for_object',
+      {
+        bucket_name: 'portfolio',
+      },
+    );
 
-    return NextResponse.json({ project: data });
+    return NextResponse.json({
+      message: 'Storage test',
+      user: {
+        id: user.id,
+        email: user.email,
+      },
+      storage: {
+        buckets: buckets || [],
+        bucketsError: bucketsError?.message,
+        folderExists,
+        files: files || [],
+        listError: listError?.message,
+      },
+      policies: policies || [],
+      policiesError: policiesError?.message,
+    });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
