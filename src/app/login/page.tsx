@@ -15,15 +15,15 @@ export default function LoginPage() {
   const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  
+
   const router = useRouter();
   const { signIn, signUp } = useAuth();
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError('');
-    
+
     try {
       if (isLogin) {
         const { error } = await signIn(email, password);
@@ -40,7 +40,7 @@ export default function LoginPage() {
       setLoading(false);
     }
   };
-  
+
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
@@ -51,7 +51,7 @@ export default function LoginPage() {
           className="text-center"
         >
           <Link href="/" className="inline-block">
-            <h2 className="text-3xl font-extrabold text-white">DevPortfolio</h2>
+            <h2 className="text-3xl font-extrabold text-white">Wender Tech</h2>
           </Link>
           <h2 className="mt-6 text-3xl font-bold text-white">
             {isLogin ? 'Sign in to your account' : 'Create a new account'}
@@ -66,7 +66,7 @@ export default function LoginPage() {
             </button>
           </p>
         </motion.div>
-        
+
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -74,11 +74,9 @@ export default function LoginPage() {
           className="mt-8 bg-gray-800 py-8 px-4 shadow-lg sm:rounded-lg sm:px-10"
         >
           {error && (
-            <div className="mb-4 bg-red-900/50 text-red-200 p-3 rounded-md text-sm">
-              {error}
-            </div>
+            <div className="mb-4 bg-red-900/50 text-red-200 p-3 rounded-md text-sm">{error}</div>
           )}
-          
+
           <form className="space-y-6" onSubmit={handleSubmit}>
             {!isLogin && (
               <div>
@@ -102,7 +100,7 @@ export default function LoginPage() {
                 </div>
               </div>
             )}
-            
+
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-300">
                 Email address
@@ -124,7 +122,7 @@ export default function LoginPage() {
                 />
               </div>
             </div>
-            
+
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-300">
                 Password
@@ -137,7 +135,7 @@ export default function LoginPage() {
                   id="password"
                   name="password"
                   type="password"
-                  autoComplete={isLogin ? "current-password" : "new-password"}
+                  autoComplete={isLogin ? 'current-password' : 'new-password'}
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -146,18 +144,14 @@ export default function LoginPage() {
                 />
               </div>
             </div>
-            
+
             <div>
-              <Button
-                type="submit"
-                className="w-full"
-                isLoading={loading}
-              >
+              <Button type="submit" className="w-full" isLoading={loading}>
                 {isLogin ? 'Sign in' : 'Sign up'}
               </Button>
             </div>
           </form>
-          
+
           <div className="mt-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
@@ -167,7 +161,7 @@ export default function LoginPage() {
                 <span className="px-2 bg-gray-800 text-gray-400">Or continue with</span>
               </div>
             </div>
-            
+
             <div className="mt-6 grid grid-cols-2 gap-3">
               <button
                 type="button"
@@ -184,7 +178,11 @@ export default function LoginPage() {
               >
                 <span className="sr-only">Sign in with GitHub</span>
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z" />
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"
+                  />
                 </svg>
               </button>
             </div>

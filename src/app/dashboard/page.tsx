@@ -4,34 +4,29 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/lib/AuthContext';
-import { getProjects } from '@/lib/projects';
+import { fetchProjects } from '@/lib/api-client';
 import Button from '@/components/Button';
-import {
-  FolderIcon,
-  CalendarIcon,
-  BellIcon,
-  PlusIcon,
-} from '@heroicons/react/24/outline';
+import { FolderIcon, CalendarIcon, BellIcon, PlusIcon } from '@heroicons/react/24/outline';
 
 export default function DashboardPage() {
   const { user } = useAuth();
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
-    const fetchProjects = async () => {
+    const fetch = async () => {
       if (user) {
-        const { data, error } = await getProjects(user.id);
+        const { data, error } = await fetchProjects(user.id);
         if (data) {
           setProjects(data);
         }
         setLoading(false);
       }
     };
-    
-    fetchProjects();
+
+    fetch();
   }, [user]);
-  
+
   return (
     <div>
       <motion.div
@@ -44,7 +39,7 @@ export default function DashboardPage() {
           Here's an overview of your portfolio and upcoming tasks.
         </p>
       </motion.div>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -68,7 +63,7 @@ export default function DashboardPage() {
             </Link>
           </div>
         </motion.div>
-        
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -91,7 +86,7 @@ export default function DashboardPage() {
             </Link>
           </div>
         </motion.div>
-        
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -115,7 +110,7 @@ export default function DashboardPage() {
           </div>
         </motion.div>
       </div>
-      
+
       <div className="mb-8">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold">Recent Projects</h2>
@@ -125,7 +120,7 @@ export default function DashboardPage() {
             </Button>
           </Link>
         </div>
-        
+
         {loading ? (
           <div className="flex justify-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
@@ -135,16 +130,28 @@ export default function DashboardPage() {
             <table className="min-w-full divide-y divide-gray-700">
               <thead className="bg-gray-700">
                 <tr>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                  >
                     Project
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                  >
                     Technologies
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                  >
                     Featured
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                  >
                     Actions
                   </th>
                 </tr>
@@ -157,14 +164,19 @@ export default function DashboardPage() {
                         <div className="flex-shrink-0 h-10 w-10 bg-gray-700 rounded-md"></div>
                         <div className="ml-4">
                           <div className="text-sm font-medium text-white">{project.title}</div>
-                          <div className="text-sm text-gray-400">{project.description.substring(0, 50)}...</div>
+                          <div className="text-sm text-gray-400">
+                            {project.description.substring(0, 50)}...
+                          </div>
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex flex-wrap gap-1">
                         {project.technologies.slice(0, 3).map((tech: string) => (
-                          <span key={tech} className="px-2 py-1 text-xs bg-gray-700 rounded-full text-gray-300">
+                          <span
+                            key={tech}
+                            className="px-2 py-1 text-xs bg-gray-700 rounded-full text-gray-300"
+                          >
                             {tech}
                           </span>
                         ))}
@@ -176,17 +188,24 @@ export default function DashboardPage() {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`px-2 py-1 text-xs rounded-full ${project.featured ? 'bg-green-900 text-green-300' : 'bg-gray-700 text-gray-300'}`}>
+                      <span
+                        className={`px-2 py-1 text-xs rounded-full ${
+                          project.featured
+                            ? 'bg-green-900 text-green-300'
+                            : 'bg-gray-700 text-gray-300'
+                        }`}
+                      >
                         {project.featured ? 'Yes' : 'No'}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
-                      <Link href={`/dashboard/projects/${project.id}`} className="text-indigo-400 hover:text-indigo-300 mr-3">
+                      <Link
+                        href={`/dashboard/projects/${project.id}`}
+                        className="text-indigo-400 hover:text-indigo-300 mr-3"
+                      >
                         Edit
                       </Link>
-                      <button className="text-red-400 hover:text-red-300">
-                        Delete
-                      </button>
+                      <button className="text-red-400 hover:text-red-300">Delete</button>
                     </td>
                   </tr>
                 ))}
@@ -200,14 +219,12 @@ export default function DashboardPage() {
               Start by adding your first project to showcase in your portfolio.
             </p>
             <Link href="/dashboard/projects/new">
-              <Button icon={<PlusIcon className="h-5 w-5" />}>
-                Add Your First Project
-              </Button>
+              <Button icon={<PlusIcon className="h-5 w-5" />}>Add Your First Project</Button>
             </Link>
           </div>
         )}
       </div>
-      
+
       <div>
         <h2 className="text-2xl font-bold mb-6">Quick Actions</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -222,19 +239,17 @@ export default function DashboardPage() {
               </p>
             </div>
           </Link>
-          
+
           <Link href="/dashboard/calendar" className="block">
             <div className="bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition-colors">
               <div className="bg-green-600/20 p-3 rounded-lg inline-block mb-4">
                 <CalendarIcon className="h-6 w-6 text-green-400" />
               </div>
               <h3 className="text-lg font-medium mb-2">Schedule</h3>
-              <p className="text-gray-400 text-sm">
-                Manage your appointments and meetings.
-              </p>
+              <p className="text-gray-400 text-sm">Manage your appointments and meetings.</p>
             </div>
           </Link>
-          
+
           <Link href="/dashboard/reminders" className="block">
             <div className="bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition-colors">
               <div className="bg-yellow-600/20 p-3 rounded-lg inline-block mb-4">
@@ -246,18 +261,27 @@ export default function DashboardPage() {
               </p>
             </div>
           </Link>
-          
+
           <Link href="/dashboard/integrations" className="block">
             <div className="bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition-colors">
               <div className="bg-purple-600/20 p-3 rounded-lg inline-block mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6 text-purple-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"
+                  />
                 </svg>
               </div>
               <h3 className="text-lg font-medium mb-2">Integrations</h3>
-              <p className="text-gray-400 text-sm">
-                Connect with third-party services and tools.
-              </p>
+              <p className="text-gray-400 text-sm">Connect with third-party services and tools.</p>
             </div>
           </Link>
         </div>

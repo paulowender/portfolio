@@ -10,6 +10,7 @@ interface ParallaxSectionProps {
   overlay?: boolean;
   speed?: number;
   className?: string;
+  id?: string;
 }
 
 export default function ParallaxSection({
@@ -18,6 +19,7 @@ export default function ParallaxSection({
   overlay = true,
   speed = 0.5,
   className = '',
+  id,
 }: ParallaxSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -28,22 +30,14 @@ export default function ParallaxSection({
   const y = useTransform(scrollYProgress, [0, 1], ['0%', `${speed * 100}%`]);
 
   return (
-    <div
-      ref={ref}
-      className={`relative overflow-hidden ${className}`}
-    >
+    <div ref={ref} id={id} className={`relative overflow-hidden ${className}`}>
       {bgImage && (
-        <motion.div
-          style={{ y }}
-          className="absolute inset-0 w-full h-full"
-        >
+        <motion.div style={{ y }} className="absolute inset-0 w-full h-full">
           <div
             className="absolute inset-0 w-full h-full bg-cover bg-center"
             style={{ backgroundImage: `url(${bgImage})` }}
           />
-          {overlay && (
-            <div className="absolute inset-0 bg-black/50" />
-          )}
+          {overlay && <div className="absolute inset-0 bg-black/50" />}
         </motion.div>
       )}
       <div className="relative z-10">{children}</div>

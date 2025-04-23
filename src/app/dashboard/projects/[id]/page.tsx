@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/lib/AuthContext';
-import { getProject, updateProject, uploadProjectImage } from '@/lib/projects';
+import { fetchProject, updateProjectApi } from '@/lib/api-client';
+import { uploadProjectImage } from '@/lib/projects';
 import Button from '@/components/Button';
 import { XMarkIcon, ArrowUpTrayIcon } from '@heroicons/react/24/outline';
 
@@ -12,7 +13,7 @@ export default function EditProjectPage({ params }: { params: { id: string } }) 
   const { user } = useAuth();
   const router = useRouter();
   const { id } = params;
-  
+
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -22,72 +23,72 @@ export default function EditProjectPage({ params }: { params: { id: string } }) 
     featured: false,
     image_url: '',
   });
-  
+
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [fetchLoading, setFetchLoading] = useState(true);
   const [error, setError] = useState('');
-  
+
   useEffect(() => {
-    const fetchProject = async () => {
+    const loadProject = async () => {
       if (user && id) {
-        const { data, error } = await getProject(id);
+        const { data, error } = await fetchProject(id);
         if (error) {
           setError('Failed to load project');
           setFetchLoading(false);
           return;
         }
-        
+
         if (data) {
           setFormData({
             title: data.title,
             description: data.description,
             technologies: data.technologies.length > 0 ? data.technologies : [''],
-            github_url: data.github_url || '',
-            live_url: data.live_url || '',
+            github_url: data.githubUrl || '',
+            live_url: data.liveUrl || '',
             featured: data.featured || false,
-            image_url: data.image_url || '',
+            image_url: data.imageUrl || '',
           });
-          
-          if (data.image_url) {
-            setImagePreview(data.image_url);
+
+          if (data.imageUrl) {
+            setImagePreview(data.imageUrl);
           }
         }
-        
+
         setFetchLoading(false);
       }
     };
-    
-    fetchProject();
+
+    loadProject();
   }, [user, id]);
-  
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  
+
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
     setFormData({ ...formData, [name]: checked });
   };
-  
+
   const handleTechChange = (index: number, value: string) => {
     const newTechnologies = [...formData.technologies];
     newTechnologies[index] = value;
     setFormData({ ...formData, technologies: newTechnologies });
   };
-  
+
   const addTech = () => {
     setFormData({ ...formData, technologies: [...formData.technologies, ''] });
   };
-  
+
   const removeTech = (index: number) => {
     const newTechnologies = [...formData.technologies];
     newTechnologies.splice(index, 1);
     setFormData({ ...formData, technologies: newTechnologies });
   };
-  
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -99,24 +100,24 @@ export default function EditProjectPage({ params }: { params: { id: string } }) 
       reader.readAsDataURL(file);
     }
   };
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!user) {
       setError('You must be logged in to update a project');
       return;
     }
-    
+
     setLoading(true);
     setError('');
-    
+
     try {
       // Filter out empty technologies
-      const filteredTechnologies = formData.technologies.filter(tech => tech.trim() !== '');
-      
+      const filteredTechnologies = formData.technologies.filter((tech) => tech.trim() !== '');
+
       let imageUrl = formData.image_url;
-      
+
       // Upload new image if provided
       if (imageFile) {
         const { url, error: uploadError } = await uploadProjectImage(imageFile, user.id);
@@ -125,20 +126,20 @@ export default function EditProjectPage({ params }: { params: { id: string } }) 
         }
         imageUrl = url;
       }
-      
-      // Update project
-      const { data, error } = await updateProject(id, {
+
+      // Update project with API client
+      const { data, error } = await updateProjectApi(id, {
         title: formData.title,
         description: formData.description,
         technologies: filteredTechnologies,
-        github_url: formData.github_url,
-        live_url: formData.live_url,
+        githubUrl: formData.github_url,
+        liveUrl: formData.live_url,
         featured: formData.featured,
-        image_url: imageUrl,
+        imageUrl: imageUrl,
       });
-      
+
       if (error) throw error;
-      
+
       router.push('/dashboard/projects');
     } catch (err: any) {
       setError(err.message || 'Failed to update project');
@@ -146,7 +147,7 @@ export default function EditProjectPage({ params }: { params: { id: string } }) 
       setLoading(false);
     }
   };
-  
+
   if (fetchLoading) {
     return (
       <div className="flex justify-center py-12">
@@ -154,7 +155,7 @@ export default function EditProjectPage({ params }: { params: { id: string } }) 
       </div>
     );
   }
-  
+
   return (
     <div>
       <motion.div
@@ -164,17 +165,11 @@ export default function EditProjectPage({ params }: { params: { id: string } }) 
         className="mb-8"
       >
         <h1 className="text-3xl font-bold mb-2">Edit Project</h1>
-        <p className="text-gray-400">
-          Update your project details.
-        </p>
+        <p className="text-gray-400">Update your project details.</p>
       </motion.div>
-      
-      {error && (
-        <div className="mb-6 bg-red-900/50 text-red-200 p-4 rounded-md">
-          {error}
-        </div>
-      )}
-      
+
+      {error && <div className="mb-6 bg-red-900/50 text-red-200 p-4 rounded-md">{error}</div>}
+
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -196,7 +191,7 @@ export default function EditProjectPage({ params }: { params: { id: string } }) 
               className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
-          
+
           <div>
             <label htmlFor="description" className="block text-sm font-medium text-gray-300 mb-1">
               Description *
@@ -211,11 +206,9 @@ export default function EditProjectPage({ params }: { params: { id: string } }) 
               className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
             ></textarea>
           </div>
-          
+
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">
-              Technologies *
-            </label>
+            <label className="block text-sm font-medium text-gray-300 mb-1">Technologies *</label>
             <div className="space-y-2">
               {formData.technologies.map((tech, index) => (
                 <div key={index} className="flex gap-2">
@@ -246,7 +239,7 @@ export default function EditProjectPage({ params }: { params: { id: string } }) 
               </button>
             </div>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label htmlFor="github_url" className="block text-sm font-medium text-gray-300 mb-1">
@@ -262,7 +255,7 @@ export default function EditProjectPage({ params }: { params: { id: string } }) 
                 className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
-            
+
             <div>
               <label htmlFor="live_url" className="block text-sm font-medium text-gray-300 mb-1">
                 Live URL
@@ -278,11 +271,9 @@ export default function EditProjectPage({ params }: { params: { id: string } }) 
               />
             </div>
           </div>
-          
+
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">
-              Project Image
-            </label>
+            <label className="block text-sm font-medium text-gray-300 mb-1">Project Image</label>
             <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-600 border-dashed rounded-md">
               {imagePreview ? (
                 <div className="space-y-2 text-center">
@@ -323,14 +314,12 @@ export default function EditProjectPage({ params }: { params: { id: string } }) 
                     </label>
                     <p className="pl-1">or drag and drop</p>
                   </div>
-                  <p className="text-xs text-gray-500">
-                    PNG, JPG, GIF up to 10MB
-                  </p>
+                  <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
                 </div>
               )}
             </div>
           </div>
-          
+
           <div className="flex items-center">
             <input
               type="checkbox"
@@ -344,7 +333,7 @@ export default function EditProjectPage({ params }: { params: { id: string } }) 
               Feature this project on your portfolio homepage
             </label>
           </div>
-          
+
           <div className="flex justify-end space-x-4">
             <Button
               type="button"
@@ -353,10 +342,7 @@ export default function EditProjectPage({ params }: { params: { id: string } }) 
             >
               Cancel
             </Button>
-            <Button
-              type="submit"
-              isLoading={loading}
-            >
+            <Button type="submit" isLoading={loading}>
               Update Project
             </Button>
           </div>

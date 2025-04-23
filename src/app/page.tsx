@@ -1,61 +1,24 @@
-"use client";
+'use client';
 
-import { useRef } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { motion, useScroll, useTransform } from "framer-motion";
-import {
-  FaCode,
-  FaServer,
-  FaMobile,
-  FaDatabase,
-  FaArrowDown,
-} from "react-icons/fa";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import Button from "@/components/Button";
-import ProjectCard from "@/components/ProjectCard";
-import ParallaxSection from "@/components/ParallaxSection";
+import { useRef } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { FaCode, FaServer, FaMobile, FaDatabase, FaArrowDown } from 'react-icons/fa';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import Button from '@/components/Button';
+// import ProjectCard from '@/components/ProjectCard'; // Not needed anymore
+import ParallaxSection from '@/components/ParallaxSection';
+import FeaturedProjects from '@/components/FeaturedProjects';
 
-// Mock data for projects (will be replaced with real data from Supabase)
-const projects = [
-  {
-    id: "1",
-    title: "E-commerce Platform",
-    description:
-      "A full-featured e-commerce platform built with Next.js and Stripe integration.",
-    image_url: "/images/projects/ecommerce.jpg",
-    live_url: "https://example.com",
-    github_url: "https://github.com",
-    technologies: ["Next.js", "React", "Stripe", "Tailwind CSS"],
-  },
-  {
-    id: "2",
-    title: "Task Management App",
-    description:
-      "A collaborative task management application with real-time updates.",
-    image_url: "/images/projects/task-app.jpg",
-    live_url: "https://example.com",
-    github_url: "https://github.com",
-    technologies: ["React", "Firebase", "Material UI"],
-  },
-  {
-    id: "3",
-    title: "Portfolio Website",
-    description:
-      "A responsive portfolio website with dark mode and animations.",
-    image_url: "/images/projects/portfolio.jpg",
-    live_url: "https://example.com",
-    github_url: "https://github.com",
-    technologies: ["Next.js", "Tailwind CSS", "Framer Motion"],
-  },
-];
+// This file now uses the FeaturedProjects component which fetches data from the API
 
 export default function Home() {
   const targetRef = useRef<HTMLDivElement>(null);
 
   const scrollToProjects = () => {
-    targetRef.current?.scrollIntoView({ behavior: "smooth" });
+    targetRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -63,10 +26,7 @@ export default function Home() {
       <Navbar />
 
       {/* Hero Section with Parallax */}
-      <ParallaxSection
-        bgImage="/images/hero-bg.jpg"
-        className="h-screen flex items-center"
-      >
+      <ParallaxSection bgImage="/images/hero-bg.jpg" className="h-screen flex items-center">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -75,19 +35,19 @@ export default function Home() {
             className="max-w-3xl"
           >
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
-              Freelance Developer Portfolio & Management System
+              Wender Tech Portfolio
             </h1>
             <p className="text-xl text-gray-300 mb-8">
-              Showcase your work, manage your projects, and keep track of
-              important dates all in one place.
+              Welcome to my portfolio! I'm a freelance developer with a passion for creating
+              exceptional digital experiences.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button size="lg" onClick={scrollToProjects}>
                 View Projects
               </Button>
-              <Button size="lg" variant="outline">
+              {/* <Button size="lg" variant="outline">
                 <Link href="/login">Get Started</Link>
-              </Button>
+              </Button> */}
             </div>
           </motion.div>
         </div>
@@ -97,10 +57,7 @@ export default function Home() {
           transition={{ delay: 1, duration: 1 }}
           className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
         >
-          <button
-            onClick={scrollToProjects}
-            className="text-white animate-bounce"
-          >
+          <button onClick={scrollToProjects} className="text-white animate-bounce">
             <FaArrowDown className="h-6 w-6" />
           </button>
         </motion.div>
@@ -116,20 +73,14 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Featured Projects
-            </h2>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">Featured Projects</h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              Check out some of my recent work. Each project represents a unique
-              challenge and solution.
+              Check out some of my recent work. Each project represents a unique challenge and
+              solution.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <ProjectCard key={project.id} project={project} index={index} />
-            ))}
-          </div>
+          <FeaturedProjects />
 
           <div className="mt-12 text-center">
             <Button variant="outline">
@@ -151,8 +102,7 @@ export default function Home() {
           >
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">My Skills</h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              I specialize in building modern web applications with the latest
-              technologies.
+              I specialize in building modern web applications with the latest technologies.
             </p>
           </motion.div>
 
@@ -168,9 +118,7 @@ export default function Home() {
                 <FaCode className="h-8 w-8" />
               </div>
               <h3 className="text-xl font-bold mb-2">Frontend Development</h3>
-              <p className="text-gray-400">
-                React, Next.js, Vue.js, Tailwind CSS, Framer Motion
-              </p>
+              <p className="text-gray-400">React, Next.js, Vue.js, Tailwind CSS, Framer Motion</p>
             </motion.div>
 
             <motion.div
@@ -184,9 +132,7 @@ export default function Home() {
                 <FaServer className="h-8 w-8" />
               </div>
               <h3 className="text-xl font-bold mb-2">Backend Development</h3>
-              <p className="text-gray-400">
-                Node.js, Express, Python, Django, Ruby on Rails
-              </p>
+              <p className="text-gray-400">Node.js, Express, Python, Django, Ruby on Rails</p>
             </motion.div>
 
             <motion.div
@@ -200,9 +146,7 @@ export default function Home() {
                 <FaMobile className="h-8 w-8" />
               </div>
               <h3 className="text-xl font-bold mb-2">Mobile Development</h3>
-              <p className="text-gray-400">
-                React Native, Flutter, iOS, Android
-              </p>
+              <p className="text-gray-400">React Native, Flutter, iOS, Android</p>
             </motion.div>
 
             <motion.div
@@ -216,20 +160,14 @@ export default function Home() {
                 <FaDatabase className="h-8 w-8" />
               </div>
               <h3 className="text-xl font-bold mb-2">Database & DevOps</h3>
-              <p className="text-gray-400">
-                PostgreSQL, MongoDB, Firebase, Docker, AWS
-              </p>
+              <p className="text-gray-400">PostgreSQL, MongoDB, Firebase, Docker, AWS</p>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* About Section */}
-      <ParallaxSection
-        bgImage="/images/about-bg.jpg"
-        className="py-20"
-        id="about"
-      >
+      <ParallaxSection bgImage="/images/about-bg.jpg" className="py-20" id="about">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -240,19 +178,17 @@ export default function Home() {
             >
               <h2 className="text-3xl sm:text-4xl font-bold mb-6">About Me</h2>
               <p className="text-gray-300 mb-4">
-                I'm a freelance developer with over 5 years of experience
-                building web and mobile applications for clients around the
-                world.
+                I'm a freelance developer with over 5 years of experience building web and mobile
+                applications for clients around the world.
               </p>
               <p className="text-gray-300 mb-4">
-                My approach combines technical expertise with a deep
-                understanding of user experience and business needs. I believe
-                in creating solutions that not only look great but also deliver
-                real value.
+                My approach combines technical expertise with a deep understanding of user
+                experience and business needs. I believe in creating solutions that not only look
+                great but also deliver real value.
               </p>
               <p className="text-gray-300 mb-6">
-                When I'm not coding, you can find me hiking, reading, or
-                experimenting with new technologies.
+                When I'm not coding, you can find me hiking, reading, or experimenting with new
+                technologies.
               </p>
               <Button>
                 <Link href="/#contact">Get in Touch</Link>
@@ -286,12 +222,9 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Get in Touch
-            </h2>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">Get in Touch</h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              Have a project in mind? Let's discuss how I can help bring your
-              ideas to life.
+              Have a project in mind? Let's discuss how I can help bring your ideas to life.
             </p>
           </motion.div>
 
@@ -299,10 +232,7 @@ export default function Home() {
             <form className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium text-gray-300 mb-1"
-                  >
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-1">
                     Name
                   </label>
                   <input
@@ -314,10 +244,7 @@ export default function Home() {
                   />
                 </div>
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-gray-300 mb-1"
-                  >
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
                     Email
                   </label>
                   <input
@@ -330,10 +257,7 @@ export default function Home() {
                 </div>
               </div>
               <div>
-                <label
-                  htmlFor="subject"
-                  className="block text-sm font-medium text-gray-300 mb-1"
-                >
+                <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-1">
                   Subject
                 </label>
                 <input
@@ -345,10 +269,7 @@ export default function Home() {
                 />
               </div>
               <div>
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-medium text-gray-300 mb-1"
-                >
+                <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-1">
                   Message
                 </label>
                 <textarea

@@ -4,14 +4,15 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/lib/AuthContext';
-import { createProject, uploadProjectImage } from '@/lib/projects';
+import { createProjectApi } from '@/lib/api-client';
+import { uploadProjectImage } from '@/lib/projects';
 import Button from '@/components/Button';
 import { XMarkIcon, ArrowUpTrayIcon } from '@heroicons/react/24/outline';
 
 export default function NewProjectPage() {
   const { user } = useAuth();
   const router = useRouter();
-  
+
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -20,38 +21,38 @@ export default function NewProjectPage() {
     live_url: '',
     featured: false,
   });
-  
+
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  
+
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
     setFormData({ ...formData, [name]: checked });
   };
-  
+
   const handleTechChange = (index: number, value: string) => {
     const newTechnologies = [...formData.technologies];
     newTechnologies[index] = value;
     setFormData({ ...formData, technologies: newTechnologies });
   };
-  
+
   const addTech = () => {
     setFormData({ ...formData, technologies: [...formData.technologies, ''] });
   };
-  
+
   const removeTech = (index: number) => {
     const newTechnologies = [...formData.technologies];
     newTechnologies.splice(index, 1);
     setFormData({ ...formData, technologies: newTechnologies });
   };
-  
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -63,24 +64,24 @@ export default function NewProjectPage() {
       reader.readAsDataURL(file);
     }
   };
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!user) {
       setError('You must be logged in to create a project');
       return;
     }
-    
+
     setLoading(true);
     setError('');
-    
+
     try {
       // Filter out empty technologies
-      const filteredTechnologies = formData.technologies.filter(tech => tech.trim() !== '');
-      
+      const filteredTechnologies = formData.technologies.filter((tech) => tech.trim() !== '');
+
       let imageUrl = null;
-      
+
       // Upload image if provided
       if (imageFile) {
         const { url, error: uploadError } = await uploadProjectImage(imageFile, user.id);
@@ -89,18 +90,23 @@ export default function NewProjectPage() {
         }
         imageUrl = url;
       }
-      
-      // Create project
-      const { data, error } = await createProject({
-        ...formData,
+
+      // Create project with API client
+      const { data, error } = await createProjectApi({
+        title: formData.title,
+        description: formData.description,
         technologies: filteredTechnologies,
-        image_url: imageUrl,
-        user_id: user.id,
-        created_at: new Date().toISOString(),
+        imageUrl: imageUrl,
+        liveUrl: formData.live_url,
+        githubUrl: formData.github_url,
+        featured: formData.featured,
+        user: {
+          connect: { id: user.id },
+        },
       });
-      
+
       if (error) throw error;
-      
+
       router.push('/dashboard/projects');
     } catch (err: any) {
       setError(err.message || 'Failed to create project');
@@ -108,7 +114,7 @@ export default function NewProjectPage() {
       setLoading(false);
     }
   };
-  
+
   return (
     <div>
       <motion.div
@@ -118,17 +124,11 @@ export default function NewProjectPage() {
         className="mb-8"
       >
         <h1 className="text-3xl font-bold mb-2">Add New Project</h1>
-        <p className="text-gray-400">
-          Create a new project to showcase in your portfolio.
-        </p>
+        <p className="text-gray-400">Create a new project to showcase in your portfolio.</p>
       </motion.div>
-      
-      {error && (
-        <div className="mb-6 bg-red-900/50 text-red-200 p-4 rounded-md">
-          {error}
-        </div>
-      )}
-      
+
+      {error && <div className="mb-6 bg-red-900/50 text-red-200 p-4 rounded-md">{error}</div>}
+
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -150,7 +150,7 @@ export default function NewProjectPage() {
               className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
-          
+
           <div>
             <label htmlFor="description" className="block text-sm font-medium text-gray-300 mb-1">
               Description *
@@ -165,11 +165,9 @@ export default function NewProjectPage() {
               className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
             ></textarea>
           </div>
-          
+
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">
-              Technologies *
-            </label>
+            <label className="block text-sm font-medium text-gray-300 mb-1">Technologies *</label>
             <div className="space-y-2">
               {formData.technologies.map((tech, index) => (
                 <div key={index} className="flex gap-2">
@@ -200,7 +198,7 @@ export default function NewProjectPage() {
               </button>
             </div>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label htmlFor="github_url" className="block text-sm font-medium text-gray-300 mb-1">
@@ -216,7 +214,7 @@ export default function NewProjectPage() {
                 className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
-            
+
             <div>
               <label htmlFor="live_url" className="block text-sm font-medium text-gray-300 mb-1">
                 Live URL
@@ -232,11 +230,9 @@ export default function NewProjectPage() {
               />
             </div>
           </div>
-          
+
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">
-              Project Image
-            </label>
+            <label className="block text-sm font-medium text-gray-300 mb-1">Project Image</label>
             <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-600 border-dashed rounded-md">
               {imagePreview ? (
                 <div className="space-y-2 text-center">
@@ -276,14 +272,12 @@ export default function NewProjectPage() {
                     </label>
                     <p className="pl-1">or drag and drop</p>
                   </div>
-                  <p className="text-xs text-gray-500">
-                    PNG, JPG, GIF up to 10MB
-                  </p>
+                  <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
                 </div>
               )}
             </div>
           </div>
-          
+
           <div className="flex items-center">
             <input
               type="checkbox"
@@ -297,7 +291,7 @@ export default function NewProjectPage() {
               Feature this project on your portfolio homepage
             </label>
           </div>
-          
+
           <div className="flex justify-end space-x-4">
             <Button
               type="button"
@@ -306,10 +300,7 @@ export default function NewProjectPage() {
             >
               Cancel
             </Button>
-            <Button
-              type="submit"
-              isLoading={loading}
-            >
+            <Button type="submit" isLoading={loading}>
               Create Project
             </Button>
           </div>
