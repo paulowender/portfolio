@@ -184,9 +184,9 @@ export default function EvolutionIntegrationPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className="text-3xl font-bold mb-2">Evolution API Integration</h1>
+        <h1 className="text-3xl font-bold mb-2">WhatsApp Messaging Integration</h1>
         <p className="text-gray-400 mb-8">
-          Connect to the Evolution API v2 for WhatsApp automation and client communication.
+          Connect to WhatsApp via Evolution API v2 for client communication and automation.
         </p>
 
         {error && (

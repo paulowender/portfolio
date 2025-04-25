@@ -32,7 +32,10 @@ export default function DashboardSidebar() {
       name: 'Integrations',
       href: '/dashboard/integrations',
       icon: CubeIcon,
-      submenu: [{ name: 'AI Providers', href: '/dashboard/integrations/ai' }],
+      submenu: [
+        { name: 'AI Providers', href: '/dashboard/integrations/ai' },
+        { name: 'Messaging', href: '/dashboard/integrations/evolution' },
+      ],
     },
   ];
 

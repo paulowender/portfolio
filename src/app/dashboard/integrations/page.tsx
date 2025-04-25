@@ -27,9 +27,9 @@ export default function IntegrationsPage() {
       badges: ['New'],
     },
     {
-      id: 'evolution',
-      name: 'Evolution API',
-      description: 'Connect to Evolution API v2 for WhatsApp automation and client communication.',
+      id: 'messaging',
+      name: 'Messaging Services',
+      description: 'Connect to WhatsApp via Evolution API for client communication and automation.',
       icon: ChatBubbleLeftRightIcon,
       href: '/dashboard/integrations/evolution',
       isAvailable: true,
