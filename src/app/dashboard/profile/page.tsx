@@ -148,7 +148,7 @@ export default function ProfilePage() {
         if (uploadError) {
           throw new Error('Failed to upload profile image');
         }
-        avatarUrl = url;
+        avatarUrl = url!;
       }
 
       // Update profile with API client
@@ -201,9 +201,7 @@ export default function ProfilePage() {
         </p>
       </motion.div>
 
-      {error && (
-        <div className="bg-red-900/50 text-red-200 p-4 rounded-md mb-6">{error}</div>
-      )}
+      {error && <div className="bg-red-900/50 text-red-200 p-4 rounded-md mb-6">{error}</div>}
 
       {success && (
         <div className="bg-green-900/50 text-green-200 p-4 rounded-md mb-6">{success}</div>
@@ -443,7 +441,7 @@ export default function ProfilePage() {
             >
               Cancel
             </Button>
-            <Button type="submit" disabled={loading}>
+            <Button type="submit">
               {loading ? (
                 <div className="flex items-center">
                   <div className="animate-spin mr-2 h-4 w-4 border-t-2 border-b-2 border-white rounded-full"></div>

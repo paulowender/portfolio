@@ -122,6 +122,33 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   name: 'name',
   avatarUrl: 'avatarUrl',
+  title: 'title',
+  bio: 'bio',
+  location: 'location',
+  phone: 'phone',
+  website: 'website',
+  linkedin: 'linkedin',
+  github: 'github',
+  twitter: 'twitter',
+  skills: 'skills',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CompanyScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  logo: 'logo',
+  description: 'description',
+  mission: 'mission',
+  vision: 'vision',
+  founded: 'founded',
+  services: 'services',
+  address: 'address',
+  phone: 'phone',
+  email: 'email',
+  website: 'website',
+  userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -181,6 +208,7 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  Company: 'Company',
   Project: 'Project',
   Reminder: 'Reminder',
   Appointment: 'Appointment'

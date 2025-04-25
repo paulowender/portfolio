@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
@@ -16,13 +13,44 @@ model User {
   email        String        @unique
   name         String
   avatarUrl    String?       @map("avatar_url")
+  title        String? // Professional title
+  bio          String? // Short professional bio
+  location     String? // Location
+  phone        String? // Contact phone
+  website      String? // Personal website
+  linkedin     String? // LinkedIn profile URL
+  github       String? // GitHub profile URL
+  twitter      String? // Twitter/X profile URL
+  skills       String[] // Array of skills
   createdAt    DateTime      @default(now()) @map("created_at")
   updatedAt    DateTime      @updatedAt @map("updated_at")
+  appointments Appointment[]
   projects     Project[]
   reminders    Reminder[]
-  appointments Appointment[]
+  company      Company?
 
   @@map("users")
+}
+
+model Company {
+  id          String   @id @default(uuid())
+  name        String // Company name
+  logo        String? // Company logo URL
+  description String? // Company description/about
+  mission     String? // Company mission statement
+  vision      String? // Company vision
+  founded     String? // Year founded
+  services    String[] // Array of services offered
+  address     String? // Company address
+  phone       String? // Company phone
+  email       String? // Company contact email
+  website     String? // Company website
+  userId      String   @unique @map("user_id") // One-to-one relation with user
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("companies")
 }
 
 model Project {

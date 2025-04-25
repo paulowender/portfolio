@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
@@ -12,32 +9,32 @@ datasource db {
 }
 
 model User {
-  id         String      @id @default(uuid())
-  email      String      @unique
-  name       String
-  avatarUrl  String?     @map("avatar_url")
-  title      String?     // Professional title (e.g., "Full Stack Developer")
-  bio        String?     // Short professional bio
-  location   String?     // Location (e.g., "São Paulo, Brazil")
-  phone      String?     // Contact phone
-  website    String?     // Personal website if different from company
-  linkedin   String?     // LinkedIn profile URL
-  github     String?     // GitHub profile URL
-  twitter    String?     // Twitter/X profile URL
-  skills     String[]    // Array of skills
-  createdAt  DateTime    @default(now()) @map("created_at")
-  updatedAt  DateTime    @updatedAt @map("updated_at")
-  projects   Project[]
-  reminders  Reminder[]
+  id           String        @id @default(uuid())
+  email        String        @unique
+  name         String
+  avatarUrl    String?       @map("avatar_url")
+  title        String?       // Professional title
+  bio          String?       // Short professional bio
+  location     String?       // Location
+  phone        String?       // Contact phone
+  website      String?       // Personal website
+  linkedin     String?       // LinkedIn profile URL
+  github       String?       // GitHub profile URL
+  twitter      String?       // Twitter/X profile URL
+  skills       String[]      // Array of skills
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
   appointments Appointment[]
-  company    Company?    // Relation to company profile
+  projects     Project[]
+  reminders    Reminder[]
+  company      Company?
 
   @@map("users")
 }
 
 model Company {
   id          String    @id @default(uuid())
-  name        String    // Company name (e.g., "Wender Tech")
+  name        String    // Company name
   logo        String?   // Company logo URL
   description String?   // Company description/about
   mission     String?   // Company mission statement
@@ -57,47 +54,47 @@ model Company {
 }
 
 model Project {
-  id           String    @id @default(uuid())
+  id           String   @id @default(uuid())
   title        String
   description  String
-  imageUrl     String?   @map("image_url")
-  liveUrl      String?   @map("live_url")
-  githubUrl    String?   @map("github_url")
+  imageUrl     String?  @map("image_url")
+  liveUrl      String?  @map("live_url")
+  githubUrl    String?  @map("github_url")
   technologies String[]
-  featured     Boolean   @default(false)
-  userId       String    @map("user_id")
-  createdAt    DateTime  @default(now()) @map("created_at")
-  updatedAt    DateTime  @updatedAt @map("updated_at")
-  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  featured     Boolean  @default(false)
+  userId       String   @map("user_id")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("projects")
 }
 
 model Reminder {
-  id          String    @id @default(uuid())
+  id          String   @id @default(uuid())
   title       String
   description String?
-  dueDate     DateTime  @map("due_date")
-  completed   Boolean   @default(false)
-  userId      String    @map("user_id")
-  createdAt   DateTime  @default(now()) @map("created_at")
-  updatedAt   DateTime  @updatedAt @map("updated_at")
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dueDate     DateTime @map("due_date")
+  completed   Boolean  @default(false)
+  userId      String   @map("user_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("reminders")
 }
 
 model Appointment {
-  id          String    @id @default(uuid())
+  id          String   @id @default(uuid())
   title       String
   description String?
-  startTime   DateTime  @map("start_time")
-  endTime     DateTime  @map("end_time")
+  startTime   DateTime @map("start_time")
+  endTime     DateTime @map("end_time")
   location    String?
-  userId      String    @map("user_id")
-  createdAt   DateTime  @default(now()) @map("created_at")
-  updatedAt   DateTime  @updatedAt @map("updated_at")
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String   @map("user_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("appointments")
 }
