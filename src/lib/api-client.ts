@@ -235,3 +235,137 @@ export async function deleteProjectApi(id: string) {
     return { error };
   }
 }
+
+// User Profile Functions
+export async function getUserProfile(userId: string) {
+  try {
+    console.log(`Fetching user profile with ID: ${userId}`);
+
+    // Get the session token
+    const { data: sessionData } = await supabase.auth.getSession();
+    const token = sessionData?.session?.access_token;
+
+    if (!token) {
+      console.error('No authentication token found');
+      throw new Error('Authentication required. Please log in again.');
+    }
+
+    const response = await fetch(`/api/profile/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('API error response:', errorData);
+      throw new Error(errorData.error || 'Failed to fetch user profile');
+    }
+
+    const data = await response.json();
+    console.log('User profile fetched successfully:', data.profile?.id);
+    return { data: data.profile, error: null };
+  } catch (error: any) {
+    console.error('Error fetching user profile:', error);
+    return { data: null, error };
+  }
+}
+
+export async function updateUserProfile(userId: string, profileData: any) {
+  try {
+    // Get the session token
+    const { data: sessionData } = await supabase.auth.getSession();
+    const token = sessionData?.session?.access_token;
+
+    if (!token) {
+      throw new Error('Authentication required. Please log in again.');
+    }
+
+    const response = await fetch(`/api/profile/${userId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(profileData),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to update user profile');
+    }
+
+    const data = await response.json();
+    return { data: data.profile, error: null };
+  } catch (error: any) {
+    console.error('Error updating user profile:', error);
+    return { data: null, error };
+  }
+}
+
+// Company Profile Functions
+export async function getCompanyProfile(userId: string) {
+  try {
+    console.log(`Fetching company profile for user: ${userId}`);
+
+    // Get the session token
+    const { data: sessionData } = await supabase.auth.getSession();
+    const token = sessionData?.session?.access_token;
+
+    if (!token) {
+      console.error('No authentication token found');
+      throw new Error('Authentication required. Please log in again.');
+    }
+
+    const response = await fetch(`/api/company/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('API error response:', errorData);
+      throw new Error(errorData.error || 'Failed to fetch company profile');
+    }
+
+    const data = await response.json();
+    console.log('Company profile fetched successfully:', data.company?.id);
+    return { data: data.company, error: null };
+  } catch (error: any) {
+    console.error('Error fetching company profile:', error);
+    return { data: null, error };
+  }
+}
+
+export async function updateCompanyProfile(userId: string, companyData: any) {
+  try {
+    // Get the session token
+    const { data: sessionData } = await supabase.auth.getSession();
+    const token = sessionData?.session?.access_token;
+
+    if (!token) {
+      throw new Error('Authentication required. Please log in again.');
+    }
+
+    const response = await fetch(`/api/company/${userId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(companyData),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to update company profile');
+    }
+
+    const data = await response.json();
+    return { data: data.company, error: null };
+  } catch (error: any) {
+    console.error('Error updating company profile:', error);
+    return { data: null, error };
+  }
+}

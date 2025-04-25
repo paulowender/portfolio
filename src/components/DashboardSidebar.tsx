@@ -11,6 +11,8 @@ import {
   CalendarIcon,
   BellIcon,
   CubeIcon,
+  UserIcon,
+  BuildingOfficeIcon,
   ArrowLeftOnRectangleIcon,
 } from '@heroicons/react/24/outline';
 
@@ -22,6 +24,8 @@ export default function DashboardSidebar() {
   const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: HomeIcon },
     { name: 'Projects', href: '/dashboard/projects', icon: FolderIcon },
+    { name: 'Personal Profile', href: '/dashboard/profile', icon: UserIcon },
+    { name: 'Company Profile', href: '/dashboard/company', icon: BuildingOfficeIcon },
     { name: 'Calendar', href: '/dashboard/calendar', icon: CalendarIcon },
     { name: 'Reminders', href: '/dashboard/reminders', icon: BellIcon },
     { name: 'Integrations', href: '/dashboard/integrations', icon: CubeIcon },
@@ -43,10 +47,7 @@ export default function DashboardSidebar() {
             DP
           </Link>
         )}
-        <button
-          onClick={() => setExpanded(!expanded)}
-          className="text-gray-400 hover:text-white"
-        >
+        <button onClick={() => setExpanded(!expanded)} className="text-gray-400 hover:text-white">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6"
