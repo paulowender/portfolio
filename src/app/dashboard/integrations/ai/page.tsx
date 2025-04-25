@@ -6,6 +6,7 @@ import { AI_PROVIDERS, AIModel, AIProvider, AIProviderConfig } from '@/types/ai'
 import AIProviderCard from '@/components/ai/AIProviderCard';
 import ModelSelector from '@/components/ai/ModelSelector';
 import { motion } from 'framer-motion';
+import axiosClient from '@/lib/axios-client';
 
 export default function AIIntegrationsPage() {
   const { user } = useAuth();
@@ -19,25 +20,25 @@ export default function AIIntegrationsPage() {
       if (!user) return;
 
       try {
-        const response = await fetch(`/api/ai/config/${user.id}`);
-        
-        if (response.ok) {
-          const data = await response.json();
-          
+        const response = await axiosClient.get(`/api/ai/config/${user.id}`);
+
+        if (response.status === 200) {
+          const data = response.data;
+
           // Update providers with saved configuration
           const updatedProviders = [...providers];
-          
-          updatedProviders.forEach(provider => {
+
+          updatedProviders.forEach((provider) => {
             const providerKey = provider.provider as keyof typeof data.config.providers;
             const providerConfig = data.config.providers[providerKey];
-            
+
             if (providerConfig) {
               provider.apiKey = providerConfig.apiKey || '';
               provider.isEnabled = providerConfig.isEnabled || false;
-              
+
               // Set default model if available
               if (providerConfig.defaultModel) {
-                provider.models.forEach(model => {
+                provider.models.forEach((model) => {
                   if (model.id === providerConfig.defaultModel) {
                     model.isRecommended = true;
                   }
@@ -45,7 +46,7 @@ export default function AIIntegrationsPage() {
               }
             }
           });
-          
+
           setProviders(updatedProviders);
         }
       } catch (err) {
@@ -63,25 +64,18 @@ export default function AIIntegrationsPage() {
     if (!user) return;
 
     try {
-      const response = await fetch(`/api/ai/config/${user.id}/provider`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          provider,
-          apiKey,
-          isEnabled,
-        }),
+      const response = await axiosClient.post(`/api/ai/config/${user.id}/provider`, {
+        provider,
+        apiKey,
+        isEnabled,
       });
 
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to save provider configuration');
+      if (response.status !== 200) {
+        throw new Error(response.data.error || 'Failed to save provider configuration');
       }
 
       // Update local state
-      const updatedProviders = providers.map(p => {
+      const updatedProviders = providers.map((p) => {
         if (p.provider === provider) {
           return {
             ...p,
@@ -103,26 +97,19 @@ export default function AIIntegrationsPage() {
     if (!user || !selectedProvider) return;
 
     try {
-      const response = await fetch(`/api/ai/config/${user.id}/model`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          provider: selectedProvider,
-          modelId,
-        }),
+      const response = await axiosClient.post(`/api/ai/config/${user.id}/model`, {
+        provider: selectedProvider,
+        modelId,
       });
 
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to select model');
+      if (response.status !== 200) {
+        throw new Error(response.data.error || 'Failed to select model');
       }
 
       // Update local state
-      const updatedProviders = providers.map(p => {
+      const updatedProviders = providers.map((p) => {
         if (p.provider === selectedProvider) {
-          const updatedModels = p.models.map(model => ({
+          const updatedModels = p.models.map((model) => ({
             ...model,
             isRecommended: model.id === modelId,
           }));
@@ -143,15 +130,15 @@ export default function AIIntegrationsPage() {
   };
 
   const getModelsForProvider = (provider: AIProvider): AIModel[] => {
-    const providerConfig = providers.find(p => p.provider === provider);
+    const providerConfig = providers.find((p) => p.provider === provider);
     return providerConfig ? providerConfig.models : [];
   };
 
   const getSelectedModelForProvider = (provider: AIProvider): string | undefined => {
-    const providerConfig = providers.find(p => p.provider === provider);
+    const providerConfig = providers.find((p) => p.provider === provider);
     if (!providerConfig) return undefined;
-    
-    const recommendedModel = providerConfig.models.find(model => model.isRecommended);
+
+    const recommendedModel = providerConfig.models.find((model) => model.isRecommended);
     return recommendedModel?.id;
   };
 
