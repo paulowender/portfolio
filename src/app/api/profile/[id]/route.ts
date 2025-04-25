@@ -44,7 +44,7 @@ async function getAuthenticatedClient(request: Request) {
   return { client: supabaseWithAuth, user, error: null };
 }
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     // Authenticate the request
     const { user, error, status } = await getAuthenticatedClient(request);
@@ -53,7 +53,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
       return NextResponse.json({ error }, { status: status || 401 });
     }
 
-    const userId = params.id;
+    const userId = (await params).id;
 
     // If userId is provided, make sure it matches the authenticated user
     if (!user || (userId && userId !== user.id)) {

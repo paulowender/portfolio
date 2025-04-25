@@ -28,16 +28,15 @@ export default function LoginPage() {
       if (isLogin) {
         const { error } = await signIn(email, password);
         if (error) throw error;
-        router.push('/dashboard');
+        // O redirecionamento é feito automaticamente pelo hook useSignIn
       } else {
         const { error } = await signUp(email, password, name);
         if (error) throw error;
-        router.push('/dashboard');
+        // O redirecionamento é feito automaticamente pelo hook useSignUp
       }
     } catch (err: any) {
       setError(err.message || 'An error occurred during authentication');
-    } finally {
-      setLoading(false);
+      setLoading(false); // Só definimos loading como false em caso de erro
     }
   };
 

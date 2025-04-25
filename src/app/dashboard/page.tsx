@@ -1,43 +1,15 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/lib/AuthContext';
-import { fetchProjects } from '@/lib/api-client';
 import Button from '@/components/Button';
 import { FolderIcon, CalendarIcon, BellIcon, PlusIcon } from '@heroicons/react/24/outline';
+import { useProjects } from '@/hooks/usePortfolioQuery';
 
 export default function DashboardPage() {
   const { user } = useAuth();
-  const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [isFetching, setIsFetching] = useState(false);
-
-  useEffect(() => {
-    // Skip if already fetching or no user
-    if (isFetching || !user) return;
-
-    const fetch = async () => {
-      try {
-        setIsFetching(true);
-        const { data, error } = await fetchProjects(user.id);
-        if (data) {
-          setProjects(data);
-        }
-        if (error) {
-          console.error('Error fetching projects:', error);
-        }
-      } catch (err) {
-        console.error('Exception fetching projects:', err);
-      } finally {
-        setLoading(false);
-        setIsFetching(false);
-      }
-    };
-
-    fetch();
-  }, [user, isFetching]);
+  const { data: projects, isLoading } = useProjects(user?.id);
 
   return (
     <div>
@@ -65,7 +37,7 @@ export default function DashboardPage() {
               <FolderIcon className="h-6 w-6 text-indigo-400" />
             </div>
           </div>
-          <p className="text-3xl font-bold mb-1">{loading ? '...' : projects.length}</p>
+          <p className="text-3xl font-bold mb-1">{isLoading ? '...' : projects?.length || 0}</p>
           <p className="text-gray-400 text-sm">Total projects</p>
           <div className="mt-4">
             <Link href="/dashboard/projects">
@@ -133,11 +105,11 @@ export default function DashboardPage() {
           </Link>
         </div>
 
-        {loading ? (
+        {isLoading ? (
           <div className="flex justify-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
           </div>
-        ) : projects.length > 0 ? (
+        ) : projects && projects.length > 0 ? (
           <div className="bg-gray-800 rounded-lg overflow-hidden">
             <table className="min-w-full divide-y divide-gray-700">
               <thead className="bg-gray-700">

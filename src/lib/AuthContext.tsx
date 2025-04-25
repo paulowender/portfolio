@@ -1,14 +1,26 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { createContext, useContext, useEffect, ReactNode } from 'react';
 import { supabase } from './supabase';
 import { useRouter } from 'next/navigation';
+import { useUser, useSignIn, useSignUp, useSignOut } from '@/hooks/useAuthQuery';
+import { useQueryClient } from '@tanstack/react-query';
 
-type User = {
+export type User = {
   id: string;
   email: string;
   name: string;
   avatar_url?: string;
+  title?: string;
+  bio?: string;
+  location?: string;
+  phone?: string;
+  website?: string;
+  linkedin?: string;
+  github?: string;
+  twitter?: string;
+  skills?: string[];
+  avatarUrl?: string;
 } | null;
 
 type AuthContextType = {
@@ -22,117 +34,59 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User>(null);
-  const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const queryClient = useQueryClient();
 
+  // Usar os hooks do React Query para autenticação
+  const { data: user, isLoading } = useUser();
+  const signInMutation = useSignIn();
+  const signUpMutation = useSignUp();
+  const signOutMutation = useSignOut();
+
+  // Configurar o listener de mudanças de autenticação
   useEffect(() => {
-    // Check active session
-    const getSession = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-
-      if (session?.user) {
-        const { data } = await supabase
-          .from('users')
-          .select('*')
-          .eq('id', session.user.id)
-          .single();
-
-        setUser(data);
-      }
-
-      setLoading(false);
-    };
-
-    getSession();
-
     // Listen for auth changes
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (session?.user) {
-        const { data } = await supabase
-          .from('users')
-          .select('*')
-          .eq('id', session.user.id)
-          .single();
+      console.log('Auth state changed:', event);
 
-        setUser(data);
-      } else {
-        setUser(null);
-      }
-
-      setLoading(false);
+      // Invalidar a consulta do usuário para forçar uma nova busca
+      queryClient.invalidateQueries({ queryKey: ['auth', 'user'] });
     });
 
     return () => {
       subscription.unsubscribe();
     };
-  }, []);
+  }, [queryClient]);
 
+  // Implementar as funções de autenticação
   const signIn = async (email: string, password: string) => {
-    console.time('signIn');
-    console.log('Starting sign in process...');
-
     try {
-      console.time('supabase.auth.signInWithPassword');
-      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-      console.timeEnd('supabase.auth.signInWithPassword');
-
-      if (error) {
-        console.error('Sign in error:', error);
-        return { error };
-      }
-
-      console.log('Sign in successful, user:', data.user?.id);
+      await signInMutation.mutateAsync({ email, password });
       return { error: null };
-    } catch (err) {
-      console.error('Exception during sign in:', err);
-      return { error: err };
-    } finally {
-      console.timeEnd('signIn');
+    } catch (error) {
+      console.error('Sign in error:', error);
+      return { error };
     }
   };
 
   const signUp = async (email: string, password: string, name: string) => {
-    const { error: authError } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: { name },
-      },
-    });
-
-    if (authError) return { error: authError };
-
-    // Create user profile
-    const {
-      data: { user: authUser },
-    } = await supabase.auth.getUser();
-
-    if (authUser) {
-      const { error: profileError } = await supabase.from('users').insert({
-        id: authUser.id,
-        email,
-        name,
-        created_at: new Date().toISOString(),
-      });
-
-      if (profileError) return { error: profileError };
+    try {
+      await signUpMutation.mutateAsync({ email, password, name });
+      return { error: null };
+    } catch (error) {
+      console.error('Sign up error:', error);
+      return { error };
     }
-
-    return { error: null };
   };
 
   const signOut = async () => {
-    await supabase.auth.signOut();
-    router.push('/');
+    await signOutMutation.mutateAsync();
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, signIn, signUp, signOut }}>
+    <AuthContext.Provider value={{ user, loading: isLoading, signIn, signUp, signOut }}>
       {children}
     </AuthContext.Provider>
   );

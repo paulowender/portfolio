@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { createContext, useContext } from 'react';
+import { usePortfolioData } from '@/hooks/usePortfolioQuery';
 
 // Define the types for our portfolio data
-type User = {
+export type User = {
   id: string;
   name: string;
   title?: string;
@@ -17,7 +18,7 @@ type User = {
   website?: string;
 };
 
-type Company = {
+export type Company = {
   id: string;
   name: string;
   description?: string;
@@ -29,7 +30,7 @@ type Company = {
   website?: string;
 };
 
-type Project = {
+export type Project = {
   id: string;
   title: string;
   description: string;
@@ -40,15 +41,13 @@ type Project = {
   featured: boolean;
 };
 
-type PortfolioData = {
+export type PortfolioData = {
   user: User;
   company: Company | null;
   featuredProjects: Project[];
 };
 
 // Create a context to share the portfolio data across components
-import { createContext, useContext } from 'react';
-
 const PortfolioContext = createContext<{
   portfolioData: PortfolioData | null;
   loading: boolean;
@@ -64,34 +63,17 @@ export function usePortfolio() {
 }
 
 export function PortfolioProvider({ children }: { children: React.ReactNode }) {
-  const [portfolioData, setPortfolioData] = useState<PortfolioData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchPortfolioData = async () => {
-      try {
-        const response = await fetch('/api/portfolio-data');
-        
-        if (!response.ok) {
-          throw new Error('Failed to fetch portfolio data');
-        }
-        
-        const data = await response.json();
-        setPortfolioData(data);
-      } catch (err: any) {
-        console.error('Error fetching portfolio data:', err);
-        setError(err.message || 'An error occurred while fetching portfolio data');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPortfolioData();
-  }, []);
+  // Usar o hook do React Query para buscar os dados do portfólio
+  const { data, isLoading, error } = usePortfolioData();
 
   return (
-    <PortfolioContext.Provider value={{ portfolioData, loading, error }}>
+    <PortfolioContext.Provider
+      value={{
+        portfolioData: data || null,
+        loading: isLoading,
+        error: error ? (error as Error).message : null,
+      }}
+    >
       {children}
     </PortfolioContext.Provider>
   );
