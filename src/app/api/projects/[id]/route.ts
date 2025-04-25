@@ -63,7 +63,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
   }
 }
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     // Authenticate the request
     const { client, user, error, status } = await getAuthenticatedClient(request);
@@ -76,7 +76,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
       return NextResponse.json({ error }, { status: status || 401 });
     }
 
-    const id = params.id;
+    const id = (await params).id;
     const body = await request.json();
 
     // Verify project ownership (optional extra security)
@@ -109,7 +109,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     // Authenticate the request
     const { client, user, error, status } = await getAuthenticatedClient(request);
@@ -121,7 +121,7 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
       return NextResponse.json({ error }, { status: status || 401 });
     }
 
-    const id = params.id;
+    const id = (await params).id;
 
     // Verify project ownership (optional extra security)
     const { data: project, error: fetchError } = await getProject(id);

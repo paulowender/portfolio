@@ -60,7 +60,10 @@ export async function POST(request: Request) {
     const { data, error } = await createProject(body);
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return NextResponse.json(
+        { error: error instanceof Error ? error.message : 'Failed to create project' },
+        { status: 500 },
+      );
     }
 
     return NextResponse.json({ project: data });

@@ -11,12 +11,12 @@ export default function ReactQueryProvider({ children }: { children: ReactNode }
           queries: {
             // Configurações padrão para todas as queries
             staleTime: 60 * 1000, // 1 minuto
-            cacheTime: 5 * 60 * 1000, // 5 minutos
+            gcTime: 5 * 60 * 1000, // 5 minutos (substituindo cacheTime que foi renomeado para gcTime)
             refetchOnWindowFocus: false,
             retry: 1,
           },
         },
-      })
+      }),
   );
 
   return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;

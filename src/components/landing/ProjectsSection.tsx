@@ -53,7 +53,7 @@ export default function ProjectsSection({ innerRef }: ProjectsSectionProps) {
                   </div>
                 </div>
               ))
-          ) : portfolioData?.featuredProjects?.length > 0 ? (
+          ) : portfolioData?.featuredProjects && portfolioData.featuredProjects.length > 0 ? (
             portfolioData.featuredProjects.map((project, index) => (
               <motion.div
                 key={project.id}
@@ -130,7 +130,7 @@ export default function ProjectsSection({ innerRef }: ProjectsSectionProps) {
           )}
         </div>
 
-        {portfolioData?.featuredProjects?.length > 0 && (
+        {portfolioData?.featuredProjects && portfolioData.featuredProjects.length > 0 && (
           <div className="mt-12 text-center">
             <Button variant="outline">
               <Link href="/login">Ver Todos os Projetos</Link>

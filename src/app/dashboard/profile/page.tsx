@@ -148,7 +148,9 @@ export default function ProfilePage() {
         if (uploadError) {
           throw new Error('Failed to upload profile image');
         }
-        avatarUrl = url!;
+        if (url) {
+          avatarUrl = url;
+        }
       }
 
       // Update profile with API client

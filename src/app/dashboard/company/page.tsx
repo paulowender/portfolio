@@ -148,7 +148,9 @@ export default function CompanyPage() {
         if (uploadError) {
           throw new Error('Failed to upload company logo');
         }
-        logoUrl = url;
+        if (url) {
+          logoUrl = url;
+        }
       }
 
       // Update company profile with API client
@@ -201,9 +203,7 @@ export default function CompanyPage() {
         </p>
       </motion.div>
 
-      {error && (
-        <div className="bg-red-900/50 text-red-200 p-4 rounded-md mb-6">{error}</div>
-      )}
+      {error && <div className="bg-red-900/50 text-red-200 p-4 rounded-md mb-6">{error}</div>}
 
       {success && (
         <div className="bg-green-900/50 text-green-200 p-4 rounded-md mb-6">{success}</div>
@@ -403,7 +403,9 @@ export default function CompanyPage() {
 
             {/* Services */}
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-300 mb-2">Services Offered</label>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Services Offered
+              </label>
               <div className="space-y-3">
                 {formData.services.map((service, index) => (
                   <div key={index} className="flex items-center space-x-3">

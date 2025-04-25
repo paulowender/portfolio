@@ -1,6 +1,6 @@
-# DevPortfolio - Freelance Developer Portfolio System
+# Wender Tech - Portfolio & Project Management
 
-A comprehensive portfolio and project management system for freelance developers built with Next.js, React, Tailwind CSS, and Supabase.
+Um sistema completo para desenvolvedores freelance gerenciarem seu portfólio, projetos, integrações e agendamentos.
 
 ## Features
 
@@ -10,23 +10,23 @@ A comprehensive portfolio and project management system for freelance developers
 - **Dashboard**: Manage your projects, appointments, and reminders
 - **Dark Mode**: Built-in dark mode support
 - **Responsive Design**: Looks great on all devices
-
-## Future Features
-
-- Calendar for appointment scheduling
-- Reminders for important dates (contracts, invoices, etc.)
-- Third-party integrations
-- User profile management
-- Email notifications
+- **Company Profile**: Manage your company information and branding
+- **Personal Profile**: Customize your personal information and skills
+- **PWA Support**: Progressive Web App for offline access
+- **Optimized Performance**: Fast loading times and efficient caching
 
 ## Tech Stack
 
-- **Frontend**: Next.js, React, TypeScript, Tailwind CSS, Framer Motion
-- **Authentication**: NextAuth.js, Supabase Auth
+- **Frontend**: Next.js 15, React, TypeScript, Tailwind CSS, Framer Motion
+- **Authentication**: Supabase Auth
 - **Database**: Supabase (PostgreSQL)
 - **ORM**: Prisma
 - **Storage**: Supabase Storage
 - **Styling**: Tailwind CSS, Headless UI
+- **State Management**: React Query, Context API
+- **HTTP Client**: Axios with interceptors
+- **PWA**: Next-PWA for offline support
+- **Performance**: Bundle analyzer, code splitting, lazy loading
 
 ## Getting Started
 
@@ -58,13 +58,19 @@ A comprehensive portfolio and project management system for freelance developers
    DATABASE_URL="postgresql://postgres:password@db.your-project-ref.supabase.co:5432/postgres"
    ```
 
-4. Run the development server:
+4. Generate the Prisma client:
+
+   ```bash
+   npm run prisma:generate
+   ```
+
+5. Run the development server:
 
    ```bash
    npm run dev
    ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
+6. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### Database Setup
 
@@ -121,10 +127,48 @@ A comprehensive portfolio and project management system for freelance developers
     /login              # Authentication pages
     /api                # API routes
   /components           # Reusable UI components
+    /landing            # Landing page components
+  /hooks                # Custom React hooks
   /lib                  # Utility functions and API clients
   /types                # TypeScript type definitions
 /public                 # Static assets
+  /icons                # PWA icons
+/prisma                 # Prisma schema and migrations
+/scripts                # Utility scripts
 ```
+
+## Available Scripts
+
+- `npm run dev` - Start the development server with Turbopack
+- `npm run build` - Build the project for production
+- `npm run start` - Start the production server
+- `npm run lint` - Run ESLint
+- `npm run analyze` - Analyze the bundle size
+- `npm run analyze:server` - Analyze the server bundle
+- `npm run analyze:browser` - Analyze the browser bundle
+- `npm run migrate` - Run database migrations
+- `npm run seed` - Seed the database with sample data
+- `npm run prisma:generate` - Generate Prisma client
+- `npm run prisma:studio` - Open Prisma Studio
+- `npm run build:production` - Build for production with production env vars
+- `npm run start:production` - Start production server with production env vars
+- `npm run build:staging` - Build for staging environment
+- `npm run start:staging` - Start server in staging environment
+- `npm run clean` - Remove the .next directory
+- `npm run build:clean` - Clean and build
+- `npm run build:production:clean` - Clean and build for production
+
+## Performance Optimizations
+
+The project includes several optimizations for best performance:
+
+1. **React Query**: Efficient server state management with smart caching
+2. **Axios with Interceptors**: Automatic authentication token management
+3. **PWA**: Progressive Web App support with offline caching
+4. **Image Optimization**: Automatic image processing for better performance
+5. **Code Splitting**: Automatic code splitting for faster loading
+6. **Prefetching**: Route prefetching for instant navigation
+7. **Lazy Loading**: On-demand loading of heavy components
 
 ## Contributing
 

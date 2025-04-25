@@ -28,6 +28,10 @@ export type Company = {
   services?: string[];
   logo?: string;
   website?: string;
+  address?: string;
+  phone?: string;
+  email?: string;
+  userId?: string;
 };
 
 export type Project = {
