@@ -12,8 +12,11 @@ export function useAuth() {
   useEffect(() => {
     async function getUser() {
       try {
-        const { data: { user }, error } = await supabase.auth.getUser();
-        
+        const {
+          data: { user },
+          error,
+        } = await supabase.auth.getUser();
+
         if (error) {
           console.error('Error getting user:', error);
           setError(error.message);
@@ -33,11 +36,11 @@ export function useAuth() {
 
     // Set up auth state listener
     const { data: authListener } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
+      async (event: any, session: any) => {
         console.log('Auth state changed:', event);
         setUser(session?.user ?? null);
         setLoading(false);
-      }
+      },
     );
 
     // Clean up subscription

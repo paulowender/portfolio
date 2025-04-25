@@ -48,7 +48,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Listen for auth changes
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (event, session) => {
+    } = supabase.auth.onAuthStateChange(async (event: any, session: any) => {
       console.log('Auth state changed:', event);
 
       // Invalidar a consulta do usuário para forçar uma nova busca
