@@ -1,19 +1,84 @@
 import { NextResponse } from 'next/server';
 import { getProjects } from '@/lib/db';
+import { createClient } from '@supabase/supabase-js';
+
+// Helper function to get authenticated Supabase client
+async function getAuthenticatedClient(request: Request) {
+  // Get the authorization header
+  const authHeader = request.headers.get('authorization');
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return { client: null, error: 'Missing or invalid authorization header' };
+  }
+
+  // Extract the token
+  const token = authHeader.split(' ')[1];
+
+  // Create a new Supabase client with the token
+  const supabaseWithAuth = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '',
+    {
+      global: {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    },
+  );
+
+  // Get the authenticated user
+  const {
+    data: { user },
+    error: authError,
+  } = await supabaseWithAuth.auth.getUser();
+
+  if (authError || !user) {
+    return {
+      client: null,
+      error: authError?.message || 'No user found',
+      status: 401,
+    };
+  }
+
+  return { client: supabaseWithAuth, user, error: null };
+}
 
 export async function GET(request: Request) {
   try {
+    // Authenticate the request
+    const { user, error, status } = await getAuthenticatedClient(request);
+
+    if (error) {
+      return NextResponse.json({ error }, { status: status || 401 });
+    }
+
     const { searchParams } = new URL(request.url);
     const userId = searchParams.get('userId');
-    
-    const { data, error } = await getProjects(userId || undefined);
-    
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+
+    // If userId is provided, make sure it matches the authenticated user
+    if (!user || (userId && userId !== user.id)) {
+      return NextResponse.json(
+        { error: 'Unauthorized: Cannot access projects of another user' },
+        { status: 403 },
+      );
     }
-    
+
+    // Use the authenticated user's ID if no userId is provided
+    const effectiveUserId = userId || user.id;
+    console.log('Fetching projects for user:', effectiveUserId);
+
+    const { data, error: dbError } = await getProjects(effectiveUserId);
+
+    if (dbError) {
+      console.error('Error fetching projects:', dbError);
+      return NextResponse.json({ error: dbError.message }, { status: 500 });
+    }
+
+    console.log(`Found ${data?.length || 0} projects for user ${effectiveUserId}`);
     return NextResponse.json({ projects: data });
   } catch (error: any) {
+    console.error('Exception in GET /api/projects:', error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

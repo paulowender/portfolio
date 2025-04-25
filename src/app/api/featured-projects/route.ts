@@ -6,14 +6,14 @@ export async function GET() {
     // Get featured projects
     const projects = await prisma.project.findMany({
       where: {
-        featured: true
+        featured: true,
       },
       orderBy: {
-        createdAt: 'desc'
+        createdAt: 'desc',
       },
-      take: 6
+      take: 6,
     });
-    
+    console.log('projects', projects);
     return NextResponse.json({ projects });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });

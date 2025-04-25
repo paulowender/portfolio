@@ -44,9 +44,9 @@ async function getAuthenticatedClient(request: Request) {
   return { client: supabaseWithAuth, user, error: null };
 }
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const id = params.id;
+    const id = (await params).id;
     const { data, error } = await getProject(id);
 
     if (error) {
@@ -67,6 +67,10 @@ export async function PUT(request: Request, { params }: { params: { id: string }
   try {
     // Authenticate the request
     const { client, user, error, status } = await getAuthenticatedClient(request);
+
+    if (!user || !client) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
 
     if (error) {
       return NextResponse.json({ error }, { status: status || 401 });
@@ -109,6 +113,9 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
   try {
     // Authenticate the request
     const { client, user, error, status } = await getAuthenticatedClient(request);
+    if (!user || !client) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
 
     if (error) {
       return NextResponse.json({ error }, { status: status || 401 });

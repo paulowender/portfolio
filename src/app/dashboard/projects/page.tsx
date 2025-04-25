@@ -13,29 +13,74 @@ export default function ProjectsPage() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [deleteLoading, setDeleteLoading] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
-    const loadProjects = async () => {
-      if (user) {
-        const { data, error } = await fetchProjects(user.id);
-        if (data) {
-          setProjects(data);
-        }
+    // Skip if already fetching or no user
+    if (isFetching || !user) {
+      if (!user) {
         setLoading(false);
+        setError('Please log in to view your projects');
+      }
+      return;
+    }
+
+    const loadProjects = async () => {
+      try {
+        setError(null);
+        setLoading(true);
+        setIsFetching(true);
+
+        console.log('Loading projects for user:', user.id);
+        const { data, error } = await fetchProjects(user.id);
+
+        if (error) {
+          console.error('Error loading projects:', error);
+          setError(error.message || 'Failed to load projects');
+        } else if (data) {
+          console.log('Projects loaded successfully:', data.length);
+          setProjects(data);
+        } else {
+          console.log('No projects found');
+          setProjects([]);
+        }
+      } catch (err: any) {
+        console.error('Exception loading projects:', err);
+        setError(err.message || 'An unexpected error occurred');
+      } finally {
+        setLoading(false);
+        setIsFetching(false);
       }
     };
 
     loadProjects();
-  }, [user]);
+  }, [user, isFetching]);
 
   const handleDelete = async (id: string) => {
     if (confirm('Are you sure you want to delete this project? This action cannot be undone.')) {
       setDeleteLoading(id);
-      const { error } = await deleteProjectApi(id);
-      if (!error) {
-        setProjects(projects.filter((project: any) => project.id !== id));
+      setError(null);
+
+      try {
+        const { error } = await deleteProjectApi(id);
+
+        if (error) {
+          console.error('Error deleting project:', error);
+          setError(error.message || 'Failed to delete project');
+        } else {
+          console.log('Project deleted successfully:', id);
+          // Update the local state immediately for a responsive UI
+          setProjects(projects.filter((project: any) => project.id !== id));
+
+          // The cache will be invalidated by deleteProjectApi, so we don't need to do anything else
+        }
+      } catch (err: any) {
+        console.error('Exception deleting project:', err);
+        setError(err.message || 'An unexpected error occurred');
+      } finally {
+        setDeleteLoading(null);
       }
-      setDeleteLoading(null);
     }
   };
 
@@ -61,6 +106,17 @@ export default function ProjectsPage() {
           </Link>
         </motion.div>
       </div>
+
+      {error && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="bg-red-900/50 text-red-200 p-4 rounded-md mb-6"
+        >
+          {error}
+        </motion.div>
+      )}
 
       {loading ? (
         <div className="flex justify-center py-12">

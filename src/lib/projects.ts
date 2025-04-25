@@ -38,13 +38,76 @@ export async function deleteProject(id: string) {
   return { error };
 }
 
+// Function to extract file path from URL
+export function extractFilePathFromUrl(url: string): string | null {
+  try {
+    // Parse the URL to get the pathname
+    const urlObj = new URL(url);
+    const pathname = urlObj.pathname;
+
+    // The path format is typically /storage/v1/object/portfolio/userId/project-images/filename
+    // We want to extract userId/project-images/filename
+    const parts = pathname.split('/');
+    if (parts.length >= 5) {
+      // Get the parts after 'portfolio'
+      const portfolioIndex = parts.indexOf('portfolio');
+      if (portfolioIndex !== -1 && portfolioIndex < parts.length - 1) {
+        return parts.slice(portfolioIndex + 1).join('/');
+      }
+    }
+    return null;
+  } catch (error) {
+    console.error('Error extracting file path from URL:', error);
+    return null;
+  }
+}
+
+// Function to delete a file from storage
+export async function deleteProjectImage(imageUrl: string): Promise<{ error: Error | null }> {
+  if (!imageUrl) {
+    return { error: null }; // No image to delete
+  }
+
+  try {
+    console.log('Attempting to delete image:', imageUrl);
+
+    // Extract the file path from the URL
+    const filePath = extractFilePathFromUrl(imageUrl);
+    if (!filePath) {
+      console.error('Could not extract file path from URL:', imageUrl);
+      return { error: new Error('Invalid image URL format') };
+    }
+
+    console.log('Extracted file path:', filePath);
+
+    // Get the current session
+    const { data: sessionData } = await supabase.auth.getSession();
+    if (!sessionData.session) {
+      console.error('No active session found');
+      return { error: new Error('Authentication required') };
+    }
+
+    // Delete the file
+    const { error } = await supabase.storage.from('portfolio').remove([filePath]);
+
+    if (error) {
+      console.error('Error deleting image:', error);
+      return { error };
+    }
+
+    console.log('Image deleted successfully');
+    return { error: null };
+  } catch (err) {
+    console.error('Exception during image deletion:', err);
+    return { error: err as Error };
+  }
+}
+
 export async function uploadProjectImage(file: File, userId: string) {
   const fileExt = file.name.split('.').pop();
   // Change the path structure to match RLS policy: userId is the first folder
   const fileName = `${Math.random().toString(36).substring(2)}.${fileExt}`;
   const filePath = `${userId}/project-images/${fileName}`;
-
-  console.log('Uploading file to path:', filePath);
 
   try {
     // Get the current session to ensure we have the latest token
@@ -56,8 +119,32 @@ export async function uploadProjectImage(file: File, userId: string) {
 
     console.log('Got authenticated session, uploading file...');
 
-    // Upload the file
-    const { error } = await supabase.storage.from('portfolio').upload(filePath, file);
+    // Set content type based on file extension
+    let contentType;
+    switch (fileExt?.toLowerCase()) {
+      case 'png':
+        contentType = 'image/png';
+        break;
+      case 'jpg':
+      case 'jpeg':
+        contentType = 'image/jpeg';
+        break;
+      case 'gif':
+        contentType = 'image/gif';
+        break;
+      case 'webp':
+        contentType = 'image/webp';
+        break;
+      default:
+        contentType = 'application/octet-stream';
+    }
+
+    // Upload the file with content type
+    const { error } = await supabase.storage.from('portfolio').upload(filePath, file, {
+      contentType,
+      cacheControl: '3600',
+      upsert: false,
+    });
 
     if (error) {
       console.error('Upload error:', error);

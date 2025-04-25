@@ -60,7 +60,7 @@ export async function getProjects(userId?: string) {
       orderBy: { createdAt: 'desc' },
     });
     return { data: projects, error: null };
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error getting projects:', error);
     return { data: null, error };
   }
@@ -68,10 +68,49 @@ export async function getProjects(userId?: string) {
 
 export async function getProject(id: string) {
   try {
-    const project = await prisma.project.findUnique({
-      where: { id },
-    });
-    return { data: project, error: null };
+    console.log(`Fetching project with ID: ${id}`);
+
+    // Add retry logic for the specific error
+    let retries = 3;
+    let project = null;
+    let lastError = null;
+
+    while (retries > 0) {
+      try {
+        project = await prisma.project.findUnique({
+          where: { id },
+        });
+        break; // Success, exit the loop
+      } catch (err: any) {
+        lastError = err;
+        console.error(`Error fetching project (retries left: ${retries}):`, err);
+
+        // Check if it's the specific prepared statement error
+        if (
+          err.message &&
+          err.message.includes('prepared statement') &&
+          err.message.includes('already exists')
+        ) {
+          console.log('Detected prepared statement error, retrying...');
+          await new Promise((resolve) => setTimeout(resolve, 500)); // Wait 500ms before retrying
+          retries--;
+        } else {
+          // For other errors, don't retry
+          throw err;
+        }
+      }
+    }
+
+    if (project) {
+      console.log('Project fetched successfully:', project.id);
+      return { data: project, error: null };
+    } else if (lastError) {
+      console.error('Failed to fetch project after retries:', lastError);
+      return { data: null, error: lastError };
+    } else {
+      console.log('Project not found');
+      return { data: null, error: new Error('Project not found') };
+    }
   } catch (error) {
     console.error('Error getting project:', error);
     return { data: null, error };
@@ -94,11 +133,50 @@ export async function createProject(projectData: Prisma.ProjectCreateInput) {
 
 export async function updateProject(id: string, projectData: Prisma.ProjectUpdateInput) {
   try {
-    const project = await prisma.project.update({
-      where: { id },
-      data: projectData,
-    });
-    return { data: project, error: null };
+    console.log(`Updating project with ID: ${id}`);
+
+    // Add retry logic for the specific error
+    let retries = 3;
+    let project = null;
+    let lastError = null;
+
+    while (retries > 0) {
+      try {
+        project = await prisma.project.update({
+          where: { id },
+          data: projectData,
+        });
+        break; // Success, exit the loop
+      } catch (err: any) {
+        lastError = err;
+        console.error(`Error updating project (retries left: ${retries}):`, err);
+
+        // Check if it's the specific prepared statement error
+        if (
+          err.message &&
+          err.message.includes('prepared statement') &&
+          err.message.includes('already exists')
+        ) {
+          console.log('Detected prepared statement error, retrying...');
+          await new Promise((resolve) => setTimeout(resolve, 500)); // Wait 500ms before retrying
+          retries--;
+        } else {
+          // For other errors, don't retry
+          throw err;
+        }
+      }
+    }
+
+    if (project) {
+      console.log('Project updated successfully:', project.id);
+      return { data: project, error: null };
+    } else if (lastError) {
+      console.error('Failed to update project after retries:', lastError);
+      return { data: null, error: lastError };
+    } else {
+      console.log('Project not found for update');
+      return { data: null, error: new Error('Project not found for update') };
+    }
   } catch (error) {
     console.error('Error updating project:', error);
     return { data: null, error };
@@ -111,7 +189,7 @@ export async function deleteProject(id: string) {
       where: { id },
     });
     return { error: null };
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error deleting project:', error);
     return { error };
   }
@@ -194,7 +272,10 @@ export async function createAppointment(appointmentData: Prisma.AppointmentCreat
   }
 }
 
-export async function updateAppointment(id: string, appointmentData: Prisma.AppointmentUpdateInput) {
+export async function updateAppointment(
+  id: string,
+  appointmentData: Prisma.AppointmentUpdateInput,
+) {
   try {
     const appointment = await prisma.appointment.update({
       where: { id },

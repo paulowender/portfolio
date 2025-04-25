@@ -1,18 +1,19 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/lib/AuthContext';
 import { fetchProject, updateProjectApi } from '@/lib/api-client';
-import { uploadProjectImage } from '@/lib/projects';
+import { uploadProjectImage, deleteProjectImage } from '@/lib/projects';
 import Button from '@/components/Button';
 import { XMarkIcon, ArrowUpTrayIcon } from '@heroicons/react/24/outline';
 
-export default function EditProjectPage({ params }: { params: { id: string } }) {
+export default function EditProjectPage({ params }: { params: Promise<{ id: string }> }) {
   const { user } = useAuth();
   const router = useRouter();
-  const { id } = params;
+  const resolvedParams = use(params);
+  const id = resolvedParams.id;
 
   const [formData, setFormData] = useState({
     title: '',
@@ -33,18 +34,31 @@ export default function EditProjectPage({ params }: { params: { id: string } }) 
   useEffect(() => {
     const loadProject = async () => {
       if (user && id) {
-        const { data, error } = await fetchProject(id);
-        if (error) {
-          setError('Failed to load project');
-          setFetchLoading(false);
-          return;
-        }
+        console.log('Loading project with ID:', id);
 
-        if (data) {
+        try {
+          const { data, error } = await fetchProject(id);
+
+          if (error) {
+            console.error('Error fetching project:', error);
+            setError('Failed to load project: ' + (error.message || 'Unknown error'));
+            setFetchLoading(false);
+            return;
+          }
+
+          if (!data) {
+            console.error('No project data returned');
+            setError('Project not found');
+            setFetchLoading(false);
+            return;
+          }
+
+          console.log('Project data loaded:', data);
+
           setFormData({
             title: data.title,
             description: data.description,
-            technologies: data.technologies.length > 0 ? data.technologies : [''],
+            technologies: data.technologies?.length > 0 ? data.technologies : [''],
             github_url: data.githubUrl || '',
             live_url: data.liveUrl || '',
             featured: data.featured || false,
@@ -54,9 +68,20 @@ export default function EditProjectPage({ params }: { params: { id: string } }) 
           if (data.imageUrl) {
             setImagePreview(data.imageUrl);
           }
-        }
 
-        setFetchLoading(false);
+          console.log('Form data set successfully');
+        } catch (err) {
+          console.error('Exception loading project:', err);
+          setError('An unexpected error occurred');
+        } finally {
+          setFetchLoading(false);
+        }
+      } else {
+        console.log('Waiting for user or ID...', { user: !!user, id });
+        if (!user) {
+          setFetchLoading(false);
+          setError('Please log in to edit this project');
+        }
       }
     };
 
@@ -103,8 +128,10 @@ export default function EditProjectPage({ params }: { params: { id: string } }) 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('Submitting form...');
 
     if (!user) {
+      console.error('No user found');
       setError('You must be logged in to update a project');
       return;
     }
@@ -115,19 +142,41 @@ export default function EditProjectPage({ params }: { params: { id: string } }) 
     try {
       // Filter out empty technologies
       const filteredTechnologies = formData.technologies.filter((tech) => tech.trim() !== '');
+      console.log('Filtered technologies:', filteredTechnologies);
 
       let imageUrl = formData.image_url;
 
-      // Upload new image if provided
+      // Handle image changes
       if (imageFile) {
-        const { url, error: uploadError } = await uploadProjectImage(imageFile, user.id);
-        if (uploadError) {
-          throw new Error('Failed to upload image');
+        console.log('Uploading new image...');
+
+        // If there's an existing image and we're replacing it, delete the old one
+        if (formData.image_url) {
+          console.log('Deleting old image:', formData.image_url);
+          const { error: deleteError } = await deleteProjectImage(formData.image_url);
+
+          if (deleteError) {
+            console.warn('Failed to delete old image:', deleteError);
+            // Continue with upload even if delete fails
+          } else {
+            console.log('Old image deleted successfully');
+          }
         }
+
+        // Upload the new image
+        const { url, error: uploadError } = await uploadProjectImage(imageFile, user.id);
+
+        if (uploadError) {
+          console.error('Image upload error:', uploadError);
+          throw new Error('Failed to upload image: ' + (uploadError.message || 'Unknown error'));
+        }
+
         imageUrl = url;
+        console.log('New image uploaded successfully:', url);
       }
 
       // Update project with API client
+      console.log('Updating project with ID:', id);
       const { data, error } = await updateProjectApi(id, {
         title: formData.title,
         description: formData.description,
@@ -138,10 +187,15 @@ export default function EditProjectPage({ params }: { params: { id: string } }) 
         imageUrl: imageUrl,
       });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Project update error:', error);
+        throw error;
+      }
 
+      console.log('Project updated successfully:', data);
       router.push('/dashboard/projects');
     } catch (err: any) {
+      console.error('Exception during project update:', err);
       setError(err.message || 'Failed to update project');
     } finally {
       setLoading(false);

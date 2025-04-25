@@ -12,20 +12,32 @@ export default function DashboardPage() {
   const { user } = useAuth();
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
+    // Skip if already fetching or no user
+    if (isFetching || !user) return;
+
     const fetch = async () => {
-      if (user) {
+      try {
+        setIsFetching(true);
         const { data, error } = await fetchProjects(user.id);
         if (data) {
           setProjects(data);
         }
+        if (error) {
+          console.error('Error fetching projects:', error);
+        }
+      } catch (err) {
+        console.error('Exception fetching projects:', err);
+      } finally {
         setLoading(false);
+        setIsFetching(false);
       }
     };
 
     fetch();
-  }, [user]);
+  }, [user, isFetching]);
 
   return (
     <div>
