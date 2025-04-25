@@ -127,3 +127,12 @@
 - [x] Create UI for managing AI providers
 - [x] Add model selection with badges for recommended/free models
 - [x] Create hooks for using AI in the application
+
+### Messaging Integrations
+
+- [x] Create messaging integration system
+- [x] Implement Evolution API WhatsApp integration
+- [x] Create UI for managing Evolution API settings
+- [x] Add WhatsApp instance management
+- [x] Implement QR code generation for WhatsApp connection
+- [x] Create API endpoints for Evolution API operations

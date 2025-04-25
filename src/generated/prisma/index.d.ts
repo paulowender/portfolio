@@ -43,6 +43,11 @@ export type Appointment = $Result.DefaultSelection<Prisma.$AppointmentPayload>
  * 
  */
 export type AIConfig = $Result.DefaultSelection<Prisma.$AIConfigPayload>
+/**
+ * Model MessagingConfig
+ * 
+ */
+export type MessagingConfig = $Result.DefaultSelection<Prisma.$MessagingConfigPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -228,6 +233,16 @@ export class PrismaClient<
     * ```
     */
   get aIConfig(): Prisma.AIConfigDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.messagingConfig`: Exposes CRUD operations for the **MessagingConfig** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MessagingConfigs
+    * const messagingConfigs = await prisma.messagingConfig.findMany()
+    * ```
+    */
+  get messagingConfig(): Prisma.MessagingConfigDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -673,7 +688,8 @@ export namespace Prisma {
     Project: 'Project',
     Reminder: 'Reminder',
     Appointment: 'Appointment',
-    AIConfig: 'AIConfig'
+    AIConfig: 'AIConfig',
+    MessagingConfig: 'MessagingConfig'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -692,7 +708,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "company" | "project" | "reminder" | "appointment" | "aIConfig"
+      modelProps: "user" | "company" | "project" | "reminder" | "appointment" | "aIConfig" | "messagingConfig"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1140,6 +1156,80 @@ export namespace Prisma {
           }
         }
       }
+      MessagingConfig: {
+        payload: Prisma.$MessagingConfigPayload<ExtArgs>
+        fields: Prisma.MessagingConfigFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MessagingConfigFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagingConfigPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MessagingConfigFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagingConfigPayload>
+          }
+          findFirst: {
+            args: Prisma.MessagingConfigFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagingConfigPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MessagingConfigFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagingConfigPayload>
+          }
+          findMany: {
+            args: Prisma.MessagingConfigFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagingConfigPayload>[]
+          }
+          create: {
+            args: Prisma.MessagingConfigCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagingConfigPayload>
+          }
+          createMany: {
+            args: Prisma.MessagingConfigCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MessagingConfigCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagingConfigPayload>[]
+          }
+          delete: {
+            args: Prisma.MessagingConfigDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagingConfigPayload>
+          }
+          update: {
+            args: Prisma.MessagingConfigUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagingConfigPayload>
+          }
+          deleteMany: {
+            args: Prisma.MessagingConfigDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MessagingConfigUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MessagingConfigUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagingConfigPayload>[]
+          }
+          upsert: {
+            args: Prisma.MessagingConfigUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagingConfigPayload>
+          }
+          aggregate: {
+            args: Prisma.MessagingConfigAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMessagingConfig>
+          }
+          groupBy: {
+            args: Prisma.MessagingConfigGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MessagingConfigGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MessagingConfigCountArgs<ExtArgs>
+            result: $Utils.Optional<MessagingConfigCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1230,6 +1320,7 @@ export namespace Prisma {
     reminder?: ReminderOmit
     appointment?: AppointmentOmit
     aIConfig?: AIConfigOmit
+    messagingConfig?: MessagingConfigOmit
   }
 
   /* Types for Logging */
@@ -1617,6 +1708,7 @@ export namespace Prisma {
     reminders?: boolean | User$remindersArgs<ExtArgs>
     company?: boolean | User$companyArgs<ExtArgs>
     aiConfig?: boolean | User$aiConfigArgs<ExtArgs>
+    messagingConfig?: boolean | User$messagingConfigArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1681,6 +1773,7 @@ export namespace Prisma {
     reminders?: boolean | User$remindersArgs<ExtArgs>
     company?: boolean | User$companyArgs<ExtArgs>
     aiConfig?: boolean | User$aiConfigArgs<ExtArgs>
+    messagingConfig?: boolean | User$messagingConfigArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1694,6 +1787,7 @@ export namespace Prisma {
       reminders: Prisma.$ReminderPayload<ExtArgs>[]
       company: Prisma.$CompanyPayload<ExtArgs> | null
       aiConfig: Prisma.$AIConfigPayload<ExtArgs> | null
+      messagingConfig: Prisma.$MessagingConfigPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2110,6 +2204,7 @@ export namespace Prisma {
     reminders<T extends User$remindersArgs<ExtArgs> = {}>(args?: Subset<T, User$remindersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     company<T extends User$companyArgs<ExtArgs> = {}>(args?: Subset<T, User$companyArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     aiConfig<T extends User$aiConfigArgs<ExtArgs> = {}>(args?: Subset<T, User$aiConfigArgs<ExtArgs>>): Prisma__AIConfigClient<$Result.GetResult<Prisma.$AIConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    messagingConfig<T extends User$messagingConfigArgs<ExtArgs> = {}>(args?: Subset<T, User$messagingConfigArgs<ExtArgs>>): Prisma__MessagingConfigClient<$Result.GetResult<Prisma.$MessagingConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2649,6 +2744,25 @@ export namespace Prisma {
      */
     include?: AIConfigInclude<ExtArgs> | null
     where?: AIConfigWhereInput
+  }
+
+  /**
+   * User.messagingConfig
+   */
+  export type User$messagingConfigArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessagingConfig
+     */
+    select?: MessagingConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessagingConfig
+     */
+    omit?: MessagingConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagingConfigInclude<ExtArgs> | null
+    where?: MessagingConfigWhereInput
   }
 
   /**
@@ -8421,6 +8535,1103 @@ export namespace Prisma {
 
 
   /**
+   * Model MessagingConfig
+   */
+
+  export type AggregateMessagingConfig = {
+    _count: MessagingConfigCountAggregateOutputType | null
+    _min: MessagingConfigMinAggregateOutputType | null
+    _max: MessagingConfigMaxAggregateOutputType | null
+  }
+
+  export type MessagingConfigMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    evolutionApiKey: string | null
+    evolutionBaseUrl: string | null
+    evolutionEnabled: boolean | null
+    evolutionInstance: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MessagingConfigMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    evolutionApiKey: string | null
+    evolutionBaseUrl: string | null
+    evolutionEnabled: boolean | null
+    evolutionInstance: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MessagingConfigCountAggregateOutputType = {
+    id: number
+    userId: number
+    evolutionApiKey: number
+    evolutionBaseUrl: number
+    evolutionEnabled: number
+    evolutionInstance: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type MessagingConfigMinAggregateInputType = {
+    id?: true
+    userId?: true
+    evolutionApiKey?: true
+    evolutionBaseUrl?: true
+    evolutionEnabled?: true
+    evolutionInstance?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MessagingConfigMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    evolutionApiKey?: true
+    evolutionBaseUrl?: true
+    evolutionEnabled?: true
+    evolutionInstance?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MessagingConfigCountAggregateInputType = {
+    id?: true
+    userId?: true
+    evolutionApiKey?: true
+    evolutionBaseUrl?: true
+    evolutionEnabled?: true
+    evolutionInstance?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type MessagingConfigAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MessagingConfig to aggregate.
+     */
+    where?: MessagingConfigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MessagingConfigs to fetch.
+     */
+    orderBy?: MessagingConfigOrderByWithRelationInput | MessagingConfigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MessagingConfigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MessagingConfigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MessagingConfigs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MessagingConfigs
+    **/
+    _count?: true | MessagingConfigCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MessagingConfigMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MessagingConfigMaxAggregateInputType
+  }
+
+  export type GetMessagingConfigAggregateType<T extends MessagingConfigAggregateArgs> = {
+        [P in keyof T & keyof AggregateMessagingConfig]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMessagingConfig[P]>
+      : GetScalarType<T[P], AggregateMessagingConfig[P]>
+  }
+
+
+
+
+  export type MessagingConfigGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessagingConfigWhereInput
+    orderBy?: MessagingConfigOrderByWithAggregationInput | MessagingConfigOrderByWithAggregationInput[]
+    by: MessagingConfigScalarFieldEnum[] | MessagingConfigScalarFieldEnum
+    having?: MessagingConfigScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MessagingConfigCountAggregateInputType | true
+    _min?: MessagingConfigMinAggregateInputType
+    _max?: MessagingConfigMaxAggregateInputType
+  }
+
+  export type MessagingConfigGroupByOutputType = {
+    id: string
+    userId: string
+    evolutionApiKey: string | null
+    evolutionBaseUrl: string | null
+    evolutionEnabled: boolean
+    evolutionInstance: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: MessagingConfigCountAggregateOutputType | null
+    _min: MessagingConfigMinAggregateOutputType | null
+    _max: MessagingConfigMaxAggregateOutputType | null
+  }
+
+  type GetMessagingConfigGroupByPayload<T extends MessagingConfigGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MessagingConfigGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MessagingConfigGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MessagingConfigGroupByOutputType[P]>
+            : GetScalarType<T[P], MessagingConfigGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MessagingConfigSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    evolutionApiKey?: boolean
+    evolutionBaseUrl?: boolean
+    evolutionEnabled?: boolean
+    evolutionInstance?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["messagingConfig"]>
+
+  export type MessagingConfigSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    evolutionApiKey?: boolean
+    evolutionBaseUrl?: boolean
+    evolutionEnabled?: boolean
+    evolutionInstance?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["messagingConfig"]>
+
+  export type MessagingConfigSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    evolutionApiKey?: boolean
+    evolutionBaseUrl?: boolean
+    evolutionEnabled?: boolean
+    evolutionInstance?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["messagingConfig"]>
+
+  export type MessagingConfigSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    evolutionApiKey?: boolean
+    evolutionBaseUrl?: boolean
+    evolutionEnabled?: boolean
+    evolutionInstance?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type MessagingConfigOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "evolutionApiKey" | "evolutionBaseUrl" | "evolutionEnabled" | "evolutionInstance" | "createdAt" | "updatedAt", ExtArgs["result"]["messagingConfig"]>
+  export type MessagingConfigInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type MessagingConfigIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type MessagingConfigIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $MessagingConfigPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MessagingConfig"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      evolutionApiKey: string | null
+      evolutionBaseUrl: string | null
+      evolutionEnabled: boolean
+      evolutionInstance: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["messagingConfig"]>
+    composites: {}
+  }
+
+  type MessagingConfigGetPayload<S extends boolean | null | undefined | MessagingConfigDefaultArgs> = $Result.GetResult<Prisma.$MessagingConfigPayload, S>
+
+  type MessagingConfigCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MessagingConfigFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MessagingConfigCountAggregateInputType | true
+    }
+
+  export interface MessagingConfigDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MessagingConfig'], meta: { name: 'MessagingConfig' } }
+    /**
+     * Find zero or one MessagingConfig that matches the filter.
+     * @param {MessagingConfigFindUniqueArgs} args - Arguments to find a MessagingConfig
+     * @example
+     * // Get one MessagingConfig
+     * const messagingConfig = await prisma.messagingConfig.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MessagingConfigFindUniqueArgs>(args: SelectSubset<T, MessagingConfigFindUniqueArgs<ExtArgs>>): Prisma__MessagingConfigClient<$Result.GetResult<Prisma.$MessagingConfigPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MessagingConfig that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MessagingConfigFindUniqueOrThrowArgs} args - Arguments to find a MessagingConfig
+     * @example
+     * // Get one MessagingConfig
+     * const messagingConfig = await prisma.messagingConfig.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MessagingConfigFindUniqueOrThrowArgs>(args: SelectSubset<T, MessagingConfigFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MessagingConfigClient<$Result.GetResult<Prisma.$MessagingConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MessagingConfig that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessagingConfigFindFirstArgs} args - Arguments to find a MessagingConfig
+     * @example
+     * // Get one MessagingConfig
+     * const messagingConfig = await prisma.messagingConfig.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MessagingConfigFindFirstArgs>(args?: SelectSubset<T, MessagingConfigFindFirstArgs<ExtArgs>>): Prisma__MessagingConfigClient<$Result.GetResult<Prisma.$MessagingConfigPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MessagingConfig that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessagingConfigFindFirstOrThrowArgs} args - Arguments to find a MessagingConfig
+     * @example
+     * // Get one MessagingConfig
+     * const messagingConfig = await prisma.messagingConfig.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MessagingConfigFindFirstOrThrowArgs>(args?: SelectSubset<T, MessagingConfigFindFirstOrThrowArgs<ExtArgs>>): Prisma__MessagingConfigClient<$Result.GetResult<Prisma.$MessagingConfigPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MessagingConfigs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessagingConfigFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MessagingConfigs
+     * const messagingConfigs = await prisma.messagingConfig.findMany()
+     * 
+     * // Get first 10 MessagingConfigs
+     * const messagingConfigs = await prisma.messagingConfig.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const messagingConfigWithIdOnly = await prisma.messagingConfig.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MessagingConfigFindManyArgs>(args?: SelectSubset<T, MessagingConfigFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagingConfigPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MessagingConfig.
+     * @param {MessagingConfigCreateArgs} args - Arguments to create a MessagingConfig.
+     * @example
+     * // Create one MessagingConfig
+     * const MessagingConfig = await prisma.messagingConfig.create({
+     *   data: {
+     *     // ... data to create a MessagingConfig
+     *   }
+     * })
+     * 
+     */
+    create<T extends MessagingConfigCreateArgs>(args: SelectSubset<T, MessagingConfigCreateArgs<ExtArgs>>): Prisma__MessagingConfigClient<$Result.GetResult<Prisma.$MessagingConfigPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MessagingConfigs.
+     * @param {MessagingConfigCreateManyArgs} args - Arguments to create many MessagingConfigs.
+     * @example
+     * // Create many MessagingConfigs
+     * const messagingConfig = await prisma.messagingConfig.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MessagingConfigCreateManyArgs>(args?: SelectSubset<T, MessagingConfigCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MessagingConfigs and returns the data saved in the database.
+     * @param {MessagingConfigCreateManyAndReturnArgs} args - Arguments to create many MessagingConfigs.
+     * @example
+     * // Create many MessagingConfigs
+     * const messagingConfig = await prisma.messagingConfig.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MessagingConfigs and only return the `id`
+     * const messagingConfigWithIdOnly = await prisma.messagingConfig.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MessagingConfigCreateManyAndReturnArgs>(args?: SelectSubset<T, MessagingConfigCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagingConfigPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MessagingConfig.
+     * @param {MessagingConfigDeleteArgs} args - Arguments to delete one MessagingConfig.
+     * @example
+     * // Delete one MessagingConfig
+     * const MessagingConfig = await prisma.messagingConfig.delete({
+     *   where: {
+     *     // ... filter to delete one MessagingConfig
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MessagingConfigDeleteArgs>(args: SelectSubset<T, MessagingConfigDeleteArgs<ExtArgs>>): Prisma__MessagingConfigClient<$Result.GetResult<Prisma.$MessagingConfigPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MessagingConfig.
+     * @param {MessagingConfigUpdateArgs} args - Arguments to update one MessagingConfig.
+     * @example
+     * // Update one MessagingConfig
+     * const messagingConfig = await prisma.messagingConfig.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MessagingConfigUpdateArgs>(args: SelectSubset<T, MessagingConfigUpdateArgs<ExtArgs>>): Prisma__MessagingConfigClient<$Result.GetResult<Prisma.$MessagingConfigPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MessagingConfigs.
+     * @param {MessagingConfigDeleteManyArgs} args - Arguments to filter MessagingConfigs to delete.
+     * @example
+     * // Delete a few MessagingConfigs
+     * const { count } = await prisma.messagingConfig.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MessagingConfigDeleteManyArgs>(args?: SelectSubset<T, MessagingConfigDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MessagingConfigs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessagingConfigUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MessagingConfigs
+     * const messagingConfig = await prisma.messagingConfig.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MessagingConfigUpdateManyArgs>(args: SelectSubset<T, MessagingConfigUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MessagingConfigs and returns the data updated in the database.
+     * @param {MessagingConfigUpdateManyAndReturnArgs} args - Arguments to update many MessagingConfigs.
+     * @example
+     * // Update many MessagingConfigs
+     * const messagingConfig = await prisma.messagingConfig.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MessagingConfigs and only return the `id`
+     * const messagingConfigWithIdOnly = await prisma.messagingConfig.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MessagingConfigUpdateManyAndReturnArgs>(args: SelectSubset<T, MessagingConfigUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagingConfigPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MessagingConfig.
+     * @param {MessagingConfigUpsertArgs} args - Arguments to update or create a MessagingConfig.
+     * @example
+     * // Update or create a MessagingConfig
+     * const messagingConfig = await prisma.messagingConfig.upsert({
+     *   create: {
+     *     // ... data to create a MessagingConfig
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MessagingConfig we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MessagingConfigUpsertArgs>(args: SelectSubset<T, MessagingConfigUpsertArgs<ExtArgs>>): Prisma__MessagingConfigClient<$Result.GetResult<Prisma.$MessagingConfigPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MessagingConfigs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessagingConfigCountArgs} args - Arguments to filter MessagingConfigs to count.
+     * @example
+     * // Count the number of MessagingConfigs
+     * const count = await prisma.messagingConfig.count({
+     *   where: {
+     *     // ... the filter for the MessagingConfigs we want to count
+     *   }
+     * })
+    **/
+    count<T extends MessagingConfigCountArgs>(
+      args?: Subset<T, MessagingConfigCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MessagingConfigCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MessagingConfig.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessagingConfigAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MessagingConfigAggregateArgs>(args: Subset<T, MessagingConfigAggregateArgs>): Prisma.PrismaPromise<GetMessagingConfigAggregateType<T>>
+
+    /**
+     * Group by MessagingConfig.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessagingConfigGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MessagingConfigGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MessagingConfigGroupByArgs['orderBy'] }
+        : { orderBy?: MessagingConfigGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MessagingConfigGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMessagingConfigGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MessagingConfig model
+   */
+  readonly fields: MessagingConfigFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MessagingConfig.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MessagingConfigClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MessagingConfig model
+   */
+  interface MessagingConfigFieldRefs {
+    readonly id: FieldRef<"MessagingConfig", 'String'>
+    readonly userId: FieldRef<"MessagingConfig", 'String'>
+    readonly evolutionApiKey: FieldRef<"MessagingConfig", 'String'>
+    readonly evolutionBaseUrl: FieldRef<"MessagingConfig", 'String'>
+    readonly evolutionEnabled: FieldRef<"MessagingConfig", 'Boolean'>
+    readonly evolutionInstance: FieldRef<"MessagingConfig", 'String'>
+    readonly createdAt: FieldRef<"MessagingConfig", 'DateTime'>
+    readonly updatedAt: FieldRef<"MessagingConfig", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MessagingConfig findUnique
+   */
+  export type MessagingConfigFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessagingConfig
+     */
+    select?: MessagingConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessagingConfig
+     */
+    omit?: MessagingConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagingConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which MessagingConfig to fetch.
+     */
+    where: MessagingConfigWhereUniqueInput
+  }
+
+  /**
+   * MessagingConfig findUniqueOrThrow
+   */
+  export type MessagingConfigFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessagingConfig
+     */
+    select?: MessagingConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessagingConfig
+     */
+    omit?: MessagingConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagingConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which MessagingConfig to fetch.
+     */
+    where: MessagingConfigWhereUniqueInput
+  }
+
+  /**
+   * MessagingConfig findFirst
+   */
+  export type MessagingConfigFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessagingConfig
+     */
+    select?: MessagingConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessagingConfig
+     */
+    omit?: MessagingConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagingConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which MessagingConfig to fetch.
+     */
+    where?: MessagingConfigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MessagingConfigs to fetch.
+     */
+    orderBy?: MessagingConfigOrderByWithRelationInput | MessagingConfigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MessagingConfigs.
+     */
+    cursor?: MessagingConfigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MessagingConfigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MessagingConfigs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MessagingConfigs.
+     */
+    distinct?: MessagingConfigScalarFieldEnum | MessagingConfigScalarFieldEnum[]
+  }
+
+  /**
+   * MessagingConfig findFirstOrThrow
+   */
+  export type MessagingConfigFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessagingConfig
+     */
+    select?: MessagingConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessagingConfig
+     */
+    omit?: MessagingConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagingConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which MessagingConfig to fetch.
+     */
+    where?: MessagingConfigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MessagingConfigs to fetch.
+     */
+    orderBy?: MessagingConfigOrderByWithRelationInput | MessagingConfigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MessagingConfigs.
+     */
+    cursor?: MessagingConfigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MessagingConfigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MessagingConfigs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MessagingConfigs.
+     */
+    distinct?: MessagingConfigScalarFieldEnum | MessagingConfigScalarFieldEnum[]
+  }
+
+  /**
+   * MessagingConfig findMany
+   */
+  export type MessagingConfigFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessagingConfig
+     */
+    select?: MessagingConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessagingConfig
+     */
+    omit?: MessagingConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagingConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which MessagingConfigs to fetch.
+     */
+    where?: MessagingConfigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MessagingConfigs to fetch.
+     */
+    orderBy?: MessagingConfigOrderByWithRelationInput | MessagingConfigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MessagingConfigs.
+     */
+    cursor?: MessagingConfigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MessagingConfigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MessagingConfigs.
+     */
+    skip?: number
+    distinct?: MessagingConfigScalarFieldEnum | MessagingConfigScalarFieldEnum[]
+  }
+
+  /**
+   * MessagingConfig create
+   */
+  export type MessagingConfigCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessagingConfig
+     */
+    select?: MessagingConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessagingConfig
+     */
+    omit?: MessagingConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagingConfigInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MessagingConfig.
+     */
+    data: XOR<MessagingConfigCreateInput, MessagingConfigUncheckedCreateInput>
+  }
+
+  /**
+   * MessagingConfig createMany
+   */
+  export type MessagingConfigCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MessagingConfigs.
+     */
+    data: MessagingConfigCreateManyInput | MessagingConfigCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MessagingConfig createManyAndReturn
+   */
+  export type MessagingConfigCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessagingConfig
+     */
+    select?: MessagingConfigSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessagingConfig
+     */
+    omit?: MessagingConfigOmit<ExtArgs> | null
+    /**
+     * The data used to create many MessagingConfigs.
+     */
+    data: MessagingConfigCreateManyInput | MessagingConfigCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagingConfigIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MessagingConfig update
+   */
+  export type MessagingConfigUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessagingConfig
+     */
+    select?: MessagingConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessagingConfig
+     */
+    omit?: MessagingConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagingConfigInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MessagingConfig.
+     */
+    data: XOR<MessagingConfigUpdateInput, MessagingConfigUncheckedUpdateInput>
+    /**
+     * Choose, which MessagingConfig to update.
+     */
+    where: MessagingConfigWhereUniqueInput
+  }
+
+  /**
+   * MessagingConfig updateMany
+   */
+  export type MessagingConfigUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MessagingConfigs.
+     */
+    data: XOR<MessagingConfigUpdateManyMutationInput, MessagingConfigUncheckedUpdateManyInput>
+    /**
+     * Filter which MessagingConfigs to update
+     */
+    where?: MessagingConfigWhereInput
+    /**
+     * Limit how many MessagingConfigs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MessagingConfig updateManyAndReturn
+   */
+  export type MessagingConfigUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessagingConfig
+     */
+    select?: MessagingConfigSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessagingConfig
+     */
+    omit?: MessagingConfigOmit<ExtArgs> | null
+    /**
+     * The data used to update MessagingConfigs.
+     */
+    data: XOR<MessagingConfigUpdateManyMutationInput, MessagingConfigUncheckedUpdateManyInput>
+    /**
+     * Filter which MessagingConfigs to update
+     */
+    where?: MessagingConfigWhereInput
+    /**
+     * Limit how many MessagingConfigs to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagingConfigIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MessagingConfig upsert
+   */
+  export type MessagingConfigUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessagingConfig
+     */
+    select?: MessagingConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessagingConfig
+     */
+    omit?: MessagingConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagingConfigInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MessagingConfig to update in case it exists.
+     */
+    where: MessagingConfigWhereUniqueInput
+    /**
+     * In case the MessagingConfig found by the `where` argument doesn't exist, create a new MessagingConfig with this data.
+     */
+    create: XOR<MessagingConfigCreateInput, MessagingConfigUncheckedCreateInput>
+    /**
+     * In case the MessagingConfig was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MessagingConfigUpdateInput, MessagingConfigUncheckedUpdateInput>
+  }
+
+  /**
+   * MessagingConfig delete
+   */
+  export type MessagingConfigDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessagingConfig
+     */
+    select?: MessagingConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessagingConfig
+     */
+    omit?: MessagingConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagingConfigInclude<ExtArgs> | null
+    /**
+     * Filter which MessagingConfig to delete.
+     */
+    where: MessagingConfigWhereUniqueInput
+  }
+
+  /**
+   * MessagingConfig deleteMany
+   */
+  export type MessagingConfigDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MessagingConfigs to delete
+     */
+    where?: MessagingConfigWhereInput
+    /**
+     * Limit how many MessagingConfigs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MessagingConfig without action
+   */
+  export type MessagingConfigDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessagingConfig
+     */
+    select?: MessagingConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessagingConfig
+     */
+    omit?: MessagingConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagingConfigInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -8546,6 +9757,20 @@ export namespace Prisma {
   export type AIConfigScalarFieldEnum = (typeof AIConfigScalarFieldEnum)[keyof typeof AIConfigScalarFieldEnum]
 
 
+  export const MessagingConfigScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    evolutionApiKey: 'evolutionApiKey',
+    evolutionBaseUrl: 'evolutionBaseUrl',
+    evolutionEnabled: 'evolutionEnabled',
+    evolutionInstance: 'evolutionInstance',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type MessagingConfigScalarFieldEnum = (typeof MessagingConfigScalarFieldEnum)[keyof typeof MessagingConfigScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -8651,6 +9876,7 @@ export namespace Prisma {
     reminders?: ReminderListRelationFilter
     company?: XOR<CompanyNullableScalarRelationFilter, CompanyWhereInput> | null
     aiConfig?: XOR<AIConfigNullableScalarRelationFilter, AIConfigWhereInput> | null
+    messagingConfig?: XOR<MessagingConfigNullableScalarRelationFilter, MessagingConfigWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -8674,6 +9900,7 @@ export namespace Prisma {
     reminders?: ReminderOrderByRelationAggregateInput
     company?: CompanyOrderByWithRelationInput
     aiConfig?: AIConfigOrderByWithRelationInput
+    messagingConfig?: MessagingConfigOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -8700,6 +9927,7 @@ export namespace Prisma {
     reminders?: ReminderListRelationFilter
     company?: XOR<CompanyNullableScalarRelationFilter, CompanyWhereInput> | null
     aiConfig?: XOR<AIConfigNullableScalarRelationFilter, AIConfigWhereInput> | null
+    messagingConfig?: XOR<MessagingConfigNullableScalarRelationFilter, MessagingConfigWhereInput> | null
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -9199,6 +10427,76 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"AIConfig"> | Date | string
   }
 
+  export type MessagingConfigWhereInput = {
+    AND?: MessagingConfigWhereInput | MessagingConfigWhereInput[]
+    OR?: MessagingConfigWhereInput[]
+    NOT?: MessagingConfigWhereInput | MessagingConfigWhereInput[]
+    id?: StringFilter<"MessagingConfig"> | string
+    userId?: StringFilter<"MessagingConfig"> | string
+    evolutionApiKey?: StringNullableFilter<"MessagingConfig"> | string | null
+    evolutionBaseUrl?: StringNullableFilter<"MessagingConfig"> | string | null
+    evolutionEnabled?: BoolFilter<"MessagingConfig"> | boolean
+    evolutionInstance?: StringNullableFilter<"MessagingConfig"> | string | null
+    createdAt?: DateTimeFilter<"MessagingConfig"> | Date | string
+    updatedAt?: DateTimeFilter<"MessagingConfig"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type MessagingConfigOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    evolutionApiKey?: SortOrderInput | SortOrder
+    evolutionBaseUrl?: SortOrderInput | SortOrder
+    evolutionEnabled?: SortOrder
+    evolutionInstance?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type MessagingConfigWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId?: string
+    AND?: MessagingConfigWhereInput | MessagingConfigWhereInput[]
+    OR?: MessagingConfigWhereInput[]
+    NOT?: MessagingConfigWhereInput | MessagingConfigWhereInput[]
+    evolutionApiKey?: StringNullableFilter<"MessagingConfig"> | string | null
+    evolutionBaseUrl?: StringNullableFilter<"MessagingConfig"> | string | null
+    evolutionEnabled?: BoolFilter<"MessagingConfig"> | boolean
+    evolutionInstance?: StringNullableFilter<"MessagingConfig"> | string | null
+    createdAt?: DateTimeFilter<"MessagingConfig"> | Date | string
+    updatedAt?: DateTimeFilter<"MessagingConfig"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId">
+
+  export type MessagingConfigOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    evolutionApiKey?: SortOrderInput | SortOrder
+    evolutionBaseUrl?: SortOrderInput | SortOrder
+    evolutionEnabled?: SortOrder
+    evolutionInstance?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: MessagingConfigCountOrderByAggregateInput
+    _max?: MessagingConfigMaxOrderByAggregateInput
+    _min?: MessagingConfigMinOrderByAggregateInput
+  }
+
+  export type MessagingConfigScalarWhereWithAggregatesInput = {
+    AND?: MessagingConfigScalarWhereWithAggregatesInput | MessagingConfigScalarWhereWithAggregatesInput[]
+    OR?: MessagingConfigScalarWhereWithAggregatesInput[]
+    NOT?: MessagingConfigScalarWhereWithAggregatesInput | MessagingConfigScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MessagingConfig"> | string
+    userId?: StringWithAggregatesFilter<"MessagingConfig"> | string
+    evolutionApiKey?: StringNullableWithAggregatesFilter<"MessagingConfig"> | string | null
+    evolutionBaseUrl?: StringNullableWithAggregatesFilter<"MessagingConfig"> | string | null
+    evolutionEnabled?: BoolWithAggregatesFilter<"MessagingConfig"> | boolean
+    evolutionInstance?: StringNullableWithAggregatesFilter<"MessagingConfig"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"MessagingConfig"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"MessagingConfig"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -9220,6 +10518,7 @@ export namespace Prisma {
     reminders?: ReminderCreateNestedManyWithoutUserInput
     company?: CompanyCreateNestedOneWithoutUserInput
     aiConfig?: AIConfigCreateNestedOneWithoutUserInput
+    messagingConfig?: MessagingConfigCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -9243,6 +10542,7 @@ export namespace Prisma {
     reminders?: ReminderUncheckedCreateNestedManyWithoutUserInput
     company?: CompanyUncheckedCreateNestedOneWithoutUserInput
     aiConfig?: AIConfigUncheckedCreateNestedOneWithoutUserInput
+    messagingConfig?: MessagingConfigUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -9266,6 +10566,7 @@ export namespace Prisma {
     reminders?: ReminderUpdateManyWithoutUserNestedInput
     company?: CompanyUpdateOneWithoutUserNestedInput
     aiConfig?: AIConfigUpdateOneWithoutUserNestedInput
+    messagingConfig?: MessagingConfigUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -9289,6 +10590,7 @@ export namespace Prisma {
     reminders?: ReminderUncheckedUpdateManyWithoutUserNestedInput
     company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     aiConfig?: AIConfigUncheckedUpdateOneWithoutUserNestedInput
+    messagingConfig?: MessagingConfigUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -9872,6 +11174,82 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MessagingConfigCreateInput = {
+    id?: string
+    evolutionApiKey?: string | null
+    evolutionBaseUrl?: string | null
+    evolutionEnabled?: boolean
+    evolutionInstance?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutMessagingConfigInput
+  }
+
+  export type MessagingConfigUncheckedCreateInput = {
+    id?: string
+    userId: string
+    evolutionApiKey?: string | null
+    evolutionBaseUrl?: string | null
+    evolutionEnabled?: boolean
+    evolutionInstance?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MessagingConfigUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    evolutionApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    evolutionBaseUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    evolutionEnabled?: BoolFieldUpdateOperationsInput | boolean
+    evolutionInstance?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutMessagingConfigNestedInput
+  }
+
+  export type MessagingConfigUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    evolutionApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    evolutionBaseUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    evolutionEnabled?: BoolFieldUpdateOperationsInput | boolean
+    evolutionInstance?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessagingConfigCreateManyInput = {
+    id?: string
+    userId: string
+    evolutionApiKey?: string | null
+    evolutionBaseUrl?: string | null
+    evolutionEnabled?: boolean
+    evolutionInstance?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MessagingConfigUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    evolutionApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    evolutionBaseUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    evolutionEnabled?: BoolFieldUpdateOperationsInput | boolean
+    evolutionInstance?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessagingConfigUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    evolutionApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    evolutionBaseUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    evolutionEnabled?: BoolFieldUpdateOperationsInput | boolean
+    evolutionInstance?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -9947,6 +11325,11 @@ export namespace Prisma {
   export type AIConfigNullableScalarRelationFilter = {
     is?: AIConfigWhereInput | null
     isNot?: AIConfigWhereInput | null
+  }
+
+  export type MessagingConfigNullableScalarRelationFilter = {
+    is?: MessagingConfigWhereInput | null
+    isNot?: MessagingConfigWhereInput | null
   }
 
   export type SortOrderInput = {
@@ -10310,6 +11693,39 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type MessagingConfigCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    evolutionApiKey?: SortOrder
+    evolutionBaseUrl?: SortOrder
+    evolutionEnabled?: SortOrder
+    evolutionInstance?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MessagingConfigMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    evolutionApiKey?: SortOrder
+    evolutionBaseUrl?: SortOrder
+    evolutionEnabled?: SortOrder
+    evolutionInstance?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MessagingConfigMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    evolutionApiKey?: SortOrder
+    evolutionBaseUrl?: SortOrder
+    evolutionEnabled?: SortOrder
+    evolutionInstance?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type UserCreateskillsInput = {
     set: string[]
   }
@@ -10347,6 +11763,12 @@ export namespace Prisma {
     connect?: AIConfigWhereUniqueInput
   }
 
+  export type MessagingConfigCreateNestedOneWithoutUserInput = {
+    create?: XOR<MessagingConfigCreateWithoutUserInput, MessagingConfigUncheckedCreateWithoutUserInput>
+    connectOrCreate?: MessagingConfigCreateOrConnectWithoutUserInput
+    connect?: MessagingConfigWhereUniqueInput
+  }
+
   export type AppointmentUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AppointmentCreateWithoutUserInput, AppointmentUncheckedCreateWithoutUserInput> | AppointmentCreateWithoutUserInput[] | AppointmentUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AppointmentCreateOrConnectWithoutUserInput | AppointmentCreateOrConnectWithoutUserInput[]
@@ -10378,6 +11800,12 @@ export namespace Prisma {
     create?: XOR<AIConfigCreateWithoutUserInput, AIConfigUncheckedCreateWithoutUserInput>
     connectOrCreate?: AIConfigCreateOrConnectWithoutUserInput
     connect?: AIConfigWhereUniqueInput
+  }
+
+  export type MessagingConfigUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<MessagingConfigCreateWithoutUserInput, MessagingConfigUncheckedCreateWithoutUserInput>
+    connectOrCreate?: MessagingConfigCreateOrConnectWithoutUserInput
+    connect?: MessagingConfigWhereUniqueInput
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -10459,6 +11887,16 @@ export namespace Prisma {
     update?: XOR<XOR<AIConfigUpdateToOneWithWhereWithoutUserInput, AIConfigUpdateWithoutUserInput>, AIConfigUncheckedUpdateWithoutUserInput>
   }
 
+  export type MessagingConfigUpdateOneWithoutUserNestedInput = {
+    create?: XOR<MessagingConfigCreateWithoutUserInput, MessagingConfigUncheckedCreateWithoutUserInput>
+    connectOrCreate?: MessagingConfigCreateOrConnectWithoutUserInput
+    upsert?: MessagingConfigUpsertWithoutUserInput
+    disconnect?: MessagingConfigWhereInput | boolean
+    delete?: MessagingConfigWhereInput | boolean
+    connect?: MessagingConfigWhereUniqueInput
+    update?: XOR<XOR<MessagingConfigUpdateToOneWithWhereWithoutUserInput, MessagingConfigUpdateWithoutUserInput>, MessagingConfigUncheckedUpdateWithoutUserInput>
+  }
+
   export type AppointmentUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AppointmentCreateWithoutUserInput, AppointmentUncheckedCreateWithoutUserInput> | AppointmentCreateWithoutUserInput[] | AppointmentUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AppointmentCreateOrConnectWithoutUserInput | AppointmentCreateOrConnectWithoutUserInput[]
@@ -10519,6 +11957,16 @@ export namespace Prisma {
     delete?: AIConfigWhereInput | boolean
     connect?: AIConfigWhereUniqueInput
     update?: XOR<XOR<AIConfigUpdateToOneWithWhereWithoutUserInput, AIConfigUpdateWithoutUserInput>, AIConfigUncheckedUpdateWithoutUserInput>
+  }
+
+  export type MessagingConfigUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<MessagingConfigCreateWithoutUserInput, MessagingConfigUncheckedCreateWithoutUserInput>
+    connectOrCreate?: MessagingConfigCreateOrConnectWithoutUserInput
+    upsert?: MessagingConfigUpsertWithoutUserInput
+    disconnect?: MessagingConfigWhereInput | boolean
+    delete?: MessagingConfigWhereInput | boolean
+    connect?: MessagingConfigWhereUniqueInput
+    update?: XOR<XOR<MessagingConfigUpdateToOneWithWhereWithoutUserInput, MessagingConfigUpdateWithoutUserInput>, MessagingConfigUncheckedUpdateWithoutUserInput>
   }
 
   export type CompanyCreateservicesInput = {
@@ -10611,6 +12059,20 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutAiConfigInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAiConfigInput, UserUpdateWithoutAiConfigInput>, UserUncheckedUpdateWithoutAiConfigInput>
+  }
+
+  export type UserCreateNestedOneWithoutMessagingConfigInput = {
+    create?: XOR<UserCreateWithoutMessagingConfigInput, UserUncheckedCreateWithoutMessagingConfigInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMessagingConfigInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutMessagingConfigNestedInput = {
+    create?: XOR<UserCreateWithoutMessagingConfigInput, UserUncheckedCreateWithoutMessagingConfigInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMessagingConfigInput
+    upsert?: UserUpsertWithoutMessagingConfigInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMessagingConfigInput, UserUpdateWithoutMessagingConfigInput>, UserUncheckedUpdateWithoutMessagingConfigInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -10917,6 +12379,31 @@ export namespace Prisma {
     create: XOR<AIConfigCreateWithoutUserInput, AIConfigUncheckedCreateWithoutUserInput>
   }
 
+  export type MessagingConfigCreateWithoutUserInput = {
+    id?: string
+    evolutionApiKey?: string | null
+    evolutionBaseUrl?: string | null
+    evolutionEnabled?: boolean
+    evolutionInstance?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MessagingConfigUncheckedCreateWithoutUserInput = {
+    id?: string
+    evolutionApiKey?: string | null
+    evolutionBaseUrl?: string | null
+    evolutionEnabled?: boolean
+    evolutionInstance?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MessagingConfigCreateOrConnectWithoutUserInput = {
+    where: MessagingConfigWhereUniqueInput
+    create: XOR<MessagingConfigCreateWithoutUserInput, MessagingConfigUncheckedCreateWithoutUserInput>
+  }
+
   export type AppointmentUpsertWithWhereUniqueWithoutUserInput = {
     where: AppointmentWhereUniqueInput
     update: XOR<AppointmentUpdateWithoutUserInput, AppointmentUncheckedUpdateWithoutUserInput>
@@ -11107,6 +12594,37 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MessagingConfigUpsertWithoutUserInput = {
+    update: XOR<MessagingConfigUpdateWithoutUserInput, MessagingConfigUncheckedUpdateWithoutUserInput>
+    create: XOR<MessagingConfigCreateWithoutUserInput, MessagingConfigUncheckedCreateWithoutUserInput>
+    where?: MessagingConfigWhereInput
+  }
+
+  export type MessagingConfigUpdateToOneWithWhereWithoutUserInput = {
+    where?: MessagingConfigWhereInput
+    data: XOR<MessagingConfigUpdateWithoutUserInput, MessagingConfigUncheckedUpdateWithoutUserInput>
+  }
+
+  export type MessagingConfigUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    evolutionApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    evolutionBaseUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    evolutionEnabled?: BoolFieldUpdateOperationsInput | boolean
+    evolutionInstance?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessagingConfigUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    evolutionApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    evolutionBaseUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    evolutionEnabled?: BoolFieldUpdateOperationsInput | boolean
+    evolutionInstance?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UserCreateWithoutCompanyInput = {
     id?: string
     email: string
@@ -11127,6 +12645,7 @@ export namespace Prisma {
     projects?: ProjectCreateNestedManyWithoutUserInput
     reminders?: ReminderCreateNestedManyWithoutUserInput
     aiConfig?: AIConfigCreateNestedOneWithoutUserInput
+    messagingConfig?: MessagingConfigCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCompanyInput = {
@@ -11149,6 +12668,7 @@ export namespace Prisma {
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
     reminders?: ReminderUncheckedCreateNestedManyWithoutUserInput
     aiConfig?: AIConfigUncheckedCreateNestedOneWithoutUserInput
+    messagingConfig?: MessagingConfigUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCompanyInput = {
@@ -11187,6 +12707,7 @@ export namespace Prisma {
     projects?: ProjectUpdateManyWithoutUserNestedInput
     reminders?: ReminderUpdateManyWithoutUserNestedInput
     aiConfig?: AIConfigUpdateOneWithoutUserNestedInput
+    messagingConfig?: MessagingConfigUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCompanyInput = {
@@ -11209,6 +12730,7 @@ export namespace Prisma {
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
     reminders?: ReminderUncheckedUpdateManyWithoutUserNestedInput
     aiConfig?: AIConfigUncheckedUpdateOneWithoutUserNestedInput
+    messagingConfig?: MessagingConfigUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutProjectsInput = {
@@ -11231,6 +12753,7 @@ export namespace Prisma {
     reminders?: ReminderCreateNestedManyWithoutUserInput
     company?: CompanyCreateNestedOneWithoutUserInput
     aiConfig?: AIConfigCreateNestedOneWithoutUserInput
+    messagingConfig?: MessagingConfigCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProjectsInput = {
@@ -11253,6 +12776,7 @@ export namespace Prisma {
     reminders?: ReminderUncheckedCreateNestedManyWithoutUserInput
     company?: CompanyUncheckedCreateNestedOneWithoutUserInput
     aiConfig?: AIConfigUncheckedCreateNestedOneWithoutUserInput
+    messagingConfig?: MessagingConfigUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProjectsInput = {
@@ -11291,6 +12815,7 @@ export namespace Prisma {
     reminders?: ReminderUpdateManyWithoutUserNestedInput
     company?: CompanyUpdateOneWithoutUserNestedInput
     aiConfig?: AIConfigUpdateOneWithoutUserNestedInput
+    messagingConfig?: MessagingConfigUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProjectsInput = {
@@ -11313,6 +12838,7 @@ export namespace Prisma {
     reminders?: ReminderUncheckedUpdateManyWithoutUserNestedInput
     company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     aiConfig?: AIConfigUncheckedUpdateOneWithoutUserNestedInput
+    messagingConfig?: MessagingConfigUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutRemindersInput = {
@@ -11335,6 +12861,7 @@ export namespace Prisma {
     projects?: ProjectCreateNestedManyWithoutUserInput
     company?: CompanyCreateNestedOneWithoutUserInput
     aiConfig?: AIConfigCreateNestedOneWithoutUserInput
+    messagingConfig?: MessagingConfigCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRemindersInput = {
@@ -11357,6 +12884,7 @@ export namespace Prisma {
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
     company?: CompanyUncheckedCreateNestedOneWithoutUserInput
     aiConfig?: AIConfigUncheckedCreateNestedOneWithoutUserInput
+    messagingConfig?: MessagingConfigUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRemindersInput = {
@@ -11395,6 +12923,7 @@ export namespace Prisma {
     projects?: ProjectUpdateManyWithoutUserNestedInput
     company?: CompanyUpdateOneWithoutUserNestedInput
     aiConfig?: AIConfigUpdateOneWithoutUserNestedInput
+    messagingConfig?: MessagingConfigUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRemindersInput = {
@@ -11417,6 +12946,7 @@ export namespace Prisma {
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
     company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     aiConfig?: AIConfigUncheckedUpdateOneWithoutUserNestedInput
+    messagingConfig?: MessagingConfigUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAppointmentsInput = {
@@ -11439,6 +12969,7 @@ export namespace Prisma {
     reminders?: ReminderCreateNestedManyWithoutUserInput
     company?: CompanyCreateNestedOneWithoutUserInput
     aiConfig?: AIConfigCreateNestedOneWithoutUserInput
+    messagingConfig?: MessagingConfigCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAppointmentsInput = {
@@ -11461,6 +12992,7 @@ export namespace Prisma {
     reminders?: ReminderUncheckedCreateNestedManyWithoutUserInput
     company?: CompanyUncheckedCreateNestedOneWithoutUserInput
     aiConfig?: AIConfigUncheckedCreateNestedOneWithoutUserInput
+    messagingConfig?: MessagingConfigUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAppointmentsInput = {
@@ -11499,6 +13031,7 @@ export namespace Prisma {
     reminders?: ReminderUpdateManyWithoutUserNestedInput
     company?: CompanyUpdateOneWithoutUserNestedInput
     aiConfig?: AIConfigUpdateOneWithoutUserNestedInput
+    messagingConfig?: MessagingConfigUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAppointmentsInput = {
@@ -11521,6 +13054,7 @@ export namespace Prisma {
     reminders?: ReminderUncheckedUpdateManyWithoutUserNestedInput
     company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     aiConfig?: AIConfigUncheckedUpdateOneWithoutUserNestedInput
+    messagingConfig?: MessagingConfigUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAiConfigInput = {
@@ -11543,6 +13077,7 @@ export namespace Prisma {
     projects?: ProjectCreateNestedManyWithoutUserInput
     reminders?: ReminderCreateNestedManyWithoutUserInput
     company?: CompanyCreateNestedOneWithoutUserInput
+    messagingConfig?: MessagingConfigCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAiConfigInput = {
@@ -11565,6 +13100,7 @@ export namespace Prisma {
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
     reminders?: ReminderUncheckedCreateNestedManyWithoutUserInput
     company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    messagingConfig?: MessagingConfigUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAiConfigInput = {
@@ -11603,6 +13139,7 @@ export namespace Prisma {
     projects?: ProjectUpdateManyWithoutUserNestedInput
     reminders?: ReminderUpdateManyWithoutUserNestedInput
     company?: CompanyUpdateOneWithoutUserNestedInput
+    messagingConfig?: MessagingConfigUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAiConfigInput = {
@@ -11625,6 +13162,115 @@ export namespace Prisma {
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
     reminders?: ReminderUncheckedUpdateManyWithoutUserNestedInput
     company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    messagingConfig?: MessagingConfigUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutMessagingConfigInput = {
+    id?: string
+    email: string
+    name: string
+    avatarUrl?: string | null
+    title?: string | null
+    bio?: string | null
+    location?: string | null
+    phone?: string | null
+    website?: string | null
+    linkedin?: string | null
+    github?: string | null
+    twitter?: string | null
+    skills?: UserCreateskillsInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    appointments?: AppointmentCreateNestedManyWithoutUserInput
+    projects?: ProjectCreateNestedManyWithoutUserInput
+    reminders?: ReminderCreateNestedManyWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutUserInput
+    aiConfig?: AIConfigCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutMessagingConfigInput = {
+    id?: string
+    email: string
+    name: string
+    avatarUrl?: string | null
+    title?: string | null
+    bio?: string | null
+    location?: string | null
+    phone?: string | null
+    website?: string | null
+    linkedin?: string | null
+    github?: string | null
+    twitter?: string | null
+    skills?: UserCreateskillsInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutUserInput
+    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    aiConfig?: AIConfigUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutMessagingConfigInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMessagingConfigInput, UserUncheckedCreateWithoutMessagingConfigInput>
+  }
+
+  export type UserUpsertWithoutMessagingConfigInput = {
+    update: XOR<UserUpdateWithoutMessagingConfigInput, UserUncheckedUpdateWithoutMessagingConfigInput>
+    create: XOR<UserCreateWithoutMessagingConfigInput, UserUncheckedCreateWithoutMessagingConfigInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMessagingConfigInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMessagingConfigInput, UserUncheckedUpdateWithoutMessagingConfigInput>
+  }
+
+  export type UserUpdateWithoutMessagingConfigInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
+    twitter?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: UserUpdateskillsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appointments?: AppointmentUpdateManyWithoutUserNestedInput
+    projects?: ProjectUpdateManyWithoutUserNestedInput
+    reminders?: ReminderUpdateManyWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutUserNestedInput
+    aiConfig?: AIConfigUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMessagingConfigInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
+    twitter?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: UserUpdateskillsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
+    projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutUserNestedInput
+    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    aiConfig?: AIConfigUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type AppointmentCreateManyUserInput = {

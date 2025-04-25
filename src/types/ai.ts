@@ -1,5 +1,5 @@
 // Tipos para provedores de IA
-export type AIProvider = 'openai' | 'anthropic' | 'groq' | 'openrouter';
+export type AIProvider = 'openai' | 'anthropic' | 'groq' | 'openrouter' | 'evolution';
 
 export type AIModelTier = 'free' | 'basic' | 'standard' | 'premium' | 'enterprise';
 
@@ -54,6 +54,12 @@ export interface UserAIConfig {
       apiKey: string;
       isEnabled: boolean;
       defaultModel?: string;
+    };
+    evolution?: {
+      apiKey: string;
+      baseUrl: string;
+      isEnabled: boolean;
+      defaultInstance?: string;
     };
   };
   createdAt: Date;
@@ -269,6 +275,23 @@ export const OPENROUTER_MODELS: AIModel[] = [
   },
 ];
 
+// Tipos para Evolution API
+export interface EvolutionInstance {
+  id: string;
+  name: string;
+  status: 'connected' | 'disconnected' | 'connecting';
+  number: string;
+}
+
+export const EVOLUTION_INSTANCES: EvolutionInstance[] = [
+  {
+    id: 'default',
+    name: 'Instância Padrão',
+    status: 'disconnected',
+    number: '',
+  },
+];
+
 // Configurações dos provedores
 export const AI_PROVIDERS: AIProviderConfig[] = [
   {
@@ -296,7 +319,8 @@ export const AI_PROVIDERS: AIProviderConfig[] = [
     isEnabled: false,
     models: GROQ_MODELS,
     logoUrl: '/images/ai/groq-logo.svg',
-    description: 'Acesso aos modelos Llama e Mixtral através da Groq, com inferência extremamente rápida.',
+    description:
+      'Acesso aos modelos Llama e Mixtral através da Groq, com inferência extremamente rápida.',
   },
   {
     provider: 'openrouter',
@@ -305,6 +329,18 @@ export const AI_PROVIDERS: AIProviderConfig[] = [
     isEnabled: false,
     models: OPENROUTER_MODELS,
     logoUrl: '/images/ai/openrouter-logo.svg',
-    description: 'Acesso a diversos modelos de IA através de uma única API, incluindo modelos gratuitos.',
+    description:
+      'Acesso a diversos modelos de IA através de uma única API, incluindo modelos gratuitos.',
+  },
+  {
+    provider: 'evolution',
+    name: 'Evolution API',
+    apiKey: '',
+    isEnabled: false,
+    models: [],
+    baseUrl: 'https://api.example.com',
+    logoUrl: '/images/ai/evolution-logo.svg',
+    description:
+      'Integração com a Evolution API v2 para automação de WhatsApp e comunicação com clientes.',
   },
 ];

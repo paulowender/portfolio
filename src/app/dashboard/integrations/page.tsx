@@ -9,6 +9,7 @@ import {
   CalendarDaysIcon,
   CreditCardIcon,
   EnvelopeIcon,
+  ChatBubbleLeftRightIcon,
 } from '@heroicons/react/24/outline';
 
 export default function IntegrationsPage() {
@@ -22,6 +23,15 @@ export default function IntegrationsPage() {
         'Connect to OpenAI, Anthropic, Groq, and OpenRouter to use AI features throughout the application.',
       icon: CpuChipIcon,
       href: '/dashboard/integrations/ai',
+      isAvailable: true,
+      badges: ['New'],
+    },
+    {
+      id: 'evolution',
+      name: 'Evolution API',
+      description: 'Connect to Evolution API v2 for WhatsApp automation and client communication.',
+      icon: ChatBubbleLeftRightIcon,
+      href: '/dashboard/integrations/evolution',
       isAvailable: true,
       badges: ['New'],
     },

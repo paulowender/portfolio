@@ -211,6 +211,17 @@ exports.Prisma.AIConfigScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.MessagingConfigScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  evolutionApiKey: 'evolutionApiKey',
+  evolutionBaseUrl: 'evolutionBaseUrl',
+  evolutionEnabled: 'evolutionEnabled',
+  evolutionInstance: 'evolutionInstance',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -233,7 +244,8 @@ exports.Prisma.ModelName = {
   Project: 'Project',
   Reminder: 'Reminder',
   Appointment: 'Appointment',
-  AIConfig: 'AIConfig'
+  AIConfig: 'AIConfig',
+  MessagingConfig: 'MessagingConfig'
 };
 
 /**

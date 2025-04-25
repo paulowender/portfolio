@@ -9,26 +9,27 @@ datasource db {
 }
 
 model User {
-  id           String        @id @default(uuid())
-  email        String        @unique
-  name         String
-  avatarUrl    String?       @map("avatar_url")
-  title        String?       // Professional title
-  bio          String?       // Short professional bio
-  location     String?       // Location
-  phone        String?       // Contact phone
-  website      String?       // Personal website
-  linkedin     String?       // LinkedIn profile URL
-  github       String?       // GitHub profile URL
-  twitter      String?       // Twitter/X profile URL
-  skills       String[]      // Array of skills
-  createdAt    DateTime      @default(now()) @map("created_at")
-  updatedAt    DateTime      @updatedAt @map("updated_at")
-  appointments Appointment[]
-  projects     Project[]
-  reminders    Reminder[]
-  company      Company?
-  aiConfig     AIConfig?
+  id               String            @id @default(uuid())
+  email            String            @unique
+  name             String
+  avatarUrl        String?           @map("avatar_url")
+  title            String?           // Professional title
+  bio              String?           // Short professional bio
+  location         String?           // Location
+  phone            String?           // Contact phone
+  website          String?           // Personal website
+  linkedin         String?           // LinkedIn profile URL
+  github           String?           // GitHub profile URL
+  twitter          String?           // Twitter/X profile URL
+  skills           String[]          // Array of skills
+  createdAt        DateTime          @default(now()) @map("created_at")
+  updatedAt        DateTime          @updatedAt @map("updated_at")
+  appointments     Appointment[]
+  projects         Project[]
+  reminders        Reminder[]
+  company          Company?
+  aiConfig         AIConfig?
+  messagingConfig  MessagingConfig?
 
   @@map("users")
 }
@@ -126,9 +127,28 @@ model AIConfig {
   openrouterEnabled Boolean @default(false) @map("openrouter_enabled")
   openrouterModel  String?  @map("openrouter_model")
 
+  // Removido: Evolution API configuration (movido para MessagingConfig)
+
   createdAt       DateTime @default(now()) @map("created_at")
   updatedAt       DateTime @updatedAt @map("updated_at")
   user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("ai_configs")
+}
+
+model MessagingConfig {
+  id              String   @id @default(uuid())
+  userId          String   @unique @map("user_id")
+
+  // Evolution API configuration
+  evolutionApiKey    String?  @map("evolution_api_key")
+  evolutionBaseUrl   String?  @map("evolution_base_url")
+  evolutionEnabled   Boolean  @default(false) @map("evolution_enabled")
+  evolutionInstance  String?  @map("evolution_instance")
+
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("messaging_configs")
 }
