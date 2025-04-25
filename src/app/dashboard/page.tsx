@@ -6,6 +6,7 @@ import { useAuth } from '@/lib/AuthContext';
 import Button from '@/components/Button';
 import { FolderIcon, CalendarIcon, BellIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { useProjects } from '@/hooks/usePortfolioQuery';
+import Image from 'next/image';
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -145,7 +146,17 @@ export default function DashboardPage() {
                   <tr key={project.id}>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
-                        <div className="flex-shrink-0 h-10 w-10 bg-gray-700 rounded-md"></div>
+                        <div className="flex-shrink-0 h-10 w-10 bg-gray-700 rounded-md">
+                          {project.imageUrl && (
+                            <Image
+                              width={100}
+                              height={100}
+                              src={project.imageUrl}
+                              alt={project.title}
+                              className="h-10 w-10 object-cover"
+                            />
+                          )}
+                        </div>
                         <div className="ml-4">
                           <div className="text-sm font-medium text-white">{project.title}</div>
                           <div className="text-sm text-gray-400">
