@@ -21,7 +21,9 @@
     "start:staging": "NODE_ENV=production NEXT_PUBLIC_STAGING=true next start",
     "clean": "rm -rf .next",
     "build:clean": "npm run clean && npm run build",
-    "build:production:clean": "npm run clean && npm run build:production"
+    "build:production:clean": "npm run clean && npm run build:production",
+    "start:pm2:production": "pm2 start npm --name \"wender-tech-portfolio\" -- run start:production",
+    "restart:pm2:production": "pm2 restart wender-tech-portfolio"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.2",
@@ -33,6 +35,7 @@
     "framer-motion": "^12.8.0",
     "next": "15.3.1",
     "next-auth": "^4.24.11",
+    "pm2": "^5.3.1",
     "prisma": "^6.6.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

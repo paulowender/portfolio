@@ -122,6 +122,8 @@
 - [x] Create health check endpoint for container monitoring
 - [x] Update Next.js configuration for Docker compatibility
 - [x] Create deployment documentation
+- [x] Add PM2 configuration as an alternative to Docker
+- [x] Create PM2 deployment scripts and documentation
 
 ## Next Steps
 
