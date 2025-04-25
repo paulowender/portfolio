@@ -1,10 +1,8 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/lib/AuthContext';
-import { motion } from 'framer-motion';
 import {
   HomeIcon,
   FolderIcon,
@@ -16,8 +14,11 @@ import {
   ArrowLeftOnRectangleIcon,
 } from '@heroicons/react/24/outline';
 
-export default function DashboardSidebar() {
-  const [expanded, setExpanded] = useState(true);
+interface DashboardSidebarProps {
+  expanded: boolean;
+}
+
+export default function DashboardSidebar({ expanded }: DashboardSidebarProps) {
   const pathname = usePathname();
   const { signOut } = useAuth();
 
@@ -44,37 +45,12 @@ export default function DashboardSidebar() {
     <div
       className={`bg-gray-900 h-screen transition-all duration-300 ${
         expanded ? 'w-64' : 'w-20'
-      } fixed left-0 top-0 z-30`}
+      } fixed left-0 top-0 z-30 transform ease-in-out overflow-y-auto border-r border-gray-800`}
     >
       <div className="flex h-16 items-center justify-between px-4">
         <Link href="/dashboard" className="text-white font-bold text-xl">
           {expanded ? 'Wender Tech' : 'WT'}
         </Link>
-        <button onClick={() => setExpanded(!expanded)} className="text-gray-400 hover:text-white">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            {expanded ? (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M11 19l-7-7 7-7m8 14l-7-7 7-7"
-              />
-            ) : (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M13 5l7 7-7 7M5 5l7 7-7 7"
-              />
-            )}
-          </svg>
-        </button>
       </div>
 
       <nav className="mt-8">
