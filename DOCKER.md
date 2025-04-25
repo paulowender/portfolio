@@ -1,174 +1,162 @@
-# Docker Deployment Guide for Wender Tech Portfolio
+# Guia de Implantação Docker com Portainer para Wender Tech Portfolio
 
-This guide explains how to deploy the Wender Tech Portfolio application using Docker.
+Este guia explica como implantar a aplicação Wender Tech Portfolio usando Docker com Portainer.
 
-## Prerequisites
+## Pré-requisitos
 
-- Docker and Docker Compose installed on your server
-- A domain name pointing to your server (for production deployment)
-- SSL certificate (Let's Encrypt will be used in this guide)
+- Portainer instalado e configurado no seu servidor
+- Um nome de domínio apontando para o seu servidor (para implantação em produção)
+- Certificado SSL (opcional, mas recomendado)
 
-## Deployment Steps
+## Passos para Implantação com Portainer
 
-### 1. Clone the Repository
+### 1. Preparar o Repositório
 
-```bash
-git clone <repository-url>
-cd portfolio
+Certifique-se de que seu repositório Git contém os seguintes arquivos:
+
+- `Dockerfile`
+- `docker-compose.yml`
+- Todos os arquivos do projeto
+
+### 2. Configurar o Stack no Portainer
+
+1. Acesse o Portainer no seu navegador
+2. Navegue até "Stacks" e clique em "Add stack"
+3. Escolha "Git repository" como método de implantação
+4. Insira a URL do seu repositório Git
+5. Defina a referência (branch, tag ou commit)
+6. Defina o caminho para o arquivo docker-compose.yml (geralmente "/docker-compose.yml")
+
+### 3. Configurar Variáveis de Ambiente no Portainer
+
+No Portainer, adicione as seguintes variáveis de ambiente:
+
 ```
-
-### 2. Configure Environment Variables
-
-Create a `.env.production` file based on the provided template:
-
-```bash
-cp .env.production.template .env.production
-```
-
-Edit the `.env.production` file and fill in your actual values:
-
-```
-# Supabase Configuration
+# Configuração do Supabase
 NEXT_PUBLIC_SUPABASE_URL=https://your-supabase-project.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
 
-# Database Connection (for Prisma)
+# Conexão com o Banco de Dados (para Prisma)
 DATABASE_URL=postgresql://postgres.your-project:your-password@aws-0-sa-east-1.pooler.supabase.com:5432/postgres
 
-# Application Configuration
+# Configuração da Aplicação
 NEXT_PUBLIC_APP_URL=https://your-domain.com
-NEXT_PUBLIC_APP_NAME="Wender Tech"
-NEXT_PUBLIC_APP_DESCRIPTION="Portfolio e Gerenciamento de Projetos"
+NEXT_PUBLIC_APP_NAME=Wender Tech
+NEXT_PUBLIC_APP_DESCRIPTION=Portfolio e Gerenciamento de Projetos
 
-# NextAuth Configuration
+# Configuração do NextAuth
 NEXTAUTH_URL=https://your-domain.com
 NEXTAUTH_SECRET=your-nextauth-secret
 
-# Environment
+# Ambiente
 NODE_ENV=production
 NEXT_PUBLIC_PRODUCTION=true
 ```
 
-### 3. Use the Deployment Script (Recommended)
+### 4. Implantar o Stack
 
-We've provided a deployment script that automates the process:
+Depois de configurar as variáveis de ambiente, clique em "Deploy the stack" para iniciar a implantação.
 
-```bash
-./deploy.sh
-```
+O Portainer irá:
 
-The script will:
+1. Clonar o repositório Git
+2. Construir a imagem Docker usando o Dockerfile
+3. Iniciar o contêiner com as variáveis de ambiente configuradas
+4. Expor a porta configurada (3000 por padrão)
 
-1. Check for the required files and dependencies
-2. Build and start the Docker containers
-3. Verify that the containers are running
-4. Optionally set up SSL with Let's Encrypt if you provide a domain name
+### 5. Configurar Proxy Reverso (Opcional)
 
-### 4. Manual Deployment (Alternative)
+Para expor sua aplicação com um domínio personalizado e SSL:
 
-If you prefer to deploy manually, follow these steps:
+1. Configure um proxy reverso (Nginx, Traefik, etc.) no seu servidor
+2. Aponte o proxy para o contêiner da aplicação na porta 3000
+3. Configure o SSL usando Let's Encrypt ou outro provedor de certificados
 
-#### Configure Nginx for Your Domain
+### 6. Verificar a Implantação
 
-Edit the `nginx/conf/app.conf` file and replace `localhost` with your actual domain name.
+1. No Portainer, verifique se o contêiner está em execução na seção "Containers"
+2. Verifique os logs do contêiner para identificar possíveis erros
+3. Acesse a aplicação através do navegador usando o IP do servidor e a porta exposta ou o domínio configurado
 
-#### Set Up SSL Certificates
+### 7. Atualizar a Aplicação
 
-Edit the `init-letsencrypt.sh` script and replace:
+Para atualizar a aplicação:
 
-- `your-domain.com` with your actual domain
-- `www.your-domain.com` with your www subdomain if needed
-- Verify the email address is correct
+1. Faça push das alterações para o repositório Git
+2. No Portainer, vá para o stack da aplicação
+3. Clique em "Pull and redeploy" para atualizar com as últimas alterações
 
-Run the script to set up SSL certificates:
+## Manutenção no Portainer
 
-```bash
-sudo ./init-letsencrypt.sh
-```
+### Visualizando Logs
 
-#### Build and Start the Docker Containers
+No Portainer:
 
-```bash
-docker-compose down
-docker-compose build --no-cache
-docker-compose up -d
-```
+1. Vá para a seção "Containers"
+2. Encontre o contêiner da sua aplicação
+3. Clique no ícone de logs para visualizar os logs em tempo real
 
-This will:
+### Reiniciando o Contêiner
 
-- Build the Next.js application with your environment variables
-- Start the application container
-- Start Nginx as a reverse proxy with SSL
-- Set up automatic SSL certificate renewal
+Se precisar reiniciar o contêiner:
 
-### 5. Verify the Deployment
+1. Vá para a seção "Containers"
+2. Encontre o contêiner da sua aplicação
+3. Clique no ícone de restart
 
-Visit your domain in a browser to verify the application is running correctly.
+### Atualizando a Aplicação
 
-You can also check the health of the application by visiting:
+Para atualizar a aplicação:
 
-```
-https://your-domain.com/api/check-env
-```
+1. Faça push das alterações para o repositório Git
+2. No Portainer, vá para o stack da aplicação
+3. Clique em "Pull and redeploy" para atualizar com as últimas alterações
 
-## Maintenance
+### Parando a Aplicação
 
-### Viewing Logs
+Para parar a aplicação:
 
-```bash
-# View all logs
-docker-compose logs
+1. Vá para a seção "Stacks"
+2. Encontre o stack da sua aplicação
+3. Clique em "Stop" para parar todos os contêineres do stack
 
-# View only app logs
-docker-compose logs app
+## Solução de Problemas
 
-# Follow logs in real-time
-docker-compose logs -f
-```
+### Contêiner Não Inicia
 
-### Updating the Application
+Verifique os logs no Portainer para identificar erros:
 
-To update the application with new code:
+1. Vá para a seção "Containers"
+2. Encontre o contêiner da sua aplicação
+3. Clique no ícone de logs para visualizar os logs
 
-```bash
-# Pull the latest code
-git pull
+### Problemas com Variáveis de Ambiente
 
-# Rebuild and restart the containers
-docker-compose up -d --build
-```
+Se você vir erros relacionados ao Supabase ou outras variáveis de ambiente:
 
-### Stopping the Application
+1. Verifique se todas as variáveis de ambiente necessárias estão configuradas no Portainer
+2. Certifique-se de que os valores estão corretos (URLs, chaves, etc.)
+3. Reinicie o contêiner após fazer alterações nas variáveis de ambiente
 
-```bash
-docker-compose down
-```
+### Verificando Variáveis de Ambiente no Contêiner
 
-## Troubleshooting
+Para verificar as variáveis de ambiente dentro do contêiner:
 
-### Container Not Starting
+1. Vá para a seção "Containers" no Portainer
+2. Clique no contêiner da aplicação
+3. Vá para a aba "Console"
+4. Execute o comando: `env | grep NEXT_PUBLIC`
 
-Check the logs for errors:
+### Problemas de Conexão com o Banco de Dados
 
-```bash
-docker-compose logs app
-```
+1. Verifique se a variável `DATABASE_URL` está correta
+2. Certifique-se de que o IP do servidor onde o contêiner está rodando está permitido no painel do Supabase
+3. Verifique se o banco de dados está acessível a partir do servidor
 
-### SSL Certificate Issues
+## Considerações de Segurança
 
-If you encounter SSL certificate issues, you can force renewal:
-
-```bash
-docker-compose run --rm certbot certonly --webroot -w /var/www/certbot --force-renewal -d your-domain.com -d www.your-domain.com
-docker-compose exec nginx nginx -s reload
-```
-
-### Database Connection Issues
-
-Verify your DATABASE_URL is correct and that your IP is allowed in the Supabase dashboard.
-
-## Security Considerations
-
-- The `.env.production` file contains sensitive information. Make sure it's not committed to version control.
-- Regularly update your Docker images to get security patches.
-- Consider setting up a firewall to restrict access to your server.
+- Mantenha as variáveis de ambiente seguras no Portainer
+- Atualize regularmente suas imagens Docker para obter patches de segurança
+- Configure um firewall para restringir o acesso ao seu servidor
+- Use HTTPS para todas as comunicações externas
+- Considere usar secrets do Docker para informações sensíveis em vez de variáveis de ambiente
