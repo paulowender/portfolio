@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { useAuth } from '@/lib/AuthContext';
 import {
   CpuChipIcon,
   ArrowRightIcon,
@@ -13,8 +12,6 @@ import {
 } from '@heroicons/react/24/outline';
 
 export default function IntegrationsPage() {
-  const { user } = useAuth();
-
   const integrations = [
     {
       id: 'ai',

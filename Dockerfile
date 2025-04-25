@@ -44,6 +44,10 @@ RUN npx prisma generate
 ENV NEXT_TELEMETRY_DISABLED 1
 
 # Build the application
+# Use a dummy URL during build to prevent errors with Supabase client
+# The real URL will be used at runtime from environment variables
+ENV NEXT_PUBLIC_SUPABASE_URL=https://placeholder-for-build-time.supabase.co
+ENV NEXT_PUBLIC_SUPABASE_ANON_KEY=placeholder-for-build-time
 RUN npm run build:production:clean
 
 # Production image, copy all the files and run next

@@ -147,6 +147,14 @@ const nextConfig = {
   // Configuração para Docker deployment
   output: 'standalone',
 
+  // Disable static page generation for dashboard pages
+  // This prevents build-time errors with Supabase client
+  experimental: {
+    // This will make all dashboard pages be server-side rendered at runtime
+    // instead of being statically generated at build time
+    serverComponentsExternalPackages: ['@supabase/supabase-js'],
+  },
+
   // Otimizações de imagem
   images: {
     domains: [
