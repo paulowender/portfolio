@@ -77,6 +77,9 @@
 - [x] Optimize authentication flow with React Query
 - [x] Implement proper loading states and error handling
 - [x] Fix issues with direct route access (e.g., /profile)
+- [x] Implement Axios with interceptors for API calls
+- [x] Fix image upload issues with proper storage paths
+- [x] Improve error handling for API requests
 
 ### Landing Page & Profile Management
 
