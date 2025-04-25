@@ -106,7 +106,7 @@ export default function ProjectsSection({ innerRef }: ProjectsSectionProps) {
                         rel="noopener noreferrer"
                         className="text-indigo-400 hover:text-indigo-300 text-sm"
                       >
-                        Ver Demo
+                        Acessar
                       </a>
                     )}
                     {project.githubUrl && (
