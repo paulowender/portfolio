@@ -40,6 +40,8 @@ export async function GET(request: Request) {
         github: user.github,
         twitter: user.twitter,
         website: user.website,
+        phone: user.phone,
+        email: user.email,
       },
       company: user.company
         ? {
@@ -52,6 +54,9 @@ export async function GET(request: Request) {
             services: user.company.services,
             logo: user.company.logo,
             website: user.company.website,
+            address: user.company.address,
+            phone: user.company.phone,
+            email: user.company.email,
           }
         : null,
       featuredProjects: projects,

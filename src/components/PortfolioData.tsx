@@ -16,6 +16,8 @@ export type User = {
   github?: string;
   twitter?: string;
   website?: string;
+  phone?: string;
+  email?: string;
 };
 
 export type Company = {

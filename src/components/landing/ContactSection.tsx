@@ -34,21 +34,46 @@ export default function ContactSection() {
     e.preventDefault();
     setSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setFormStatus({
+          submitted: true,
+          success: true,
+          message: data.message || 'Mensagem enviada com sucesso! Entraremos em contato em breve.',
+        });
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: '',
+        });
+      } else {
+        setFormStatus({
+          submitted: true,
+          success: false,
+          message: data.error || 'Erro ao enviar mensagem. Por favor, tente novamente mais tarde.',
+        });
+      }
+    } catch (error) {
+      console.error('Error submitting contact form:', error);
       setFormStatus({
         submitted: true,
-        success: true,
-        message: 'Mensagem enviada com sucesso! Entraremos em contato em breve.',
+        success: false,
+        message: 'Erro ao enviar mensagem. Por favor, tente novamente mais tarde.',
       });
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-      });
+    } finally {
       setSubmitting(false);
-    }, 1500);
+    }
   };
 
   return (
@@ -63,7 +88,8 @@ export default function ContactSection() {
         >
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">Entre em Contato</h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            Tem um projeto em mente? Vamos conversar sobre como podemos ajudar a transformar suas ideias em realidade.
+            Tem um projeto em mente? Vamos conversar sobre como podemos ajudar a transformar suas
+            ideias em realidade.
           </p>
         </motion.div>
 
@@ -77,80 +103,84 @@ export default function ContactSection() {
           >
             <div className="bg-gray-800 rounded-lg p-8">
               <h3 className="text-2xl font-bold mb-6">Informações de Contato</h3>
-              
+
               <div className="space-y-6">
-                {(portfolioData?.company?.address || loading) && (
-                  <div className="flex items-start">
-                    <div className="bg-indigo-600/20 p-3 rounded-lg mr-4">
-                      <FaMapMarkerAlt className="h-6 w-6 text-indigo-400" />
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-medium mb-1">Endereço</h4>
-                      {loading ? (
-                        <div className="h-6 bg-gray-700 animate-pulse rounded w-full"></div>
-                      ) : (
-                        <p className="text-gray-400">{portfolioData?.company?.address}</p>
-                      )}
-                    </div>
+                <div className="flex items-start">
+                  <div className="bg-indigo-600/20 p-3 rounded-lg mr-4">
+                    <FaMapMarkerAlt className="h-6 w-6 text-indigo-400" />
                   </div>
-                )}
-                
-                {(portfolioData?.company?.phone || loading) && (
-                  <div className="flex items-start">
-                    <div className="bg-indigo-600/20 p-3 rounded-lg mr-4">
-                      <FaPhone className="h-6 w-6 text-indigo-400" />
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-medium mb-1">Telefone</h4>
-                      {loading ? (
-                        <div className="h-6 bg-gray-700 animate-pulse rounded w-full"></div>
-                      ) : (
-                        <p className="text-gray-400">{portfolioData?.company?.phone}</p>
-                      )}
-                    </div>
+                  <div>
+                    <h4 className="text-lg font-medium mb-1">Endereço</h4>
+                    {loading ? (
+                      <div className="h-6 bg-gray-700 animate-pulse rounded w-full"></div>
+                    ) : (
+                      <p className="text-gray-400">
+                        {portfolioData?.company?.address || 'Endereço não informado'}
+                      </p>
+                    )}
                   </div>
-                )}
-                
-                {(portfolioData?.company?.email || loading) && (
-                  <div className="flex items-start">
-                    <div className="bg-indigo-600/20 p-3 rounded-lg mr-4">
-                      <FaEnvelope className="h-6 w-6 text-indigo-400" />
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-medium mb-1">Email</h4>
-                      {loading ? (
-                        <div className="h-6 bg-gray-700 animate-pulse rounded w-full"></div>
-                      ) : (
-                        <p className="text-gray-400">{portfolioData?.company?.email}</p>
-                      )}
-                    </div>
+                </div>
+
+                <div className="flex items-start">
+                  <div className="bg-indigo-600/20 p-3 rounded-lg mr-4">
+                    <FaPhone className="h-6 w-6 text-indigo-400" />
                   </div>
-                )}
-                
-                {(portfolioData?.company?.website || loading) && (
-                  <div className="flex items-start">
-                    <div className="bg-indigo-600/20 p-3 rounded-lg mr-4">
-                      <FaGlobe className="h-6 w-6 text-indigo-400" />
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-medium mb-1">Website</h4>
-                      {loading ? (
-                        <div className="h-6 bg-gray-700 animate-pulse rounded w-full"></div>
-                      ) : (
-                        <p className="text-gray-400">
-                          <a 
-                            href={portfolioData?.company?.website} 
-                            target="_blank" 
+                  <div>
+                    <h4 className="text-lg font-medium mb-1">Telefone</h4>
+                    {loading ? (
+                      <div className="h-6 bg-gray-700 animate-pulse rounded w-full"></div>
+                    ) : (
+                      <p className="text-gray-400">
+                        {portfolioData?.company?.phone || 'Telefone não informado'}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="flex items-start">
+                  <div className="bg-indigo-600/20 p-3 rounded-lg mr-4">
+                    <FaEnvelope className="h-6 w-6 text-indigo-400" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-medium mb-1">Email</h4>
+                    {loading ? (
+                      <div className="h-6 bg-gray-700 animate-pulse rounded w-full"></div>
+                    ) : (
+                      <p className="text-gray-400">
+                        {portfolioData?.company?.email ||
+                          portfolioData?.user?.email ||
+                          'Email não informado'}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="flex items-start">
+                  <div className="bg-indigo-600/20 p-3 rounded-lg mr-4">
+                    <FaGlobe className="h-6 w-6 text-indigo-400" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-medium mb-1">Website</h4>
+                    {loading ? (
+                      <div className="h-6 bg-gray-700 animate-pulse rounded w-full"></div>
+                    ) : (
+                      <p className="text-gray-400">
+                        {portfolioData?.company?.website ? (
+                          <a
+                            href={portfolioData.company.website}
+                            target="_blank"
                             rel="noopener noreferrer"
                             className="hover:text-indigo-400 transition-colors"
                           >
-                            {portfolioData?.company?.website}
+                            {portfolioData.company.website}
                           </a>
-                        </p>
-                      )}
-                    </div>
+                        ) : (
+                          'Website não informado'
+                        )}
+                      </p>
+                    )}
                   </div>
-                )}
+                </div>
               </div>
             </div>
           </motion.div>
@@ -164,13 +194,15 @@ export default function ContactSection() {
           >
             <div className="bg-gray-800 rounded-lg p-8">
               <h3 className="text-2xl font-bold mb-6">Envie uma Mensagem</h3>
-              
+
               {formStatus.submitted ? (
-                <div className={`p-4 rounded-lg mb-6 ${formStatus.success ? 'bg-green-900/50 text-green-200' : 'bg-red-900/50 text-red-200'}`}>
+                <div
+                  className={`p-4 rounded-lg mb-6 ${formStatus.success ? 'bg-green-900/50 text-green-200' : 'bg-red-900/50 text-red-200'}`}
+                >
                   {formStatus.message}
                 </div>
               ) : null}
-              
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>

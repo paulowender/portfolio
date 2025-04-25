@@ -28,9 +28,11 @@ export default function AboutSection() {
               </>
             ) : (
               <>
-                <h2 className="text-3xl sm:text-4xl font-bold mb-6">Sobre a {portfolioData?.company?.name || 'Wender Tech'}</h2>
+                <h2 className="text-3xl sm:text-4xl font-bold mb-6">
+                  Sobre a {portfolioData?.company?.name || 'Wender Tech'}
+                </h2>
                 <p className="text-gray-300 mb-4">
-                  {portfolioData?.company?.description || 
+                  {portfolioData?.company?.description ||
                     'Somos uma empresa especializada em desenvolvimento de software, focada em criar soluções digitais de alta qualidade para empresas e startups.'}
                 </p>
                 {portfolioData?.company?.mission && (
@@ -44,7 +46,10 @@ export default function AboutSection() {
                   </p>
                 )}
                 <p className="text-gray-300 mb-6">
-                  {portfolioData?.company?.founded && `Fundada em ${portfolioData.company.founded}, a`} {portfolioData?.company?.name || 'Wender Tech'} tem se destacado no mercado por entregar projetos de qualidade, dentro do prazo e com excelente custo-benefício.
+                  {portfolioData?.company?.founded &&
+                    `Fundada em ${portfolioData.company.founded}, a`}{' '}
+                  {portfolioData?.company?.name || 'Wender Tech'} tem se destacado no mercado por
+                  entregar projetos de qualidade, dentro do prazo e com excelente custo-benefício.
                 </p>
               </>
             )}
@@ -68,9 +73,9 @@ export default function AboutSection() {
               </div>
             ) : (
               <div className="w-full h-full bg-gray-800 flex items-center justify-center">
-                <img 
-                  src={portfolioData.company.logo} 
-                  alt={`${portfolioData.company.name} Logo`} 
+                <img
+                  src={portfolioData.company.logo}
+                  alt={`${portfolioData.company.name} Logo`}
                   className="max-w-full max-h-full object-contain p-8"
                 />
               </div>
