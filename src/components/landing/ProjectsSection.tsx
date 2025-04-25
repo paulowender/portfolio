@@ -13,6 +13,8 @@ interface ProjectsSectionProps {
 export default function ProjectsSection({ innerRef }: ProjectsSectionProps) {
   const { portfolioData, loading } = usePortfolio();
 
+  const featuredProjects = portfolioData?.featuredProjects?.toReversed() || [];
+
   return (
     <section ref={innerRef} id="projects" className="py-20 bg-gray-800">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -37,7 +39,7 @@ export default function ProjectsSection({ innerRef }: ProjectsSectionProps) {
               .map((_, index) => (
                 <div
                   key={index}
-                  className="bg-gray-800 rounded-lg overflow-hidden shadow-lg animate-pulse"
+                  className="bg-gray-800 rounded-lg overflow-hidden shadow-lg animate-pulse border border-gray-700"
                 >
                   <div className="h-48 bg-gray-700"></div>
                   <div className="p-6">
@@ -53,15 +55,15 @@ export default function ProjectsSection({ innerRef }: ProjectsSectionProps) {
                   </div>
                 </div>
               ))
-          ) : portfolioData?.featuredProjects && portfolioData.featuredProjects.length > 0 ? (
-            portfolioData.featuredProjects.map((project, index) => (
+          ) : featuredProjects.length > 0 ? (
+            featuredProjects.map((project, index) => (
               <motion.div
                 key={project.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300"
+                className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-gray-700 hover:border-indigo-600 hover:scale-105 transition-transform duration-300"
               >
                 <div className="h-48 bg-gray-700 relative">
                   {project.imageUrl ? (
@@ -132,7 +134,7 @@ export default function ProjectsSection({ innerRef }: ProjectsSectionProps) {
           )}
         </div>
 
-        {portfolioData?.featuredProjects && portfolioData.featuredProjects.length > 0 && (
+        {featuredProjects.length > 0 && (
           <div className="mt-12 text-center">
             <Button variant="outline">
               <Link href="/login">Ver Todos os Projetos</Link>

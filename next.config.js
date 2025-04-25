@@ -5,7 +5,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const withPWA = require('next-pwa')({
   dest: 'public',
-  disable: process.env.NODE_ENV === 'development',
+  disable: false,
+  // disable: process.env.NODE_ENV === 'development',
   register: true,
   skipWaiting: true,
   runtimeCaching: [
@@ -150,9 +151,10 @@ const nextConfig = {
   // Otimizações de imagem
   images: {
     domains: [
-      'ryotetscdbdqmzdfbpon.supabase.co', // Domínio do Supabase Storage
-      'wwxyvknhjtdmfunslpqi.supabase.co', // Novo domínio do Supabase Storage
-      'images.unsplash.com', // Para imagens de exemplo
+      'ryotetscdbdqmzdfbpon.supabase.co',
+      'wwxyvknhjtdmfunslpqi.supabase.co',
+      'images.unsplash.com',
+      'pps.whatsapp.net',
     ],
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 60, // Cache de imagens por 60 segundos
@@ -160,6 +162,9 @@ const nextConfig = {
 
   // Compressão de arquivos estáticos
   compress: true,
+
+  // Configuração para produção
+  // output: 'standalone',
 
   // Otimizações de produção
   productionBrowserSourceMaps: false, // Desabilitar source maps em produção para reduzir o tamanho do bundle
@@ -172,44 +177,11 @@ const nextConfig = {
     pagesBufferLength: 4,
   },
 
-  // Otimizações de webpack
-  webpack: (config, { dev, isServer }) => {
-    // Otimizações apenas para produção
-    if (!dev) {
-      // Dividir o bundle em chunks menores
-      config.optimization.splitChunks = {
-        chunks: 'all',
-        maxInitialRequests: 25,
-        minSize: 20000,
-        cacheGroups: {
-          default: false,
-          vendors: false,
-          // Vendor chunk para bibliotecas comuns
-          vendor: {
-            name: 'vendor',
-            chunks: 'all',
-            test: /[\\/]node_modules[\\/]/,
-            priority: 20,
-          },
-          // Chunk comum para código compartilhado
-          common: {
-            name: 'common',
-            minChunks: 2,
-            chunks: 'async',
-            priority: 10,
-            reuseExistingChunk: true,
-            enforce: true,
-          },
-        },
-      };
-    }
+  // Desabilitar PWA
 
-    return config;
-  },
-
-  // Configurações de ambiente
   env: {
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+    NEXT_PWA_DISABLE: 'true',
   },
 
   // Configurações de headers HTTP
@@ -242,8 +214,24 @@ const nextConfig = {
 
   // Configurações de reescrita
   async rewrites() {
-    return [];
+    return [
+      {
+        source: '/:path*/_rsc/:params*',
+        destination: '/api/rsc-handler',
+      },
+      {
+        // Usando a nova sintaxe para capturar parâmetros de consulta
+        source: '/:path*',
+        has: [
+          {
+            type: 'query',
+            key: '_rsc',
+          },
+        ],
+        destination: '/api/rsc-handler',
+      },
+    ];
   },
 };
 
-module.exports = withBundleAnalyzer(withPWA(nextConfig));
+module.exports = withBundleAnalyzer(nextConfig);

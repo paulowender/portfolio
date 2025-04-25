@@ -14,17 +14,20 @@ export default function HeroSection({ scrollToProjects }: HeroSectionProps) {
   const { portfolioData, loading } = usePortfolio();
 
   return (
-    <ParallaxSection bgImage="/images/hero-bg.jpg" className="h-screen flex items-center">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <ParallaxSection
+      bgImage="/images/hero-bg.jpg"
+      className="h-screen flex flex-col justify-center items-center"
+    >
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="max-w-3xl"
+          className="max-w-3xl mx-auto"
         >
           {loading ? (
             <>
-              <div className="h-12 w-3/4 bg-gray-700 animate-pulse rounded-md mb-6"></div>
+              <div className="h-12 w-3/4 bg-gray-700 animate-pulse rounded-md mb-6 mx-auto"></div>
               <div className="h-24 bg-gray-700 animate-pulse rounded-md mb-8"></div>
             </>
           ) : (
@@ -38,7 +41,7 @@ export default function HeroSection({ scrollToProjects }: HeroSectionProps) {
               </p>
             </>
           )}
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" onClick={scrollToProjects}>
               Ver Projetos
             </Button>
@@ -58,7 +61,7 @@ export default function HeroSection({ scrollToProjects }: HeroSectionProps) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 1 }}
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+        className="flex justify-center items-center mt-8"
       >
         <button onClick={scrollToProjects} className="text-white animate-bounce">
           <FaArrowDown className="h-6 w-6" />

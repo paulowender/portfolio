@@ -73,7 +73,7 @@ export default function ServicesSection() {
                 .map((_, index) => (
                   <div
                     key={index}
-                    className="bg-gray-800 p-6 rounded-lg text-center animate-pulse"
+                    className="bg-gray-800 p-6 rounded-lg text-center animate-pulse border border-gray-700"
                   >
                     <div className="bg-indigo-600/20 w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center">
                       <div className="w-8 h-8 bg-gray-700 rounded-full"></div>
@@ -89,7 +89,7 @@ export default function ServicesSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-gray-800 p-6 rounded-lg text-center"
+                  className="bg-gray-700/30 p-6 rounded-lg text-center border border-gray-700 hover:border-indigo-600 hover:scale-105 transition-transform duration-300"
                 >
                   <div className="bg-indigo-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                     {service.icon}

@@ -380,7 +380,6 @@ export function usePortfolioData() {
         // Não precisamos de autenticação para esta rota, mas o Axios vai lidar com isso
         const response = await axiosClient.get('/api/portfolio-data');
 
-        console.log('Portfolio data fetched successfully');
         return response.data;
       } catch (error: any) {
         console.error('Error fetching portfolio data:', error);

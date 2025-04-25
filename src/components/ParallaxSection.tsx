@@ -24,7 +24,7 @@ export default function ParallaxSection({
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ['start end', 'end start'],
+    offset: ['start start', 'end start'],
   });
 
   const y = useTransform(scrollYProgress, [0, 1], ['0%', `${speed * 100}%`]);
