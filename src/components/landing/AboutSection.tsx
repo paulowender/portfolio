@@ -5,6 +5,7 @@ import { usePortfolio } from '@/components/PortfolioData';
 import Button from '@/components/Button';
 import ParallaxSection from '@/components/ParallaxSection';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function AboutSection() {
   const { portfolioData, loading } = usePortfolio();
@@ -72,8 +73,10 @@ export default function AboutSection() {
                 <span className="text-gray-500">Logo da Empresa</span>
               </div>
             ) : (
-              <div className="w-full h-full bg-gray-800 flex items-center justify-center">
-                <img
+              <div className="w-full h-full bg-gray-900 flex items-center justify-center">
+                <Image
+                  width={1080}
+                  height={1080}
                   src={portfolioData.company.logo}
                   alt={`${portfolioData.company.name} Logo`}
                   className="max-w-full max-h-full object-contain p-8"

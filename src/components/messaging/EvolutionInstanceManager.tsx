@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { EvolutionInstance } from '@/types/messaging';
 import Button from '@/components/Button';
 import { XMarkIcon, PlusIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
+import Image from 'next/image';
 
 interface EvolutionInstanceManagerProps {
   instances: EvolutionInstance[];
@@ -172,7 +173,9 @@ export default function EvolutionInstanceManager({
                 <div className="flex justify-between items-start mb-2">
                   <div className="flex items-center">
                     {instance.picture && (
-                      <img
+                      <Image
+                        width={40}
+                        height={40}
                         src={instance.picture}
                         alt="Instance Picture"
                         className="w-10 h-10 rounded-full mr-3"

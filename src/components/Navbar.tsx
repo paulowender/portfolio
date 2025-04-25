@@ -7,6 +7,7 @@ import { useAuth } from '@/lib/AuthContext';
 import { motion } from 'framer-motion';
 import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import Image from 'next/image';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -56,7 +57,13 @@ export default function Navbar() {
                       href="/"
                       className="text-white font-bold text-xl flex flex-row items-center"
                     >
-                      <img className="h-8 w-auto" src="/logo.png" alt="Wender Tech Logo" />
+                      <Image
+                        className="h-8 w-auto"
+                        width={32}
+                        height={32}
+                        src="/logo.png"
+                        alt="Wender Tech Logo"
+                      />
                       Wender Tech
                     </Link>
                   </motion.div>

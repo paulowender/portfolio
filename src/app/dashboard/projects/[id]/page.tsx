@@ -8,7 +8,8 @@ import { fetchProject, updateProjectApi } from '@/lib/api-client';
 import { uploadProjectImage, deleteProjectImage } from '@/lib/projects';
 import Button from '@/components/Button';
 import TagInput from '@/components/TagInput';
-import { XMarkIcon, ArrowUpTrayIcon } from '@heroicons/react/24/outline';
+import { ArrowUpTrayIcon } from '@heroicons/react/24/outline';
+import Image from 'next/image';
 
 export default function EditProjectPage({ params }: { params: Promise<{ id: string }> }) {
   const { user } = useAuth();
@@ -298,7 +299,9 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
             <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-600 border-dashed rounded-md">
               {imagePreview ? (
                 <div className="space-y-2 text-center">
-                  <img
+                  <Image
+                    width={1920}
+                    height={1080}
                     src={imagePreview}
                     alt="Preview"
                     className="mx-auto h-32 w-auto object-cover rounded-md"

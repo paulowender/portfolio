@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { uploadProjectImage } from '@/lib/projects';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/lib/supabase';
+import Image from 'next/image';
 
 export default function TestUploadPage() {
   const { user } = useAuth();
@@ -138,7 +139,13 @@ export default function TestUploadPage() {
         <div className="mb-6">
           <p className="mb-2">Uploaded successfully:</p>
           <div className="border border-gray-300 rounded p-4">
-            <img src={uploadedUrl} alt="Uploaded" className="max-w-full h-auto max-h-64" />
+            <Image
+              width={1920}
+              height={1080}
+              src={uploadedUrl}
+              alt="Uploaded"
+              className="max-w-full h-auto max-h-64"
+            />
             <p className="mt-2 text-sm break-all">{uploadedUrl}</p>
           </div>
         </div>

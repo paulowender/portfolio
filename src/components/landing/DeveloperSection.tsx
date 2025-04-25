@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { usePortfolio } from '@/components/PortfolioData';
 import { FaLinkedin, FaGithub, FaTwitter, FaGlobe } from 'react-icons/fa';
+import Image from 'next/image';
 
 export default function DeveloperSection() {
   const { portfolioData, loading } = usePortfolio();
@@ -35,7 +36,9 @@ export default function DeveloperSection() {
               {loading || !portfolioData?.user?.avatarUrl ? (
                 <div className="w-full h-full bg-gray-700 animate-pulse"></div>
               ) : (
-                <img
+                <Image
+                  width={256}
+                  height={256}
                   src={portfolioData.user.avatarUrl}
                   alt={portfolioData.user.name}
                   className="w-full h-full object-cover"
@@ -60,7 +63,9 @@ export default function DeveloperSection() {
             ) : (
               <>
                 <h3 className="text-2xl font-bold mb-2">{portfolioData?.user?.name || 'Wender'}</h3>
-                <p className="text-indigo-400 text-xl mb-6">{portfolioData?.user?.title || 'Desenvolvedor Full Stack'}</p>
+                <p className="text-indigo-400 text-xl mb-6">
+                  {portfolioData?.user?.title || 'Desenvolvedor Full Stack'}
+                </p>
                 <p className="text-gray-300 mb-6">
                   {portfolioData?.user?.bio ||
                     'Desenvolvedor apaixonado por criar soluções digitais de alta qualidade. Com experiência em desenvolvimento web e mobile, estou sempre em busca de novos desafios e aprendizados.'}
@@ -80,14 +85,16 @@ export default function DeveloperSection() {
                           className="px-3 py-1 bg-gray-700 animate-pulse rounded-full w-20 h-8"
                         ></div>
                       ))
-                  : (portfolioData?.user?.skills || [
-                      'React',
-                      'Next.js',
-                      'Node.js',
-                      'TypeScript',
-                      'Tailwind CSS',
-                      'MongoDB',
-                    ]).map((skill, index) => (
+                  : (
+                      portfolioData?.user?.skills || [
+                        'React',
+                        'Next.js',
+                        'Node.js',
+                        'TypeScript',
+                        'Tailwind CSS',
+                        'MongoDB',
+                      ]
+                    ).map((skill, index) => (
                       <span
                         key={index}
                         className="px-3 py-1 bg-indigo-900/50 text-indigo-300 rounded-full"

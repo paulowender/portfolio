@@ -14,6 +14,7 @@ import { AIProvider } from '@/types/ai';
 import Button from '@/components/Button';
 import TagInput from '@/components/TagInput';
 import { ArrowUpTrayIcon, SparklesIcon } from '@heroicons/react/24/outline';
+import Image from 'next/image';
 
 export default function ProfilePage() {
   const { user } = useAuth();
@@ -272,7 +273,9 @@ export default function ProfilePage() {
               <div className="flex items-start space-x-6">
                 <div className="w-32 h-32 bg-gray-700 rounded-lg overflow-hidden flex items-center justify-center">
                   {imagePreview ? (
-                    <img
+                    <Image
+                      width={400}
+                      height={400}
                       src={imagePreview}
                       alt="Profile preview"
                       className="w-full h-full object-cover"

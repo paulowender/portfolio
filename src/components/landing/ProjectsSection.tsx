@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { usePortfolio } from '@/components/PortfolioData';
 import Button from '@/components/Button';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface ProjectsSectionProps {
   innerRef?: React.RefObject<HTMLElement | null>;
@@ -64,8 +65,10 @@ export default function ProjectsSection({ innerRef }: ProjectsSectionProps) {
               >
                 <div className="h-48 bg-gray-700 relative">
                   {project.imageUrl ? (
-                    <img
+                    <Image
                       src={project.imageUrl}
+                      width={1920}
+                      height={1080}
                       alt={project.title}
                       className="w-full h-full object-cover"
                     />

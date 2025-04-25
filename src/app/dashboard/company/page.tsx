@@ -8,6 +8,7 @@ import { getCompanyProfile, updateCompanyProfile } from '@/lib/api-client';
 import { uploadCompanyLogo } from '@/lib/profile';
 import Button from '@/components/Button';
 import { ArrowUpTrayIcon } from '@heroicons/react/24/outline';
+import Image from 'next/image';
 
 export default function CompanyPage() {
   const { user } = useAuth();
@@ -223,7 +224,9 @@ export default function CompanyPage() {
               <div className="flex items-start space-x-6">
                 <div className="w-32 h-32 bg-gray-700 rounded-lg overflow-hidden flex items-center justify-center">
                   {logoPreview ? (
-                    <img
+                    <Image
+                      width={400}
+                      height={400}
                       src={logoPreview}
                       alt="Company logo preview"
                       className="w-full h-full object-contain"

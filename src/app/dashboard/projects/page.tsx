@@ -7,6 +7,7 @@ import { useAuth } from '@/lib/AuthContext';
 import { fetchProjects, deleteProjectApi } from '@/lib/api-client';
 import Button from '@/components/Button';
 import { PlusIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
+import Image from 'next/image';
 
 export default function ProjectsPage() {
   const { user } = useAuth();
@@ -164,9 +165,11 @@ export default function ProjectsPage() {
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <div className="flex-shrink-0 h-10 w-10 bg-gray-700 rounded-md overflow-hidden">
-                        {project.image_url && (
-                          <img
-                            src={project.image_url}
+                        {project.imageUrl && (
+                          <Image
+                            width={100}
+                            height={100}
+                            src={project.imageUrl}
                             alt={project.title}
                             className="h-10 w-10 object-cover"
                           />
