@@ -28,6 +28,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
+      <head>
+        <meta name="apple-mobile-web-app-title" content="WenderTech" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased dark:bg-gray-900 dark:text-white`}
       >
