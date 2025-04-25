@@ -13,7 +13,13 @@ interface UseAIOptions {
   maxTokens?: number;
 }
 
-export function useAI({ userId, provider, model, temperature = 0.7, maxTokens = 1000 }: UseAIOptions) {
+export function useAI({
+  userId,
+  provider,
+  model,
+  temperature = 0.7,
+  maxTokens = 1000,
+}: UseAIOptions) {
   const { data: aiConfig } = useAIConfig(userId);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -26,15 +32,15 @@ export function useAI({ userId, provider, model, temperature = 0.7, maxTokens = 
 
   const getActiveModel = (activeProvider: string) => {
     if (model) return model;
-    
+
     // Get provider-specific model if available
-    const providerKey = activeProvider as keyof typeof aiConfig?.providers;
+    const providerKey = activeProvider as keyof typeof aiConfig.providers;
     const providerConfig = aiConfig?.providers[providerKey];
-    
+
     if (providerConfig?.defaultModel) {
       return providerConfig.defaultModel;
     }
-    
+
     // Fall back to default model
     return aiConfig?.defaultModel || 'gpt-3.5-turbo';
   };
@@ -42,11 +48,11 @@ export function useAI({ userId, provider, model, temperature = 0.7, maxTokens = 
   // Check if AI is configured
   const isConfigured = () => {
     if (!aiConfig) return false;
-    
+
     const activeProvider = getActiveProvider();
     const providerKey = activeProvider as keyof typeof aiConfig.providers;
     const providerConfig = aiConfig.providers[providerKey];
-    
+
     return !!providerConfig?.apiKey && providerConfig.isEnabled;
   };
 

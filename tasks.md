@@ -102,6 +102,7 @@
 - [x] Update README with build instructions
 - [x] Create example environment configuration
 - [x] Configure staging environment
+- [x] Set up Docker deployment configuration
 
 ### Landing Page & Profile Management
 
@@ -112,6 +113,16 @@
 - [x] Implement responsive design for all screen sizes
 - [x] Create image upload functionality for profile and company logo
 
+### Deployment
+
+- [x] Create Docker configuration for containerized deployment
+- [x] Set up docker-compose for orchestration
+- [x] Configure Nginx as a reverse proxy
+- [x] Set up SSL with Let's Encrypt
+- [x] Create health check endpoint for container monitoring
+- [x] Update Next.js configuration for Docker compatibility
+- [x] Create deployment documentation
+
 ## Next Steps
 
 - [x] Set up a real Supabase instance and configure environment variables
@@ -121,6 +132,7 @@
 - [x] Implement React Query for more robust data fetching
 - [x] Add SEO optimization for the landing page
 - [ ] Implement analytics to track conversion rates
+- [ ] Deploy to production server using Docker
 
 ### AI Integrations
 

@@ -144,10 +144,14 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
 
+  // Configuração para Docker deployment
+  output: 'standalone',
+
   // Otimizações de imagem
   images: {
     domains: [
       'ryotetscdbdqmzdfbpon.supabase.co', // Domínio do Supabase Storage
+      'wwxyvknhjtdmfunslpqi.supabase.co', // Novo domínio do Supabase Storage
       'images.unsplash.com', // Para imagens de exemplo
     ],
     formats: ['image/avif', 'image/webp'],
@@ -202,9 +206,6 @@ const nextConfig = {
 
     return config;
   },
-
-  // Configurações de exportação estática (se necessário)
-  // output: 'export', // Descomente para gerar uma exportação estática
 
   // Configurações de ambiente
   env: {
