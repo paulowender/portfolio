@@ -28,6 +28,7 @@ model User {
   projects     Project[]
   reminders    Reminder[]
   company      Company?
+  aiConfig     AIConfig?
 
   @@map("users")
 }
@@ -97,4 +98,37 @@ model Appointment {
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("appointments")
+}
+
+model AIConfig {
+  id              String @id @default(uuid())
+  userId          String @unique @map("user_id")
+  defaultProvider String @default("openai") @map("default_provider")
+  defaultModel    String @default("gpt-3.5-turbo") @map("default_model")
+
+  // OpenAI configuration
+  openaiApiKey  String? @map("openai_api_key")
+  openaiEnabled Boolean @default(false) @map("openai_enabled")
+  openaiModel   String? @map("openai_model")
+
+  // Anthropic configuration
+  anthropicApiKey  String? @map("anthropic_api_key")
+  anthropicEnabled Boolean @default(false) @map("anthropic_enabled")
+  anthropicModel   String? @map("anthropic_model")
+
+  // Groq configuration
+  groqApiKey  String? @map("groq_api_key")
+  groqEnabled Boolean @default(false) @map("groq_enabled")
+  groqModel   String? @map("groq_model")
+
+  // OpenRouter configuration
+  openrouterApiKey  String? @map("openrouter_api_key")
+  openrouterEnabled Boolean @default(false) @map("openrouter_enabled")
+  openrouterModel   String? @map("openrouter_model")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("ai_configs")
 }

@@ -38,6 +38,11 @@ export type Reminder = $Result.DefaultSelection<Prisma.$ReminderPayload>
  * 
  */
 export type Appointment = $Result.DefaultSelection<Prisma.$AppointmentPayload>
+/**
+ * Model AIConfig
+ * 
+ */
+export type AIConfig = $Result.DefaultSelection<Prisma.$AIConfigPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -213,6 +218,16 @@ export class PrismaClient<
     * ```
     */
   get appointment(): Prisma.AppointmentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.aIConfig`: Exposes CRUD operations for the **AIConfig** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AIConfigs
+    * const aIConfigs = await prisma.aIConfig.findMany()
+    * ```
+    */
+  get aIConfig(): Prisma.AIConfigDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -657,7 +672,8 @@ export namespace Prisma {
     Company: 'Company',
     Project: 'Project',
     Reminder: 'Reminder',
-    Appointment: 'Appointment'
+    Appointment: 'Appointment',
+    AIConfig: 'AIConfig'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -676,7 +692,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "company" | "project" | "reminder" | "appointment"
+      modelProps: "user" | "company" | "project" | "reminder" | "appointment" | "aIConfig"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1050,6 +1066,80 @@ export namespace Prisma {
           }
         }
       }
+      AIConfig: {
+        payload: Prisma.$AIConfigPayload<ExtArgs>
+        fields: Prisma.AIConfigFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AIConfigFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIConfigPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AIConfigFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIConfigPayload>
+          }
+          findFirst: {
+            args: Prisma.AIConfigFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIConfigPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AIConfigFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIConfigPayload>
+          }
+          findMany: {
+            args: Prisma.AIConfigFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIConfigPayload>[]
+          }
+          create: {
+            args: Prisma.AIConfigCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIConfigPayload>
+          }
+          createMany: {
+            args: Prisma.AIConfigCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AIConfigCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIConfigPayload>[]
+          }
+          delete: {
+            args: Prisma.AIConfigDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIConfigPayload>
+          }
+          update: {
+            args: Prisma.AIConfigUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIConfigPayload>
+          }
+          deleteMany: {
+            args: Prisma.AIConfigDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AIConfigUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AIConfigUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIConfigPayload>[]
+          }
+          upsert: {
+            args: Prisma.AIConfigUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIConfigPayload>
+          }
+          aggregate: {
+            args: Prisma.AIConfigAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAIConfig>
+          }
+          groupBy: {
+            args: Prisma.AIConfigGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AIConfigGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AIConfigCountArgs<ExtArgs>
+            result: $Utils.Optional<AIConfigCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1139,6 +1229,7 @@ export namespace Prisma {
     project?: ProjectOmit
     reminder?: ReminderOmit
     appointment?: AppointmentOmit
+    aIConfig?: AIConfigOmit
   }
 
   /* Types for Logging */
@@ -1525,6 +1616,7 @@ export namespace Prisma {
     projects?: boolean | User$projectsArgs<ExtArgs>
     reminders?: boolean | User$remindersArgs<ExtArgs>
     company?: boolean | User$companyArgs<ExtArgs>
+    aiConfig?: boolean | User$aiConfigArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1588,6 +1680,7 @@ export namespace Prisma {
     projects?: boolean | User$projectsArgs<ExtArgs>
     reminders?: boolean | User$remindersArgs<ExtArgs>
     company?: boolean | User$companyArgs<ExtArgs>
+    aiConfig?: boolean | User$aiConfigArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1600,6 +1693,7 @@ export namespace Prisma {
       projects: Prisma.$ProjectPayload<ExtArgs>[]
       reminders: Prisma.$ReminderPayload<ExtArgs>[]
       company: Prisma.$CompanyPayload<ExtArgs> | null
+      aiConfig: Prisma.$AIConfigPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2015,6 +2109,7 @@ export namespace Prisma {
     projects<T extends User$projectsArgs<ExtArgs> = {}>(args?: Subset<T, User$projectsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reminders<T extends User$remindersArgs<ExtArgs> = {}>(args?: Subset<T, User$remindersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     company<T extends User$companyArgs<ExtArgs> = {}>(args?: Subset<T, User$companyArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    aiConfig<T extends User$aiConfigArgs<ExtArgs> = {}>(args?: Subset<T, User$aiConfigArgs<ExtArgs>>): Prisma__AIConfigClient<$Result.GetResult<Prisma.$AIConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2535,6 +2630,25 @@ export namespace Prisma {
      */
     include?: CompanyInclude<ExtArgs> | null
     where?: CompanyWhereInput
+  }
+
+  /**
+   * User.aiConfig
+   */
+  export type User$aiConfigArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIConfig
+     */
+    select?: AIConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIConfig
+     */
+    omit?: AIConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIConfigInclude<ExtArgs> | null
+    where?: AIConfigWhereInput
   }
 
   /**
@@ -7080,6 +7194,1233 @@ export namespace Prisma {
 
 
   /**
+   * Model AIConfig
+   */
+
+  export type AggregateAIConfig = {
+    _count: AIConfigCountAggregateOutputType | null
+    _min: AIConfigMinAggregateOutputType | null
+    _max: AIConfigMaxAggregateOutputType | null
+  }
+
+  export type AIConfigMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    defaultProvider: string | null
+    defaultModel: string | null
+    openaiApiKey: string | null
+    openaiEnabled: boolean | null
+    openaiModel: string | null
+    anthropicApiKey: string | null
+    anthropicEnabled: boolean | null
+    anthropicModel: string | null
+    groqApiKey: string | null
+    groqEnabled: boolean | null
+    groqModel: string | null
+    openrouterApiKey: string | null
+    openrouterEnabled: boolean | null
+    openrouterModel: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AIConfigMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    defaultProvider: string | null
+    defaultModel: string | null
+    openaiApiKey: string | null
+    openaiEnabled: boolean | null
+    openaiModel: string | null
+    anthropicApiKey: string | null
+    anthropicEnabled: boolean | null
+    anthropicModel: string | null
+    groqApiKey: string | null
+    groqEnabled: boolean | null
+    groqModel: string | null
+    openrouterApiKey: string | null
+    openrouterEnabled: boolean | null
+    openrouterModel: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AIConfigCountAggregateOutputType = {
+    id: number
+    userId: number
+    defaultProvider: number
+    defaultModel: number
+    openaiApiKey: number
+    openaiEnabled: number
+    openaiModel: number
+    anthropicApiKey: number
+    anthropicEnabled: number
+    anthropicModel: number
+    groqApiKey: number
+    groqEnabled: number
+    groqModel: number
+    openrouterApiKey: number
+    openrouterEnabled: number
+    openrouterModel: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type AIConfigMinAggregateInputType = {
+    id?: true
+    userId?: true
+    defaultProvider?: true
+    defaultModel?: true
+    openaiApiKey?: true
+    openaiEnabled?: true
+    openaiModel?: true
+    anthropicApiKey?: true
+    anthropicEnabled?: true
+    anthropicModel?: true
+    groqApiKey?: true
+    groqEnabled?: true
+    groqModel?: true
+    openrouterApiKey?: true
+    openrouterEnabled?: true
+    openrouterModel?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AIConfigMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    defaultProvider?: true
+    defaultModel?: true
+    openaiApiKey?: true
+    openaiEnabled?: true
+    openaiModel?: true
+    anthropicApiKey?: true
+    anthropicEnabled?: true
+    anthropicModel?: true
+    groqApiKey?: true
+    groqEnabled?: true
+    groqModel?: true
+    openrouterApiKey?: true
+    openrouterEnabled?: true
+    openrouterModel?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AIConfigCountAggregateInputType = {
+    id?: true
+    userId?: true
+    defaultProvider?: true
+    defaultModel?: true
+    openaiApiKey?: true
+    openaiEnabled?: true
+    openaiModel?: true
+    anthropicApiKey?: true
+    anthropicEnabled?: true
+    anthropicModel?: true
+    groqApiKey?: true
+    groqEnabled?: true
+    groqModel?: true
+    openrouterApiKey?: true
+    openrouterEnabled?: true
+    openrouterModel?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type AIConfigAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AIConfig to aggregate.
+     */
+    where?: AIConfigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIConfigs to fetch.
+     */
+    orderBy?: AIConfigOrderByWithRelationInput | AIConfigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AIConfigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIConfigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIConfigs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AIConfigs
+    **/
+    _count?: true | AIConfigCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AIConfigMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AIConfigMaxAggregateInputType
+  }
+
+  export type GetAIConfigAggregateType<T extends AIConfigAggregateArgs> = {
+        [P in keyof T & keyof AggregateAIConfig]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAIConfig[P]>
+      : GetScalarType<T[P], AggregateAIConfig[P]>
+  }
+
+
+
+
+  export type AIConfigGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AIConfigWhereInput
+    orderBy?: AIConfigOrderByWithAggregationInput | AIConfigOrderByWithAggregationInput[]
+    by: AIConfigScalarFieldEnum[] | AIConfigScalarFieldEnum
+    having?: AIConfigScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AIConfigCountAggregateInputType | true
+    _min?: AIConfigMinAggregateInputType
+    _max?: AIConfigMaxAggregateInputType
+  }
+
+  export type AIConfigGroupByOutputType = {
+    id: string
+    userId: string
+    defaultProvider: string
+    defaultModel: string
+    openaiApiKey: string | null
+    openaiEnabled: boolean
+    openaiModel: string | null
+    anthropicApiKey: string | null
+    anthropicEnabled: boolean
+    anthropicModel: string | null
+    groqApiKey: string | null
+    groqEnabled: boolean
+    groqModel: string | null
+    openrouterApiKey: string | null
+    openrouterEnabled: boolean
+    openrouterModel: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: AIConfigCountAggregateOutputType | null
+    _min: AIConfigMinAggregateOutputType | null
+    _max: AIConfigMaxAggregateOutputType | null
+  }
+
+  type GetAIConfigGroupByPayload<T extends AIConfigGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AIConfigGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AIConfigGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AIConfigGroupByOutputType[P]>
+            : GetScalarType<T[P], AIConfigGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AIConfigSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    defaultProvider?: boolean
+    defaultModel?: boolean
+    openaiApiKey?: boolean
+    openaiEnabled?: boolean
+    openaiModel?: boolean
+    anthropicApiKey?: boolean
+    anthropicEnabled?: boolean
+    anthropicModel?: boolean
+    groqApiKey?: boolean
+    groqEnabled?: boolean
+    groqModel?: boolean
+    openrouterApiKey?: boolean
+    openrouterEnabled?: boolean
+    openrouterModel?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["aIConfig"]>
+
+  export type AIConfigSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    defaultProvider?: boolean
+    defaultModel?: boolean
+    openaiApiKey?: boolean
+    openaiEnabled?: boolean
+    openaiModel?: boolean
+    anthropicApiKey?: boolean
+    anthropicEnabled?: boolean
+    anthropicModel?: boolean
+    groqApiKey?: boolean
+    groqEnabled?: boolean
+    groqModel?: boolean
+    openrouterApiKey?: boolean
+    openrouterEnabled?: boolean
+    openrouterModel?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["aIConfig"]>
+
+  export type AIConfigSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    defaultProvider?: boolean
+    defaultModel?: boolean
+    openaiApiKey?: boolean
+    openaiEnabled?: boolean
+    openaiModel?: boolean
+    anthropicApiKey?: boolean
+    anthropicEnabled?: boolean
+    anthropicModel?: boolean
+    groqApiKey?: boolean
+    groqEnabled?: boolean
+    groqModel?: boolean
+    openrouterApiKey?: boolean
+    openrouterEnabled?: boolean
+    openrouterModel?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["aIConfig"]>
+
+  export type AIConfigSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    defaultProvider?: boolean
+    defaultModel?: boolean
+    openaiApiKey?: boolean
+    openaiEnabled?: boolean
+    openaiModel?: boolean
+    anthropicApiKey?: boolean
+    anthropicEnabled?: boolean
+    anthropicModel?: boolean
+    groqApiKey?: boolean
+    groqEnabled?: boolean
+    groqModel?: boolean
+    openrouterApiKey?: boolean
+    openrouterEnabled?: boolean
+    openrouterModel?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type AIConfigOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "defaultProvider" | "defaultModel" | "openaiApiKey" | "openaiEnabled" | "openaiModel" | "anthropicApiKey" | "anthropicEnabled" | "anthropicModel" | "groqApiKey" | "groqEnabled" | "groqModel" | "openrouterApiKey" | "openrouterEnabled" | "openrouterModel" | "createdAt" | "updatedAt", ExtArgs["result"]["aIConfig"]>
+  export type AIConfigInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type AIConfigIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type AIConfigIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $AIConfigPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AIConfig"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      defaultProvider: string
+      defaultModel: string
+      openaiApiKey: string | null
+      openaiEnabled: boolean
+      openaiModel: string | null
+      anthropicApiKey: string | null
+      anthropicEnabled: boolean
+      anthropicModel: string | null
+      groqApiKey: string | null
+      groqEnabled: boolean
+      groqModel: string | null
+      openrouterApiKey: string | null
+      openrouterEnabled: boolean
+      openrouterModel: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["aIConfig"]>
+    composites: {}
+  }
+
+  type AIConfigGetPayload<S extends boolean | null | undefined | AIConfigDefaultArgs> = $Result.GetResult<Prisma.$AIConfigPayload, S>
+
+  type AIConfigCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AIConfigFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AIConfigCountAggregateInputType | true
+    }
+
+  export interface AIConfigDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AIConfig'], meta: { name: 'AIConfig' } }
+    /**
+     * Find zero or one AIConfig that matches the filter.
+     * @param {AIConfigFindUniqueArgs} args - Arguments to find a AIConfig
+     * @example
+     * // Get one AIConfig
+     * const aIConfig = await prisma.aIConfig.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AIConfigFindUniqueArgs>(args: SelectSubset<T, AIConfigFindUniqueArgs<ExtArgs>>): Prisma__AIConfigClient<$Result.GetResult<Prisma.$AIConfigPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AIConfig that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AIConfigFindUniqueOrThrowArgs} args - Arguments to find a AIConfig
+     * @example
+     * // Get one AIConfig
+     * const aIConfig = await prisma.aIConfig.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AIConfigFindUniqueOrThrowArgs>(args: SelectSubset<T, AIConfigFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AIConfigClient<$Result.GetResult<Prisma.$AIConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AIConfig that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIConfigFindFirstArgs} args - Arguments to find a AIConfig
+     * @example
+     * // Get one AIConfig
+     * const aIConfig = await prisma.aIConfig.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AIConfigFindFirstArgs>(args?: SelectSubset<T, AIConfigFindFirstArgs<ExtArgs>>): Prisma__AIConfigClient<$Result.GetResult<Prisma.$AIConfigPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AIConfig that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIConfigFindFirstOrThrowArgs} args - Arguments to find a AIConfig
+     * @example
+     * // Get one AIConfig
+     * const aIConfig = await prisma.aIConfig.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AIConfigFindFirstOrThrowArgs>(args?: SelectSubset<T, AIConfigFindFirstOrThrowArgs<ExtArgs>>): Prisma__AIConfigClient<$Result.GetResult<Prisma.$AIConfigPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AIConfigs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIConfigFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AIConfigs
+     * const aIConfigs = await prisma.aIConfig.findMany()
+     * 
+     * // Get first 10 AIConfigs
+     * const aIConfigs = await prisma.aIConfig.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const aIConfigWithIdOnly = await prisma.aIConfig.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AIConfigFindManyArgs>(args?: SelectSubset<T, AIConfigFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIConfigPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AIConfig.
+     * @param {AIConfigCreateArgs} args - Arguments to create a AIConfig.
+     * @example
+     * // Create one AIConfig
+     * const AIConfig = await prisma.aIConfig.create({
+     *   data: {
+     *     // ... data to create a AIConfig
+     *   }
+     * })
+     * 
+     */
+    create<T extends AIConfigCreateArgs>(args: SelectSubset<T, AIConfigCreateArgs<ExtArgs>>): Prisma__AIConfigClient<$Result.GetResult<Prisma.$AIConfigPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AIConfigs.
+     * @param {AIConfigCreateManyArgs} args - Arguments to create many AIConfigs.
+     * @example
+     * // Create many AIConfigs
+     * const aIConfig = await prisma.aIConfig.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AIConfigCreateManyArgs>(args?: SelectSubset<T, AIConfigCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AIConfigs and returns the data saved in the database.
+     * @param {AIConfigCreateManyAndReturnArgs} args - Arguments to create many AIConfigs.
+     * @example
+     * // Create many AIConfigs
+     * const aIConfig = await prisma.aIConfig.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AIConfigs and only return the `id`
+     * const aIConfigWithIdOnly = await prisma.aIConfig.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AIConfigCreateManyAndReturnArgs>(args?: SelectSubset<T, AIConfigCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIConfigPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AIConfig.
+     * @param {AIConfigDeleteArgs} args - Arguments to delete one AIConfig.
+     * @example
+     * // Delete one AIConfig
+     * const AIConfig = await prisma.aIConfig.delete({
+     *   where: {
+     *     // ... filter to delete one AIConfig
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AIConfigDeleteArgs>(args: SelectSubset<T, AIConfigDeleteArgs<ExtArgs>>): Prisma__AIConfigClient<$Result.GetResult<Prisma.$AIConfigPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AIConfig.
+     * @param {AIConfigUpdateArgs} args - Arguments to update one AIConfig.
+     * @example
+     * // Update one AIConfig
+     * const aIConfig = await prisma.aIConfig.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AIConfigUpdateArgs>(args: SelectSubset<T, AIConfigUpdateArgs<ExtArgs>>): Prisma__AIConfigClient<$Result.GetResult<Prisma.$AIConfigPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AIConfigs.
+     * @param {AIConfigDeleteManyArgs} args - Arguments to filter AIConfigs to delete.
+     * @example
+     * // Delete a few AIConfigs
+     * const { count } = await prisma.aIConfig.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AIConfigDeleteManyArgs>(args?: SelectSubset<T, AIConfigDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AIConfigs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIConfigUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AIConfigs
+     * const aIConfig = await prisma.aIConfig.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AIConfigUpdateManyArgs>(args: SelectSubset<T, AIConfigUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AIConfigs and returns the data updated in the database.
+     * @param {AIConfigUpdateManyAndReturnArgs} args - Arguments to update many AIConfigs.
+     * @example
+     * // Update many AIConfigs
+     * const aIConfig = await prisma.aIConfig.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AIConfigs and only return the `id`
+     * const aIConfigWithIdOnly = await prisma.aIConfig.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AIConfigUpdateManyAndReturnArgs>(args: SelectSubset<T, AIConfigUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIConfigPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AIConfig.
+     * @param {AIConfigUpsertArgs} args - Arguments to update or create a AIConfig.
+     * @example
+     * // Update or create a AIConfig
+     * const aIConfig = await prisma.aIConfig.upsert({
+     *   create: {
+     *     // ... data to create a AIConfig
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AIConfig we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AIConfigUpsertArgs>(args: SelectSubset<T, AIConfigUpsertArgs<ExtArgs>>): Prisma__AIConfigClient<$Result.GetResult<Prisma.$AIConfigPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AIConfigs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIConfigCountArgs} args - Arguments to filter AIConfigs to count.
+     * @example
+     * // Count the number of AIConfigs
+     * const count = await prisma.aIConfig.count({
+     *   where: {
+     *     // ... the filter for the AIConfigs we want to count
+     *   }
+     * })
+    **/
+    count<T extends AIConfigCountArgs>(
+      args?: Subset<T, AIConfigCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AIConfigCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AIConfig.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIConfigAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AIConfigAggregateArgs>(args: Subset<T, AIConfigAggregateArgs>): Prisma.PrismaPromise<GetAIConfigAggregateType<T>>
+
+    /**
+     * Group by AIConfig.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIConfigGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AIConfigGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AIConfigGroupByArgs['orderBy'] }
+        : { orderBy?: AIConfigGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AIConfigGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAIConfigGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AIConfig model
+   */
+  readonly fields: AIConfigFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AIConfig.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AIConfigClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AIConfig model
+   */
+  interface AIConfigFieldRefs {
+    readonly id: FieldRef<"AIConfig", 'String'>
+    readonly userId: FieldRef<"AIConfig", 'String'>
+    readonly defaultProvider: FieldRef<"AIConfig", 'String'>
+    readonly defaultModel: FieldRef<"AIConfig", 'String'>
+    readonly openaiApiKey: FieldRef<"AIConfig", 'String'>
+    readonly openaiEnabled: FieldRef<"AIConfig", 'Boolean'>
+    readonly openaiModel: FieldRef<"AIConfig", 'String'>
+    readonly anthropicApiKey: FieldRef<"AIConfig", 'String'>
+    readonly anthropicEnabled: FieldRef<"AIConfig", 'Boolean'>
+    readonly anthropicModel: FieldRef<"AIConfig", 'String'>
+    readonly groqApiKey: FieldRef<"AIConfig", 'String'>
+    readonly groqEnabled: FieldRef<"AIConfig", 'Boolean'>
+    readonly groqModel: FieldRef<"AIConfig", 'String'>
+    readonly openrouterApiKey: FieldRef<"AIConfig", 'String'>
+    readonly openrouterEnabled: FieldRef<"AIConfig", 'Boolean'>
+    readonly openrouterModel: FieldRef<"AIConfig", 'String'>
+    readonly createdAt: FieldRef<"AIConfig", 'DateTime'>
+    readonly updatedAt: FieldRef<"AIConfig", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AIConfig findUnique
+   */
+  export type AIConfigFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIConfig
+     */
+    select?: AIConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIConfig
+     */
+    omit?: AIConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which AIConfig to fetch.
+     */
+    where: AIConfigWhereUniqueInput
+  }
+
+  /**
+   * AIConfig findUniqueOrThrow
+   */
+  export type AIConfigFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIConfig
+     */
+    select?: AIConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIConfig
+     */
+    omit?: AIConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which AIConfig to fetch.
+     */
+    where: AIConfigWhereUniqueInput
+  }
+
+  /**
+   * AIConfig findFirst
+   */
+  export type AIConfigFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIConfig
+     */
+    select?: AIConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIConfig
+     */
+    omit?: AIConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which AIConfig to fetch.
+     */
+    where?: AIConfigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIConfigs to fetch.
+     */
+    orderBy?: AIConfigOrderByWithRelationInput | AIConfigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AIConfigs.
+     */
+    cursor?: AIConfigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIConfigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIConfigs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AIConfigs.
+     */
+    distinct?: AIConfigScalarFieldEnum | AIConfigScalarFieldEnum[]
+  }
+
+  /**
+   * AIConfig findFirstOrThrow
+   */
+  export type AIConfigFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIConfig
+     */
+    select?: AIConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIConfig
+     */
+    omit?: AIConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which AIConfig to fetch.
+     */
+    where?: AIConfigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIConfigs to fetch.
+     */
+    orderBy?: AIConfigOrderByWithRelationInput | AIConfigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AIConfigs.
+     */
+    cursor?: AIConfigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIConfigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIConfigs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AIConfigs.
+     */
+    distinct?: AIConfigScalarFieldEnum | AIConfigScalarFieldEnum[]
+  }
+
+  /**
+   * AIConfig findMany
+   */
+  export type AIConfigFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIConfig
+     */
+    select?: AIConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIConfig
+     */
+    omit?: AIConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which AIConfigs to fetch.
+     */
+    where?: AIConfigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIConfigs to fetch.
+     */
+    orderBy?: AIConfigOrderByWithRelationInput | AIConfigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AIConfigs.
+     */
+    cursor?: AIConfigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIConfigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIConfigs.
+     */
+    skip?: number
+    distinct?: AIConfigScalarFieldEnum | AIConfigScalarFieldEnum[]
+  }
+
+  /**
+   * AIConfig create
+   */
+  export type AIConfigCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIConfig
+     */
+    select?: AIConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIConfig
+     */
+    omit?: AIConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIConfigInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AIConfig.
+     */
+    data: XOR<AIConfigCreateInput, AIConfigUncheckedCreateInput>
+  }
+
+  /**
+   * AIConfig createMany
+   */
+  export type AIConfigCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AIConfigs.
+     */
+    data: AIConfigCreateManyInput | AIConfigCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AIConfig createManyAndReturn
+   */
+  export type AIConfigCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIConfig
+     */
+    select?: AIConfigSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIConfig
+     */
+    omit?: AIConfigOmit<ExtArgs> | null
+    /**
+     * The data used to create many AIConfigs.
+     */
+    data: AIConfigCreateManyInput | AIConfigCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIConfigIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AIConfig update
+   */
+  export type AIConfigUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIConfig
+     */
+    select?: AIConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIConfig
+     */
+    omit?: AIConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIConfigInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AIConfig.
+     */
+    data: XOR<AIConfigUpdateInput, AIConfigUncheckedUpdateInput>
+    /**
+     * Choose, which AIConfig to update.
+     */
+    where: AIConfigWhereUniqueInput
+  }
+
+  /**
+   * AIConfig updateMany
+   */
+  export type AIConfigUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AIConfigs.
+     */
+    data: XOR<AIConfigUpdateManyMutationInput, AIConfigUncheckedUpdateManyInput>
+    /**
+     * Filter which AIConfigs to update
+     */
+    where?: AIConfigWhereInput
+    /**
+     * Limit how many AIConfigs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AIConfig updateManyAndReturn
+   */
+  export type AIConfigUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIConfig
+     */
+    select?: AIConfigSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIConfig
+     */
+    omit?: AIConfigOmit<ExtArgs> | null
+    /**
+     * The data used to update AIConfigs.
+     */
+    data: XOR<AIConfigUpdateManyMutationInput, AIConfigUncheckedUpdateManyInput>
+    /**
+     * Filter which AIConfigs to update
+     */
+    where?: AIConfigWhereInput
+    /**
+     * Limit how many AIConfigs to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIConfigIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AIConfig upsert
+   */
+  export type AIConfigUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIConfig
+     */
+    select?: AIConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIConfig
+     */
+    omit?: AIConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIConfigInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AIConfig to update in case it exists.
+     */
+    where: AIConfigWhereUniqueInput
+    /**
+     * In case the AIConfig found by the `where` argument doesn't exist, create a new AIConfig with this data.
+     */
+    create: XOR<AIConfigCreateInput, AIConfigUncheckedCreateInput>
+    /**
+     * In case the AIConfig was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AIConfigUpdateInput, AIConfigUncheckedUpdateInput>
+  }
+
+  /**
+   * AIConfig delete
+   */
+  export type AIConfigDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIConfig
+     */
+    select?: AIConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIConfig
+     */
+    omit?: AIConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIConfigInclude<ExtArgs> | null
+    /**
+     * Filter which AIConfig to delete.
+     */
+    where: AIConfigWhereUniqueInput
+  }
+
+  /**
+   * AIConfig deleteMany
+   */
+  export type AIConfigDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AIConfigs to delete
+     */
+    where?: AIConfigWhereInput
+    /**
+     * Limit how many AIConfigs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AIConfig without action
+   */
+  export type AIConfigDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIConfig
+     */
+    select?: AIConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIConfig
+     */
+    omit?: AIConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIConfigInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -7179,6 +8520,30 @@ export namespace Prisma {
   };
 
   export type AppointmentScalarFieldEnum = (typeof AppointmentScalarFieldEnum)[keyof typeof AppointmentScalarFieldEnum]
+
+
+  export const AIConfigScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    defaultProvider: 'defaultProvider',
+    defaultModel: 'defaultModel',
+    openaiApiKey: 'openaiApiKey',
+    openaiEnabled: 'openaiEnabled',
+    openaiModel: 'openaiModel',
+    anthropicApiKey: 'anthropicApiKey',
+    anthropicEnabled: 'anthropicEnabled',
+    anthropicModel: 'anthropicModel',
+    groqApiKey: 'groqApiKey',
+    groqEnabled: 'groqEnabled',
+    groqModel: 'groqModel',
+    openrouterApiKey: 'openrouterApiKey',
+    openrouterEnabled: 'openrouterEnabled',
+    openrouterModel: 'openrouterModel',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type AIConfigScalarFieldEnum = (typeof AIConfigScalarFieldEnum)[keyof typeof AIConfigScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -7285,6 +8650,7 @@ export namespace Prisma {
     projects?: ProjectListRelationFilter
     reminders?: ReminderListRelationFilter
     company?: XOR<CompanyNullableScalarRelationFilter, CompanyWhereInput> | null
+    aiConfig?: XOR<AIConfigNullableScalarRelationFilter, AIConfigWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -7307,6 +8673,7 @@ export namespace Prisma {
     projects?: ProjectOrderByRelationAggregateInput
     reminders?: ReminderOrderByRelationAggregateInput
     company?: CompanyOrderByWithRelationInput
+    aiConfig?: AIConfigOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -7332,6 +8699,7 @@ export namespace Prisma {
     projects?: ProjectListRelationFilter
     reminders?: ReminderListRelationFilter
     company?: XOR<CompanyNullableScalarRelationFilter, CompanyWhereInput> | null
+    aiConfig?: XOR<AIConfigNullableScalarRelationFilter, AIConfigWhereInput> | null
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -7711,6 +9079,126 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Appointment"> | Date | string
   }
 
+  export type AIConfigWhereInput = {
+    AND?: AIConfigWhereInput | AIConfigWhereInput[]
+    OR?: AIConfigWhereInput[]
+    NOT?: AIConfigWhereInput | AIConfigWhereInput[]
+    id?: StringFilter<"AIConfig"> | string
+    userId?: StringFilter<"AIConfig"> | string
+    defaultProvider?: StringFilter<"AIConfig"> | string
+    defaultModel?: StringFilter<"AIConfig"> | string
+    openaiApiKey?: StringNullableFilter<"AIConfig"> | string | null
+    openaiEnabled?: BoolFilter<"AIConfig"> | boolean
+    openaiModel?: StringNullableFilter<"AIConfig"> | string | null
+    anthropicApiKey?: StringNullableFilter<"AIConfig"> | string | null
+    anthropicEnabled?: BoolFilter<"AIConfig"> | boolean
+    anthropicModel?: StringNullableFilter<"AIConfig"> | string | null
+    groqApiKey?: StringNullableFilter<"AIConfig"> | string | null
+    groqEnabled?: BoolFilter<"AIConfig"> | boolean
+    groqModel?: StringNullableFilter<"AIConfig"> | string | null
+    openrouterApiKey?: StringNullableFilter<"AIConfig"> | string | null
+    openrouterEnabled?: BoolFilter<"AIConfig"> | boolean
+    openrouterModel?: StringNullableFilter<"AIConfig"> | string | null
+    createdAt?: DateTimeFilter<"AIConfig"> | Date | string
+    updatedAt?: DateTimeFilter<"AIConfig"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type AIConfigOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    defaultProvider?: SortOrder
+    defaultModel?: SortOrder
+    openaiApiKey?: SortOrderInput | SortOrder
+    openaiEnabled?: SortOrder
+    openaiModel?: SortOrderInput | SortOrder
+    anthropicApiKey?: SortOrderInput | SortOrder
+    anthropicEnabled?: SortOrder
+    anthropicModel?: SortOrderInput | SortOrder
+    groqApiKey?: SortOrderInput | SortOrder
+    groqEnabled?: SortOrder
+    groqModel?: SortOrderInput | SortOrder
+    openrouterApiKey?: SortOrderInput | SortOrder
+    openrouterEnabled?: SortOrder
+    openrouterModel?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type AIConfigWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId?: string
+    AND?: AIConfigWhereInput | AIConfigWhereInput[]
+    OR?: AIConfigWhereInput[]
+    NOT?: AIConfigWhereInput | AIConfigWhereInput[]
+    defaultProvider?: StringFilter<"AIConfig"> | string
+    defaultModel?: StringFilter<"AIConfig"> | string
+    openaiApiKey?: StringNullableFilter<"AIConfig"> | string | null
+    openaiEnabled?: BoolFilter<"AIConfig"> | boolean
+    openaiModel?: StringNullableFilter<"AIConfig"> | string | null
+    anthropicApiKey?: StringNullableFilter<"AIConfig"> | string | null
+    anthropicEnabled?: BoolFilter<"AIConfig"> | boolean
+    anthropicModel?: StringNullableFilter<"AIConfig"> | string | null
+    groqApiKey?: StringNullableFilter<"AIConfig"> | string | null
+    groqEnabled?: BoolFilter<"AIConfig"> | boolean
+    groqModel?: StringNullableFilter<"AIConfig"> | string | null
+    openrouterApiKey?: StringNullableFilter<"AIConfig"> | string | null
+    openrouterEnabled?: BoolFilter<"AIConfig"> | boolean
+    openrouterModel?: StringNullableFilter<"AIConfig"> | string | null
+    createdAt?: DateTimeFilter<"AIConfig"> | Date | string
+    updatedAt?: DateTimeFilter<"AIConfig"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId">
+
+  export type AIConfigOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    defaultProvider?: SortOrder
+    defaultModel?: SortOrder
+    openaiApiKey?: SortOrderInput | SortOrder
+    openaiEnabled?: SortOrder
+    openaiModel?: SortOrderInput | SortOrder
+    anthropicApiKey?: SortOrderInput | SortOrder
+    anthropicEnabled?: SortOrder
+    anthropicModel?: SortOrderInput | SortOrder
+    groqApiKey?: SortOrderInput | SortOrder
+    groqEnabled?: SortOrder
+    groqModel?: SortOrderInput | SortOrder
+    openrouterApiKey?: SortOrderInput | SortOrder
+    openrouterEnabled?: SortOrder
+    openrouterModel?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: AIConfigCountOrderByAggregateInput
+    _max?: AIConfigMaxOrderByAggregateInput
+    _min?: AIConfigMinOrderByAggregateInput
+  }
+
+  export type AIConfigScalarWhereWithAggregatesInput = {
+    AND?: AIConfigScalarWhereWithAggregatesInput | AIConfigScalarWhereWithAggregatesInput[]
+    OR?: AIConfigScalarWhereWithAggregatesInput[]
+    NOT?: AIConfigScalarWhereWithAggregatesInput | AIConfigScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AIConfig"> | string
+    userId?: StringWithAggregatesFilter<"AIConfig"> | string
+    defaultProvider?: StringWithAggregatesFilter<"AIConfig"> | string
+    defaultModel?: StringWithAggregatesFilter<"AIConfig"> | string
+    openaiApiKey?: StringNullableWithAggregatesFilter<"AIConfig"> | string | null
+    openaiEnabled?: BoolWithAggregatesFilter<"AIConfig"> | boolean
+    openaiModel?: StringNullableWithAggregatesFilter<"AIConfig"> | string | null
+    anthropicApiKey?: StringNullableWithAggregatesFilter<"AIConfig"> | string | null
+    anthropicEnabled?: BoolWithAggregatesFilter<"AIConfig"> | boolean
+    anthropicModel?: StringNullableWithAggregatesFilter<"AIConfig"> | string | null
+    groqApiKey?: StringNullableWithAggregatesFilter<"AIConfig"> | string | null
+    groqEnabled?: BoolWithAggregatesFilter<"AIConfig"> | boolean
+    groqModel?: StringNullableWithAggregatesFilter<"AIConfig"> | string | null
+    openrouterApiKey?: StringNullableWithAggregatesFilter<"AIConfig"> | string | null
+    openrouterEnabled?: BoolWithAggregatesFilter<"AIConfig"> | boolean
+    openrouterModel?: StringNullableWithAggregatesFilter<"AIConfig"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"AIConfig"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"AIConfig"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -7731,6 +9219,7 @@ export namespace Prisma {
     projects?: ProjectCreateNestedManyWithoutUserInput
     reminders?: ReminderCreateNestedManyWithoutUserInput
     company?: CompanyCreateNestedOneWithoutUserInput
+    aiConfig?: AIConfigCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -7753,6 +9242,7 @@ export namespace Prisma {
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
     reminders?: ReminderUncheckedCreateNestedManyWithoutUserInput
     company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    aiConfig?: AIConfigUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -7775,6 +9265,7 @@ export namespace Prisma {
     projects?: ProjectUpdateManyWithoutUserNestedInput
     reminders?: ReminderUpdateManyWithoutUserNestedInput
     company?: CompanyUpdateOneWithoutUserNestedInput
+    aiConfig?: AIConfigUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -7797,6 +9288,7 @@ export namespace Prisma {
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
     reminders?: ReminderUncheckedUpdateManyWithoutUserNestedInput
     company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    aiConfig?: AIConfigUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -8234,6 +9726,152 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AIConfigCreateInput = {
+    id?: string
+    defaultProvider?: string
+    defaultModel?: string
+    openaiApiKey?: string | null
+    openaiEnabled?: boolean
+    openaiModel?: string | null
+    anthropicApiKey?: string | null
+    anthropicEnabled?: boolean
+    anthropicModel?: string | null
+    groqApiKey?: string | null
+    groqEnabled?: boolean
+    groqModel?: string | null
+    openrouterApiKey?: string | null
+    openrouterEnabled?: boolean
+    openrouterModel?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutAiConfigInput
+  }
+
+  export type AIConfigUncheckedCreateInput = {
+    id?: string
+    userId: string
+    defaultProvider?: string
+    defaultModel?: string
+    openaiApiKey?: string | null
+    openaiEnabled?: boolean
+    openaiModel?: string | null
+    anthropicApiKey?: string | null
+    anthropicEnabled?: boolean
+    anthropicModel?: string | null
+    groqApiKey?: string | null
+    groqEnabled?: boolean
+    groqModel?: string | null
+    openrouterApiKey?: string | null
+    openrouterEnabled?: boolean
+    openrouterModel?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AIConfigUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    defaultProvider?: StringFieldUpdateOperationsInput | string
+    defaultModel?: StringFieldUpdateOperationsInput | string
+    openaiApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    openaiEnabled?: BoolFieldUpdateOperationsInput | boolean
+    openaiModel?: NullableStringFieldUpdateOperationsInput | string | null
+    anthropicApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    anthropicEnabled?: BoolFieldUpdateOperationsInput | boolean
+    anthropicModel?: NullableStringFieldUpdateOperationsInput | string | null
+    groqApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    groqEnabled?: BoolFieldUpdateOperationsInput | boolean
+    groqModel?: NullableStringFieldUpdateOperationsInput | string | null
+    openrouterApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    openrouterEnabled?: BoolFieldUpdateOperationsInput | boolean
+    openrouterModel?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutAiConfigNestedInput
+  }
+
+  export type AIConfigUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    defaultProvider?: StringFieldUpdateOperationsInput | string
+    defaultModel?: StringFieldUpdateOperationsInput | string
+    openaiApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    openaiEnabled?: BoolFieldUpdateOperationsInput | boolean
+    openaiModel?: NullableStringFieldUpdateOperationsInput | string | null
+    anthropicApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    anthropicEnabled?: BoolFieldUpdateOperationsInput | boolean
+    anthropicModel?: NullableStringFieldUpdateOperationsInput | string | null
+    groqApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    groqEnabled?: BoolFieldUpdateOperationsInput | boolean
+    groqModel?: NullableStringFieldUpdateOperationsInput | string | null
+    openrouterApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    openrouterEnabled?: BoolFieldUpdateOperationsInput | boolean
+    openrouterModel?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIConfigCreateManyInput = {
+    id?: string
+    userId: string
+    defaultProvider?: string
+    defaultModel?: string
+    openaiApiKey?: string | null
+    openaiEnabled?: boolean
+    openaiModel?: string | null
+    anthropicApiKey?: string | null
+    anthropicEnabled?: boolean
+    anthropicModel?: string | null
+    groqApiKey?: string | null
+    groqEnabled?: boolean
+    groqModel?: string | null
+    openrouterApiKey?: string | null
+    openrouterEnabled?: boolean
+    openrouterModel?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AIConfigUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    defaultProvider?: StringFieldUpdateOperationsInput | string
+    defaultModel?: StringFieldUpdateOperationsInput | string
+    openaiApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    openaiEnabled?: BoolFieldUpdateOperationsInput | boolean
+    openaiModel?: NullableStringFieldUpdateOperationsInput | string | null
+    anthropicApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    anthropicEnabled?: BoolFieldUpdateOperationsInput | boolean
+    anthropicModel?: NullableStringFieldUpdateOperationsInput | string | null
+    groqApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    groqEnabled?: BoolFieldUpdateOperationsInput | boolean
+    groqModel?: NullableStringFieldUpdateOperationsInput | string | null
+    openrouterApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    openrouterEnabled?: BoolFieldUpdateOperationsInput | boolean
+    openrouterModel?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIConfigUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    defaultProvider?: StringFieldUpdateOperationsInput | string
+    defaultModel?: StringFieldUpdateOperationsInput | string
+    openaiApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    openaiEnabled?: BoolFieldUpdateOperationsInput | boolean
+    openaiModel?: NullableStringFieldUpdateOperationsInput | string | null
+    anthropicApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    anthropicEnabled?: BoolFieldUpdateOperationsInput | boolean
+    anthropicModel?: NullableStringFieldUpdateOperationsInput | string | null
+    groqApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    groqEnabled?: BoolFieldUpdateOperationsInput | boolean
+    groqModel?: NullableStringFieldUpdateOperationsInput | string | null
+    openrouterApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    openrouterEnabled?: BoolFieldUpdateOperationsInput | boolean
+    openrouterModel?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -8304,6 +9942,11 @@ export namespace Prisma {
   export type CompanyNullableScalarRelationFilter = {
     is?: CompanyWhereInput | null
     isNot?: CompanyWhereInput | null
+  }
+
+  export type AIConfigNullableScalarRelationFilter = {
+    is?: AIConfigWhereInput | null
+    isNot?: AIConfigWhereInput | null
   }
 
   export type SortOrderInput = {
@@ -8604,6 +10247,69 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type AIConfigCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    defaultProvider?: SortOrder
+    defaultModel?: SortOrder
+    openaiApiKey?: SortOrder
+    openaiEnabled?: SortOrder
+    openaiModel?: SortOrder
+    anthropicApiKey?: SortOrder
+    anthropicEnabled?: SortOrder
+    anthropicModel?: SortOrder
+    groqApiKey?: SortOrder
+    groqEnabled?: SortOrder
+    groqModel?: SortOrder
+    openrouterApiKey?: SortOrder
+    openrouterEnabled?: SortOrder
+    openrouterModel?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AIConfigMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    defaultProvider?: SortOrder
+    defaultModel?: SortOrder
+    openaiApiKey?: SortOrder
+    openaiEnabled?: SortOrder
+    openaiModel?: SortOrder
+    anthropicApiKey?: SortOrder
+    anthropicEnabled?: SortOrder
+    anthropicModel?: SortOrder
+    groqApiKey?: SortOrder
+    groqEnabled?: SortOrder
+    groqModel?: SortOrder
+    openrouterApiKey?: SortOrder
+    openrouterEnabled?: SortOrder
+    openrouterModel?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AIConfigMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    defaultProvider?: SortOrder
+    defaultModel?: SortOrder
+    openaiApiKey?: SortOrder
+    openaiEnabled?: SortOrder
+    openaiModel?: SortOrder
+    anthropicApiKey?: SortOrder
+    anthropicEnabled?: SortOrder
+    anthropicModel?: SortOrder
+    groqApiKey?: SortOrder
+    groqEnabled?: SortOrder
+    groqModel?: SortOrder
+    openrouterApiKey?: SortOrder
+    openrouterEnabled?: SortOrder
+    openrouterModel?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type UserCreateskillsInput = {
     set: string[]
   }
@@ -8635,6 +10341,12 @@ export namespace Prisma {
     connect?: CompanyWhereUniqueInput
   }
 
+  export type AIConfigCreateNestedOneWithoutUserInput = {
+    create?: XOR<AIConfigCreateWithoutUserInput, AIConfigUncheckedCreateWithoutUserInput>
+    connectOrCreate?: AIConfigCreateOrConnectWithoutUserInput
+    connect?: AIConfigWhereUniqueInput
+  }
+
   export type AppointmentUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AppointmentCreateWithoutUserInput, AppointmentUncheckedCreateWithoutUserInput> | AppointmentCreateWithoutUserInput[] | AppointmentUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AppointmentCreateOrConnectWithoutUserInput | AppointmentCreateOrConnectWithoutUserInput[]
@@ -8660,6 +10372,12 @@ export namespace Prisma {
     create?: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
     connectOrCreate?: CompanyCreateOrConnectWithoutUserInput
     connect?: CompanyWhereUniqueInput
+  }
+
+  export type AIConfigUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<AIConfigCreateWithoutUserInput, AIConfigUncheckedCreateWithoutUserInput>
+    connectOrCreate?: AIConfigCreateOrConnectWithoutUserInput
+    connect?: AIConfigWhereUniqueInput
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -8731,6 +10449,16 @@ export namespace Prisma {
     update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutUserInput, CompanyUpdateWithoutUserInput>, CompanyUncheckedUpdateWithoutUserInput>
   }
 
+  export type AIConfigUpdateOneWithoutUserNestedInput = {
+    create?: XOR<AIConfigCreateWithoutUserInput, AIConfigUncheckedCreateWithoutUserInput>
+    connectOrCreate?: AIConfigCreateOrConnectWithoutUserInput
+    upsert?: AIConfigUpsertWithoutUserInput
+    disconnect?: AIConfigWhereInput | boolean
+    delete?: AIConfigWhereInput | boolean
+    connect?: AIConfigWhereUniqueInput
+    update?: XOR<XOR<AIConfigUpdateToOneWithWhereWithoutUserInput, AIConfigUpdateWithoutUserInput>, AIConfigUncheckedUpdateWithoutUserInput>
+  }
+
   export type AppointmentUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AppointmentCreateWithoutUserInput, AppointmentUncheckedCreateWithoutUserInput> | AppointmentCreateWithoutUserInput[] | AppointmentUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AppointmentCreateOrConnectWithoutUserInput | AppointmentCreateOrConnectWithoutUserInput[]
@@ -8781,6 +10509,16 @@ export namespace Prisma {
     delete?: CompanyWhereInput | boolean
     connect?: CompanyWhereUniqueInput
     update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutUserInput, CompanyUpdateWithoutUserInput>, CompanyUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AIConfigUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<AIConfigCreateWithoutUserInput, AIConfigUncheckedCreateWithoutUserInput>
+    connectOrCreate?: AIConfigCreateOrConnectWithoutUserInput
+    upsert?: AIConfigUpsertWithoutUserInput
+    disconnect?: AIConfigWhereInput | boolean
+    delete?: AIConfigWhereInput | boolean
+    connect?: AIConfigWhereUniqueInput
+    update?: XOR<XOR<AIConfigUpdateToOneWithWhereWithoutUserInput, AIConfigUpdateWithoutUserInput>, AIConfigUncheckedUpdateWithoutUserInput>
   }
 
   export type CompanyCreateservicesInput = {
@@ -8859,6 +10597,20 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutAppointmentsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAppointmentsInput, UserUpdateWithoutAppointmentsInput>, UserUncheckedUpdateWithoutAppointmentsInput>
+  }
+
+  export type UserCreateNestedOneWithoutAiConfigInput = {
+    create?: XOR<UserCreateWithoutAiConfigInput, UserUncheckedCreateWithoutAiConfigInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAiConfigInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutAiConfigNestedInput = {
+    create?: XOR<UserCreateWithoutAiConfigInput, UserUncheckedCreateWithoutAiConfigInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAiConfigInput
+    upsert?: UserUpsertWithoutAiConfigInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAiConfigInput, UserUpdateWithoutAiConfigInput>, UserUncheckedUpdateWithoutAiConfigInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -9120,6 +10872,51 @@ export namespace Prisma {
     create: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
   }
 
+  export type AIConfigCreateWithoutUserInput = {
+    id?: string
+    defaultProvider?: string
+    defaultModel?: string
+    openaiApiKey?: string | null
+    openaiEnabled?: boolean
+    openaiModel?: string | null
+    anthropicApiKey?: string | null
+    anthropicEnabled?: boolean
+    anthropicModel?: string | null
+    groqApiKey?: string | null
+    groqEnabled?: boolean
+    groqModel?: string | null
+    openrouterApiKey?: string | null
+    openrouterEnabled?: boolean
+    openrouterModel?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AIConfigUncheckedCreateWithoutUserInput = {
+    id?: string
+    defaultProvider?: string
+    defaultModel?: string
+    openaiApiKey?: string | null
+    openaiEnabled?: boolean
+    openaiModel?: string | null
+    anthropicApiKey?: string | null
+    anthropicEnabled?: boolean
+    anthropicModel?: string | null
+    groqApiKey?: string | null
+    groqEnabled?: boolean
+    groqModel?: string | null
+    openrouterApiKey?: string | null
+    openrouterEnabled?: boolean
+    openrouterModel?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AIConfigCreateOrConnectWithoutUserInput = {
+    where: AIConfigWhereUniqueInput
+    create: XOR<AIConfigCreateWithoutUserInput, AIConfigUncheckedCreateWithoutUserInput>
+  }
+
   export type AppointmentUpsertWithWhereUniqueWithoutUserInput = {
     where: AppointmentWhereUniqueInput
     update: XOR<AppointmentUpdateWithoutUserInput, AppointmentUncheckedUpdateWithoutUserInput>
@@ -9259,6 +11056,57 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AIConfigUpsertWithoutUserInput = {
+    update: XOR<AIConfigUpdateWithoutUserInput, AIConfigUncheckedUpdateWithoutUserInput>
+    create: XOR<AIConfigCreateWithoutUserInput, AIConfigUncheckedCreateWithoutUserInput>
+    where?: AIConfigWhereInput
+  }
+
+  export type AIConfigUpdateToOneWithWhereWithoutUserInput = {
+    where?: AIConfigWhereInput
+    data: XOR<AIConfigUpdateWithoutUserInput, AIConfigUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AIConfigUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    defaultProvider?: StringFieldUpdateOperationsInput | string
+    defaultModel?: StringFieldUpdateOperationsInput | string
+    openaiApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    openaiEnabled?: BoolFieldUpdateOperationsInput | boolean
+    openaiModel?: NullableStringFieldUpdateOperationsInput | string | null
+    anthropicApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    anthropicEnabled?: BoolFieldUpdateOperationsInput | boolean
+    anthropicModel?: NullableStringFieldUpdateOperationsInput | string | null
+    groqApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    groqEnabled?: BoolFieldUpdateOperationsInput | boolean
+    groqModel?: NullableStringFieldUpdateOperationsInput | string | null
+    openrouterApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    openrouterEnabled?: BoolFieldUpdateOperationsInput | boolean
+    openrouterModel?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIConfigUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    defaultProvider?: StringFieldUpdateOperationsInput | string
+    defaultModel?: StringFieldUpdateOperationsInput | string
+    openaiApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    openaiEnabled?: BoolFieldUpdateOperationsInput | boolean
+    openaiModel?: NullableStringFieldUpdateOperationsInput | string | null
+    anthropicApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    anthropicEnabled?: BoolFieldUpdateOperationsInput | boolean
+    anthropicModel?: NullableStringFieldUpdateOperationsInput | string | null
+    groqApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    groqEnabled?: BoolFieldUpdateOperationsInput | boolean
+    groqModel?: NullableStringFieldUpdateOperationsInput | string | null
+    openrouterApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    openrouterEnabled?: BoolFieldUpdateOperationsInput | boolean
+    openrouterModel?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UserCreateWithoutCompanyInput = {
     id?: string
     email: string
@@ -9278,6 +11126,7 @@ export namespace Prisma {
     appointments?: AppointmentCreateNestedManyWithoutUserInput
     projects?: ProjectCreateNestedManyWithoutUserInput
     reminders?: ReminderCreateNestedManyWithoutUserInput
+    aiConfig?: AIConfigCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCompanyInput = {
@@ -9299,6 +11148,7 @@ export namespace Prisma {
     appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
     reminders?: ReminderUncheckedCreateNestedManyWithoutUserInput
+    aiConfig?: AIConfigUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCompanyInput = {
@@ -9336,6 +11186,7 @@ export namespace Prisma {
     appointments?: AppointmentUpdateManyWithoutUserNestedInput
     projects?: ProjectUpdateManyWithoutUserNestedInput
     reminders?: ReminderUpdateManyWithoutUserNestedInput
+    aiConfig?: AIConfigUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCompanyInput = {
@@ -9357,6 +11208,7 @@ export namespace Prisma {
     appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
     reminders?: ReminderUncheckedUpdateManyWithoutUserNestedInput
+    aiConfig?: AIConfigUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutProjectsInput = {
@@ -9378,6 +11230,7 @@ export namespace Prisma {
     appointments?: AppointmentCreateNestedManyWithoutUserInput
     reminders?: ReminderCreateNestedManyWithoutUserInput
     company?: CompanyCreateNestedOneWithoutUserInput
+    aiConfig?: AIConfigCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProjectsInput = {
@@ -9399,6 +11252,7 @@ export namespace Prisma {
     appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
     reminders?: ReminderUncheckedCreateNestedManyWithoutUserInput
     company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    aiConfig?: AIConfigUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProjectsInput = {
@@ -9436,6 +11290,7 @@ export namespace Prisma {
     appointments?: AppointmentUpdateManyWithoutUserNestedInput
     reminders?: ReminderUpdateManyWithoutUserNestedInput
     company?: CompanyUpdateOneWithoutUserNestedInput
+    aiConfig?: AIConfigUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProjectsInput = {
@@ -9457,6 +11312,7 @@ export namespace Prisma {
     appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
     reminders?: ReminderUncheckedUpdateManyWithoutUserNestedInput
     company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    aiConfig?: AIConfigUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutRemindersInput = {
@@ -9478,6 +11334,7 @@ export namespace Prisma {
     appointments?: AppointmentCreateNestedManyWithoutUserInput
     projects?: ProjectCreateNestedManyWithoutUserInput
     company?: CompanyCreateNestedOneWithoutUserInput
+    aiConfig?: AIConfigCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRemindersInput = {
@@ -9499,6 +11356,7 @@ export namespace Prisma {
     appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
     company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    aiConfig?: AIConfigUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRemindersInput = {
@@ -9536,6 +11394,7 @@ export namespace Prisma {
     appointments?: AppointmentUpdateManyWithoutUserNestedInput
     projects?: ProjectUpdateManyWithoutUserNestedInput
     company?: CompanyUpdateOneWithoutUserNestedInput
+    aiConfig?: AIConfigUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRemindersInput = {
@@ -9557,6 +11416,7 @@ export namespace Prisma {
     appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
     company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    aiConfig?: AIConfigUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAppointmentsInput = {
@@ -9578,6 +11438,7 @@ export namespace Prisma {
     projects?: ProjectCreateNestedManyWithoutUserInput
     reminders?: ReminderCreateNestedManyWithoutUserInput
     company?: CompanyCreateNestedOneWithoutUserInput
+    aiConfig?: AIConfigCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAppointmentsInput = {
@@ -9599,6 +11460,7 @@ export namespace Prisma {
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
     reminders?: ReminderUncheckedCreateNestedManyWithoutUserInput
     company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    aiConfig?: AIConfigUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAppointmentsInput = {
@@ -9636,6 +11498,7 @@ export namespace Prisma {
     projects?: ProjectUpdateManyWithoutUserNestedInput
     reminders?: ReminderUpdateManyWithoutUserNestedInput
     company?: CompanyUpdateOneWithoutUserNestedInput
+    aiConfig?: AIConfigUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAppointmentsInput = {
@@ -9654,6 +11517,111 @@ export namespace Prisma {
     skills?: UserUpdateskillsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutUserNestedInput
+    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    aiConfig?: AIConfigUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutAiConfigInput = {
+    id?: string
+    email: string
+    name: string
+    avatarUrl?: string | null
+    title?: string | null
+    bio?: string | null
+    location?: string | null
+    phone?: string | null
+    website?: string | null
+    linkedin?: string | null
+    github?: string | null
+    twitter?: string | null
+    skills?: UserCreateskillsInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    appointments?: AppointmentCreateNestedManyWithoutUserInput
+    projects?: ProjectCreateNestedManyWithoutUserInput
+    reminders?: ReminderCreateNestedManyWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutAiConfigInput = {
+    id?: string
+    email: string
+    name: string
+    avatarUrl?: string | null
+    title?: string | null
+    bio?: string | null
+    location?: string | null
+    phone?: string | null
+    website?: string | null
+    linkedin?: string | null
+    github?: string | null
+    twitter?: string | null
+    skills?: UserCreateskillsInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutUserInput
+    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAiConfigInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAiConfigInput, UserUncheckedCreateWithoutAiConfigInput>
+  }
+
+  export type UserUpsertWithoutAiConfigInput = {
+    update: XOR<UserUpdateWithoutAiConfigInput, UserUncheckedUpdateWithoutAiConfigInput>
+    create: XOR<UserCreateWithoutAiConfigInput, UserUncheckedCreateWithoutAiConfigInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAiConfigInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAiConfigInput, UserUncheckedUpdateWithoutAiConfigInput>
+  }
+
+  export type UserUpdateWithoutAiConfigInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
+    twitter?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: UserUpdateskillsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appointments?: AppointmentUpdateManyWithoutUserNestedInput
+    projects?: ProjectUpdateManyWithoutUserNestedInput
+    reminders?: ReminderUpdateManyWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAiConfigInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
+    twitter?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: UserUpdateskillsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
     reminders?: ReminderUncheckedUpdateManyWithoutUserNestedInput
     company?: CompanyUncheckedUpdateOneWithoutUserNestedInput

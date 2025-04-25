@@ -190,6 +190,27 @@ exports.Prisma.AppointmentScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.AIConfigScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  defaultProvider: 'defaultProvider',
+  defaultModel: 'defaultModel',
+  openaiApiKey: 'openaiApiKey',
+  openaiEnabled: 'openaiEnabled',
+  openaiModel: 'openaiModel',
+  anthropicApiKey: 'anthropicApiKey',
+  anthropicEnabled: 'anthropicEnabled',
+  anthropicModel: 'anthropicModel',
+  groqApiKey: 'groqApiKey',
+  groqEnabled: 'groqEnabled',
+  groqModel: 'groqModel',
+  openrouterApiKey: 'openrouterApiKey',
+  openrouterEnabled: 'openrouterEnabled',
+  openrouterModel: 'openrouterModel',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -211,7 +232,8 @@ exports.Prisma.ModelName = {
   Company: 'Company',
   Project: 'Project',
   Reminder: 'Reminder',
-  Appointment: 'Appointment'
+  Appointment: 'Appointment',
+  AIConfig: 'AIConfig'
 };
 
 /**

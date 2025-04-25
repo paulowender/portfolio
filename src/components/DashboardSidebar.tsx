@@ -28,7 +28,12 @@ export default function DashboardSidebar() {
     { name: 'Company Profile', href: '/dashboard/company', icon: BuildingOfficeIcon },
     { name: 'Calendar', href: '/dashboard/calendar', icon: CalendarIcon },
     { name: 'Reminders', href: '/dashboard/reminders', icon: BellIcon },
-    { name: 'Integrations', href: '/dashboard/integrations', icon: CubeIcon },
+    {
+      name: 'Integrations',
+      href: '/dashboard/integrations',
+      icon: CubeIcon,
+      submenu: [{ name: 'AI Providers', href: '/dashboard/integrations/ai' }],
+    },
   ];
 
   return (
@@ -81,7 +86,8 @@ export default function DashboardSidebar() {
               <Link
                 href={item.href}
                 className={`flex items-center px-4 py-3 rounded-lg transition-colors ${
-                  pathname === item.href
+                  pathname === item.href ||
+                  (item.submenu && item.submenu.some((subitem) => pathname === subitem.href))
                     ? 'bg-indigo-600 text-white'
                     : 'text-gray-400 hover:bg-gray-800 hover:text-white'
                 }`}
@@ -89,6 +95,26 @@ export default function DashboardSidebar() {
                 <item.icon className="h-6 w-6 flex-shrink-0" />
                 {expanded && <span className="ml-3">{item.name}</span>}
               </Link>
+
+              {/* Submenu */}
+              {expanded && item.submenu && (
+                <ul className="ml-8 mt-2 space-y-1">
+                  {item.submenu.map((subitem) => (
+                    <li key={subitem.name}>
+                      <Link
+                        href={subitem.href}
+                        className={`flex items-center px-4 py-2 rounded-lg transition-colors ${
+                          pathname === subitem.href
+                            ? 'bg-indigo-800 text-white'
+                            : 'text-gray-400 hover:bg-gray-800 hover:text-white'
+                        }`}
+                      >
+                        <span className="text-sm">{subitem.name}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </li>
           ))}
         </ul>
