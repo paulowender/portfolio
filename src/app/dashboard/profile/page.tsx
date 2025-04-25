@@ -6,8 +6,14 @@ import { motion } from 'framer-motion';
 import { useAuth } from '@/lib/AuthContext';
 import { getUserProfile, updateUserProfile } from '@/lib/api-client';
 import { uploadProfileImage } from '@/lib/profile';
+import {
+  fetchEnabledAIProviders,
+  improveBioWithAI as improveBioWithAIService,
+} from '@/lib/ai-providers';
+import { AIProvider } from '@/types/ai';
 import Button from '@/components/Button';
-import { ArrowUpTrayIcon } from '@heroicons/react/24/outline';
+import TagInput from '@/components/TagInput';
+import { ArrowUpTrayIcon, SparklesIcon } from '@heroicons/react/24/outline';
 
 export default function ProfilePage() {
   const { user } = useAuth();
@@ -23,7 +29,7 @@ export default function ProfilePage() {
     linkedin: '',
     github: '',
     twitter: '',
-    skills: [''],
+    skills: [] as string[],
     avatarUrl: '',
   });
 
@@ -33,11 +39,16 @@ export default function ProfilePage() {
   const [fetchLoading, setFetchLoading] = useState(true);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [aiProviders, setAIProviders] = useState<{ provider: AIProvider; isEnabled: boolean }[]>(
+    [],
+  );
+  const [selectedProvider, setSelectedProvider] = useState<AIProvider | ''>('');
 
   useEffect(() => {
     const loadProfile = async () => {
       if (user) {
         try {
+          // Load profile data
           const { data, error } = await getUserProfile(user.id);
 
           if (error) {
@@ -66,12 +77,29 @@ export default function ProfilePage() {
             linkedin: data.linkedin || '',
             github: data.github || '',
             twitter: data.twitter || '',
-            skills: data.skills?.length > 0 ? data.skills : [''],
+            skills: data.skills?.length > 0 ? data.skills : [],
             avatarUrl: data.avatarUrl || '',
           });
 
           if (data.avatarUrl) {
             setImagePreview(data.avatarUrl);
+          }
+
+          // Load AI providers
+          try {
+            const providers = await fetchEnabledAIProviders();
+            setAIProviders(
+              providers.map((p) => ({ provider: p.provider, isEnabled: p.isEnabled })),
+            );
+
+            // Set the first enabled provider as selected
+            const firstEnabledProvider = providers.find((p) => p.isEnabled);
+            if (firstEnabledProvider) {
+              setSelectedProvider(firstEnabledProvider.provider);
+            }
+          } catch (providerErr) {
+            console.error('Error fetching AI providers:', providerErr);
+            // Don't show error to user, just log it
           }
 
           setFetchLoading(false);
@@ -91,21 +119,8 @@ export default function ProfilePage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSkillChange = (index: number, value: string) => {
-    const updatedSkills = [...formData.skills];
-    updatedSkills[index] = value;
-    setFormData((prev) => ({ ...prev, skills: updatedSkills }));
-  };
-
-  const addSkill = () => {
-    setFormData((prev) => ({ ...prev, skills: [...prev.skills, ''] }));
-  };
-
-  const removeSkill = (index: number) => {
-    if (formData.skills.length > 1) {
-      const updatedSkills = formData.skills.filter((_, i) => i !== index);
-      setFormData((prev) => ({ ...prev, skills: updatedSkills }));
-    }
+  const handleSkillsChange = (skills: string[]) => {
+    setFormData((prev) => ({ ...prev, skills }));
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -126,6 +141,41 @@ export default function ProfilePage() {
     setFormData((prev) => ({ ...prev, avatarUrl: '' }));
   };
 
+  const [improvingBio, setImprovingBio] = useState(false);
+
+  const improveBioWithAI = async () => {
+    if (!formData.bio.trim()) {
+      setError('Please enter some text in your bio before improving it.');
+      return;
+    }
+
+    if (!selectedProvider) {
+      setError('Please select an AI provider first.');
+      return;
+    }
+
+    setImprovingBio(true);
+    setError('');
+
+    try {
+      // Call the AI service to improve the bio
+      const improvedBio = await improveBioWithAIService(
+        formData.bio,
+        formData.title,
+        formData.skills,
+        selectedProvider,
+      );
+
+      setFormData((prev) => ({ ...prev, bio: improvedBio }));
+      setSuccess('Bio improved successfully!');
+    } catch (error: any) {
+      console.error('Error improving bio:', error);
+      setError(error.message || 'Failed to improve bio. Please try again.');
+    } finally {
+      setImprovingBio(false);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -137,8 +187,7 @@ export default function ProfilePage() {
         throw new Error('You must be logged in to update your profile');
       }
 
-      // Filter out empty skills
-      const filteredSkills = formData.skills.filter((skill) => skill.trim() !== '');
+      // Skills are already filtered by the TagInput component
 
       let avatarUrl = formData.avatarUrl;
 
@@ -164,7 +213,7 @@ export default function ProfilePage() {
         linkedin: formData.linkedin,
         github: formData.github,
         twitter: formData.twitter,
-        skills: filteredSkills,
+        skills: formData.skills,
         avatarUrl: avatarUrl,
       });
 
@@ -295,9 +344,50 @@ export default function ProfilePage() {
             </div>
 
             <div className="md:col-span-2">
-              <label htmlFor="bio" className="block text-sm font-medium text-gray-300 mb-2">
-                Bio
-              </label>
+              <div className="flex justify-between items-center mb-2">
+                <label htmlFor="bio" className="block text-sm font-medium text-gray-300">
+                  Bio
+                </label>
+                <div className="flex items-center space-x-2">
+                  <select
+                    value={selectedProvider}
+                    onChange={(e) => setSelectedProvider(e.target.value as AIProvider)}
+                    className="bg-gray-700 border border-gray-600 text-white text-sm rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    disabled={improvingBio || aiProviders.length === 0}
+                  >
+                    <option value="">Select AI Provider</option>
+                    {aiProviders.map((p) => (
+                      <option key={p.provider} value={p.provider} disabled={!p.isEnabled}>
+                        {p.provider.charAt(0).toUpperCase() + p.provider.slice(1)}
+                        {!p.isEnabled && ' (disabled)'}
+                      </option>
+                    ))}
+                  </select>
+                  <button
+                    type="button"
+                    onClick={improveBioWithAI}
+                    disabled={
+                      improvingBio ||
+                      !formData.bio.trim() ||
+                      !selectedProvider ||
+                      aiProviders.length === 0
+                    }
+                    className="flex items-center text-sm px-3 py-1 bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-900 disabled:opacity-50 rounded-md text-white transition-colors"
+                  >
+                    {improvingBio ? (
+                      <>
+                        <div className="animate-spin h-4 w-4 mr-2 border-2 border-t-transparent border-white rounded-full"></div>
+                        Improving...
+                      </>
+                    ) : (
+                      <>
+                        <SparklesIcon className="h-4 w-4 mr-1" />
+                        Improve with AI
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
               <textarea
                 id="bio"
                 name="bio"
@@ -307,6 +397,9 @@ export default function ProfilePage() {
                 placeholder="A brief description about yourself and your professional experience"
                 className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               ></textarea>
+              <p className="mt-1 text-xs text-gray-400">
+                Use the "Improve with AI" button to enhance your bio with professional language.
+              </p>
             </div>
 
             <div>
@@ -403,34 +496,14 @@ export default function ProfilePage() {
             {/* Skills */}
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-300 mb-2">Skills</label>
-              <div className="space-y-3">
-                {formData.skills.map((skill, index) => (
-                  <div key={index} className="flex items-center space-x-3">
-                    <input
-                      type="text"
-                      value={skill}
-                      onChange={(e) => handleSkillChange(index, e.target.value)}
-                      placeholder="e.g. React, Node.js, TypeScript"
-                      className="flex-1 px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => removeSkill(index)}
-                      className="px-3 py-2 bg-red-600 hover:bg-red-700 rounded-md text-white text-sm font-medium transition-colors"
-                      disabled={formData.skills.length <= 1}
-                    >
-                      Remove
-                    </button>
-                  </div>
-                ))}
-                <button
-                  type="button"
-                  onClick={addSkill}
-                  className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md text-white text-sm font-medium transition-colors"
-                >
-                  Add Skill
-                </button>
-              </div>
+              <TagInput
+                value={formData.skills}
+                onChange={handleSkillsChange}
+                placeholder="Type a skill and press Enter (e.g., React, Node.js, TypeScript)"
+              />
+              <p className="mt-1 text-xs text-gray-400">
+                Type a skill and press Enter to add it. Click the X to remove.
+              </p>
             </div>
           </div>
 

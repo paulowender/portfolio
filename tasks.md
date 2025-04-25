@@ -80,6 +80,11 @@
 - [x] Implement Axios with interceptors for API calls
 - [x] Fix image upload issues with proper storage paths
 - [x] Improve error handling for API requests
+- [x] Add TagInput component for skills and technologies
+- [x] Implement "Improve with AI" feature for bio enhancement
+- [x] Add AI provider selector for bio enhancement
+- [x] Connect bio enhancement to configured AI providers
+- [x] Implement real API calls to OpenAI, Anthropic, Groq, and OpenRouter
 
 ### Build and Performance Optimizations
 

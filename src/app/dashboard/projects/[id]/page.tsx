@@ -7,6 +7,7 @@ import { useAuth } from '@/lib/AuthContext';
 import { fetchProject, updateProjectApi } from '@/lib/api-client';
 import { uploadProjectImage, deleteProjectImage } from '@/lib/projects';
 import Button from '@/components/Button';
+import TagInput from '@/components/TagInput';
 import { XMarkIcon, ArrowUpTrayIcon } from '@heroicons/react/24/outline';
 
 export default function EditProjectPage({ params }: { params: Promise<{ id: string }> }) {
@@ -18,7 +19,7 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    technologies: [''],
+    technologies: [] as string[],
     github_url: '',
     live_url: '',
     featured: false,
@@ -58,7 +59,7 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
           setFormData({
             title: data.title,
             description: data.description,
-            technologies: data.technologies?.length > 0 ? data.technologies : [''],
+            technologies: data.technologies?.length > 0 ? data.technologies : [],
             github_url: data.githubUrl || '',
             live_url: data.liveUrl || '',
             featured: data.featured || false,
@@ -98,20 +99,8 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
     setFormData({ ...formData, [name]: checked });
   };
 
-  const handleTechChange = (index: number, value: string) => {
-    const newTechnologies = [...formData.technologies];
-    newTechnologies[index] = value;
-    setFormData({ ...formData, technologies: newTechnologies });
-  };
-
-  const addTech = () => {
-    setFormData({ ...formData, technologies: [...formData.technologies, ''] });
-  };
-
-  const removeTech = (index: number) => {
-    const newTechnologies = [...formData.technologies];
-    newTechnologies.splice(index, 1);
-    setFormData({ ...formData, technologies: newTechnologies });
+  const handleTechnologiesChange = (technologies: string[]) => {
+    setFormData({ ...formData, technologies });
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -140,9 +129,8 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
     setError('');
 
     try {
-      // Filter out empty technologies
-      const filteredTechnologies = formData.technologies.filter((tech) => tech.trim() !== '');
-      console.log('Filtered technologies:', filteredTechnologies);
+      // Technologies are already filtered by the TagInput component
+      console.log('Technologies:', formData.technologies);
 
       let imageUrl = formData.image_url;
 
@@ -180,7 +168,7 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
       const { data, error } = await updateProjectApi(id, {
         title: formData.title,
         description: formData.description,
-        technologies: filteredTechnologies,
+        technologies: formData.technologies,
         githubUrl: formData.github_url,
         liveUrl: formData.live_url,
         featured: formData.featured,
@@ -263,35 +251,14 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
 
           <div>
             <label className="block text-sm font-medium text-gray-300 mb-1">Technologies *</label>
-            <div className="space-y-2">
-              {formData.technologies.map((tech, index) => (
-                <div key={index} className="flex gap-2">
-                  <input
-                    type="text"
-                    value={tech}
-                    onChange={(e) => handleTechChange(index, e.target.value)}
-                    placeholder="e.g., React, Node.js, etc."
-                    className="flex-1 px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  />
-                  {formData.technologies.length > 1 && (
-                    <button
-                      type="button"
-                      onClick={() => removeTech(index)}
-                      className="p-2 bg-red-900/50 text-red-200 rounded-md hover:bg-red-900/70"
-                    >
-                      <XMarkIcon className="h-5 w-5" />
-                    </button>
-                  )}
-                </div>
-              ))}
-              <button
-                type="button"
-                onClick={addTech}
-                className="text-indigo-400 hover:text-indigo-300 text-sm font-medium"
-              >
-                + Add Technology
-              </button>
-            </div>
+            <TagInput
+              value={formData.technologies}
+              onChange={handleTechnologiesChange}
+              placeholder="Type a technology and press Enter (e.g., React, Node.js)"
+            />
+            <p className="mt-1 text-xs text-gray-400">
+              Type a technology and press Enter to add it. Click the X to remove.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
