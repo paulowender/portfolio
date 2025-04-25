@@ -45,7 +45,7 @@ NEXT_PUBLIC_APP_NAME=Wender Tech
 NEXT_PUBLIC_APP_DESCRIPTION=Portfolio e Gerenciamento de Projetos
 
 # Configuração do NextAuth
-NEXTAUTH_URL=https://your-domain.com
+NEXT_PUBLIC_APP_URL=https://your-domain.com
 NEXTAUTH_SECRET=your-nextauth-secret
 
 # Ambiente
