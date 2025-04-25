@@ -23,7 +23,8 @@
     "build:clean": "npm run clean && npm run build",
     "build:production:clean": "npm run clean && npm run build:production",
     "start:pm2:production": "pm2 start npm --name \"wender-tech-portfolio\" -- run start:production",
-    "restart:pm2:production": "pm2 restart wender-tech-portfolio"
+    "stop:pm2:production": "pm2 stop wender-tech-portfolio",
+    "restart:pm2:production": "npm run stop:pm2:production && npm run start:pm2:production"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.2",
