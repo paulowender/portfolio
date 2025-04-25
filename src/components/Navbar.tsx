@@ -38,9 +38,7 @@ export default function Navbar() {
     <Disclosure
       as="nav"
       className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-gray-900/90 backdrop-blur-md shadow-lg'
-          : 'bg-transparent'
+        scrolled ? 'bg-gray-900/90 backdrop-blur-md shadow-lg' : 'bg-transparent'
       }`}
     >
       {({ open }) => (
@@ -49,15 +47,19 @@ export default function Navbar() {
             <div className="flex h-16 justify-between">
               <div className="flex">
                 <div className="flex flex-shrink-0 items-center">
-                  <Link href="/" className="text-white font-bold text-xl">
-                    <motion.div
-                      initial={{ opacity: 0, y: -20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5 }}
+                  <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <Link
+                      href="/"
+                      className="text-white font-bold text-xl flex flex-row items-center"
                     >
-                      DevPortfolio
-                    </motion.div>
-                  </Link>
+                      <img className="h-8 w-auto" src="/logo.png" alt="Wender Tech Logo" />
+                      Wender Tech
+                    </Link>
+                  </motion.div>
                 </div>
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:items-center sm:space-x-8">
@@ -66,9 +68,7 @@ export default function Navbar() {
                     key={item.name}
                     href={item.href}
                     className={`px-3 py-2 text-sm font-medium ${
-                      pathname === item.href
-                        ? 'text-indigo-400'
-                        : 'text-gray-300 hover:text-white'
+                      pathname === item.href ? 'text-indigo-400' : 'text-gray-300 hover:text-white'
                     } transition-colors duration-300`}
                   >
                     {item.name}

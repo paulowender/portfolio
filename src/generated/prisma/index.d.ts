@@ -8551,6 +8551,10 @@ export namespace Prisma {
     evolutionBaseUrl: string | null
     evolutionEnabled: boolean | null
     evolutionInstance: string | null
+    resendApiKey: string | null
+    resendEnabled: boolean | null
+    resendFromEmail: string | null
+    resendFromName: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -8562,6 +8566,10 @@ export namespace Prisma {
     evolutionBaseUrl: string | null
     evolutionEnabled: boolean | null
     evolutionInstance: string | null
+    resendApiKey: string | null
+    resendEnabled: boolean | null
+    resendFromEmail: string | null
+    resendFromName: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -8573,6 +8581,10 @@ export namespace Prisma {
     evolutionBaseUrl: number
     evolutionEnabled: number
     evolutionInstance: number
+    resendApiKey: number
+    resendEnabled: number
+    resendFromEmail: number
+    resendFromName: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -8586,6 +8598,10 @@ export namespace Prisma {
     evolutionBaseUrl?: true
     evolutionEnabled?: true
     evolutionInstance?: true
+    resendApiKey?: true
+    resendEnabled?: true
+    resendFromEmail?: true
+    resendFromName?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -8597,6 +8613,10 @@ export namespace Prisma {
     evolutionBaseUrl?: true
     evolutionEnabled?: true
     evolutionInstance?: true
+    resendApiKey?: true
+    resendEnabled?: true
+    resendFromEmail?: true
+    resendFromName?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -8608,6 +8628,10 @@ export namespace Prisma {
     evolutionBaseUrl?: true
     evolutionEnabled?: true
     evolutionInstance?: true
+    resendApiKey?: true
+    resendEnabled?: true
+    resendFromEmail?: true
+    resendFromName?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -8692,6 +8716,10 @@ export namespace Prisma {
     evolutionBaseUrl: string | null
     evolutionEnabled: boolean
     evolutionInstance: string | null
+    resendApiKey: string | null
+    resendEnabled: boolean
+    resendFromEmail: string | null
+    resendFromName: string | null
     createdAt: Date
     updatedAt: Date
     _count: MessagingConfigCountAggregateOutputType | null
@@ -8720,6 +8748,10 @@ export namespace Prisma {
     evolutionBaseUrl?: boolean
     evolutionEnabled?: boolean
     evolutionInstance?: boolean
+    resendApiKey?: boolean
+    resendEnabled?: boolean
+    resendFromEmail?: boolean
+    resendFromName?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -8732,6 +8764,10 @@ export namespace Prisma {
     evolutionBaseUrl?: boolean
     evolutionEnabled?: boolean
     evolutionInstance?: boolean
+    resendApiKey?: boolean
+    resendEnabled?: boolean
+    resendFromEmail?: boolean
+    resendFromName?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -8744,6 +8780,10 @@ export namespace Prisma {
     evolutionBaseUrl?: boolean
     evolutionEnabled?: boolean
     evolutionInstance?: boolean
+    resendApiKey?: boolean
+    resendEnabled?: boolean
+    resendFromEmail?: boolean
+    resendFromName?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -8756,11 +8796,15 @@ export namespace Prisma {
     evolutionBaseUrl?: boolean
     evolutionEnabled?: boolean
     evolutionInstance?: boolean
+    resendApiKey?: boolean
+    resendEnabled?: boolean
+    resendFromEmail?: boolean
+    resendFromName?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type MessagingConfigOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "evolutionApiKey" | "evolutionBaseUrl" | "evolutionEnabled" | "evolutionInstance" | "createdAt" | "updatedAt", ExtArgs["result"]["messagingConfig"]>
+  export type MessagingConfigOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "evolutionApiKey" | "evolutionBaseUrl" | "evolutionEnabled" | "evolutionInstance" | "resendApiKey" | "resendEnabled" | "resendFromEmail" | "resendFromName" | "createdAt" | "updatedAt", ExtArgs["result"]["messagingConfig"]>
   export type MessagingConfigInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -8783,6 +8827,10 @@ export namespace Prisma {
       evolutionBaseUrl: string | null
       evolutionEnabled: boolean
       evolutionInstance: string | null
+      resendApiKey: string | null
+      resendEnabled: boolean
+      resendFromEmail: string | null
+      resendFromName: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["messagingConfig"]>
@@ -9215,6 +9263,10 @@ export namespace Prisma {
     readonly evolutionBaseUrl: FieldRef<"MessagingConfig", 'String'>
     readonly evolutionEnabled: FieldRef<"MessagingConfig", 'Boolean'>
     readonly evolutionInstance: FieldRef<"MessagingConfig", 'String'>
+    readonly resendApiKey: FieldRef<"MessagingConfig", 'String'>
+    readonly resendEnabled: FieldRef<"MessagingConfig", 'Boolean'>
+    readonly resendFromEmail: FieldRef<"MessagingConfig", 'String'>
+    readonly resendFromName: FieldRef<"MessagingConfig", 'String'>
     readonly createdAt: FieldRef<"MessagingConfig", 'DateTime'>
     readonly updatedAt: FieldRef<"MessagingConfig", 'DateTime'>
   }
@@ -9764,6 +9816,10 @@ export namespace Prisma {
     evolutionBaseUrl: 'evolutionBaseUrl',
     evolutionEnabled: 'evolutionEnabled',
     evolutionInstance: 'evolutionInstance',
+    resendApiKey: 'resendApiKey',
+    resendEnabled: 'resendEnabled',
+    resendFromEmail: 'resendFromEmail',
+    resendFromName: 'resendFromName',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -10437,6 +10493,10 @@ export namespace Prisma {
     evolutionBaseUrl?: StringNullableFilter<"MessagingConfig"> | string | null
     evolutionEnabled?: BoolFilter<"MessagingConfig"> | boolean
     evolutionInstance?: StringNullableFilter<"MessagingConfig"> | string | null
+    resendApiKey?: StringNullableFilter<"MessagingConfig"> | string | null
+    resendEnabled?: BoolFilter<"MessagingConfig"> | boolean
+    resendFromEmail?: StringNullableFilter<"MessagingConfig"> | string | null
+    resendFromName?: StringNullableFilter<"MessagingConfig"> | string | null
     createdAt?: DateTimeFilter<"MessagingConfig"> | Date | string
     updatedAt?: DateTimeFilter<"MessagingConfig"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -10449,6 +10509,10 @@ export namespace Prisma {
     evolutionBaseUrl?: SortOrderInput | SortOrder
     evolutionEnabled?: SortOrder
     evolutionInstance?: SortOrderInput | SortOrder
+    resendApiKey?: SortOrderInput | SortOrder
+    resendEnabled?: SortOrder
+    resendFromEmail?: SortOrderInput | SortOrder
+    resendFromName?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -10464,6 +10528,10 @@ export namespace Prisma {
     evolutionBaseUrl?: StringNullableFilter<"MessagingConfig"> | string | null
     evolutionEnabled?: BoolFilter<"MessagingConfig"> | boolean
     evolutionInstance?: StringNullableFilter<"MessagingConfig"> | string | null
+    resendApiKey?: StringNullableFilter<"MessagingConfig"> | string | null
+    resendEnabled?: BoolFilter<"MessagingConfig"> | boolean
+    resendFromEmail?: StringNullableFilter<"MessagingConfig"> | string | null
+    resendFromName?: StringNullableFilter<"MessagingConfig"> | string | null
     createdAt?: DateTimeFilter<"MessagingConfig"> | Date | string
     updatedAt?: DateTimeFilter<"MessagingConfig"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -10476,6 +10544,10 @@ export namespace Prisma {
     evolutionBaseUrl?: SortOrderInput | SortOrder
     evolutionEnabled?: SortOrder
     evolutionInstance?: SortOrderInput | SortOrder
+    resendApiKey?: SortOrderInput | SortOrder
+    resendEnabled?: SortOrder
+    resendFromEmail?: SortOrderInput | SortOrder
+    resendFromName?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: MessagingConfigCountOrderByAggregateInput
@@ -10493,6 +10565,10 @@ export namespace Prisma {
     evolutionBaseUrl?: StringNullableWithAggregatesFilter<"MessagingConfig"> | string | null
     evolutionEnabled?: BoolWithAggregatesFilter<"MessagingConfig"> | boolean
     evolutionInstance?: StringNullableWithAggregatesFilter<"MessagingConfig"> | string | null
+    resendApiKey?: StringNullableWithAggregatesFilter<"MessagingConfig"> | string | null
+    resendEnabled?: BoolWithAggregatesFilter<"MessagingConfig"> | boolean
+    resendFromEmail?: StringNullableWithAggregatesFilter<"MessagingConfig"> | string | null
+    resendFromName?: StringNullableWithAggregatesFilter<"MessagingConfig"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"MessagingConfig"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"MessagingConfig"> | Date | string
   }
@@ -11180,6 +11256,10 @@ export namespace Prisma {
     evolutionBaseUrl?: string | null
     evolutionEnabled?: boolean
     evolutionInstance?: string | null
+    resendApiKey?: string | null
+    resendEnabled?: boolean
+    resendFromEmail?: string | null
+    resendFromName?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutMessagingConfigInput
@@ -11192,6 +11272,10 @@ export namespace Prisma {
     evolutionBaseUrl?: string | null
     evolutionEnabled?: boolean
     evolutionInstance?: string | null
+    resendApiKey?: string | null
+    resendEnabled?: boolean
+    resendFromEmail?: string | null
+    resendFromName?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11202,6 +11286,10 @@ export namespace Prisma {
     evolutionBaseUrl?: NullableStringFieldUpdateOperationsInput | string | null
     evolutionEnabled?: BoolFieldUpdateOperationsInput | boolean
     evolutionInstance?: NullableStringFieldUpdateOperationsInput | string | null
+    resendApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    resendEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resendFromEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    resendFromName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutMessagingConfigNestedInput
@@ -11214,6 +11302,10 @@ export namespace Prisma {
     evolutionBaseUrl?: NullableStringFieldUpdateOperationsInput | string | null
     evolutionEnabled?: BoolFieldUpdateOperationsInput | boolean
     evolutionInstance?: NullableStringFieldUpdateOperationsInput | string | null
+    resendApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    resendEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resendFromEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    resendFromName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11225,6 +11317,10 @@ export namespace Prisma {
     evolutionBaseUrl?: string | null
     evolutionEnabled?: boolean
     evolutionInstance?: string | null
+    resendApiKey?: string | null
+    resendEnabled?: boolean
+    resendFromEmail?: string | null
+    resendFromName?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11235,6 +11331,10 @@ export namespace Prisma {
     evolutionBaseUrl?: NullableStringFieldUpdateOperationsInput | string | null
     evolutionEnabled?: BoolFieldUpdateOperationsInput | boolean
     evolutionInstance?: NullableStringFieldUpdateOperationsInput | string | null
+    resendApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    resendEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resendFromEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    resendFromName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11246,6 +11346,10 @@ export namespace Prisma {
     evolutionBaseUrl?: NullableStringFieldUpdateOperationsInput | string | null
     evolutionEnabled?: BoolFieldUpdateOperationsInput | boolean
     evolutionInstance?: NullableStringFieldUpdateOperationsInput | string | null
+    resendApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    resendEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resendFromEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    resendFromName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11700,6 +11804,10 @@ export namespace Prisma {
     evolutionBaseUrl?: SortOrder
     evolutionEnabled?: SortOrder
     evolutionInstance?: SortOrder
+    resendApiKey?: SortOrder
+    resendEnabled?: SortOrder
+    resendFromEmail?: SortOrder
+    resendFromName?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -11711,6 +11819,10 @@ export namespace Prisma {
     evolutionBaseUrl?: SortOrder
     evolutionEnabled?: SortOrder
     evolutionInstance?: SortOrder
+    resendApiKey?: SortOrder
+    resendEnabled?: SortOrder
+    resendFromEmail?: SortOrder
+    resendFromName?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -11722,6 +11834,10 @@ export namespace Prisma {
     evolutionBaseUrl?: SortOrder
     evolutionEnabled?: SortOrder
     evolutionInstance?: SortOrder
+    resendApiKey?: SortOrder
+    resendEnabled?: SortOrder
+    resendFromEmail?: SortOrder
+    resendFromName?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12385,6 +12501,10 @@ export namespace Prisma {
     evolutionBaseUrl?: string | null
     evolutionEnabled?: boolean
     evolutionInstance?: string | null
+    resendApiKey?: string | null
+    resendEnabled?: boolean
+    resendFromEmail?: string | null
+    resendFromName?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12395,6 +12515,10 @@ export namespace Prisma {
     evolutionBaseUrl?: string | null
     evolutionEnabled?: boolean
     evolutionInstance?: string | null
+    resendApiKey?: string | null
+    resendEnabled?: boolean
+    resendFromEmail?: string | null
+    resendFromName?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12611,6 +12735,10 @@ export namespace Prisma {
     evolutionBaseUrl?: NullableStringFieldUpdateOperationsInput | string | null
     evolutionEnabled?: BoolFieldUpdateOperationsInput | boolean
     evolutionInstance?: NullableStringFieldUpdateOperationsInput | string | null
+    resendApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    resendEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resendFromEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    resendFromName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12621,6 +12749,10 @@ export namespace Prisma {
     evolutionBaseUrl?: NullableStringFieldUpdateOperationsInput | string | null
     evolutionEnabled?: BoolFieldUpdateOperationsInput | boolean
     evolutionInstance?: NullableStringFieldUpdateOperationsInput | string | null
+    resendApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    resendEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resendFromEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    resendFromName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

@@ -34,7 +34,8 @@ export default function DashboardSidebar() {
       icon: CubeIcon,
       submenu: [
         { name: 'AI Providers', href: '/dashboard/integrations/ai' },
-        { name: 'Messaging', href: '/dashboard/integrations/evolution' },
+        { name: 'WhatsApp', href: '/dashboard/integrations/evolution' },
+        { name: 'Email', href: '/dashboard/integrations/resend' },
       ],
     },
   ];
@@ -46,15 +47,9 @@ export default function DashboardSidebar() {
       } fixed left-0 top-0 z-30`}
     >
       <div className="flex h-16 items-center justify-between px-4">
-        {expanded ? (
-          <Link href="/dashboard" className="text-white font-bold text-xl">
-            DevPortfolio
-          </Link>
-        ) : (
-          <Link href="/dashboard" className="text-white font-bold text-xl">
-            DP
-          </Link>
-        )}
+        <Link href="/dashboard" className="text-white font-bold text-xl">
+          {expanded ? 'Wender Tech' : 'WT'}
+        </Link>
         <button onClick={() => setExpanded(!expanded)} className="text-gray-400 hover:text-white">
           <svg
             xmlns="http://www.w3.org/2000/svg"

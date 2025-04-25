@@ -58,12 +58,11 @@ export default function IntegrationsPage() {
     {
       id: 'email',
       name: 'Email Services',
-      description:
-        'Connect to email services to send notifications, invoices, and other communications.',
+      description: 'Connect to Resend for sending transactional emails with high deliverability.',
       icon: EnvelopeIcon,
-      href: '/dashboard/integrations/email',
-      isAvailable: false,
-      badges: ['Coming Soon'],
+      href: '/dashboard/integrations/resend',
+      isAvailable: true,
+      badges: ['New'],
     },
   ];
 

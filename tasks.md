@@ -136,3 +136,8 @@
 - [x] Add WhatsApp instance management
 - [x] Implement QR code generation for WhatsApp connection
 - [x] Create API endpoints for Evolution API operations
+- [x] Implement Resend email integration
+- [x] Create UI for managing Resend settings
+- [x] Add test email functionality with React templates
+- [x] Create API endpoints for Resend operations
+- [x] Use official Resend client for better integration

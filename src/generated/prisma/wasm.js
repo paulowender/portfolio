@@ -218,6 +218,10 @@ exports.Prisma.MessagingConfigScalarFieldEnum = {
   evolutionBaseUrl: 'evolutionBaseUrl',
   evolutionEnabled: 'evolutionEnabled',
   evolutionInstance: 'evolutionInstance',
+  resendApiKey: 'resendApiKey',
+  resendEnabled: 'resendEnabled',
+  resendFromEmail: 'resendFromEmail',
+  resendFromName: 'resendFromName',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

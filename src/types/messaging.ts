@@ -1,5 +1,5 @@
 // Tipos para provedores de mensageria
-export type MessagingProvider = 'evolution';
+export type MessagingProvider = 'evolution' | 'resend';
 
 export interface EvolutionInstance {
   id: string;
@@ -40,6 +40,12 @@ export interface UserMessagingConfig {
       isEnabled: boolean;
       defaultInstance?: string;
     };
+    resend?: {
+      apiKey: string;
+      isEnabled: boolean;
+      defaultFromEmail?: string;
+      defaultFromName?: string;
+    };
   };
   createdAt: Date;
   updatedAt: Date;
@@ -56,5 +62,14 @@ export const MESSAGING_PROVIDERS: MessagingProviderConfig[] = [
     logoUrl: '/images/messaging/evolution-logo.svg',
     description:
       'Integração com a Evolution API v2 para automação de WhatsApp e comunicação com clientes.',
+  },
+  {
+    provider: 'resend',
+    name: 'Resend',
+    apiKey: '',
+    isEnabled: false,
+    logoUrl: '/images/messaging/resend-logo.svg',
+    description:
+      'Plataforma moderna de envio de emails para desenvolvedores, com alta entregabilidade e análises detalhadas.',
   },
 ];
