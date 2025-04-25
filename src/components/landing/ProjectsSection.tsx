@@ -2,8 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { usePortfolio } from '@/components/PortfolioData';
-import Button from '@/components/Button';
-import Link from 'next/link';
 import Image from 'next/image';
 
 interface ProjectsSectionProps {
@@ -134,13 +132,13 @@ export default function ProjectsSection({ innerRef }: ProjectsSectionProps) {
           )}
         </div>
 
-        {featuredProjects.length > 0 && (
+        {/* {featuredProjects.length > 0 && (
           <div className="mt-12 text-center">
             <Button variant="outline">
               <Link href="/login">Ver Todos os Projetos</Link>
             </Button>
           </div>
-        )}
+        )} */}
       </div>
     </section>
   );
