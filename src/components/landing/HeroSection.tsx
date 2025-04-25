@@ -33,7 +33,7 @@ export default function HeroSection({ scrollToProjects }: HeroSectionProps) {
                 {portfolioData?.company?.name || 'Wender Tech'}
               </h1>
               <p className="text-xl text-gray-300 mb-8">
-                {portfolioData?.company?.description || 
+                {portfolioData?.company?.description ||
                   'Desenvolvimento de soluções digitais de alta qualidade para empresas e startups. Especialistas em aplicações web e mobile com foco em resultados.'}
               </p>
             </>
@@ -42,7 +42,13 @@ export default function HeroSection({ scrollToProjects }: HeroSectionProps) {
             <Button size="lg" onClick={scrollToProjects}>
               Ver Projetos
             </Button>
-            <Button size="lg" variant="outline" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
+            <Button
+              size="lg"
+              variant="outline"
+              onClick={() =>
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+              }
+            >
               Fale Conosco
             </Button>
           </div>

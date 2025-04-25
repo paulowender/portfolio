@@ -35,7 +35,7 @@ export default function ContactSection() {
     setSubmitting(true);
 
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch('/api/contact/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -46,10 +46,20 @@ export default function ContactSection() {
       const data = await response.json();
 
       if (response.ok) {
+        // Determine which channels were used to send the message
+        const channels = [];
+        if (data.adminEmailId) channels.push('email');
+        if (data.whatsappMessageId) channels.push('WhatsApp');
+
+        const channelMessage =
+          channels.length > 0
+            ? ` Você receberá uma confirmação por email${data.whatsappMessageId ? ' e o administrador foi notificado via WhatsApp' : ''}.`
+            : '';
+
         setFormStatus({
           submitted: true,
           success: true,
-          message: data.message || 'Mensagem enviada com sucesso! Entraremos em contato em breve.',
+          message: `${data.message || 'Mensagem enviada com sucesso! Entraremos em contato em breve.'}${channelMessage}`,
         });
         setFormData({
           name: '',

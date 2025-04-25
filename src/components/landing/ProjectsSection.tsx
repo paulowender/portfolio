@@ -1,6 +1,5 @@
 'use client';
 
-import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { usePortfolio } from '@/components/PortfolioData';
 import Button from '@/components/Button';

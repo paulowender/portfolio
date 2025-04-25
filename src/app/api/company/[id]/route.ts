@@ -1,48 +1,6 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
 import { prisma } from '@/lib/prisma';
-
-// Helper function to get authenticated Supabase client
-async function getAuthenticatedClient(request: Request) {
-  // Get the authorization header
-  const authHeader = request.headers.get('authorization');
-
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return { client: null, error: 'Missing or invalid authorization header' };
-  }
-
-  // Extract the token
-  const token = authHeader.split(' ')[1];
-
-  // Create a new Supabase client with the token
-  const supabaseWithAuth = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '',
-    {
-      global: {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    },
-  );
-
-  // Get the authenticated user
-  const {
-    data: { user },
-    error: authError,
-  } = await supabaseWithAuth.auth.getUser();
-
-  if (authError || !user) {
-    return {
-      client: null,
-      error: authError?.message || 'No user found',
-      status: 401,
-    };
-  }
-
-  return { client: supabaseWithAuth, user, error: null };
-}
+import { getAuthenticatedClient } from '@/lib/auth-helper';
 
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {

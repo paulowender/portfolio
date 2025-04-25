@@ -7,6 +7,7 @@ import { XMarkIcon, PlusIcon, ArrowPathIcon } from '@heroicons/react/24/outline'
 
 interface EvolutionInstanceManagerProps {
   instances: EvolutionInstance[];
+  defaultInstance?: string;
   onClose: () => void;
   onAddInstance: (name: string) => Promise<void>;
   onRefreshInstances: () => Promise<void>;
@@ -14,10 +15,12 @@ interface EvolutionInstanceManagerProps {
   onDisconnectInstance: (instanceId: string) => Promise<void>;
   onDeleteInstance: (instanceId: string) => Promise<void>;
   onGetQRCode: (instanceId: string) => Promise<string>;
+  onSetDefaultInstance: (instanceId: string) => Promise<void>;
 }
 
 export default function EvolutionInstanceManager({
   instances,
+  defaultInstance,
   onClose,
   onAddInstance,
   onRefreshInstances,
@@ -25,6 +28,7 @@ export default function EvolutionInstanceManager({
   onDisconnectInstance,
   onDeleteInstance,
   onGetQRCode,
+  onSetDefaultInstance,
 }: EvolutionInstanceManagerProps) {
   const [newInstanceName, setNewInstanceName] = useState('');
   const [isAddingInstance, setIsAddingInstance] = useState(false);
@@ -175,7 +179,14 @@ export default function EvolutionInstanceManager({
                       />
                     )}
                     <div>
-                      <h4 className="font-medium">{instance.name}</h4>
+                      <div className="flex items-center">
+                        <h4 className="font-medium">{instance.name}</h4>
+                        {defaultInstance === instance.id && (
+                          <span className="ml-2 px-2 py-0.5 text-xs bg-blue-900 text-blue-300 border border-blue-700 rounded-full">
+                            Default
+                          </span>
+                        )}
+                      </div>
                       <p className="text-sm text-gray-400">
                         {instance.number ? `${instance.number}` : 'Not connected'}
                       </p>
@@ -186,15 +197,15 @@ export default function EvolutionInstanceManager({
                       instance.status === 'connected'
                         ? 'bg-green-900 text-green-300 border border-green-700'
                         : instance.status === 'connecting'
-                        ? 'bg-yellow-900 text-yellow-300 border border-yellow-700'
-                        : 'bg-red-900 text-red-300 border border-red-700'
+                          ? 'bg-yellow-900 text-yellow-300 border border-yellow-700'
+                          : 'bg-red-900 text-red-300 border border-red-700'
                     }`}
                   >
                     {instance.status === 'connected'
                       ? 'Connected'
                       : instance.status === 'connecting'
-                      ? 'Connecting'
-                      : 'Disconnected'}
+                        ? 'Connecting'
+                        : 'Disconnected'}
                   </div>
                 </div>
 
@@ -226,6 +237,16 @@ export default function EvolutionInstanceManager({
                   >
                     Delete
                   </Button>
+                  {instance.status === 'connected' && defaultInstance !== instance.id && (
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => onSetDefaultInstance(instance.id)}
+                      className="bg-blue-900/20 border-blue-700 text-blue-300 hover:bg-blue-800/30"
+                    >
+                      Set as Default
+                    </Button>
+                  )}
                 </div>
 
                 {qrCode && selectedInstance === instance.id && (

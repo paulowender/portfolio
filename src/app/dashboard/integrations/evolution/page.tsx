@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/lib/AuthContext';
 import { EvolutionInstance } from '@/types/messaging';
 import EvolutionProviderCard from '@/components/messaging/EvolutionProviderCard';
-import EvolutionInstanceManager from '@/components/messaging/EvolutionInstanceManager';
 import { motion } from 'framer-motion';
 import axiosClient from '@/lib/axios-client';
+import EvolutionInstanceManager from '@/components/messaging/EvolutionInstanceManager';
 
 export default function EvolutionIntegrationPage() {
   const { user } = useAuth();
@@ -15,6 +15,7 @@ export default function EvolutionIntegrationPage() {
   const [isEnabled, setIsEnabled] = useState(false);
   const [showInstanceManager, setShowInstanceManager] = useState(false);
   const [instances, setInstances] = useState<EvolutionInstance[]>([]);
+  const [defaultInstance, setDefaultInstance] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -23,13 +24,28 @@ export default function EvolutionIntegrationPage() {
       if (!user) return;
 
       try {
-        const response = await axiosClient.get('/api/evolution/config');
+        // Fetch Evolution API configuration
+        const configResponse = await axiosClient.get('/api/evolution/config');
 
-        if (response.status === 200) {
-          const { config } = response.data;
+        if (configResponse.status === 200) {
+          const { config } = configResponse.data;
           setApiKey(config.apiKey || '');
           setBaseUrl(config.baseUrl || '');
           setIsEnabled(config.isEnabled || false);
+
+          // If enabled, fetch default instance
+          if (config.isEnabled) {
+            try {
+              const defaultInstanceResponse = await axiosClient.get(
+                '/api/evolution/default-instance',
+              );
+              if (defaultInstanceResponse.status === 200) {
+                setDefaultInstance(defaultInstanceResponse.data.defaultInstance);
+              }
+            } catch (instanceErr) {
+              console.error('Error fetching default instance:', instanceErr);
+            }
+          }
         }
       } catch (err) {
         console.error('Error fetching Evolution API configuration:', err);
@@ -164,6 +180,26 @@ export default function EvolutionIntegrationPage() {
     }
   };
 
+  const handleSetDefaultInstance = async (instanceId: string) => {
+    if (!user || !isEnabled) return;
+
+    try {
+      const response = await axiosClient.post('/api/evolution/default-instance', {
+        instanceId,
+      });
+
+      if (response.status !== 200) {
+        throw new Error(response.data.error || 'Failed to set default instance');
+      }
+
+      setDefaultInstance(instanceId);
+      await fetchInstances();
+    } catch (err: any) {
+      console.error('Error setting default instance:', err);
+      setError(err.response?.data?.error || 'Failed to set default instance');
+    }
+  };
+
   const handleOpenInstanceManager = async () => {
     await fetchInstances();
     setShowInstanceManager(true);
@@ -210,6 +246,7 @@ export default function EvolutionIntegrationPage() {
       {showInstanceManager && (
         <EvolutionInstanceManager
           instances={instances}
+          defaultInstance={defaultInstance || ''}
           onClose={() => setShowInstanceManager(false)}
           onAddInstance={handleAddInstance}
           onRefreshInstances={fetchInstances}
@@ -217,6 +254,7 @@ export default function EvolutionIntegrationPage() {
           onDisconnectInstance={(id) => handleInstanceAction(id, 'disconnect')}
           onDeleteInstance={(id) => handleInstanceAction(id, 'delete')}
           onGetQRCode={handleGetQRCode}
+          onSetDefaultInstance={handleSetDefaultInstance}
         />
       )}
     </div>
