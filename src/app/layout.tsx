@@ -4,6 +4,7 @@ import './globals.css';
 import { AuthProvider } from '@/lib/AuthContext';
 import { PortfolioProvider } from '@/components/PortfolioData';
 import ReactQueryProvider from '@/lib/ReactQueryProvider';
+import { Toaster } from '@/components/ui/sonner';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -37,6 +38,7 @@ export default function RootLayout({
         <ReactQueryProvider>
           <AuthProvider>
             <PortfolioProvider>{children}</PortfolioProvider>
+            <Toaster position="top-right" />
           </AuthProvider>
         </ReactQueryProvider>
       </body>
