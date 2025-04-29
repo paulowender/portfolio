@@ -8,35 +8,35 @@ import { useRouter } from 'next/navigation';
 export const authKeys = {
   user: ['auth', 'user'] as const,
   session: ['auth', 'session'] as const,
+  resetPassword: ['auth', 'resetPassword'] as const,
+  updatePassword: ['auth', 'updatePassword'] as const,
 };
 
 // Hook para obter o usuário atual
 export function useUser() {
-  const router = useRouter();
-
   return useQuery({
     queryKey: authKeys.user,
     queryFn: async () => {
       try {
         // Primeiro, verifique se temos uma sessão
         const { data: sessionData } = await supabase.auth.getSession();
-        
+
         if (!sessionData.session) {
           return null;
         }
-        
+
         // Se tivermos uma sessão, busque os dados do usuário
         const { data, error } = await supabase
           .from('users')
           .select('*')
           .eq('id', sessionData.session.user.id)
           .single();
-          
+
         if (error) {
           console.error('Error fetching user data:', error);
           return null;
         }
-        
+
         return data;
       } catch (err) {
         console.error('Exception in useUser:', err);
@@ -55,26 +55,19 @@ export function useSignIn() {
 
   return useMutation({
     mutationFn: async ({ email, password }: { email: string; password: string }) => {
-      console.time('signIn');
-      console.log('Starting sign in process...');
-
       const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-      
+
       if (error) {
-        console.error('Sign in error:', error);
         throw error;
       }
-      
-      console.log('Sign in successful, user:', data.user?.id);
-      console.timeEnd('signIn');
-      
+
       return data;
     },
-    onSuccess: async (data) => {
+    onSuccess: async () => {
       // Invalidar a consulta do usuário para forçar uma nova busca
       await queryClient.invalidateQueries({ queryKey: authKeys.user });
       await queryClient.invalidateQueries({ queryKey: authKeys.session });
-      
+
       // Redirecionar para o dashboard
       router.push('/dashboard');
     },
@@ -87,7 +80,15 @@ export function useSignUp() {
   const router = useRouter();
 
   return useMutation({
-    mutationFn: async ({ email, password, name }: { email: string; password: string; name: string }) => {
+    mutationFn: async ({
+      email,
+      password,
+      name,
+    }: {
+      email: string;
+      password: string;
+      name: string;
+    }) => {
       // Registrar o usuário
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email,
@@ -96,9 +97,9 @@ export function useSignUp() {
           data: { name },
         },
       });
-      
+
       if (authError) throw authError;
-      
+
       // Criar perfil do usuário
       if (authData.user) {
         const { error: profileError } = await supabase.from('users').insert({
@@ -107,17 +108,17 @@ export function useSignUp() {
           name,
           created_at: new Date().toISOString(),
         });
-        
+
         if (profileError) throw profileError;
       }
-      
+
       return authData;
     },
-    onSuccess: async (data) => {
+    onSuccess: async () => {
       // Invalidar a consulta do usuário para forçar uma nova busca
       await queryClient.invalidateQueries({ queryKey: authKeys.user });
       await queryClient.invalidateQueries({ queryKey: authKeys.session });
-      
+
       // Redirecionar para o dashboard
       router.push('/dashboard');
     },
@@ -139,9 +140,54 @@ export function useSignOut() {
       // Limpar o cache do usuário
       queryClient.setQueryData(authKeys.user, null);
       queryClient.setQueryData(authKeys.session, null);
-      
+
       // Redirecionar para a página inicial
       router.push('/');
+    },
+  });
+}
+
+// Hook para solicitar redefinição de senha
+export function useResetPassword() {
+  return useMutation({
+    mutationFn: async ({ email }: { email: string }) => {
+      const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+
+      if (error) throw error;
+      return data;
+    },
+  });
+}
+
+// Hook para atualizar a senha do usuário
+export function useUpdatePassword() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ password }: { password: string }) => {
+      // Verificar se temos uma sessão
+      await supabase.auth.getSession();
+
+      // Atualizar a senha
+      const { data, error } = await supabase.auth.updateUser({
+        password,
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      return data;
+    },
+    onSuccess: async () => {
+      // Invalidar a consulta do usuário para forçar uma nova busca
+      await queryClient.invalidateQueries({ queryKey: authKeys.user });
+      await queryClient.invalidateQueries({ queryKey: authKeys.session });
+
+      // Não redirecionamos aqui, deixamos a página de reset-password lidar com isso
+      // para que o usuário veja a mensagem de sucesso
     },
   });
 }

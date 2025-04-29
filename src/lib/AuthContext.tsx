@@ -2,8 +2,14 @@
 
 import { createContext, useContext, useEffect, ReactNode } from 'react';
 import { supabase } from './supabase';
-import { useRouter } from 'next/navigation';
-import { useUser, useSignIn, useSignUp, useSignOut } from '@/hooks/useAuthQuery';
+import {
+  useUser,
+  useSignIn,
+  useSignUp,
+  useSignOut,
+  useResetPassword,
+  useUpdatePassword,
+} from '@/hooks/useAuthQuery';
 import { useQueryClient } from '@tanstack/react-query';
 
 export type User = {
@@ -29,12 +35,13 @@ type AuthContextType = {
   signIn: (email: string, password: string) => Promise<{ error: any }>;
   signUp: (email: string, password: string, name: string) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
+  resetPassword: (email: string) => Promise<{ error: any }>;
+  updatePassword: (password: string) => Promise<{ error: any }>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const router = useRouter();
   const queryClient = useQueryClient();
 
   // Usar os hooks do React Query para autenticação
@@ -42,14 +49,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signInMutation = useSignIn();
   const signUpMutation = useSignUp();
   const signOutMutation = useSignOut();
+  const resetPasswordMutation = useResetPassword();
+  const updatePasswordMutation = useUpdatePassword();
 
   // Configurar o listener de mudanças de autenticação
   useEffect(() => {
     // Listen for auth changes
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (event: any, session: any) => {
-      console.log('Auth state changed:', event);
+    } = supabase.auth.onAuthStateChange(async (event: any) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        // Não redirecionamos aqui, deixamos a página de reset-password lidar com isso
+      }
 
       // Invalidar a consulta do usuário para forçar uma nova busca
       queryClient.invalidateQueries({ queryKey: ['auth', 'user'] });
@@ -85,8 +96,38 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await signOutMutation.mutateAsync();
   };
 
+  const resetPassword = async (email: string) => {
+    try {
+      await resetPasswordMutation.mutateAsync({ email });
+      return { error: null };
+    } catch (error) {
+      console.error('Reset password error:', error);
+      return { error };
+    }
+  };
+
+  const updatePassword = async (password: string) => {
+    try {
+      await updatePasswordMutation.mutateAsync({ password });
+      return { error: null };
+    } catch (error) {
+      console.error('Update password error:', error);
+      return { error };
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, loading: isLoading, signIn, signUp, signOut }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        loading: isLoading,
+        signIn,
+        signUp,
+        signOut,
+        resetPassword,
+        updatePassword,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

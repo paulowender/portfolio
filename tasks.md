@@ -13,6 +13,9 @@
 - [x] Set up Supabase authentication
 - [x] Create login/register page
 - [x] Implement protected routes for dashboard
+- [x] Implement password reset functionality
+- [x] Create forgot password page
+- [x] Create reset password page with token handling
 
 ### Portfolio Homepage
 
@@ -49,6 +52,7 @@
 - Additional dependencies installed
 - Basic directory structure created
 - Authentication system implemented with Supabase
+- Password reset functionality implemented with robust token handling
 - Portfolio homepage created with parallax effects and animations
 - Dashboard layout and navigation implemented
 - Project management functionality implemented (CRUD operations)
