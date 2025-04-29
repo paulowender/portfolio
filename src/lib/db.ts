@@ -209,11 +209,33 @@ export async function getReminders(userId: string) {
   }
 }
 
+export async function getReminder(id: string) {
+  try {
+    const reminder = await prisma.reminder.findUnique({
+      where: { id },
+    });
+    return { data: reminder, error: null };
+  } catch (error) {
+    console.error('Error getting reminder:', error);
+    return { data: null, error };
+  }
+}
+
 export async function createReminder(reminderData: Prisma.ReminderCreateInput) {
   try {
+    console.log('Creating reminder with data:', JSON.stringify(reminderData, null, 2));
+
+    // Criar apenas com os campos básicos
     const reminder = await prisma.reminder.create({
-      data: reminderData,
+      data: {
+        title: reminderData.title,
+        description: reminderData.description,
+        dueDate: reminderData.dueDate,
+        completed: reminderData.completed || false,
+        user: reminderData.user,
+      },
     });
+
     return { data: reminder, error: null };
   } catch (error) {
     console.error('Error creating reminder:', error);
@@ -223,10 +245,19 @@ export async function createReminder(reminderData: Prisma.ReminderCreateInput) {
 
 export async function updateReminder(id: string, reminderData: Prisma.ReminderUpdateInput) {
   try {
+    console.log('Updating reminder with data:', JSON.stringify(reminderData, null, 2));
+
+    // Atualizar apenas com os campos básicos
     const reminder = await prisma.reminder.update({
       where: { id },
-      data: reminderData,
+      data: {
+        title: reminderData.title,
+        description: reminderData.description,
+        dueDate: reminderData.dueDate,
+        completed: reminderData.completed,
+      },
     });
+
     return { data: reminder, error: null };
   } catch (error) {
     console.error('Error updating reminder:', error);

@@ -1,0 +1,5 @@
+-- Verificar a estrutura da tabela reminders
+SELECT column_name, data_type, column_default, is_nullable
+FROM information_schema.columns
+WHERE table_name = 'reminders'
+ORDER BY ordinal_position;

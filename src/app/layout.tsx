@@ -5,6 +5,7 @@ import { AuthProvider } from '@/lib/AuthContext';
 import { PortfolioProvider } from '@/components/PortfolioData';
 import ReactQueryProvider from '@/lib/ReactQueryProvider';
 import { Toaster } from '@/components/ui/sonner';
+import { ThemeProvider } from '@/components/theme-provider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -28,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" suppressHydrationWarning>
       <head>
         <meta name="apple-mobile-web-app-title" content="WenderTech" />
       </head>
@@ -37,7 +38,14 @@ export default function RootLayout({
       >
         <ReactQueryProvider>
           <AuthProvider>
-            <PortfolioProvider>{children}</PortfolioProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <PortfolioProvider>{children}</PortfolioProvider>
+            </ThemeProvider>
             <Toaster position="top-right" />
           </AuthProvider>
         </ReactQueryProvider>

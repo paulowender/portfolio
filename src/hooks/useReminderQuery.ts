@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
+import axiosClient from '@/lib/axios-client';
 import { Reminder, ReminderFormData } from '@/types/reminder';
 
 // Query keys for React Query
@@ -28,7 +28,7 @@ export function useReminders(filters: Record<string, any> = {}) {
   return useQuery({
     queryKey: reminderKeys.list(filters),
     queryFn: async () => {
-      const { data } = await axios.get(`/api/reminders${queryString}`);
+      const { data } = await axiosClient.get(`/api/reminders${queryString}`);
       return data.reminders as Reminder[];
     },
   });
@@ -39,7 +39,7 @@ export function useReminder(id: string) {
   return useQuery({
     queryKey: reminderKeys.detail(id),
     queryFn: async () => {
-      const { data } = await axios.get(`/api/reminders/${id}`);
+      const { data } = await axiosClient.get(`/api/reminders/${id}`);
       return data.reminder as Reminder;
     },
     enabled: !!id,
@@ -52,7 +52,7 @@ export function useCreateReminder() {
 
   return useMutation({
     mutationFn: async (reminderData: ReminderFormData) => {
-      const { data } = await axios.post('/api/reminders', reminderData);
+      const { data } = await axiosClient.post('/api/reminders', reminderData);
       return data.reminder as Reminder;
     },
     onSuccess: () => {
@@ -68,7 +68,7 @@ export function useUpdateReminder(id: string) {
 
   return useMutation({
     mutationFn: async (reminderData: Partial<ReminderFormData>) => {
-      const { data } = await axios.put(`/api/reminders/${id}`, reminderData);
+      const { data } = await axiosClient.put(`/api/reminders/${id}`, reminderData);
       return data.reminder as Reminder;
     },
     onSuccess: (updatedReminder) => {
@@ -87,7 +87,7 @@ export function useDeleteReminder() {
 
   return useMutation({
     mutationFn: async (id: string) => {
-      await axios.delete(`/api/reminders/${id}`);
+      await axiosClient.delete(`/api/reminders/${id}`);
       return id;
     },
     onSuccess: (id) => {
@@ -106,7 +106,7 @@ export function useToggleReminder() {
 
   return useMutation({
     mutationFn: async (id: string) => {
-      const { data } = await axios.post(`/api/reminders/${id}/toggle`);
+      const { data } = await axiosClient.post(`/api/reminders/${id}/toggle`);
       return data.reminder as Reminder;
     },
     onSuccess: (updatedReminder) => {
@@ -123,7 +123,7 @@ export function useToggleReminder() {
 export function useSendReminderNotification() {
   return useMutation({
     mutationFn: async (id: string) => {
-      const { data } = await axios.post('/api/reminders/notify', { reminderId: id });
+      const { data } = await axiosClient.post('/api/reminders/notify', { reminderId: id });
       return data;
     },
   });

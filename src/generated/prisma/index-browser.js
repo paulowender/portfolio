@@ -122,6 +122,8 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   name: 'name',
   avatarUrl: 'avatarUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
   title: 'title',
   bio: 'bio',
   location: 'location',
@@ -130,9 +132,7 @@ exports.Prisma.UserScalarFieldEnum = {
   linkedin: 'linkedin',
   github: 'github',
   twitter: 'twitter',
-  skills: 'skills',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  skills: 'skills'
 };
 
 exports.Prisma.CompanyScalarFieldEnum = {
@@ -175,7 +175,15 @@ exports.Prisma.ReminderScalarFieldEnum = {
   completed: 'completed',
   userId: 'userId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  category: 'category',
+  color: 'color',
+  notifyBefore: 'notifyBefore',
+  notifyEmail: 'notifyEmail',
+  notifyWhatsapp: 'notifyWhatsapp',
+  priority: 'priority',
+  recurrence: 'recurrence',
+  recurrenceEndDate: 'recurrenceEndDate'
 };
 
 exports.Prisma.AppointmentScalarFieldEnum = {
@@ -218,12 +226,12 @@ exports.Prisma.MessagingConfigScalarFieldEnum = {
   evolutionBaseUrl: 'evolutionBaseUrl',
   evolutionEnabled: 'evolutionEnabled',
   evolutionInstance: 'evolutionInstance',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
   resendApiKey: 'resendApiKey',
   resendEnabled: 'resendEnabled',
   resendFromEmail: 'resendFromEmail',
-  resendFromName: 'resendFromName',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  resendFromName: 'resendFromName'
 };
 
 exports.Prisma.SortOrder = {

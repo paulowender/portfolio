@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
 import { getAuthenticatedClient } from '@/lib/auth-helper';
+import { getReminder, updateReminder, deleteReminder } from '@/lib/db';
 
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -18,9 +18,14 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
     const reminderId = (await params).id;
 
     // Get reminder from the database
-    const reminder = await prisma.reminder.findUnique({
-      where: { id: reminderId },
-    });
+    const { data: reminder, error: dbError } = await getReminder(reminderId);
+
+    if (dbError) {
+      return NextResponse.json(
+        { error: dbError instanceof Error ? dbError.message : 'Failed to fetch reminder' },
+        { status: 500 }
+      );
+    }
 
     if (!reminder) {
       return NextResponse.json({ error: 'Reminder not found' }, { status: 404 });
@@ -57,9 +62,14 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
     const reminderId = (await params).id;
 
     // Get reminder from the database
-    const existingReminder = await prisma.reminder.findUnique({
-      where: { id: reminderId },
-    });
+    const { data: existingReminder, error: getError } = await getReminder(reminderId);
+
+    if (getError) {
+      return NextResponse.json(
+        { error: getError instanceof Error ? getError.message : 'Failed to fetch reminder' },
+        { status: 500 }
+      );
+    }
 
     if (!existingReminder) {
       return NextResponse.json({ error: 'Reminder not found' }, { status: 404 });
@@ -91,27 +101,31 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
     } = body;
 
     // Update reminder in the database
-    const reminder = await prisma.reminder.update({
-      where: { id: reminderId },
-      data: {
-        title: title !== undefined ? title : undefined,
-        description: description !== undefined ? description : undefined,
-        dueDate: dueDate !== undefined ? new Date(dueDate) : undefined,
-        completed: completed !== undefined ? completed : undefined,
-        category: category !== undefined ? category : undefined,
-        priority: priority !== undefined ? priority : undefined,
-        recurrence: recurrence !== undefined ? recurrence : undefined,
-        recurrenceEndDate: recurrenceEndDate !== undefined 
-          ? recurrenceEndDate 
-            ? new Date(recurrenceEndDate) 
-            : null 
-          : undefined,
-        notifyEmail: notifyEmail !== undefined ? notifyEmail : undefined,
-        notifyWhatsapp: notifyWhatsapp !== undefined ? notifyWhatsapp : undefined,
-        notifyBefore: notifyBefore !== undefined ? notifyBefore : undefined,
-        color: color !== undefined ? color : undefined,
-      },
+    const { data: reminder, error: updateError } = await updateReminder(reminderId, {
+      title: title !== undefined ? title : undefined,
+      description: description !== undefined ? description : undefined,
+      dueDate: dueDate !== undefined ? new Date(dueDate) : undefined,
+      completed: completed !== undefined ? completed : undefined,
+      category: category !== undefined ? category : undefined,
+      priority: priority !== undefined ? priority : undefined,
+      recurrence: recurrence !== undefined ? recurrence : undefined,
+      recurrenceEndDate: recurrenceEndDate !== undefined 
+        ? recurrenceEndDate 
+          ? new Date(recurrenceEndDate) 
+          : null 
+        : undefined,
+      notifyEmail: notifyEmail !== undefined ? notifyEmail : undefined,
+      notifyWhatsapp: notifyWhatsapp !== undefined ? notifyWhatsapp : undefined,
+      notifyBefore: notifyBefore !== undefined ? notifyBefore : undefined,
+      color: color !== undefined ? color : undefined,
     });
+
+    if (updateError) {
+      return NextResponse.json(
+        { error: updateError instanceof Error ? updateError.message : 'Failed to update reminder' },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({ reminder });
   } catch (error: any) {
@@ -136,9 +150,14 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
     const reminderId = (await params).id;
 
     // Get reminder from the database
-    const existingReminder = await prisma.reminder.findUnique({
-      where: { id: reminderId },
-    });
+    const { data: existingReminder, error: getError } = await getReminder(reminderId);
+
+    if (getError) {
+      return NextResponse.json(
+        { error: getError instanceof Error ? getError.message : 'Failed to fetch reminder' },
+        { status: 500 }
+      );
+    }
 
     if (!existingReminder) {
       return NextResponse.json({ error: 'Reminder not found' }, { status: 404 });
@@ -153,9 +172,14 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
     }
 
     // Delete reminder from the database
-    await prisma.reminder.delete({
-      where: { id: reminderId },
-    });
+    const { error: deleteError } = await deleteReminder(reminderId);
+
+    if (deleteError) {
+      return NextResponse.json(
+        { error: deleteError instanceof Error ? deleteError.message : 'Failed to delete reminder' },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({ success: true });
   } catch (error: any) {

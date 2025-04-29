@@ -6,11 +6,16 @@ import { useAuth } from '@/lib/AuthContext';
 import Button from '@/components/Button';
 import { FolderIcon, CalendarIcon, BellIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { useProjects } from '@/hooks/usePortfolioQuery';
+import { useReminders } from '@/hooks/useReminderQuery';
 import Image from 'next/image';
 
 export default function DashboardPage() {
   const { user } = useAuth();
-  const { data: projects, isLoading } = useProjects(user?.id);
+  const { data: projects, isLoading: projectsLoading } = useProjects(user?.id);
+  const { data: reminders, isLoading: remindersLoading } = useReminders({ completed: false });
+
+  // Count active reminders (not completed)
+  const activeRemindersCount = reminders?.length || 0;
 
   return (
     <div>
@@ -38,7 +43,9 @@ export default function DashboardPage() {
               <FolderIcon className="h-6 w-6 text-indigo-400" />
             </div>
           </div>
-          <p className="text-3xl font-bold mb-1">{isLoading ? '...' : projects?.length || 0}</p>
+          <p className="text-3xl font-bold mb-1">
+            {projectsLoading ? '...' : projects?.length || 0}
+          </p>
           <p className="text-gray-400 text-sm">Total projects</p>
           <div className="mt-4">
             <Link href="/dashboard/projects">
@@ -84,7 +91,9 @@ export default function DashboardPage() {
               <BellIcon className="h-6 w-6 text-yellow-400" />
             </div>
           </div>
-          <p className="text-3xl font-bold mb-1">0</p>
+          <p className="text-3xl font-bold mb-1">
+            {remindersLoading ? '...' : activeRemindersCount}
+          </p>
           <p className="text-gray-400 text-sm">Active reminders</p>
           <div className="mt-4">
             <Link href="/dashboard/reminders">
@@ -106,7 +115,7 @@ export default function DashboardPage() {
           </Link>
         </div>
 
-        {isLoading ? (
+        {projectsLoading ? (
           <div className="flex justify-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
           </div>

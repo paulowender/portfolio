@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
 import { getAuthenticatedClient } from '@/lib/auth-helper';
+import { getReminder, updateReminder } from '@/lib/db';
 
 export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -18,9 +18,14 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     const reminderId = (await params).id;
 
     // Get reminder from the database
-    const existingReminder = await prisma.reminder.findUnique({
-      where: { id: reminderId },
-    });
+    const { data: existingReminder, error: getError } = await getReminder(reminderId);
+
+    if (getError) {
+      return NextResponse.json(
+        { error: getError instanceof Error ? getError.message : 'Failed to fetch reminder' },
+        { status: 500 }
+      );
+    }
 
     if (!existingReminder) {
       return NextResponse.json({ error: 'Reminder not found' }, { status: 404 });
@@ -35,12 +40,16 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     }
 
     // Toggle the completed status
-    const reminder = await prisma.reminder.update({
-      where: { id: reminderId },
-      data: {
-        completed: !existingReminder.completed,
-      },
+    const { data: reminder, error: updateError } = await updateReminder(reminderId, {
+      completed: !existingReminder.completed,
     });
+
+    if (updateError) {
+      return NextResponse.json(
+        { error: updateError instanceof Error ? updateError.message : 'Failed to toggle reminder' },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({ reminder });
   } catch (error: any) {

@@ -1,9 +1,15 @@
 'use client';
 
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { MagnifyingGlassIcon, FunnelIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { REMINDER_CATEGORIES, REMINDER_PRIORITIES, ReminderCategory, ReminderPriority } from '@/types/reminder';
+import {
+  REMINDER_CATEGORIES,
+  REMINDER_PRIORITIES,
+  ReminderCategory,
+  ReminderPriority,
+} from '@/types/reminder';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -30,37 +36,48 @@ export default function ReminderFilters({ onFilterChange }: ReminderFiltersProps
   const [priorities, setPriorities] = useState<ReminderPriority[]>([]);
   const [completed, setCompleted] = useState<boolean | null>(null);
   const [upcoming, setUpcoming] = useState(false);
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
-  
+  // Create a ref to track if this is the first render
+  const isFirstRender = React.useRef(true);
+
   // Apply filters when they change
   useEffect(() => {
-    onFilterChange({
+    // Create a filters object
+    const filters = {
       search,
       categories,
       priorities,
       completed,
       upcoming,
-    });
+    };
+
+    // Skip the first render to prevent unnecessary updates
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    // Call onFilterChange with the current filters
+    onFilterChange(filters);
   }, [search, categories, priorities, completed, upcoming, onFilterChange]);
-  
+
   // Toggle category filter
   const toggleCategory = (category: ReminderCategory) => {
     if (categories.includes(category)) {
-      setCategories(categories.filter(c => c !== category));
+      setCategories(categories.filter((c) => c !== category));
     } else {
       setCategories([...categories, category]);
     }
   };
-  
+
   // Toggle priority filter
   const togglePriority = (priority: ReminderPriority) => {
     if (priorities.includes(priority)) {
-      setPriorities(priorities.filter(p => p !== priority));
+      setPriorities(priorities.filter((p) => p !== priority));
     } else {
       setPriorities([...priorities, priority]);
     }
   };
-  
+
   // Reset all filters
   const resetFilters = () => {
     setSearch('');
@@ -69,10 +86,11 @@ export default function ReminderFilters({ onFilterChange }: ReminderFiltersProps
     setCompleted(null);
     setUpcoming(false);
   };
-  
+
   // Check if any filters are active
-  const hasActiveFilters = search || categories.length > 0 || priorities.length > 0 || completed !== null || upcoming;
-  
+  const hasActiveFilters =
+    search || categories.length > 0 || priorities.length > 0 || completed !== null || upcoming;
+
   return (
     <div className="mb-6 space-y-4">
       <div className="flex flex-col sm:flex-row gap-2">
@@ -94,45 +112,43 @@ export default function ReminderFilters({ onFilterChange }: ReminderFiltersProps
             </button>
           )}
         </div>
-        
-        <Popover open={isFilterOpen} onOpenChange={setIsFilterOpen}>
+
+        <Popover>
           <PopoverTrigger asChild>
-            <Button 
-              variant={hasActiveFilters ? "default" : "outline"} 
+            <Button
+              variant={hasActiveFilters ? 'default' : 'outline'}
               className="flex items-center gap-2"
             >
               <FunnelIcon className="h-4 w-4" />
               <span>Filtros</span>
               {hasActiveFilters && (
                 <Badge className="ml-1 bg-white text-black">
-                  {categories.length + priorities.length + (completed !== null ? 1 : 0) + (upcoming ? 1 : 0)}
+                  {categories.length +
+                    priorities.length +
+                    (completed !== null ? 1 : 0) +
+                    (upcoming ? 1 : 0)}
                 </Badge>
               )}
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-80 bg-gray-800 border border-gray-700">
+          <PopoverContent className="w-80 bg-gray-800 border border-gray-700" side="bottom">
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <h3 className="font-medium">Filtros</h3>
                 {hasActiveFilters && (
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    onClick={resetFilters}
-                    className="h-8 text-xs"
-                  >
+                  <Button variant="ghost" size="sm" onClick={resetFilters} className="h-8 text-xs">
                     Limpar filtros
                   </Button>
                 )}
               </div>
-              
+
               <Tabs defaultValue="categories" className="w-full">
                 <TabsList className="grid grid-cols-3">
                   <TabsTrigger value="categories">Categorias</TabsTrigger>
                   <TabsTrigger value="priorities">Prioridades</TabsTrigger>
                   <TabsTrigger value="status">Status</TabsTrigger>
                 </TabsList>
-                
+
                 <TabsContent value="categories" className="pt-2">
                   <div className="space-y-2">
                     {REMINDER_CATEGORIES.map((category) => (
@@ -146,8 +162,8 @@ export default function ReminderFilters({ onFilterChange }: ReminderFiltersProps
                           htmlFor={`category-${category.value}`}
                           className="flex items-center cursor-pointer"
                         >
-                          <div 
-                            className="w-3 h-3 rounded-full mr-2" 
+                          <div
+                            className="w-3 h-3 rounded-full mr-2"
                             style={{ backgroundColor: category.color }}
                           />
                           {category.label}
@@ -156,7 +172,7 @@ export default function ReminderFilters({ onFilterChange }: ReminderFiltersProps
                     ))}
                   </div>
                 </TabsContent>
-                
+
                 <TabsContent value="priorities" className="pt-2">
                   <div className="space-y-2">
                     {REMINDER_PRIORITIES.map((priority) => (
@@ -170,8 +186,8 @@ export default function ReminderFilters({ onFilterChange }: ReminderFiltersProps
                           htmlFor={`priority-${priority.value}`}
                           className="flex items-center cursor-pointer"
                         >
-                          <div 
-                            className="w-3 h-3 rounded-full mr-2" 
+                          <div
+                            className="w-3 h-3 rounded-full mr-2"
                             style={{ backgroundColor: priority.color }}
                           />
                           {priority.label}
@@ -180,7 +196,7 @@ export default function ReminderFilters({ onFilterChange }: ReminderFiltersProps
                     ))}
                   </div>
                 </TabsContent>
-                
+
                 <TabsContent value="status" className="pt-2">
                   <div className="space-y-4">
                     <div className="space-y-2">
@@ -190,29 +206,23 @@ export default function ReminderFilters({ onFilterChange }: ReminderFiltersProps
                           checked={completed === true}
                           onCheckedChange={() => setCompleted(completed === true ? null : true)}
                         />
-                        <Label
-                          htmlFor="completed-true"
-                          className="cursor-pointer"
-                        >
+                        <Label htmlFor="completed-true" className="cursor-pointer">
                           Concluídos
                         </Label>
                       </div>
-                      
+
                       <div className="flex items-center space-x-2">
                         <Checkbox
                           id="completed-false"
                           checked={completed === false}
                           onCheckedChange={() => setCompleted(completed === false ? null : false)}
                         />
-                        <Label
-                          htmlFor="completed-false"
-                          className="cursor-pointer"
-                        >
+                        <Label htmlFor="completed-false" className="cursor-pointer">
                           Pendentes
                         </Label>
                       </div>
                     </div>
-                    
+
                     <div className="pt-2 border-t border-gray-700">
                       <div className="flex items-center space-x-2">
                         <Checkbox
@@ -220,10 +230,7 @@ export default function ReminderFilters({ onFilterChange }: ReminderFiltersProps
                           checked={upcoming}
                           onCheckedChange={(checked) => setUpcoming(checked as boolean)}
                         />
-                        <Label
-                          htmlFor="upcoming"
-                          className="cursor-pointer"
-                        >
+                        <Label htmlFor="upcoming" className="cursor-pointer">
                           Próximos 7 dias
                         </Label>
                       </div>
@@ -231,20 +238,17 @@ export default function ReminderFilters({ onFilterChange }: ReminderFiltersProps
                   </div>
                 </TabsContent>
               </Tabs>
-              
+
               <div className="flex justify-end pt-2">
-                <Button 
-                  size="sm" 
-                  onClick={() => setIsFilterOpen(false)}
-                >
-                  Aplicar
-                </Button>
+                <PopoverTrigger asChild>
+                  <Button size="sm">Aplicar</Button>
+                </PopoverTrigger>
               </div>
             </div>
           </PopoverContent>
         </Popover>
       </div>
-      
+
       {/* Active filters display */}
       {hasActiveFilters && (
         <motion.div
@@ -254,20 +258,20 @@ export default function ReminderFilters({ onFilterChange }: ReminderFiltersProps
           className="flex flex-wrap gap-2"
         >
           {categories.map((category) => {
-            const categoryInfo = REMINDER_CATEGORIES.find(c => c.value === category);
+            const categoryInfo = REMINDER_CATEGORIES.find((c) => c.value === category);
             return (
-              <Badge 
+              <Badge
                 key={`cat-${category}`}
                 variant="outline"
                 className="flex items-center gap-1 px-2 py-1"
                 style={{ borderColor: categoryInfo?.color }}
               >
-                <div 
-                  className="w-2 h-2 rounded-full" 
+                <div
+                  className="w-2 h-2 rounded-full"
                   style={{ backgroundColor: categoryInfo?.color }}
                 />
                 <span>{categoryInfo?.label}</span>
-                <button 
+                <button
                   onClick={() => toggleCategory(category)}
                   className="ml-1 text-gray-400 hover:text-gray-300"
                 >
@@ -276,22 +280,22 @@ export default function ReminderFilters({ onFilterChange }: ReminderFiltersProps
               </Badge>
             );
           })}
-          
+
           {priorities.map((priority) => {
-            const priorityInfo = REMINDER_PRIORITIES.find(p => p.value === priority);
+            const priorityInfo = REMINDER_PRIORITIES.find((p) => p.value === priority);
             return (
-              <Badge 
+              <Badge
                 key={`pri-${priority}`}
                 variant="outline"
                 className="flex items-center gap-1 px-2 py-1"
                 style={{ borderColor: priorityInfo?.color }}
               >
-                <div 
-                  className="w-2 h-2 rounded-full" 
+                <div
+                  className="w-2 h-2 rounded-full"
                   style={{ backgroundColor: priorityInfo?.color }}
                 />
                 <span>{priorityInfo?.label}</span>
-                <button 
+                <button
                   onClick={() => togglePriority(priority)}
                   className="ml-1 text-gray-400 hover:text-gray-300"
                 >
@@ -300,14 +304,11 @@ export default function ReminderFilters({ onFilterChange }: ReminderFiltersProps
               </Badge>
             );
           })}
-          
+
           {completed !== null && (
-            <Badge 
-              variant="outline"
-              className="flex items-center gap-1 px-2 py-1"
-            >
+            <Badge variant="outline" className="flex items-center gap-1 px-2 py-1">
               <span>{completed ? 'Concluídos' : 'Pendentes'}</span>
-              <button 
+              <button
                 onClick={() => setCompleted(null)}
                 className="ml-1 text-gray-400 hover:text-gray-300"
               >
@@ -315,14 +316,11 @@ export default function ReminderFilters({ onFilterChange }: ReminderFiltersProps
               </button>
             </Badge>
           )}
-          
+
           {upcoming && (
-            <Badge 
-              variant="outline"
-              className="flex items-center gap-1 px-2 py-1"
-            >
+            <Badge variant="outline" className="flex items-center gap-1 px-2 py-1">
               <span>Próximos 7 dias</span>
-              <button 
+              <button
                 onClick={() => setUpcoming(false)}
                 className="ml-1 text-gray-400 hover:text-gray-300"
               >

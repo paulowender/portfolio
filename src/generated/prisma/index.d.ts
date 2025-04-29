@@ -1478,6 +1478,8 @@ export namespace Prisma {
     email: string | null
     name: string | null
     avatarUrl: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
     title: string | null
     bio: string | null
     location: string | null
@@ -1486,8 +1488,6 @@ export namespace Prisma {
     linkedin: string | null
     github: string | null
     twitter: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1495,6 +1495,8 @@ export namespace Prisma {
     email: string | null
     name: string | null
     avatarUrl: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
     title: string | null
     bio: string | null
     location: string | null
@@ -1503,8 +1505,6 @@ export namespace Prisma {
     linkedin: string | null
     github: string | null
     twitter: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1512,6 +1512,8 @@ export namespace Prisma {
     email: number
     name: number
     avatarUrl: number
+    createdAt: number
+    updatedAt: number
     title: number
     bio: number
     location: number
@@ -1521,8 +1523,6 @@ export namespace Prisma {
     github: number
     twitter: number
     skills: number
-    createdAt: number
-    updatedAt: number
     _all: number
   }
 
@@ -1532,6 +1532,8 @@ export namespace Prisma {
     email?: true
     name?: true
     avatarUrl?: true
+    createdAt?: true
+    updatedAt?: true
     title?: true
     bio?: true
     location?: true
@@ -1540,8 +1542,6 @@ export namespace Prisma {
     linkedin?: true
     github?: true
     twitter?: true
-    createdAt?: true
-    updatedAt?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1549,6 +1549,8 @@ export namespace Prisma {
     email?: true
     name?: true
     avatarUrl?: true
+    createdAt?: true
+    updatedAt?: true
     title?: true
     bio?: true
     location?: true
@@ -1557,8 +1559,6 @@ export namespace Prisma {
     linkedin?: true
     github?: true
     twitter?: true
-    createdAt?: true
-    updatedAt?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1566,6 +1566,8 @@ export namespace Prisma {
     email?: true
     name?: true
     avatarUrl?: true
+    createdAt?: true
+    updatedAt?: true
     title?: true
     bio?: true
     location?: true
@@ -1575,8 +1577,6 @@ export namespace Prisma {
     github?: true
     twitter?: true
     skills?: true
-    createdAt?: true
-    updatedAt?: true
     _all?: true
   }
 
@@ -1657,6 +1657,8 @@ export namespace Prisma {
     email: string
     name: string
     avatarUrl: string | null
+    createdAt: Date
+    updatedAt: Date
     title: string | null
     bio: string | null
     location: string | null
@@ -1666,8 +1668,6 @@ export namespace Prisma {
     github: string | null
     twitter: string | null
     skills: string[]
-    createdAt: Date
-    updatedAt: Date
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1692,6 +1692,8 @@ export namespace Prisma {
     email?: boolean
     name?: boolean
     avatarUrl?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     title?: boolean
     bio?: boolean
     location?: boolean
@@ -1701,14 +1703,12 @@ export namespace Prisma {
     github?: boolean
     twitter?: boolean
     skills?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
+    aiConfig?: boolean | User$aiConfigArgs<ExtArgs>
     appointments?: boolean | User$appointmentsArgs<ExtArgs>
+    company?: boolean | User$companyArgs<ExtArgs>
+    messagingConfig?: boolean | User$messagingConfigArgs<ExtArgs>
     projects?: boolean | User$projectsArgs<ExtArgs>
     reminders?: boolean | User$remindersArgs<ExtArgs>
-    company?: boolean | User$companyArgs<ExtArgs>
-    aiConfig?: boolean | User$aiConfigArgs<ExtArgs>
-    messagingConfig?: boolean | User$messagingConfigArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1717,6 +1717,8 @@ export namespace Prisma {
     email?: boolean
     name?: boolean
     avatarUrl?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     title?: boolean
     bio?: boolean
     location?: boolean
@@ -1726,8 +1728,6 @@ export namespace Prisma {
     github?: boolean
     twitter?: boolean
     skills?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1735,6 +1735,8 @@ export namespace Prisma {
     email?: boolean
     name?: boolean
     avatarUrl?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     title?: boolean
     bio?: boolean
     location?: boolean
@@ -1744,8 +1746,6 @@ export namespace Prisma {
     github?: boolean
     twitter?: boolean
     skills?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1753,6 +1753,8 @@ export namespace Prisma {
     email?: boolean
     name?: boolean
     avatarUrl?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     title?: boolean
     bio?: boolean
     location?: boolean
@@ -1762,18 +1764,16 @@ export namespace Prisma {
     github?: boolean
     twitter?: boolean
     skills?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "avatarUrl" | "title" | "bio" | "location" | "phone" | "website" | "linkedin" | "github" | "twitter" | "skills" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "avatarUrl" | "createdAt" | "updatedAt" | "title" | "bio" | "location" | "phone" | "website" | "linkedin" | "github" | "twitter" | "skills", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    aiConfig?: boolean | User$aiConfigArgs<ExtArgs>
     appointments?: boolean | User$appointmentsArgs<ExtArgs>
+    company?: boolean | User$companyArgs<ExtArgs>
+    messagingConfig?: boolean | User$messagingConfigArgs<ExtArgs>
     projects?: boolean | User$projectsArgs<ExtArgs>
     reminders?: boolean | User$remindersArgs<ExtArgs>
-    company?: boolean | User$companyArgs<ExtArgs>
-    aiConfig?: boolean | User$aiConfigArgs<ExtArgs>
-    messagingConfig?: boolean | User$messagingConfigArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1782,18 +1782,20 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
+      aiConfig: Prisma.$AIConfigPayload<ExtArgs> | null
       appointments: Prisma.$AppointmentPayload<ExtArgs>[]
+      company: Prisma.$CompanyPayload<ExtArgs> | null
+      messagingConfig: Prisma.$MessagingConfigPayload<ExtArgs> | null
       projects: Prisma.$ProjectPayload<ExtArgs>[]
       reminders: Prisma.$ReminderPayload<ExtArgs>[]
-      company: Prisma.$CompanyPayload<ExtArgs> | null
-      aiConfig: Prisma.$AIConfigPayload<ExtArgs> | null
-      messagingConfig: Prisma.$MessagingConfigPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       email: string
       name: string
       avatarUrl: string | null
+      createdAt: Date
+      updatedAt: Date
       title: string | null
       bio: string | null
       location: string | null
@@ -1803,8 +1805,6 @@ export namespace Prisma {
       github: string | null
       twitter: string | null
       skills: string[]
-      createdAt: Date
-      updatedAt: Date
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2199,12 +2199,12 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    aiConfig<T extends User$aiConfigArgs<ExtArgs> = {}>(args?: Subset<T, User$aiConfigArgs<ExtArgs>>): Prisma__AIConfigClient<$Result.GetResult<Prisma.$AIConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     appointments<T extends User$appointmentsArgs<ExtArgs> = {}>(args?: Subset<T, User$appointmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    company<T extends User$companyArgs<ExtArgs> = {}>(args?: Subset<T, User$companyArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    messagingConfig<T extends User$messagingConfigArgs<ExtArgs> = {}>(args?: Subset<T, User$messagingConfigArgs<ExtArgs>>): Prisma__MessagingConfigClient<$Result.GetResult<Prisma.$MessagingConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     projects<T extends User$projectsArgs<ExtArgs> = {}>(args?: Subset<T, User$projectsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reminders<T extends User$remindersArgs<ExtArgs> = {}>(args?: Subset<T, User$remindersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    company<T extends User$companyArgs<ExtArgs> = {}>(args?: Subset<T, User$companyArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    aiConfig<T extends User$aiConfigArgs<ExtArgs> = {}>(args?: Subset<T, User$aiConfigArgs<ExtArgs>>): Prisma__AIConfigClient<$Result.GetResult<Prisma.$AIConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    messagingConfig<T extends User$messagingConfigArgs<ExtArgs> = {}>(args?: Subset<T, User$messagingConfigArgs<ExtArgs>>): Prisma__MessagingConfigClient<$Result.GetResult<Prisma.$MessagingConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2238,6 +2238,8 @@ export namespace Prisma {
     readonly email: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
     readonly avatarUrl: FieldRef<"User", 'String'>
+    readonly createdAt: FieldRef<"User", 'DateTime'>
+    readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly title: FieldRef<"User", 'String'>
     readonly bio: FieldRef<"User", 'String'>
     readonly location: FieldRef<"User", 'String'>
@@ -2247,8 +2249,6 @@ export namespace Prisma {
     readonly github: FieldRef<"User", 'String'>
     readonly twitter: FieldRef<"User", 'String'>
     readonly skills: FieldRef<"User", 'String[]'>
-    readonly createdAt: FieldRef<"User", 'DateTime'>
-    readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
     
 
@@ -2637,6 +2637,25 @@ export namespace Prisma {
   }
 
   /**
+   * User.aiConfig
+   */
+  export type User$aiConfigArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIConfig
+     */
+    select?: AIConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIConfig
+     */
+    omit?: AIConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIConfigInclude<ExtArgs> | null
+    where?: AIConfigWhereInput
+  }
+
+  /**
    * User.appointments
    */
   export type User$appointmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2658,6 +2677,44 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AppointmentScalarFieldEnum | AppointmentScalarFieldEnum[]
+  }
+
+  /**
+   * User.company
+   */
+  export type User$companyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    where?: CompanyWhereInput
+  }
+
+  /**
+   * User.messagingConfig
+   */
+  export type User$messagingConfigArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessagingConfig
+     */
+    select?: MessagingConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessagingConfig
+     */
+    omit?: MessagingConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagingConfigInclude<ExtArgs> | null
+    where?: MessagingConfigWhereInput
   }
 
   /**
@@ -2706,63 +2763,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ReminderScalarFieldEnum | ReminderScalarFieldEnum[]
-  }
-
-  /**
-   * User.company
-   */
-  export type User$companyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Company
-     */
-    select?: CompanySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Company
-     */
-    omit?: CompanyOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CompanyInclude<ExtArgs> | null
-    where?: CompanyWhereInput
-  }
-
-  /**
-   * User.aiConfig
-   */
-  export type User$aiConfigArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AIConfig
-     */
-    select?: AIConfigSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AIConfig
-     */
-    omit?: AIConfigOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AIConfigInclude<ExtArgs> | null
-    where?: AIConfigWhereInput
-  }
-
-  /**
-   * User.messagingConfig
-   */
-  export type User$messagingConfigArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MessagingConfig
-     */
-    select?: MessagingConfigSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MessagingConfig
-     */
-    omit?: MessagingConfigOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MessagingConfigInclude<ExtArgs> | null
-    where?: MessagingConfigWhereInput
   }
 
   /**
@@ -5106,8 +5106,18 @@ export namespace Prisma {
 
   export type AggregateReminder = {
     _count: ReminderCountAggregateOutputType | null
+    _avg: ReminderAvgAggregateOutputType | null
+    _sum: ReminderSumAggregateOutputType | null
     _min: ReminderMinAggregateOutputType | null
     _max: ReminderMaxAggregateOutputType | null
+  }
+
+  export type ReminderAvgAggregateOutputType = {
+    notifyBefore: number | null
+  }
+
+  export type ReminderSumAggregateOutputType = {
+    notifyBefore: number | null
   }
 
   export type ReminderMinAggregateOutputType = {
@@ -5119,6 +5129,14 @@ export namespace Prisma {
     userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    category: string | null
+    color: string | null
+    notifyBefore: number | null
+    notifyEmail: boolean | null
+    notifyWhatsapp: boolean | null
+    priority: string | null
+    recurrence: string | null
+    recurrenceEndDate: Date | null
   }
 
   export type ReminderMaxAggregateOutputType = {
@@ -5130,6 +5148,14 @@ export namespace Prisma {
     userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    category: string | null
+    color: string | null
+    notifyBefore: number | null
+    notifyEmail: boolean | null
+    notifyWhatsapp: boolean | null
+    priority: string | null
+    recurrence: string | null
+    recurrenceEndDate: Date | null
   }
 
   export type ReminderCountAggregateOutputType = {
@@ -5141,9 +5167,25 @@ export namespace Prisma {
     userId: number
     createdAt: number
     updatedAt: number
+    category: number
+    color: number
+    notifyBefore: number
+    notifyEmail: number
+    notifyWhatsapp: number
+    priority: number
+    recurrence: number
+    recurrenceEndDate: number
     _all: number
   }
 
+
+  export type ReminderAvgAggregateInputType = {
+    notifyBefore?: true
+  }
+
+  export type ReminderSumAggregateInputType = {
+    notifyBefore?: true
+  }
 
   export type ReminderMinAggregateInputType = {
     id?: true
@@ -5154,6 +5196,14 @@ export namespace Prisma {
     userId?: true
     createdAt?: true
     updatedAt?: true
+    category?: true
+    color?: true
+    notifyBefore?: true
+    notifyEmail?: true
+    notifyWhatsapp?: true
+    priority?: true
+    recurrence?: true
+    recurrenceEndDate?: true
   }
 
   export type ReminderMaxAggregateInputType = {
@@ -5165,6 +5215,14 @@ export namespace Prisma {
     userId?: true
     createdAt?: true
     updatedAt?: true
+    category?: true
+    color?: true
+    notifyBefore?: true
+    notifyEmail?: true
+    notifyWhatsapp?: true
+    priority?: true
+    recurrence?: true
+    recurrenceEndDate?: true
   }
 
   export type ReminderCountAggregateInputType = {
@@ -5176,6 +5234,14 @@ export namespace Prisma {
     userId?: true
     createdAt?: true
     updatedAt?: true
+    category?: true
+    color?: true
+    notifyBefore?: true
+    notifyEmail?: true
+    notifyWhatsapp?: true
+    priority?: true
+    recurrence?: true
+    recurrenceEndDate?: true
     _all?: true
   }
 
@@ -5217,6 +5283,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: ReminderAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ReminderSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ReminderMinAggregateInputType
@@ -5247,6 +5325,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ReminderCountAggregateInputType | true
+    _avg?: ReminderAvgAggregateInputType
+    _sum?: ReminderSumAggregateInputType
     _min?: ReminderMinAggregateInputType
     _max?: ReminderMaxAggregateInputType
   }
@@ -5260,7 +5340,17 @@ export namespace Prisma {
     userId: string
     createdAt: Date
     updatedAt: Date
+    category: string
+    color: string | null
+    notifyBefore: number
+    notifyEmail: boolean
+    notifyWhatsapp: boolean
+    priority: string
+    recurrence: string | null
+    recurrenceEndDate: Date | null
     _count: ReminderCountAggregateOutputType | null
+    _avg: ReminderAvgAggregateOutputType | null
+    _sum: ReminderSumAggregateOutputType | null
     _min: ReminderMinAggregateOutputType | null
     _max: ReminderMaxAggregateOutputType | null
   }
@@ -5288,6 +5378,14 @@ export namespace Prisma {
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    category?: boolean
+    color?: boolean
+    notifyBefore?: boolean
+    notifyEmail?: boolean
+    notifyWhatsapp?: boolean
+    priority?: boolean
+    recurrence?: boolean
+    recurrenceEndDate?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["reminder"]>
 
@@ -5300,6 +5398,14 @@ export namespace Prisma {
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    category?: boolean
+    color?: boolean
+    notifyBefore?: boolean
+    notifyEmail?: boolean
+    notifyWhatsapp?: boolean
+    priority?: boolean
+    recurrence?: boolean
+    recurrenceEndDate?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["reminder"]>
 
@@ -5312,6 +5418,14 @@ export namespace Prisma {
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    category?: boolean
+    color?: boolean
+    notifyBefore?: boolean
+    notifyEmail?: boolean
+    notifyWhatsapp?: boolean
+    priority?: boolean
+    recurrence?: boolean
+    recurrenceEndDate?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["reminder"]>
 
@@ -5324,9 +5438,17 @@ export namespace Prisma {
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    category?: boolean
+    color?: boolean
+    notifyBefore?: boolean
+    notifyEmail?: boolean
+    notifyWhatsapp?: boolean
+    priority?: boolean
+    recurrence?: boolean
+    recurrenceEndDate?: boolean
   }
 
-  export type ReminderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "dueDate" | "completed" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["reminder"]>
+  export type ReminderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "dueDate" | "completed" | "userId" | "createdAt" | "updatedAt" | "category" | "color" | "notifyBefore" | "notifyEmail" | "notifyWhatsapp" | "priority" | "recurrence" | "recurrenceEndDate", ExtArgs["result"]["reminder"]>
   export type ReminderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -5351,6 +5473,14 @@ export namespace Prisma {
       userId: string
       createdAt: Date
       updatedAt: Date
+      category: string
+      color: string | null
+      notifyBefore: number
+      notifyEmail: boolean
+      notifyWhatsapp: boolean
+      priority: string
+      recurrence: string | null
+      recurrenceEndDate: Date | null
     }, ExtArgs["result"]["reminder"]>
     composites: {}
   }
@@ -5783,6 +5913,14 @@ export namespace Prisma {
     readonly userId: FieldRef<"Reminder", 'String'>
     readonly createdAt: FieldRef<"Reminder", 'DateTime'>
     readonly updatedAt: FieldRef<"Reminder", 'DateTime'>
+    readonly category: FieldRef<"Reminder", 'String'>
+    readonly color: FieldRef<"Reminder", 'String'>
+    readonly notifyBefore: FieldRef<"Reminder", 'Int'>
+    readonly notifyEmail: FieldRef<"Reminder", 'Boolean'>
+    readonly notifyWhatsapp: FieldRef<"Reminder", 'Boolean'>
+    readonly priority: FieldRef<"Reminder", 'String'>
+    readonly recurrence: FieldRef<"Reminder", 'String'>
+    readonly recurrenceEndDate: FieldRef<"Reminder", 'DateTime'>
   }
     
 
@@ -8551,12 +8689,12 @@ export namespace Prisma {
     evolutionBaseUrl: string | null
     evolutionEnabled: boolean | null
     evolutionInstance: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
     resendApiKey: string | null
     resendEnabled: boolean | null
     resendFromEmail: string | null
     resendFromName: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
   }
 
   export type MessagingConfigMaxAggregateOutputType = {
@@ -8566,12 +8704,12 @@ export namespace Prisma {
     evolutionBaseUrl: string | null
     evolutionEnabled: boolean | null
     evolutionInstance: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
     resendApiKey: string | null
     resendEnabled: boolean | null
     resendFromEmail: string | null
     resendFromName: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
   }
 
   export type MessagingConfigCountAggregateOutputType = {
@@ -8581,12 +8719,12 @@ export namespace Prisma {
     evolutionBaseUrl: number
     evolutionEnabled: number
     evolutionInstance: number
+    createdAt: number
+    updatedAt: number
     resendApiKey: number
     resendEnabled: number
     resendFromEmail: number
     resendFromName: number
-    createdAt: number
-    updatedAt: number
     _all: number
   }
 
@@ -8598,12 +8736,12 @@ export namespace Prisma {
     evolutionBaseUrl?: true
     evolutionEnabled?: true
     evolutionInstance?: true
+    createdAt?: true
+    updatedAt?: true
     resendApiKey?: true
     resendEnabled?: true
     resendFromEmail?: true
     resendFromName?: true
-    createdAt?: true
-    updatedAt?: true
   }
 
   export type MessagingConfigMaxAggregateInputType = {
@@ -8613,12 +8751,12 @@ export namespace Prisma {
     evolutionBaseUrl?: true
     evolutionEnabled?: true
     evolutionInstance?: true
+    createdAt?: true
+    updatedAt?: true
     resendApiKey?: true
     resendEnabled?: true
     resendFromEmail?: true
     resendFromName?: true
-    createdAt?: true
-    updatedAt?: true
   }
 
   export type MessagingConfigCountAggregateInputType = {
@@ -8628,12 +8766,12 @@ export namespace Prisma {
     evolutionBaseUrl?: true
     evolutionEnabled?: true
     evolutionInstance?: true
+    createdAt?: true
+    updatedAt?: true
     resendApiKey?: true
     resendEnabled?: true
     resendFromEmail?: true
     resendFromName?: true
-    createdAt?: true
-    updatedAt?: true
     _all?: true
   }
 
@@ -8716,12 +8854,12 @@ export namespace Prisma {
     evolutionBaseUrl: string | null
     evolutionEnabled: boolean
     evolutionInstance: string | null
+    createdAt: Date
+    updatedAt: Date
     resendApiKey: string | null
     resendEnabled: boolean
     resendFromEmail: string | null
     resendFromName: string | null
-    createdAt: Date
-    updatedAt: Date
     _count: MessagingConfigCountAggregateOutputType | null
     _min: MessagingConfigMinAggregateOutputType | null
     _max: MessagingConfigMaxAggregateOutputType | null
@@ -8748,12 +8886,12 @@ export namespace Prisma {
     evolutionBaseUrl?: boolean
     evolutionEnabled?: boolean
     evolutionInstance?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     resendApiKey?: boolean
     resendEnabled?: boolean
     resendFromEmail?: boolean
     resendFromName?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["messagingConfig"]>
 
@@ -8764,12 +8902,12 @@ export namespace Prisma {
     evolutionBaseUrl?: boolean
     evolutionEnabled?: boolean
     evolutionInstance?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     resendApiKey?: boolean
     resendEnabled?: boolean
     resendFromEmail?: boolean
     resendFromName?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["messagingConfig"]>
 
@@ -8780,12 +8918,12 @@ export namespace Prisma {
     evolutionBaseUrl?: boolean
     evolutionEnabled?: boolean
     evolutionInstance?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     resendApiKey?: boolean
     resendEnabled?: boolean
     resendFromEmail?: boolean
     resendFromName?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["messagingConfig"]>
 
@@ -8796,15 +8934,15 @@ export namespace Prisma {
     evolutionBaseUrl?: boolean
     evolutionEnabled?: boolean
     evolutionInstance?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     resendApiKey?: boolean
     resendEnabled?: boolean
     resendFromEmail?: boolean
     resendFromName?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
   }
 
-  export type MessagingConfigOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "evolutionApiKey" | "evolutionBaseUrl" | "evolutionEnabled" | "evolutionInstance" | "resendApiKey" | "resendEnabled" | "resendFromEmail" | "resendFromName" | "createdAt" | "updatedAt", ExtArgs["result"]["messagingConfig"]>
+  export type MessagingConfigOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "evolutionApiKey" | "evolutionBaseUrl" | "evolutionEnabled" | "evolutionInstance" | "createdAt" | "updatedAt" | "resendApiKey" | "resendEnabled" | "resendFromEmail" | "resendFromName", ExtArgs["result"]["messagingConfig"]>
   export type MessagingConfigInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -8827,12 +8965,12 @@ export namespace Prisma {
       evolutionBaseUrl: string | null
       evolutionEnabled: boolean
       evolutionInstance: string | null
+      createdAt: Date
+      updatedAt: Date
       resendApiKey: string | null
       resendEnabled: boolean
       resendFromEmail: string | null
       resendFromName: string | null
-      createdAt: Date
-      updatedAt: Date
     }, ExtArgs["result"]["messagingConfig"]>
     composites: {}
   }
@@ -9263,12 +9401,12 @@ export namespace Prisma {
     readonly evolutionBaseUrl: FieldRef<"MessagingConfig", 'String'>
     readonly evolutionEnabled: FieldRef<"MessagingConfig", 'Boolean'>
     readonly evolutionInstance: FieldRef<"MessagingConfig", 'String'>
+    readonly createdAt: FieldRef<"MessagingConfig", 'DateTime'>
+    readonly updatedAt: FieldRef<"MessagingConfig", 'DateTime'>
     readonly resendApiKey: FieldRef<"MessagingConfig", 'String'>
     readonly resendEnabled: FieldRef<"MessagingConfig", 'Boolean'>
     readonly resendFromEmail: FieldRef<"MessagingConfig", 'String'>
     readonly resendFromName: FieldRef<"MessagingConfig", 'String'>
-    readonly createdAt: FieldRef<"MessagingConfig", 'DateTime'>
-    readonly updatedAt: FieldRef<"MessagingConfig", 'DateTime'>
   }
     
 
@@ -9702,6 +9840,8 @@ export namespace Prisma {
     email: 'email',
     name: 'name',
     avatarUrl: 'avatarUrl',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
     title: 'title',
     bio: 'bio',
     location: 'location',
@@ -9710,9 +9850,7 @@ export namespace Prisma {
     linkedin: 'linkedin',
     github: 'github',
     twitter: 'twitter',
-    skills: 'skills',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    skills: 'skills'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -9764,7 +9902,15 @@ export namespace Prisma {
     completed: 'completed',
     userId: 'userId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    category: 'category',
+    color: 'color',
+    notifyBefore: 'notifyBefore',
+    notifyEmail: 'notifyEmail',
+    notifyWhatsapp: 'notifyWhatsapp',
+    priority: 'priority',
+    recurrence: 'recurrence',
+    recurrenceEndDate: 'recurrenceEndDate'
   };
 
   export type ReminderScalarFieldEnum = (typeof ReminderScalarFieldEnum)[keyof typeof ReminderScalarFieldEnum]
@@ -9816,12 +9962,12 @@ export namespace Prisma {
     evolutionBaseUrl: 'evolutionBaseUrl',
     evolutionEnabled: 'evolutionEnabled',
     evolutionInstance: 'evolutionInstance',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
     resendApiKey: 'resendApiKey',
     resendEnabled: 'resendEnabled',
     resendFromEmail: 'resendFromEmail',
-    resendFromName: 'resendFromName',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    resendFromName: 'resendFromName'
   };
 
   export type MessagingConfigScalarFieldEnum = (typeof MessagingConfigScalarFieldEnum)[keyof typeof MessagingConfigScalarFieldEnum]
@@ -9903,6 +10049,20 @@ export namespace Prisma {
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
   /**
    * Deep Input Types
    */
@@ -9916,6 +10076,8 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
     avatarUrl?: StringNullableFilter<"User"> | string | null
+    createdAt?: DateTimeFilter<"User"> | Date | string
+    updatedAt?: DateTimeFilter<"User"> | Date | string
     title?: StringNullableFilter<"User"> | string | null
     bio?: StringNullableFilter<"User"> | string | null
     location?: StringNullableFilter<"User"> | string | null
@@ -9925,14 +10087,12 @@ export namespace Prisma {
     github?: StringNullableFilter<"User"> | string | null
     twitter?: StringNullableFilter<"User"> | string | null
     skills?: StringNullableListFilter<"User">
-    createdAt?: DateTimeFilter<"User"> | Date | string
-    updatedAt?: DateTimeFilter<"User"> | Date | string
+    aiConfig?: XOR<AIConfigNullableScalarRelationFilter, AIConfigWhereInput> | null
     appointments?: AppointmentListRelationFilter
+    company?: XOR<CompanyNullableScalarRelationFilter, CompanyWhereInput> | null
+    messagingConfig?: XOR<MessagingConfigNullableScalarRelationFilter, MessagingConfigWhereInput> | null
     projects?: ProjectListRelationFilter
     reminders?: ReminderListRelationFilter
-    company?: XOR<CompanyNullableScalarRelationFilter, CompanyWhereInput> | null
-    aiConfig?: XOR<AIConfigNullableScalarRelationFilter, AIConfigWhereInput> | null
-    messagingConfig?: XOR<MessagingConfigNullableScalarRelationFilter, MessagingConfigWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -9940,6 +10100,8 @@ export namespace Prisma {
     email?: SortOrder
     name?: SortOrder
     avatarUrl?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     title?: SortOrderInput | SortOrder
     bio?: SortOrderInput | SortOrder
     location?: SortOrderInput | SortOrder
@@ -9949,14 +10111,12 @@ export namespace Prisma {
     github?: SortOrderInput | SortOrder
     twitter?: SortOrderInput | SortOrder
     skills?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+    aiConfig?: AIConfigOrderByWithRelationInput
     appointments?: AppointmentOrderByRelationAggregateInput
+    company?: CompanyOrderByWithRelationInput
+    messagingConfig?: MessagingConfigOrderByWithRelationInput
     projects?: ProjectOrderByRelationAggregateInput
     reminders?: ReminderOrderByRelationAggregateInput
-    company?: CompanyOrderByWithRelationInput
-    aiConfig?: AIConfigOrderByWithRelationInput
-    messagingConfig?: MessagingConfigOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -9967,6 +10127,8 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
     avatarUrl?: StringNullableFilter<"User"> | string | null
+    createdAt?: DateTimeFilter<"User"> | Date | string
+    updatedAt?: DateTimeFilter<"User"> | Date | string
     title?: StringNullableFilter<"User"> | string | null
     bio?: StringNullableFilter<"User"> | string | null
     location?: StringNullableFilter<"User"> | string | null
@@ -9976,14 +10138,12 @@ export namespace Prisma {
     github?: StringNullableFilter<"User"> | string | null
     twitter?: StringNullableFilter<"User"> | string | null
     skills?: StringNullableListFilter<"User">
-    createdAt?: DateTimeFilter<"User"> | Date | string
-    updatedAt?: DateTimeFilter<"User"> | Date | string
+    aiConfig?: XOR<AIConfigNullableScalarRelationFilter, AIConfigWhereInput> | null
     appointments?: AppointmentListRelationFilter
+    company?: XOR<CompanyNullableScalarRelationFilter, CompanyWhereInput> | null
+    messagingConfig?: XOR<MessagingConfigNullableScalarRelationFilter, MessagingConfigWhereInput> | null
     projects?: ProjectListRelationFilter
     reminders?: ReminderListRelationFilter
-    company?: XOR<CompanyNullableScalarRelationFilter, CompanyWhereInput> | null
-    aiConfig?: XOR<AIConfigNullableScalarRelationFilter, AIConfigWhereInput> | null
-    messagingConfig?: XOR<MessagingConfigNullableScalarRelationFilter, MessagingConfigWhereInput> | null
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -9991,6 +10151,8 @@ export namespace Prisma {
     email?: SortOrder
     name?: SortOrder
     avatarUrl?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     title?: SortOrderInput | SortOrder
     bio?: SortOrderInput | SortOrder
     location?: SortOrderInput | SortOrder
@@ -10000,8 +10162,6 @@ export namespace Prisma {
     github?: SortOrderInput | SortOrder
     twitter?: SortOrderInput | SortOrder
     skills?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -10015,6 +10175,8 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"User"> | string
     name?: StringWithAggregatesFilter<"User"> | string
     avatarUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     title?: StringNullableWithAggregatesFilter<"User"> | string | null
     bio?: StringNullableWithAggregatesFilter<"User"> | string | null
     location?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -10024,8 +10186,6 @@ export namespace Prisma {
     github?: StringNullableWithAggregatesFilter<"User"> | string | null
     twitter?: StringNullableWithAggregatesFilter<"User"> | string | null
     skills?: StringNullableListFilter<"User">
-    createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
   export type CompanyWhereInput = {
@@ -10230,6 +10390,14 @@ export namespace Prisma {
     userId?: StringFilter<"Reminder"> | string
     createdAt?: DateTimeFilter<"Reminder"> | Date | string
     updatedAt?: DateTimeFilter<"Reminder"> | Date | string
+    category?: StringFilter<"Reminder"> | string
+    color?: StringNullableFilter<"Reminder"> | string | null
+    notifyBefore?: IntFilter<"Reminder"> | number
+    notifyEmail?: BoolFilter<"Reminder"> | boolean
+    notifyWhatsapp?: BoolFilter<"Reminder"> | boolean
+    priority?: StringFilter<"Reminder"> | string
+    recurrence?: StringNullableFilter<"Reminder"> | string | null
+    recurrenceEndDate?: DateTimeNullableFilter<"Reminder"> | Date | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
@@ -10242,6 +10410,14 @@ export namespace Prisma {
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    category?: SortOrder
+    color?: SortOrderInput | SortOrder
+    notifyBefore?: SortOrder
+    notifyEmail?: SortOrder
+    notifyWhatsapp?: SortOrder
+    priority?: SortOrder
+    recurrence?: SortOrderInput | SortOrder
+    recurrenceEndDate?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
   }
 
@@ -10257,6 +10433,14 @@ export namespace Prisma {
     userId?: StringFilter<"Reminder"> | string
     createdAt?: DateTimeFilter<"Reminder"> | Date | string
     updatedAt?: DateTimeFilter<"Reminder"> | Date | string
+    category?: StringFilter<"Reminder"> | string
+    color?: StringNullableFilter<"Reminder"> | string | null
+    notifyBefore?: IntFilter<"Reminder"> | number
+    notifyEmail?: BoolFilter<"Reminder"> | boolean
+    notifyWhatsapp?: BoolFilter<"Reminder"> | boolean
+    priority?: StringFilter<"Reminder"> | string
+    recurrence?: StringNullableFilter<"Reminder"> | string | null
+    recurrenceEndDate?: DateTimeNullableFilter<"Reminder"> | Date | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
@@ -10269,9 +10453,19 @@ export namespace Prisma {
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    category?: SortOrder
+    color?: SortOrderInput | SortOrder
+    notifyBefore?: SortOrder
+    notifyEmail?: SortOrder
+    notifyWhatsapp?: SortOrder
+    priority?: SortOrder
+    recurrence?: SortOrderInput | SortOrder
+    recurrenceEndDate?: SortOrderInput | SortOrder
     _count?: ReminderCountOrderByAggregateInput
+    _avg?: ReminderAvgOrderByAggregateInput
     _max?: ReminderMaxOrderByAggregateInput
     _min?: ReminderMinOrderByAggregateInput
+    _sum?: ReminderSumOrderByAggregateInput
   }
 
   export type ReminderScalarWhereWithAggregatesInput = {
@@ -10286,6 +10480,14 @@ export namespace Prisma {
     userId?: StringWithAggregatesFilter<"Reminder"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Reminder"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Reminder"> | Date | string
+    category?: StringWithAggregatesFilter<"Reminder"> | string
+    color?: StringNullableWithAggregatesFilter<"Reminder"> | string | null
+    notifyBefore?: IntWithAggregatesFilter<"Reminder"> | number
+    notifyEmail?: BoolWithAggregatesFilter<"Reminder"> | boolean
+    notifyWhatsapp?: BoolWithAggregatesFilter<"Reminder"> | boolean
+    priority?: StringWithAggregatesFilter<"Reminder"> | string
+    recurrence?: StringNullableWithAggregatesFilter<"Reminder"> | string | null
+    recurrenceEndDate?: DateTimeNullableWithAggregatesFilter<"Reminder"> | Date | string | null
   }
 
   export type AppointmentWhereInput = {
@@ -10493,12 +10695,12 @@ export namespace Prisma {
     evolutionBaseUrl?: StringNullableFilter<"MessagingConfig"> | string | null
     evolutionEnabled?: BoolFilter<"MessagingConfig"> | boolean
     evolutionInstance?: StringNullableFilter<"MessagingConfig"> | string | null
+    createdAt?: DateTimeFilter<"MessagingConfig"> | Date | string
+    updatedAt?: DateTimeFilter<"MessagingConfig"> | Date | string
     resendApiKey?: StringNullableFilter<"MessagingConfig"> | string | null
     resendEnabled?: BoolFilter<"MessagingConfig"> | boolean
     resendFromEmail?: StringNullableFilter<"MessagingConfig"> | string | null
     resendFromName?: StringNullableFilter<"MessagingConfig"> | string | null
-    createdAt?: DateTimeFilter<"MessagingConfig"> | Date | string
-    updatedAt?: DateTimeFilter<"MessagingConfig"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
@@ -10509,12 +10711,12 @@ export namespace Prisma {
     evolutionBaseUrl?: SortOrderInput | SortOrder
     evolutionEnabled?: SortOrder
     evolutionInstance?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     resendApiKey?: SortOrderInput | SortOrder
     resendEnabled?: SortOrder
     resendFromEmail?: SortOrderInput | SortOrder
     resendFromName?: SortOrderInput | SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
   }
 
@@ -10528,12 +10730,12 @@ export namespace Prisma {
     evolutionBaseUrl?: StringNullableFilter<"MessagingConfig"> | string | null
     evolutionEnabled?: BoolFilter<"MessagingConfig"> | boolean
     evolutionInstance?: StringNullableFilter<"MessagingConfig"> | string | null
+    createdAt?: DateTimeFilter<"MessagingConfig"> | Date | string
+    updatedAt?: DateTimeFilter<"MessagingConfig"> | Date | string
     resendApiKey?: StringNullableFilter<"MessagingConfig"> | string | null
     resendEnabled?: BoolFilter<"MessagingConfig"> | boolean
     resendFromEmail?: StringNullableFilter<"MessagingConfig"> | string | null
     resendFromName?: StringNullableFilter<"MessagingConfig"> | string | null
-    createdAt?: DateTimeFilter<"MessagingConfig"> | Date | string
-    updatedAt?: DateTimeFilter<"MessagingConfig"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "userId">
 
@@ -10544,12 +10746,12 @@ export namespace Prisma {
     evolutionBaseUrl?: SortOrderInput | SortOrder
     evolutionEnabled?: SortOrder
     evolutionInstance?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     resendApiKey?: SortOrderInput | SortOrder
     resendEnabled?: SortOrder
     resendFromEmail?: SortOrderInput | SortOrder
     resendFromName?: SortOrderInput | SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
     _count?: MessagingConfigCountOrderByAggregateInput
     _max?: MessagingConfigMaxOrderByAggregateInput
     _min?: MessagingConfigMinOrderByAggregateInput
@@ -10565,12 +10767,12 @@ export namespace Prisma {
     evolutionBaseUrl?: StringNullableWithAggregatesFilter<"MessagingConfig"> | string | null
     evolutionEnabled?: BoolWithAggregatesFilter<"MessagingConfig"> | boolean
     evolutionInstance?: StringNullableWithAggregatesFilter<"MessagingConfig"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"MessagingConfig"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"MessagingConfig"> | Date | string
     resendApiKey?: StringNullableWithAggregatesFilter<"MessagingConfig"> | string | null
     resendEnabled?: BoolWithAggregatesFilter<"MessagingConfig"> | boolean
     resendFromEmail?: StringNullableWithAggregatesFilter<"MessagingConfig"> | string | null
     resendFromName?: StringNullableWithAggregatesFilter<"MessagingConfig"> | string | null
-    createdAt?: DateTimeWithAggregatesFilter<"MessagingConfig"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"MessagingConfig"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -10578,6 +10780,8 @@ export namespace Prisma {
     email: string
     name: string
     avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     title?: string | null
     bio?: string | null
     location?: string | null
@@ -10587,14 +10791,12 @@ export namespace Prisma {
     github?: string | null
     twitter?: string | null
     skills?: UserCreateskillsInput | string[]
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    aiConfig?: AIConfigCreateNestedOneWithoutUserInput
     appointments?: AppointmentCreateNestedManyWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutUserInput
+    messagingConfig?: MessagingConfigCreateNestedOneWithoutUserInput
     projects?: ProjectCreateNestedManyWithoutUserInput
     reminders?: ReminderCreateNestedManyWithoutUserInput
-    company?: CompanyCreateNestedOneWithoutUserInput
-    aiConfig?: AIConfigCreateNestedOneWithoutUserInput
-    messagingConfig?: MessagingConfigCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -10602,6 +10804,8 @@ export namespace Prisma {
     email: string
     name: string
     avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     title?: string | null
     bio?: string | null
     location?: string | null
@@ -10611,14 +10815,12 @@ export namespace Prisma {
     github?: string | null
     twitter?: string | null
     skills?: UserCreateskillsInput | string[]
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    aiConfig?: AIConfigUncheckedCreateNestedOneWithoutUserInput
     appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
+    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    messagingConfig?: MessagingConfigUncheckedCreateNestedOneWithoutUserInput
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
     reminders?: ReminderUncheckedCreateNestedManyWithoutUserInput
-    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
-    aiConfig?: AIConfigUncheckedCreateNestedOneWithoutUserInput
-    messagingConfig?: MessagingConfigUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -10626,6 +10828,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10635,14 +10839,12 @@ export namespace Prisma {
     github?: NullableStringFieldUpdateOperationsInput | string | null
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     skills?: UserUpdateskillsInput | string[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiConfig?: AIConfigUpdateOneWithoutUserNestedInput
     appointments?: AppointmentUpdateManyWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutUserNestedInput
+    messagingConfig?: MessagingConfigUpdateOneWithoutUserNestedInput
     projects?: ProjectUpdateManyWithoutUserNestedInput
     reminders?: ReminderUpdateManyWithoutUserNestedInput
-    company?: CompanyUpdateOneWithoutUserNestedInput
-    aiConfig?: AIConfigUpdateOneWithoutUserNestedInput
-    messagingConfig?: MessagingConfigUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -10650,6 +10852,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10659,14 +10863,12 @@ export namespace Prisma {
     github?: NullableStringFieldUpdateOperationsInput | string | null
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     skills?: UserUpdateskillsInput | string[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiConfig?: AIConfigUncheckedUpdateOneWithoutUserNestedInput
     appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
+    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    messagingConfig?: MessagingConfigUncheckedUpdateOneWithoutUserNestedInput
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
     reminders?: ReminderUncheckedUpdateManyWithoutUserNestedInput
-    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
-    aiConfig?: AIConfigUncheckedUpdateOneWithoutUserNestedInput
-    messagingConfig?: MessagingConfigUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -10674,6 +10876,8 @@ export namespace Prisma {
     email: string
     name: string
     avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     title?: string | null
     bio?: string | null
     location?: string | null
@@ -10683,8 +10887,6 @@ export namespace Prisma {
     github?: string | null
     twitter?: string | null
     skills?: UserCreateskillsInput | string[]
-    createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
   export type UserUpdateManyMutationInput = {
@@ -10692,6 +10894,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10701,8 +10905,6 @@ export namespace Prisma {
     github?: NullableStringFieldUpdateOperationsInput | string | null
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     skills?: UserUpdateskillsInput | string[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -10710,6 +10912,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10719,8 +10923,6 @@ export namespace Prisma {
     github?: NullableStringFieldUpdateOperationsInput | string | null
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     skills?: UserUpdateskillsInput | string[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CompanyCreateInput = {
@@ -10953,6 +11155,14 @@ export namespace Prisma {
     completed?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    category?: string
+    color?: string | null
+    notifyBefore?: number
+    notifyEmail?: boolean
+    notifyWhatsapp?: boolean
+    priority?: string
+    recurrence?: string | null
+    recurrenceEndDate?: Date | string | null
     user: UserCreateNestedOneWithoutRemindersInput
   }
 
@@ -10965,6 +11175,14 @@ export namespace Prisma {
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    category?: string
+    color?: string | null
+    notifyBefore?: number
+    notifyEmail?: boolean
+    notifyWhatsapp?: boolean
+    priority?: string
+    recurrence?: string | null
+    recurrenceEndDate?: Date | string | null
   }
 
   export type ReminderUpdateInput = {
@@ -10975,6 +11193,14 @@ export namespace Prisma {
     completed?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    notifyBefore?: IntFieldUpdateOperationsInput | number
+    notifyEmail?: BoolFieldUpdateOperationsInput | boolean
+    notifyWhatsapp?: BoolFieldUpdateOperationsInput | boolean
+    priority?: StringFieldUpdateOperationsInput | string
+    recurrence?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneRequiredWithoutRemindersNestedInput
   }
 
@@ -10987,6 +11213,14 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    notifyBefore?: IntFieldUpdateOperationsInput | number
+    notifyEmail?: BoolFieldUpdateOperationsInput | boolean
+    notifyWhatsapp?: BoolFieldUpdateOperationsInput | boolean
+    priority?: StringFieldUpdateOperationsInput | string
+    recurrence?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ReminderCreateManyInput = {
@@ -10998,6 +11232,14 @@ export namespace Prisma {
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    category?: string
+    color?: string | null
+    notifyBefore?: number
+    notifyEmail?: boolean
+    notifyWhatsapp?: boolean
+    priority?: string
+    recurrence?: string | null
+    recurrenceEndDate?: Date | string | null
   }
 
   export type ReminderUpdateManyMutationInput = {
@@ -11008,6 +11250,14 @@ export namespace Prisma {
     completed?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    notifyBefore?: IntFieldUpdateOperationsInput | number
+    notifyEmail?: BoolFieldUpdateOperationsInput | boolean
+    notifyWhatsapp?: BoolFieldUpdateOperationsInput | boolean
+    priority?: StringFieldUpdateOperationsInput | string
+    recurrence?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ReminderUncheckedUpdateManyInput = {
@@ -11019,6 +11269,14 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    notifyBefore?: IntFieldUpdateOperationsInput | number
+    notifyEmail?: BoolFieldUpdateOperationsInput | boolean
+    notifyWhatsapp?: BoolFieldUpdateOperationsInput | boolean
+    priority?: StringFieldUpdateOperationsInput | string
+    recurrence?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type AppointmentCreateInput = {
@@ -11256,12 +11514,12 @@ export namespace Prisma {
     evolutionBaseUrl?: string | null
     evolutionEnabled?: boolean
     evolutionInstance?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     resendApiKey?: string | null
     resendEnabled?: boolean
     resendFromEmail?: string | null
     resendFromName?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
     user: UserCreateNestedOneWithoutMessagingConfigInput
   }
 
@@ -11272,12 +11530,12 @@ export namespace Prisma {
     evolutionBaseUrl?: string | null
     evolutionEnabled?: boolean
     evolutionInstance?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     resendApiKey?: string | null
     resendEnabled?: boolean
     resendFromEmail?: string | null
     resendFromName?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
   export type MessagingConfigUpdateInput = {
@@ -11286,12 +11544,12 @@ export namespace Prisma {
     evolutionBaseUrl?: NullableStringFieldUpdateOperationsInput | string | null
     evolutionEnabled?: BoolFieldUpdateOperationsInput | boolean
     evolutionInstance?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     resendApiKey?: NullableStringFieldUpdateOperationsInput | string | null
     resendEnabled?: BoolFieldUpdateOperationsInput | boolean
     resendFromEmail?: NullableStringFieldUpdateOperationsInput | string | null
     resendFromName?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutMessagingConfigNestedInput
   }
 
@@ -11302,12 +11560,12 @@ export namespace Prisma {
     evolutionBaseUrl?: NullableStringFieldUpdateOperationsInput | string | null
     evolutionEnabled?: BoolFieldUpdateOperationsInput | boolean
     evolutionInstance?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     resendApiKey?: NullableStringFieldUpdateOperationsInput | string | null
     resendEnabled?: BoolFieldUpdateOperationsInput | boolean
     resendFromEmail?: NullableStringFieldUpdateOperationsInput | string | null
     resendFromName?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MessagingConfigCreateManyInput = {
@@ -11317,12 +11575,12 @@ export namespace Prisma {
     evolutionBaseUrl?: string | null
     evolutionEnabled?: boolean
     evolutionInstance?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     resendApiKey?: string | null
     resendEnabled?: boolean
     resendFromEmail?: string | null
     resendFromName?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
   export type MessagingConfigUpdateManyMutationInput = {
@@ -11331,12 +11589,12 @@ export namespace Prisma {
     evolutionBaseUrl?: NullableStringFieldUpdateOperationsInput | string | null
     evolutionEnabled?: BoolFieldUpdateOperationsInput | boolean
     evolutionInstance?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     resendApiKey?: NullableStringFieldUpdateOperationsInput | string | null
     resendEnabled?: BoolFieldUpdateOperationsInput | boolean
     resendFromEmail?: NullableStringFieldUpdateOperationsInput | string | null
     resendFromName?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MessagingConfigUncheckedUpdateManyInput = {
@@ -11346,12 +11604,12 @@ export namespace Prisma {
     evolutionBaseUrl?: NullableStringFieldUpdateOperationsInput | string | null
     evolutionEnabled?: BoolFieldUpdateOperationsInput | boolean
     evolutionInstance?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     resendApiKey?: NullableStringFieldUpdateOperationsInput | string | null
     resendEnabled?: BoolFieldUpdateOperationsInput | boolean
     resendFromEmail?: NullableStringFieldUpdateOperationsInput | string | null
     resendFromName?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -11384,14 +11642,6 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type StringNullableListFilter<$PrismaModel = never> = {
-    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    has?: string | StringFieldRefInput<$PrismaModel> | null
-    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
-    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
-    isEmpty?: boolean
-  }
-
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -11403,10 +11653,33 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type AIConfigNullableScalarRelationFilter = {
+    is?: AIConfigWhereInput | null
+    isNot?: AIConfigWhereInput | null
+  }
+
   export type AppointmentListRelationFilter = {
     every?: AppointmentWhereInput
     some?: AppointmentWhereInput
     none?: AppointmentWhereInput
+  }
+
+  export type CompanyNullableScalarRelationFilter = {
+    is?: CompanyWhereInput | null
+    isNot?: CompanyWhereInput | null
+  }
+
+  export type MessagingConfigNullableScalarRelationFilter = {
+    is?: MessagingConfigWhereInput | null
+    isNot?: MessagingConfigWhereInput | null
   }
 
   export type ProjectListRelationFilter = {
@@ -11419,21 +11692,6 @@ export namespace Prisma {
     every?: ReminderWhereInput
     some?: ReminderWhereInput
     none?: ReminderWhereInput
-  }
-
-  export type CompanyNullableScalarRelationFilter = {
-    is?: CompanyWhereInput | null
-    isNot?: CompanyWhereInput | null
-  }
-
-  export type AIConfigNullableScalarRelationFilter = {
-    is?: AIConfigWhereInput | null
-    isNot?: AIConfigWhereInput | null
-  }
-
-  export type MessagingConfigNullableScalarRelationFilter = {
-    is?: MessagingConfigWhereInput | null
-    isNot?: MessagingConfigWhereInput | null
   }
 
   export type SortOrderInput = {
@@ -11458,6 +11716,8 @@ export namespace Prisma {
     email?: SortOrder
     name?: SortOrder
     avatarUrl?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     title?: SortOrder
     bio?: SortOrder
     location?: SortOrder
@@ -11467,8 +11727,6 @@ export namespace Prisma {
     github?: SortOrder
     twitter?: SortOrder
     skills?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -11476,6 +11734,8 @@ export namespace Prisma {
     email?: SortOrder
     name?: SortOrder
     avatarUrl?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     title?: SortOrder
     bio?: SortOrder
     location?: SortOrder
@@ -11484,8 +11744,6 @@ export namespace Prisma {
     linkedin?: SortOrder
     github?: SortOrder
     twitter?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -11493,6 +11751,8 @@ export namespace Prisma {
     email?: SortOrder
     name?: SortOrder
     avatarUrl?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     title?: SortOrder
     bio?: SortOrder
     location?: SortOrder
@@ -11501,8 +11761,6 @@ export namespace Prisma {
     linkedin?: SortOrder
     github?: SortOrder
     twitter?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -11665,6 +11923,28 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type ReminderCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
@@ -11674,6 +11954,18 @@ export namespace Prisma {
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    category?: SortOrder
+    color?: SortOrder
+    notifyBefore?: SortOrder
+    notifyEmail?: SortOrder
+    notifyWhatsapp?: SortOrder
+    priority?: SortOrder
+    recurrence?: SortOrder
+    recurrenceEndDate?: SortOrder
+  }
+
+  export type ReminderAvgOrderByAggregateInput = {
+    notifyBefore?: SortOrder
   }
 
   export type ReminderMaxOrderByAggregateInput = {
@@ -11685,6 +11977,14 @@ export namespace Prisma {
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    category?: SortOrder
+    color?: SortOrder
+    notifyBefore?: SortOrder
+    notifyEmail?: SortOrder
+    notifyWhatsapp?: SortOrder
+    priority?: SortOrder
+    recurrence?: SortOrder
+    recurrenceEndDate?: SortOrder
   }
 
   export type ReminderMinOrderByAggregateInput = {
@@ -11696,6 +11996,48 @@ export namespace Prisma {
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    category?: SortOrder
+    color?: SortOrder
+    notifyBefore?: SortOrder
+    notifyEmail?: SortOrder
+    notifyWhatsapp?: SortOrder
+    priority?: SortOrder
+    recurrence?: SortOrder
+    recurrenceEndDate?: SortOrder
+  }
+
+  export type ReminderSumOrderByAggregateInput = {
+    notifyBefore?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type AppointmentCountOrderByAggregateInput = {
@@ -11804,12 +12146,12 @@ export namespace Prisma {
     evolutionBaseUrl?: SortOrder
     evolutionEnabled?: SortOrder
     evolutionInstance?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     resendApiKey?: SortOrder
     resendEnabled?: SortOrder
     resendFromEmail?: SortOrder
     resendFromName?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
   }
 
   export type MessagingConfigMaxOrderByAggregateInput = {
@@ -11819,12 +12161,12 @@ export namespace Prisma {
     evolutionBaseUrl?: SortOrder
     evolutionEnabled?: SortOrder
     evolutionInstance?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     resendApiKey?: SortOrder
     resendEnabled?: SortOrder
     resendFromEmail?: SortOrder
     resendFromName?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
   }
 
   export type MessagingConfigMinOrderByAggregateInput = {
@@ -11834,16 +12176,22 @@ export namespace Prisma {
     evolutionBaseUrl?: SortOrder
     evolutionEnabled?: SortOrder
     evolutionInstance?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     resendApiKey?: SortOrder
     resendEnabled?: SortOrder
     resendFromEmail?: SortOrder
     resendFromName?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
   }
 
   export type UserCreateskillsInput = {
     set: string[]
+  }
+
+  export type AIConfigCreateNestedOneWithoutUserInput = {
+    create?: XOR<AIConfigCreateWithoutUserInput, AIConfigUncheckedCreateWithoutUserInput>
+    connectOrCreate?: AIConfigCreateOrConnectWithoutUserInput
+    connect?: AIConfigWhereUniqueInput
   }
 
   export type AppointmentCreateNestedManyWithoutUserInput = {
@@ -11851,6 +12199,18 @@ export namespace Prisma {
     connectOrCreate?: AppointmentCreateOrConnectWithoutUserInput | AppointmentCreateOrConnectWithoutUserInput[]
     createMany?: AppointmentCreateManyUserInputEnvelope
     connect?: AppointmentWhereUniqueInput | AppointmentWhereUniqueInput[]
+  }
+
+  export type CompanyCreateNestedOneWithoutUserInput = {
+    create?: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutUserInput
+    connect?: CompanyWhereUniqueInput
+  }
+
+  export type MessagingConfigCreateNestedOneWithoutUserInput = {
+    create?: XOR<MessagingConfigCreateWithoutUserInput, MessagingConfigUncheckedCreateWithoutUserInput>
+    connectOrCreate?: MessagingConfigCreateOrConnectWithoutUserInput
+    connect?: MessagingConfigWhereUniqueInput
   }
 
   export type ProjectCreateNestedManyWithoutUserInput = {
@@ -11867,22 +12227,10 @@ export namespace Prisma {
     connect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
   }
 
-  export type CompanyCreateNestedOneWithoutUserInput = {
-    create?: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
-    connectOrCreate?: CompanyCreateOrConnectWithoutUserInput
-    connect?: CompanyWhereUniqueInput
-  }
-
-  export type AIConfigCreateNestedOneWithoutUserInput = {
+  export type AIConfigUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<AIConfigCreateWithoutUserInput, AIConfigUncheckedCreateWithoutUserInput>
     connectOrCreate?: AIConfigCreateOrConnectWithoutUserInput
     connect?: AIConfigWhereUniqueInput
-  }
-
-  export type MessagingConfigCreateNestedOneWithoutUserInput = {
-    create?: XOR<MessagingConfigCreateWithoutUserInput, MessagingConfigUncheckedCreateWithoutUserInput>
-    connectOrCreate?: MessagingConfigCreateOrConnectWithoutUserInput
-    connect?: MessagingConfigWhereUniqueInput
   }
 
   export type AppointmentUncheckedCreateNestedManyWithoutUserInput = {
@@ -11890,6 +12238,18 @@ export namespace Prisma {
     connectOrCreate?: AppointmentCreateOrConnectWithoutUserInput | AppointmentCreateOrConnectWithoutUserInput[]
     createMany?: AppointmentCreateManyUserInputEnvelope
     connect?: AppointmentWhereUniqueInput | AppointmentWhereUniqueInput[]
+  }
+
+  export type CompanyUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutUserInput
+    connect?: CompanyWhereUniqueInput
+  }
+
+  export type MessagingConfigUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<MessagingConfigCreateWithoutUserInput, MessagingConfigUncheckedCreateWithoutUserInput>
+    connectOrCreate?: MessagingConfigCreateOrConnectWithoutUserInput
+    connect?: MessagingConfigWhereUniqueInput
   }
 
   export type ProjectUncheckedCreateNestedManyWithoutUserInput = {
@@ -11906,24 +12266,6 @@ export namespace Prisma {
     connect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
   }
 
-  export type CompanyUncheckedCreateNestedOneWithoutUserInput = {
-    create?: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
-    connectOrCreate?: CompanyCreateOrConnectWithoutUserInput
-    connect?: CompanyWhereUniqueInput
-  }
-
-  export type AIConfigUncheckedCreateNestedOneWithoutUserInput = {
-    create?: XOR<AIConfigCreateWithoutUserInput, AIConfigUncheckedCreateWithoutUserInput>
-    connectOrCreate?: AIConfigCreateOrConnectWithoutUserInput
-    connect?: AIConfigWhereUniqueInput
-  }
-
-  export type MessagingConfigUncheckedCreateNestedOneWithoutUserInput = {
-    create?: XOR<MessagingConfigCreateWithoutUserInput, MessagingConfigUncheckedCreateWithoutUserInput>
-    connectOrCreate?: MessagingConfigCreateOrConnectWithoutUserInput
-    connect?: MessagingConfigWhereUniqueInput
-  }
-
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -11932,13 +12274,23 @@ export namespace Prisma {
     set?: string | null
   }
 
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
   export type UserUpdateskillsInput = {
     set?: string[]
     push?: string | string[]
   }
 
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
+  export type AIConfigUpdateOneWithoutUserNestedInput = {
+    create?: XOR<AIConfigCreateWithoutUserInput, AIConfigUncheckedCreateWithoutUserInput>
+    connectOrCreate?: AIConfigCreateOrConnectWithoutUserInput
+    upsert?: AIConfigUpsertWithoutUserInput
+    disconnect?: AIConfigWhereInput | boolean
+    delete?: AIConfigWhereInput | boolean
+    connect?: AIConfigWhereUniqueInput
+    update?: XOR<XOR<AIConfigUpdateToOneWithWhereWithoutUserInput, AIConfigUpdateWithoutUserInput>, AIConfigUncheckedUpdateWithoutUserInput>
   }
 
   export type AppointmentUpdateManyWithoutUserNestedInput = {
@@ -11953,6 +12305,26 @@ export namespace Prisma {
     update?: AppointmentUpdateWithWhereUniqueWithoutUserInput | AppointmentUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: AppointmentUpdateManyWithWhereWithoutUserInput | AppointmentUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: AppointmentScalarWhereInput | AppointmentScalarWhereInput[]
+  }
+
+  export type CompanyUpdateOneWithoutUserNestedInput = {
+    create?: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutUserInput
+    upsert?: CompanyUpsertWithoutUserInput
+    disconnect?: CompanyWhereInput | boolean
+    delete?: CompanyWhereInput | boolean
+    connect?: CompanyWhereUniqueInput
+    update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutUserInput, CompanyUpdateWithoutUserInput>, CompanyUncheckedUpdateWithoutUserInput>
+  }
+
+  export type MessagingConfigUpdateOneWithoutUserNestedInput = {
+    create?: XOR<MessagingConfigCreateWithoutUserInput, MessagingConfigUncheckedCreateWithoutUserInput>
+    connectOrCreate?: MessagingConfigCreateOrConnectWithoutUserInput
+    upsert?: MessagingConfigUpsertWithoutUserInput
+    disconnect?: MessagingConfigWhereInput | boolean
+    delete?: MessagingConfigWhereInput | boolean
+    connect?: MessagingConfigWhereUniqueInput
+    update?: XOR<XOR<MessagingConfigUpdateToOneWithWhereWithoutUserInput, MessagingConfigUpdateWithoutUserInput>, MessagingConfigUncheckedUpdateWithoutUserInput>
   }
 
   export type ProjectUpdateManyWithoutUserNestedInput = {
@@ -11983,17 +12355,7 @@ export namespace Prisma {
     deleteMany?: ReminderScalarWhereInput | ReminderScalarWhereInput[]
   }
 
-  export type CompanyUpdateOneWithoutUserNestedInput = {
-    create?: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
-    connectOrCreate?: CompanyCreateOrConnectWithoutUserInput
-    upsert?: CompanyUpsertWithoutUserInput
-    disconnect?: CompanyWhereInput | boolean
-    delete?: CompanyWhereInput | boolean
-    connect?: CompanyWhereUniqueInput
-    update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutUserInput, CompanyUpdateWithoutUserInput>, CompanyUncheckedUpdateWithoutUserInput>
-  }
-
-  export type AIConfigUpdateOneWithoutUserNestedInput = {
+  export type AIConfigUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<AIConfigCreateWithoutUserInput, AIConfigUncheckedCreateWithoutUserInput>
     connectOrCreate?: AIConfigCreateOrConnectWithoutUserInput
     upsert?: AIConfigUpsertWithoutUserInput
@@ -12001,16 +12363,6 @@ export namespace Prisma {
     delete?: AIConfigWhereInput | boolean
     connect?: AIConfigWhereUniqueInput
     update?: XOR<XOR<AIConfigUpdateToOneWithWhereWithoutUserInput, AIConfigUpdateWithoutUserInput>, AIConfigUncheckedUpdateWithoutUserInput>
-  }
-
-  export type MessagingConfigUpdateOneWithoutUserNestedInput = {
-    create?: XOR<MessagingConfigCreateWithoutUserInput, MessagingConfigUncheckedCreateWithoutUserInput>
-    connectOrCreate?: MessagingConfigCreateOrConnectWithoutUserInput
-    upsert?: MessagingConfigUpsertWithoutUserInput
-    disconnect?: MessagingConfigWhereInput | boolean
-    delete?: MessagingConfigWhereInput | boolean
-    connect?: MessagingConfigWhereUniqueInput
-    update?: XOR<XOR<MessagingConfigUpdateToOneWithWhereWithoutUserInput, MessagingConfigUpdateWithoutUserInput>, MessagingConfigUncheckedUpdateWithoutUserInput>
   }
 
   export type AppointmentUncheckedUpdateManyWithoutUserNestedInput = {
@@ -12025,6 +12377,26 @@ export namespace Prisma {
     update?: AppointmentUpdateWithWhereUniqueWithoutUserInput | AppointmentUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: AppointmentUpdateManyWithWhereWithoutUserInput | AppointmentUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: AppointmentScalarWhereInput | AppointmentScalarWhereInput[]
+  }
+
+  export type CompanyUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutUserInput
+    upsert?: CompanyUpsertWithoutUserInput
+    disconnect?: CompanyWhereInput | boolean
+    delete?: CompanyWhereInput | boolean
+    connect?: CompanyWhereUniqueInput
+    update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutUserInput, CompanyUpdateWithoutUserInput>, CompanyUncheckedUpdateWithoutUserInput>
+  }
+
+  export type MessagingConfigUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<MessagingConfigCreateWithoutUserInput, MessagingConfigUncheckedCreateWithoutUserInput>
+    connectOrCreate?: MessagingConfigCreateOrConnectWithoutUserInput
+    upsert?: MessagingConfigUpsertWithoutUserInput
+    disconnect?: MessagingConfigWhereInput | boolean
+    delete?: MessagingConfigWhereInput | boolean
+    connect?: MessagingConfigWhereUniqueInput
+    update?: XOR<XOR<MessagingConfigUpdateToOneWithWhereWithoutUserInput, MessagingConfigUpdateWithoutUserInput>, MessagingConfigUncheckedUpdateWithoutUserInput>
   }
 
   export type ProjectUncheckedUpdateManyWithoutUserNestedInput = {
@@ -12053,36 +12425,6 @@ export namespace Prisma {
     update?: ReminderUpdateWithWhereUniqueWithoutUserInput | ReminderUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ReminderUpdateManyWithWhereWithoutUserInput | ReminderUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ReminderScalarWhereInput | ReminderScalarWhereInput[]
-  }
-
-  export type CompanyUncheckedUpdateOneWithoutUserNestedInput = {
-    create?: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
-    connectOrCreate?: CompanyCreateOrConnectWithoutUserInput
-    upsert?: CompanyUpsertWithoutUserInput
-    disconnect?: CompanyWhereInput | boolean
-    delete?: CompanyWhereInput | boolean
-    connect?: CompanyWhereUniqueInput
-    update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutUserInput, CompanyUpdateWithoutUserInput>, CompanyUncheckedUpdateWithoutUserInput>
-  }
-
-  export type AIConfigUncheckedUpdateOneWithoutUserNestedInput = {
-    create?: XOR<AIConfigCreateWithoutUserInput, AIConfigUncheckedCreateWithoutUserInput>
-    connectOrCreate?: AIConfigCreateOrConnectWithoutUserInput
-    upsert?: AIConfigUpsertWithoutUserInput
-    disconnect?: AIConfigWhereInput | boolean
-    delete?: AIConfigWhereInput | boolean
-    connect?: AIConfigWhereUniqueInput
-    update?: XOR<XOR<AIConfigUpdateToOneWithWhereWithoutUserInput, AIConfigUpdateWithoutUserInput>, AIConfigUncheckedUpdateWithoutUserInput>
-  }
-
-  export type MessagingConfigUncheckedUpdateOneWithoutUserNestedInput = {
-    create?: XOR<MessagingConfigCreateWithoutUserInput, MessagingConfigUncheckedCreateWithoutUserInput>
-    connectOrCreate?: MessagingConfigCreateOrConnectWithoutUserInput
-    upsert?: MessagingConfigUpsertWithoutUserInput
-    disconnect?: MessagingConfigWhereInput | boolean
-    delete?: MessagingConfigWhereInput | boolean
-    connect?: MessagingConfigWhereUniqueInput
-    update?: XOR<XOR<MessagingConfigUpdateToOneWithWhereWithoutUserInput, MessagingConfigUpdateWithoutUserInput>, MessagingConfigUncheckedUpdateWithoutUserInput>
   }
 
   export type CompanyCreateservicesInput = {
@@ -12139,6 +12481,18 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutRemindersInput, UserUncheckedCreateWithoutRemindersInput>
     connectOrCreate?: UserCreateOrConnectWithoutRemindersInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type UserUpdateOneRequiredWithoutRemindersNestedInput = {
@@ -12313,141 +12667,56 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type AppointmentCreateWithoutUserInput = {
-    id?: string
-    title: string
-    description?: string | null
-    startTime: Date | string
-    endTime: Date | string
-    location?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
-  export type AppointmentUncheckedCreateWithoutUserInput = {
-    id?: string
-    title: string
-    description?: string | null
-    startTime: Date | string
-    endTime: Date | string
-    location?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type AppointmentCreateOrConnectWithoutUserInput = {
-    where: AppointmentWhereUniqueInput
-    create: XOR<AppointmentCreateWithoutUserInput, AppointmentUncheckedCreateWithoutUserInput>
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type AppointmentCreateManyUserInputEnvelope = {
-    data: AppointmentCreateManyUserInput | AppointmentCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ProjectCreateWithoutUserInput = {
-    id?: string
-    title: string
-    description: string
-    imageUrl?: string | null
-    liveUrl?: string | null
-    githubUrl?: string | null
-    technologies?: ProjectCreatetechnologiesInput | string[]
-    featured?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type ProjectUncheckedCreateWithoutUserInput = {
-    id?: string
-    title: string
-    description: string
-    imageUrl?: string | null
-    liveUrl?: string | null
-    githubUrl?: string | null
-    technologies?: ProjectCreatetechnologiesInput | string[]
-    featured?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type ProjectCreateOrConnectWithoutUserInput = {
-    where: ProjectWhereUniqueInput
-    create: XOR<ProjectCreateWithoutUserInput, ProjectUncheckedCreateWithoutUserInput>
-  }
-
-  export type ProjectCreateManyUserInputEnvelope = {
-    data: ProjectCreateManyUserInput | ProjectCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ReminderCreateWithoutUserInput = {
-    id?: string
-    title: string
-    description?: string | null
-    dueDate: Date | string
-    completed?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type ReminderUncheckedCreateWithoutUserInput = {
-    id?: string
-    title: string
-    description?: string | null
-    dueDate: Date | string
-    completed?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type ReminderCreateOrConnectWithoutUserInput = {
-    where: ReminderWhereUniqueInput
-    create: XOR<ReminderCreateWithoutUserInput, ReminderUncheckedCreateWithoutUserInput>
-  }
-
-  export type ReminderCreateManyUserInputEnvelope = {
-    data: ReminderCreateManyUserInput | ReminderCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type CompanyCreateWithoutUserInput = {
-    id?: string
-    name: string
-    logo?: string | null
-    description?: string | null
-    mission?: string | null
-    vision?: string | null
-    founded?: string | null
-    services?: CompanyCreateservicesInput | string[]
-    address?: string | null
-    phone?: string | null
-    email?: string | null
-    website?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type CompanyUncheckedCreateWithoutUserInput = {
-    id?: string
-    name: string
-    logo?: string | null
-    description?: string | null
-    mission?: string | null
-    vision?: string | null
-    founded?: string | null
-    services?: CompanyCreateservicesInput | string[]
-    address?: string | null
-    phone?: string | null
-    email?: string | null
-    website?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type CompanyCreateOrConnectWithoutUserInput = {
-    where: CompanyWhereUniqueInput
-    create: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type AIConfigCreateWithoutUserInput = {
@@ -12495,18 +12764,89 @@ export namespace Prisma {
     create: XOR<AIConfigCreateWithoutUserInput, AIConfigUncheckedCreateWithoutUserInput>
   }
 
+  export type AppointmentCreateWithoutUserInput = {
+    id?: string
+    title: string
+    description?: string | null
+    startTime: Date | string
+    endTime: Date | string
+    location?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AppointmentUncheckedCreateWithoutUserInput = {
+    id?: string
+    title: string
+    description?: string | null
+    startTime: Date | string
+    endTime: Date | string
+    location?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AppointmentCreateOrConnectWithoutUserInput = {
+    where: AppointmentWhereUniqueInput
+    create: XOR<AppointmentCreateWithoutUserInput, AppointmentUncheckedCreateWithoutUserInput>
+  }
+
+  export type AppointmentCreateManyUserInputEnvelope = {
+    data: AppointmentCreateManyUserInput | AppointmentCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CompanyCreateWithoutUserInput = {
+    id?: string
+    name: string
+    logo?: string | null
+    description?: string | null
+    mission?: string | null
+    vision?: string | null
+    founded?: string | null
+    services?: CompanyCreateservicesInput | string[]
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    website?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CompanyUncheckedCreateWithoutUserInput = {
+    id?: string
+    name: string
+    logo?: string | null
+    description?: string | null
+    mission?: string | null
+    vision?: string | null
+    founded?: string | null
+    services?: CompanyCreateservicesInput | string[]
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    website?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CompanyCreateOrConnectWithoutUserInput = {
+    where: CompanyWhereUniqueInput
+    create: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
+  }
+
   export type MessagingConfigCreateWithoutUserInput = {
     id?: string
     evolutionApiKey?: string | null
     evolutionBaseUrl?: string | null
     evolutionEnabled?: boolean
     evolutionInstance?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     resendApiKey?: string | null
     resendEnabled?: boolean
     resendFromEmail?: string | null
     resendFromName?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
   export type MessagingConfigUncheckedCreateWithoutUserInput = {
@@ -12515,17 +12855,150 @@ export namespace Prisma {
     evolutionBaseUrl?: string | null
     evolutionEnabled?: boolean
     evolutionInstance?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     resendApiKey?: string | null
     resendEnabled?: boolean
     resendFromEmail?: string | null
     resendFromName?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
   export type MessagingConfigCreateOrConnectWithoutUserInput = {
     where: MessagingConfigWhereUniqueInput
     create: XOR<MessagingConfigCreateWithoutUserInput, MessagingConfigUncheckedCreateWithoutUserInput>
+  }
+
+  export type ProjectCreateWithoutUserInput = {
+    id?: string
+    title: string
+    description: string
+    imageUrl?: string | null
+    liveUrl?: string | null
+    githubUrl?: string | null
+    technologies?: ProjectCreatetechnologiesInput | string[]
+    featured?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProjectUncheckedCreateWithoutUserInput = {
+    id?: string
+    title: string
+    description: string
+    imageUrl?: string | null
+    liveUrl?: string | null
+    githubUrl?: string | null
+    technologies?: ProjectCreatetechnologiesInput | string[]
+    featured?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProjectCreateOrConnectWithoutUserInput = {
+    where: ProjectWhereUniqueInput
+    create: XOR<ProjectCreateWithoutUserInput, ProjectUncheckedCreateWithoutUserInput>
+  }
+
+  export type ProjectCreateManyUserInputEnvelope = {
+    data: ProjectCreateManyUserInput | ProjectCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ReminderCreateWithoutUserInput = {
+    id?: string
+    title: string
+    description?: string | null
+    dueDate: Date | string
+    completed?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    category?: string
+    color?: string | null
+    notifyBefore?: number
+    notifyEmail?: boolean
+    notifyWhatsapp?: boolean
+    priority?: string
+    recurrence?: string | null
+    recurrenceEndDate?: Date | string | null
+  }
+
+  export type ReminderUncheckedCreateWithoutUserInput = {
+    id?: string
+    title: string
+    description?: string | null
+    dueDate: Date | string
+    completed?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    category?: string
+    color?: string | null
+    notifyBefore?: number
+    notifyEmail?: boolean
+    notifyWhatsapp?: boolean
+    priority?: string
+    recurrence?: string | null
+    recurrenceEndDate?: Date | string | null
+  }
+
+  export type ReminderCreateOrConnectWithoutUserInput = {
+    where: ReminderWhereUniqueInput
+    create: XOR<ReminderCreateWithoutUserInput, ReminderUncheckedCreateWithoutUserInput>
+  }
+
+  export type ReminderCreateManyUserInputEnvelope = {
+    data: ReminderCreateManyUserInput | ReminderCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AIConfigUpsertWithoutUserInput = {
+    update: XOR<AIConfigUpdateWithoutUserInput, AIConfigUncheckedUpdateWithoutUserInput>
+    create: XOR<AIConfigCreateWithoutUserInput, AIConfigUncheckedCreateWithoutUserInput>
+    where?: AIConfigWhereInput
+  }
+
+  export type AIConfigUpdateToOneWithWhereWithoutUserInput = {
+    where?: AIConfigWhereInput
+    data: XOR<AIConfigUpdateWithoutUserInput, AIConfigUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AIConfigUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    defaultProvider?: StringFieldUpdateOperationsInput | string
+    defaultModel?: StringFieldUpdateOperationsInput | string
+    openaiApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    openaiEnabled?: BoolFieldUpdateOperationsInput | boolean
+    openaiModel?: NullableStringFieldUpdateOperationsInput | string | null
+    anthropicApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    anthropicEnabled?: BoolFieldUpdateOperationsInput | boolean
+    anthropicModel?: NullableStringFieldUpdateOperationsInput | string | null
+    groqApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    groqEnabled?: BoolFieldUpdateOperationsInput | boolean
+    groqModel?: NullableStringFieldUpdateOperationsInput | string | null
+    openrouterApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    openrouterEnabled?: BoolFieldUpdateOperationsInput | boolean
+    openrouterModel?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIConfigUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    defaultProvider?: StringFieldUpdateOperationsInput | string
+    defaultModel?: StringFieldUpdateOperationsInput | string
+    openaiApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    openaiEnabled?: BoolFieldUpdateOperationsInput | boolean
+    openaiModel?: NullableStringFieldUpdateOperationsInput | string | null
+    anthropicApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    anthropicEnabled?: BoolFieldUpdateOperationsInput | boolean
+    anthropicModel?: NullableStringFieldUpdateOperationsInput | string | null
+    groqApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    groqEnabled?: BoolFieldUpdateOperationsInput | boolean
+    groqModel?: NullableStringFieldUpdateOperationsInput | string | null
+    openrouterApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    openrouterEnabled?: BoolFieldUpdateOperationsInput | boolean
+    openrouterModel?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AppointmentUpsertWithWhereUniqueWithoutUserInput = {
@@ -12557,6 +13030,90 @@ export namespace Prisma {
     userId?: StringFilter<"Appointment"> | string
     createdAt?: DateTimeFilter<"Appointment"> | Date | string
     updatedAt?: DateTimeFilter<"Appointment"> | Date | string
+  }
+
+  export type CompanyUpsertWithoutUserInput = {
+    update: XOR<CompanyUpdateWithoutUserInput, CompanyUncheckedUpdateWithoutUserInput>
+    create: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
+    where?: CompanyWhereInput
+  }
+
+  export type CompanyUpdateToOneWithWhereWithoutUserInput = {
+    where?: CompanyWhereInput
+    data: XOR<CompanyUpdateWithoutUserInput, CompanyUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CompanyUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    mission?: NullableStringFieldUpdateOperationsInput | string | null
+    vision?: NullableStringFieldUpdateOperationsInput | string | null
+    founded?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: CompanyUpdateservicesInput | string[]
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CompanyUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    mission?: NullableStringFieldUpdateOperationsInput | string | null
+    vision?: NullableStringFieldUpdateOperationsInput | string | null
+    founded?: NullableStringFieldUpdateOperationsInput | string | null
+    services?: CompanyUpdateservicesInput | string[]
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessagingConfigUpsertWithoutUserInput = {
+    update: XOR<MessagingConfigUpdateWithoutUserInput, MessagingConfigUncheckedUpdateWithoutUserInput>
+    create: XOR<MessagingConfigCreateWithoutUserInput, MessagingConfigUncheckedCreateWithoutUserInput>
+    where?: MessagingConfigWhereInput
+  }
+
+  export type MessagingConfigUpdateToOneWithWhereWithoutUserInput = {
+    where?: MessagingConfigWhereInput
+    data: XOR<MessagingConfigUpdateWithoutUserInput, MessagingConfigUncheckedUpdateWithoutUserInput>
+  }
+
+  export type MessagingConfigUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    evolutionApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    evolutionBaseUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    evolutionEnabled?: BoolFieldUpdateOperationsInput | boolean
+    evolutionInstance?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resendApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    resendEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resendFromEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    resendFromName?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MessagingConfigUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    evolutionApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    evolutionBaseUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    evolutionEnabled?: BoolFieldUpdateOperationsInput | boolean
+    evolutionInstance?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resendApiKey?: NullableStringFieldUpdateOperationsInput | string | null
+    resendEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resendFromEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    resendFromName?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ProjectUpsertWithWhereUniqueWithoutUserInput = {
@@ -12620,141 +13177,14 @@ export namespace Prisma {
     userId?: StringFilter<"Reminder"> | string
     createdAt?: DateTimeFilter<"Reminder"> | Date | string
     updatedAt?: DateTimeFilter<"Reminder"> | Date | string
-  }
-
-  export type CompanyUpsertWithoutUserInput = {
-    update: XOR<CompanyUpdateWithoutUserInput, CompanyUncheckedUpdateWithoutUserInput>
-    create: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
-    where?: CompanyWhereInput
-  }
-
-  export type CompanyUpdateToOneWithWhereWithoutUserInput = {
-    where?: CompanyWhereInput
-    data: XOR<CompanyUpdateWithoutUserInput, CompanyUncheckedUpdateWithoutUserInput>
-  }
-
-  export type CompanyUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    logo?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    mission?: NullableStringFieldUpdateOperationsInput | string | null
-    vision?: NullableStringFieldUpdateOperationsInput | string | null
-    founded?: NullableStringFieldUpdateOperationsInput | string | null
-    services?: CompanyUpdateservicesInput | string[]
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    website?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type CompanyUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    logo?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    mission?: NullableStringFieldUpdateOperationsInput | string | null
-    vision?: NullableStringFieldUpdateOperationsInput | string | null
-    founded?: NullableStringFieldUpdateOperationsInput | string | null
-    services?: CompanyUpdateservicesInput | string[]
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    website?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AIConfigUpsertWithoutUserInput = {
-    update: XOR<AIConfigUpdateWithoutUserInput, AIConfigUncheckedUpdateWithoutUserInput>
-    create: XOR<AIConfigCreateWithoutUserInput, AIConfigUncheckedCreateWithoutUserInput>
-    where?: AIConfigWhereInput
-  }
-
-  export type AIConfigUpdateToOneWithWhereWithoutUserInput = {
-    where?: AIConfigWhereInput
-    data: XOR<AIConfigUpdateWithoutUserInput, AIConfigUncheckedUpdateWithoutUserInput>
-  }
-
-  export type AIConfigUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    defaultProvider?: StringFieldUpdateOperationsInput | string
-    defaultModel?: StringFieldUpdateOperationsInput | string
-    openaiApiKey?: NullableStringFieldUpdateOperationsInput | string | null
-    openaiEnabled?: BoolFieldUpdateOperationsInput | boolean
-    openaiModel?: NullableStringFieldUpdateOperationsInput | string | null
-    anthropicApiKey?: NullableStringFieldUpdateOperationsInput | string | null
-    anthropicEnabled?: BoolFieldUpdateOperationsInput | boolean
-    anthropicModel?: NullableStringFieldUpdateOperationsInput | string | null
-    groqApiKey?: NullableStringFieldUpdateOperationsInput | string | null
-    groqEnabled?: BoolFieldUpdateOperationsInput | boolean
-    groqModel?: NullableStringFieldUpdateOperationsInput | string | null
-    openrouterApiKey?: NullableStringFieldUpdateOperationsInput | string | null
-    openrouterEnabled?: BoolFieldUpdateOperationsInput | boolean
-    openrouterModel?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AIConfigUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    defaultProvider?: StringFieldUpdateOperationsInput | string
-    defaultModel?: StringFieldUpdateOperationsInput | string
-    openaiApiKey?: NullableStringFieldUpdateOperationsInput | string | null
-    openaiEnabled?: BoolFieldUpdateOperationsInput | boolean
-    openaiModel?: NullableStringFieldUpdateOperationsInput | string | null
-    anthropicApiKey?: NullableStringFieldUpdateOperationsInput | string | null
-    anthropicEnabled?: BoolFieldUpdateOperationsInput | boolean
-    anthropicModel?: NullableStringFieldUpdateOperationsInput | string | null
-    groqApiKey?: NullableStringFieldUpdateOperationsInput | string | null
-    groqEnabled?: BoolFieldUpdateOperationsInput | boolean
-    groqModel?: NullableStringFieldUpdateOperationsInput | string | null
-    openrouterApiKey?: NullableStringFieldUpdateOperationsInput | string | null
-    openrouterEnabled?: BoolFieldUpdateOperationsInput | boolean
-    openrouterModel?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MessagingConfigUpsertWithoutUserInput = {
-    update: XOR<MessagingConfigUpdateWithoutUserInput, MessagingConfigUncheckedUpdateWithoutUserInput>
-    create: XOR<MessagingConfigCreateWithoutUserInput, MessagingConfigUncheckedCreateWithoutUserInput>
-    where?: MessagingConfigWhereInput
-  }
-
-  export type MessagingConfigUpdateToOneWithWhereWithoutUserInput = {
-    where?: MessagingConfigWhereInput
-    data: XOR<MessagingConfigUpdateWithoutUserInput, MessagingConfigUncheckedUpdateWithoutUserInput>
-  }
-
-  export type MessagingConfigUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    evolutionApiKey?: NullableStringFieldUpdateOperationsInput | string | null
-    evolutionBaseUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    evolutionEnabled?: BoolFieldUpdateOperationsInput | boolean
-    evolutionInstance?: NullableStringFieldUpdateOperationsInput | string | null
-    resendApiKey?: NullableStringFieldUpdateOperationsInput | string | null
-    resendEnabled?: BoolFieldUpdateOperationsInput | boolean
-    resendFromEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    resendFromName?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MessagingConfigUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    evolutionApiKey?: NullableStringFieldUpdateOperationsInput | string | null
-    evolutionBaseUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    evolutionEnabled?: BoolFieldUpdateOperationsInput | boolean
-    evolutionInstance?: NullableStringFieldUpdateOperationsInput | string | null
-    resendApiKey?: NullableStringFieldUpdateOperationsInput | string | null
-    resendEnabled?: BoolFieldUpdateOperationsInput | boolean
-    resendFromEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    resendFromName?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: StringFilter<"Reminder"> | string
+    color?: StringNullableFilter<"Reminder"> | string | null
+    notifyBefore?: IntFilter<"Reminder"> | number
+    notifyEmail?: BoolFilter<"Reminder"> | boolean
+    notifyWhatsapp?: BoolFilter<"Reminder"> | boolean
+    priority?: StringFilter<"Reminder"> | string
+    recurrence?: StringNullableFilter<"Reminder"> | string | null
+    recurrenceEndDate?: DateTimeNullableFilter<"Reminder"> | Date | string | null
   }
 
   export type UserCreateWithoutCompanyInput = {
@@ -12762,6 +13192,8 @@ export namespace Prisma {
     email: string
     name: string
     avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     title?: string | null
     bio?: string | null
     location?: string | null
@@ -12771,13 +13203,11 @@ export namespace Prisma {
     github?: string | null
     twitter?: string | null
     skills?: UserCreateskillsInput | string[]
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    aiConfig?: AIConfigCreateNestedOneWithoutUserInput
     appointments?: AppointmentCreateNestedManyWithoutUserInput
+    messagingConfig?: MessagingConfigCreateNestedOneWithoutUserInput
     projects?: ProjectCreateNestedManyWithoutUserInput
     reminders?: ReminderCreateNestedManyWithoutUserInput
-    aiConfig?: AIConfigCreateNestedOneWithoutUserInput
-    messagingConfig?: MessagingConfigCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCompanyInput = {
@@ -12785,6 +13215,8 @@ export namespace Prisma {
     email: string
     name: string
     avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     title?: string | null
     bio?: string | null
     location?: string | null
@@ -12794,13 +13226,11 @@ export namespace Prisma {
     github?: string | null
     twitter?: string | null
     skills?: UserCreateskillsInput | string[]
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    aiConfig?: AIConfigUncheckedCreateNestedOneWithoutUserInput
     appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
+    messagingConfig?: MessagingConfigUncheckedCreateNestedOneWithoutUserInput
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
     reminders?: ReminderUncheckedCreateNestedManyWithoutUserInput
-    aiConfig?: AIConfigUncheckedCreateNestedOneWithoutUserInput
-    messagingConfig?: MessagingConfigUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCompanyInput = {
@@ -12824,6 +13254,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12833,13 +13265,11 @@ export namespace Prisma {
     github?: NullableStringFieldUpdateOperationsInput | string | null
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     skills?: UserUpdateskillsInput | string[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiConfig?: AIConfigUpdateOneWithoutUserNestedInput
     appointments?: AppointmentUpdateManyWithoutUserNestedInput
+    messagingConfig?: MessagingConfigUpdateOneWithoutUserNestedInput
     projects?: ProjectUpdateManyWithoutUserNestedInput
     reminders?: ReminderUpdateManyWithoutUserNestedInput
-    aiConfig?: AIConfigUpdateOneWithoutUserNestedInput
-    messagingConfig?: MessagingConfigUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCompanyInput = {
@@ -12847,6 +13277,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12856,13 +13288,11 @@ export namespace Prisma {
     github?: NullableStringFieldUpdateOperationsInput | string | null
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     skills?: UserUpdateskillsInput | string[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiConfig?: AIConfigUncheckedUpdateOneWithoutUserNestedInput
     appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
+    messagingConfig?: MessagingConfigUncheckedUpdateOneWithoutUserNestedInput
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
     reminders?: ReminderUncheckedUpdateManyWithoutUserNestedInput
-    aiConfig?: AIConfigUncheckedUpdateOneWithoutUserNestedInput
-    messagingConfig?: MessagingConfigUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutProjectsInput = {
@@ -12870,6 +13300,8 @@ export namespace Prisma {
     email: string
     name: string
     avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     title?: string | null
     bio?: string | null
     location?: string | null
@@ -12879,13 +13311,11 @@ export namespace Prisma {
     github?: string | null
     twitter?: string | null
     skills?: UserCreateskillsInput | string[]
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    appointments?: AppointmentCreateNestedManyWithoutUserInput
-    reminders?: ReminderCreateNestedManyWithoutUserInput
-    company?: CompanyCreateNestedOneWithoutUserInput
     aiConfig?: AIConfigCreateNestedOneWithoutUserInput
+    appointments?: AppointmentCreateNestedManyWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutUserInput
     messagingConfig?: MessagingConfigCreateNestedOneWithoutUserInput
+    reminders?: ReminderCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProjectsInput = {
@@ -12893,6 +13323,8 @@ export namespace Prisma {
     email: string
     name: string
     avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     title?: string | null
     bio?: string | null
     location?: string | null
@@ -12902,13 +13334,11 @@ export namespace Prisma {
     github?: string | null
     twitter?: string | null
     skills?: UserCreateskillsInput | string[]
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
-    reminders?: ReminderUncheckedCreateNestedManyWithoutUserInput
-    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
     aiConfig?: AIConfigUncheckedCreateNestedOneWithoutUserInput
+    appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
+    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
     messagingConfig?: MessagingConfigUncheckedCreateNestedOneWithoutUserInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProjectsInput = {
@@ -12932,6 +13362,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12941,13 +13373,11 @@ export namespace Prisma {
     github?: NullableStringFieldUpdateOperationsInput | string | null
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     skills?: UserUpdateskillsInput | string[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    appointments?: AppointmentUpdateManyWithoutUserNestedInput
-    reminders?: ReminderUpdateManyWithoutUserNestedInput
-    company?: CompanyUpdateOneWithoutUserNestedInput
     aiConfig?: AIConfigUpdateOneWithoutUserNestedInput
+    appointments?: AppointmentUpdateManyWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutUserNestedInput
     messagingConfig?: MessagingConfigUpdateOneWithoutUserNestedInput
+    reminders?: ReminderUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProjectsInput = {
@@ -12955,6 +13385,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12964,13 +13396,11 @@ export namespace Prisma {
     github?: NullableStringFieldUpdateOperationsInput | string | null
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     skills?: UserUpdateskillsInput | string[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
-    reminders?: ReminderUncheckedUpdateManyWithoutUserNestedInput
-    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     aiConfig?: AIConfigUncheckedUpdateOneWithoutUserNestedInput
+    appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
+    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     messagingConfig?: MessagingConfigUncheckedUpdateOneWithoutUserNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutRemindersInput = {
@@ -12978,6 +13408,8 @@ export namespace Prisma {
     email: string
     name: string
     avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     title?: string | null
     bio?: string | null
     location?: string | null
@@ -12987,13 +13419,11 @@ export namespace Prisma {
     github?: string | null
     twitter?: string | null
     skills?: UserCreateskillsInput | string[]
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    appointments?: AppointmentCreateNestedManyWithoutUserInput
-    projects?: ProjectCreateNestedManyWithoutUserInput
-    company?: CompanyCreateNestedOneWithoutUserInput
     aiConfig?: AIConfigCreateNestedOneWithoutUserInput
+    appointments?: AppointmentCreateNestedManyWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutUserInput
     messagingConfig?: MessagingConfigCreateNestedOneWithoutUserInput
+    projects?: ProjectCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRemindersInput = {
@@ -13001,6 +13431,8 @@ export namespace Prisma {
     email: string
     name: string
     avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     title?: string | null
     bio?: string | null
     location?: string | null
@@ -13010,13 +13442,11 @@ export namespace Prisma {
     github?: string | null
     twitter?: string | null
     skills?: UserCreateskillsInput | string[]
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
-    projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
-    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
     aiConfig?: AIConfigUncheckedCreateNestedOneWithoutUserInput
+    appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
+    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
     messagingConfig?: MessagingConfigUncheckedCreateNestedOneWithoutUserInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRemindersInput = {
@@ -13040,6 +13470,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13049,13 +13481,11 @@ export namespace Prisma {
     github?: NullableStringFieldUpdateOperationsInput | string | null
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     skills?: UserUpdateskillsInput | string[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    appointments?: AppointmentUpdateManyWithoutUserNestedInput
-    projects?: ProjectUpdateManyWithoutUserNestedInput
-    company?: CompanyUpdateOneWithoutUserNestedInput
     aiConfig?: AIConfigUpdateOneWithoutUserNestedInput
+    appointments?: AppointmentUpdateManyWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutUserNestedInput
     messagingConfig?: MessagingConfigUpdateOneWithoutUserNestedInput
+    projects?: ProjectUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRemindersInput = {
@@ -13063,6 +13493,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13072,13 +13504,11 @@ export namespace Prisma {
     github?: NullableStringFieldUpdateOperationsInput | string | null
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     skills?: UserUpdateskillsInput | string[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
-    projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
-    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     aiConfig?: AIConfigUncheckedUpdateOneWithoutUserNestedInput
+    appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
+    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     messagingConfig?: MessagingConfigUncheckedUpdateOneWithoutUserNestedInput
+    projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAppointmentsInput = {
@@ -13086,6 +13516,8 @@ export namespace Prisma {
     email: string
     name: string
     avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     title?: string | null
     bio?: string | null
     location?: string | null
@@ -13095,13 +13527,11 @@ export namespace Prisma {
     github?: string | null
     twitter?: string | null
     skills?: UserCreateskillsInput | string[]
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    aiConfig?: AIConfigCreateNestedOneWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutUserInput
+    messagingConfig?: MessagingConfigCreateNestedOneWithoutUserInput
     projects?: ProjectCreateNestedManyWithoutUserInput
     reminders?: ReminderCreateNestedManyWithoutUserInput
-    company?: CompanyCreateNestedOneWithoutUserInput
-    aiConfig?: AIConfigCreateNestedOneWithoutUserInput
-    messagingConfig?: MessagingConfigCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAppointmentsInput = {
@@ -13109,6 +13539,8 @@ export namespace Prisma {
     email: string
     name: string
     avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     title?: string | null
     bio?: string | null
     location?: string | null
@@ -13118,13 +13550,11 @@ export namespace Prisma {
     github?: string | null
     twitter?: string | null
     skills?: UserCreateskillsInput | string[]
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    aiConfig?: AIConfigUncheckedCreateNestedOneWithoutUserInput
+    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    messagingConfig?: MessagingConfigUncheckedCreateNestedOneWithoutUserInput
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
     reminders?: ReminderUncheckedCreateNestedManyWithoutUserInput
-    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
-    aiConfig?: AIConfigUncheckedCreateNestedOneWithoutUserInput
-    messagingConfig?: MessagingConfigUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAppointmentsInput = {
@@ -13148,6 +13578,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13157,13 +13589,11 @@ export namespace Prisma {
     github?: NullableStringFieldUpdateOperationsInput | string | null
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     skills?: UserUpdateskillsInput | string[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiConfig?: AIConfigUpdateOneWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutUserNestedInput
+    messagingConfig?: MessagingConfigUpdateOneWithoutUserNestedInput
     projects?: ProjectUpdateManyWithoutUserNestedInput
     reminders?: ReminderUpdateManyWithoutUserNestedInput
-    company?: CompanyUpdateOneWithoutUserNestedInput
-    aiConfig?: AIConfigUpdateOneWithoutUserNestedInput
-    messagingConfig?: MessagingConfigUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAppointmentsInput = {
@@ -13171,6 +13601,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13180,13 +13612,11 @@ export namespace Prisma {
     github?: NullableStringFieldUpdateOperationsInput | string | null
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     skills?: UserUpdateskillsInput | string[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiConfig?: AIConfigUncheckedUpdateOneWithoutUserNestedInput
+    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    messagingConfig?: MessagingConfigUncheckedUpdateOneWithoutUserNestedInput
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
     reminders?: ReminderUncheckedUpdateManyWithoutUserNestedInput
-    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
-    aiConfig?: AIConfigUncheckedUpdateOneWithoutUserNestedInput
-    messagingConfig?: MessagingConfigUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAiConfigInput = {
@@ -13194,6 +13624,8 @@ export namespace Prisma {
     email: string
     name: string
     avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     title?: string | null
     bio?: string | null
     location?: string | null
@@ -13203,13 +13635,11 @@ export namespace Prisma {
     github?: string | null
     twitter?: string | null
     skills?: UserCreateskillsInput | string[]
-    createdAt?: Date | string
-    updatedAt?: Date | string
     appointments?: AppointmentCreateNestedManyWithoutUserInput
-    projects?: ProjectCreateNestedManyWithoutUserInput
-    reminders?: ReminderCreateNestedManyWithoutUserInput
     company?: CompanyCreateNestedOneWithoutUserInput
     messagingConfig?: MessagingConfigCreateNestedOneWithoutUserInput
+    projects?: ProjectCreateNestedManyWithoutUserInput
+    reminders?: ReminderCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAiConfigInput = {
@@ -13217,6 +13647,8 @@ export namespace Prisma {
     email: string
     name: string
     avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     title?: string | null
     bio?: string | null
     location?: string | null
@@ -13226,13 +13658,11 @@ export namespace Prisma {
     github?: string | null
     twitter?: string | null
     skills?: UserCreateskillsInput | string[]
-    createdAt?: Date | string
-    updatedAt?: Date | string
     appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
-    projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
-    reminders?: ReminderUncheckedCreateNestedManyWithoutUserInput
     company?: CompanyUncheckedCreateNestedOneWithoutUserInput
     messagingConfig?: MessagingConfigUncheckedCreateNestedOneWithoutUserInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAiConfigInput = {
@@ -13256,6 +13686,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13265,13 +13697,11 @@ export namespace Prisma {
     github?: NullableStringFieldUpdateOperationsInput | string | null
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     skills?: UserUpdateskillsInput | string[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointments?: AppointmentUpdateManyWithoutUserNestedInput
-    projects?: ProjectUpdateManyWithoutUserNestedInput
-    reminders?: ReminderUpdateManyWithoutUserNestedInput
     company?: CompanyUpdateOneWithoutUserNestedInput
     messagingConfig?: MessagingConfigUpdateOneWithoutUserNestedInput
+    projects?: ProjectUpdateManyWithoutUserNestedInput
+    reminders?: ReminderUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAiConfigInput = {
@@ -13279,6 +13709,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13288,13 +13720,11 @@ export namespace Prisma {
     github?: NullableStringFieldUpdateOperationsInput | string | null
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     skills?: UserUpdateskillsInput | string[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
-    projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
-    reminders?: ReminderUncheckedUpdateManyWithoutUserNestedInput
     company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     messagingConfig?: MessagingConfigUncheckedUpdateOneWithoutUserNestedInput
+    projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutMessagingConfigInput = {
@@ -13302,6 +13732,8 @@ export namespace Prisma {
     email: string
     name: string
     avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     title?: string | null
     bio?: string | null
     location?: string | null
@@ -13311,13 +13743,11 @@ export namespace Prisma {
     github?: string | null
     twitter?: string | null
     skills?: UserCreateskillsInput | string[]
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    aiConfig?: AIConfigCreateNestedOneWithoutUserInput
     appointments?: AppointmentCreateNestedManyWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutUserInput
     projects?: ProjectCreateNestedManyWithoutUserInput
     reminders?: ReminderCreateNestedManyWithoutUserInput
-    company?: CompanyCreateNestedOneWithoutUserInput
-    aiConfig?: AIConfigCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMessagingConfigInput = {
@@ -13325,6 +13755,8 @@ export namespace Prisma {
     email: string
     name: string
     avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     title?: string | null
     bio?: string | null
     location?: string | null
@@ -13334,13 +13766,11 @@ export namespace Prisma {
     github?: string | null
     twitter?: string | null
     skills?: UserCreateskillsInput | string[]
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    aiConfig?: AIConfigUncheckedCreateNestedOneWithoutUserInput
     appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
+    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
     reminders?: ReminderUncheckedCreateNestedManyWithoutUserInput
-    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
-    aiConfig?: AIConfigUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMessagingConfigInput = {
@@ -13364,6 +13794,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13373,13 +13805,11 @@ export namespace Prisma {
     github?: NullableStringFieldUpdateOperationsInput | string | null
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     skills?: UserUpdateskillsInput | string[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiConfig?: AIConfigUpdateOneWithoutUserNestedInput
     appointments?: AppointmentUpdateManyWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutUserNestedInput
     projects?: ProjectUpdateManyWithoutUserNestedInput
     reminders?: ReminderUpdateManyWithoutUserNestedInput
-    company?: CompanyUpdateOneWithoutUserNestedInput
-    aiConfig?: AIConfigUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMessagingConfigInput = {
@@ -13387,6 +13817,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13396,13 +13828,11 @@ export namespace Prisma {
     github?: NullableStringFieldUpdateOperationsInput | string | null
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     skills?: UserUpdateskillsInput | string[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiConfig?: AIConfigUncheckedUpdateOneWithoutUserNestedInput
     appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
+    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
     reminders?: ReminderUncheckedUpdateManyWithoutUserNestedInput
-    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
-    aiConfig?: AIConfigUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type AppointmentCreateManyUserInput = {
@@ -13437,6 +13867,14 @@ export namespace Prisma {
     completed?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    category?: string
+    color?: string | null
+    notifyBefore?: number
+    notifyEmail?: boolean
+    notifyWhatsapp?: boolean
+    priority?: string
+    recurrence?: string | null
+    recurrenceEndDate?: Date | string | null
   }
 
   export type AppointmentUpdateWithoutUserInput = {
@@ -13519,6 +13957,14 @@ export namespace Prisma {
     completed?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    notifyBefore?: IntFieldUpdateOperationsInput | number
+    notifyEmail?: BoolFieldUpdateOperationsInput | boolean
+    notifyWhatsapp?: BoolFieldUpdateOperationsInput | boolean
+    priority?: StringFieldUpdateOperationsInput | string
+    recurrence?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ReminderUncheckedUpdateWithoutUserInput = {
@@ -13529,6 +13975,14 @@ export namespace Prisma {
     completed?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    notifyBefore?: IntFieldUpdateOperationsInput | number
+    notifyEmail?: BoolFieldUpdateOperationsInput | boolean
+    notifyWhatsapp?: BoolFieldUpdateOperationsInput | boolean
+    priority?: StringFieldUpdateOperationsInput | string
+    recurrence?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ReminderUncheckedUpdateManyWithoutUserInput = {
@@ -13539,6 +13993,14 @@ export namespace Prisma {
     completed?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    notifyBefore?: IntFieldUpdateOperationsInput | number
+    notifyEmail?: BoolFieldUpdateOperationsInput | boolean
+    notifyWhatsapp?: BoolFieldUpdateOperationsInput | boolean
+    priority?: StringFieldUpdateOperationsInput | string
+    recurrence?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
 

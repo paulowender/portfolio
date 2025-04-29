@@ -68,30 +68,7 @@ ALTER TABLE "reminders" ADD CONSTRAINT "reminders_user_id_fkey" FOREIGN KEY ("us
 -- AddForeignKey
 ALTER TABLE "appointments" ADD CONSTRAINT "appointments_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
--- Create storage bucket for project images
-INSERT INTO storage.buckets (id, name, public)
-VALUES ('portfolio', 'portfolio', true)
-ON CONFLICT (id) DO NOTHING;
-
--- Set up storage policies
-CREATE POLICY "Public Access to Project Images"
-  ON storage.objects FOR SELECT
-  USING (bucket_id = 'portfolio');
-
-CREATE POLICY "Users can upload their own images"
-  ON storage.objects FOR INSERT
-  TO authenticated
-  WITH CHECK (bucket_id = 'portfolio' AND (storage.foldername(name))[1] = auth.uid()::text);
-
-CREATE POLICY "Users can update their own images"
-  ON storage.objects FOR UPDATE
-  TO authenticated
-  USING (bucket_id = 'portfolio' AND (storage.foldername(name))[1] = auth.uid()::text);
-
-CREATE POLICY "Users can delete their own images"
-  ON storage.objects FOR DELETE
-  TO authenticated
-  USING (bucket_id = 'portfolio' AND (storage.foldername(name))[1] = auth.uid()::text);
+-- Storage bucket and policies are managed by Supabase directly
 
 -- Enable Row Level Security
 ALTER TABLE "users" ENABLE ROW LEVEL SECURITY;

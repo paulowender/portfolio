@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
 import { getAuthenticatedClient } from '@/lib/auth-helper';
+import { createReminder, getReminders } from '@/lib/db';
 
 export async function GET(request: Request) {
   try {
@@ -44,7 +44,7 @@ export async function GET(request: Request) {
       const now = new Date();
       const nextWeek = new Date();
       nextWeek.setDate(nextWeek.getDate() + 7);
-      
+
       where.dueDate = {
         gte: now,
         lte: nextWeek,
@@ -58,15 +58,18 @@ export async function GET(request: Request) {
       ];
     }
 
-    // Get reminders from the database
-    const reminders = await prisma.reminder.findMany({
-      where,
-      orderBy: [
-        { completed: 'asc' },
-        { dueDate: 'asc' },
-        { priority: 'desc' },
-      ],
-    });
+    // Use the authenticated user's ID
+    const effectiveUserId = user.id;
+    console.log('Fetching reminders for user:', effectiveUserId);
+
+    const { data: reminders, error: dbError } = await getReminders(effectiveUserId);
+
+    if (dbError) {
+      return NextResponse.json(
+        { error: dbError instanceof Error ? dbError.message : 'Failed to fetch reminders' },
+        { status: 500 },
+      );
+    }
 
     return NextResponse.json({ reminders });
   } catch (error: any) {
@@ -114,22 +117,29 @@ export async function POST(request: Request) {
     }
 
     // Create reminder in the database
-    const reminder = await prisma.reminder.create({
-      data: {
-        title,
-        description,
-        dueDate: new Date(dueDate),
-        category: category || 'general',
-        priority: priority || 'medium',
-        recurrence,
-        recurrenceEndDate: recurrenceEndDate ? new Date(recurrenceEndDate) : null,
-        notifyEmail: notifyEmail !== undefined ? notifyEmail : true,
-        notifyWhatsapp: notifyWhatsapp !== undefined ? notifyWhatsapp : false,
-        notifyBefore: notifyBefore !== undefined ? notifyBefore : 60,
-        color,
-        userId: user.id,
-      },
+    const { data: reminder, error: createError } = await createReminder({
+      title,
+      description,
+      dueDate: new Date(dueDate),
+      completed: false,
+      // Adicionando campos um por um para identificar o problema
+      category: category || 'general',
+      priority: priority || 'medium',
+      recurrence,
+      recurrenceEndDate: recurrenceEndDate ? new Date(recurrenceEndDate) : null,
+      notifyEmail: notifyEmail !== undefined ? notifyEmail : true,
+      notifyWhatsapp: notifyWhatsapp !== undefined ? notifyWhatsapp : false,
+      notifyBefore: notifyBefore !== undefined ? notifyBefore : 60,
+      color,
+      user: { connect: { id: user.id } },
     });
+
+    if (createError) {
+      return NextResponse.json(
+        { error: createError instanceof Error ? createError.message : 'Failed to create reminder' },
+        { status: 500 },
+      );
+    }
 
     return NextResponse.json({ reminder }, { status: 201 });
   } catch (error: any) {

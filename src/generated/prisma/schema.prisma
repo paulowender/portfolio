@@ -13,41 +13,41 @@ model User {
   email           String           @unique
   name            String
   avatarUrl       String?          @map("avatar_url")
-  title           String? // Professional title
-  bio             String? // Short professional bio
-  location        String? // Location
-  phone           String? // Contact phone
-  website         String? // Personal website
-  linkedin        String? // LinkedIn profile URL
-  github          String? // GitHub profile URL
-  twitter         String? // Twitter/X profile URL
-  skills          String[] // Array of skills
   createdAt       DateTime         @default(now()) @map("created_at")
   updatedAt       DateTime         @updatedAt @map("updated_at")
+  title           String?
+  bio             String?
+  location        String?
+  phone           String?
+  website         String?
+  linkedin        String?
+  github          String?
+  twitter         String?
+  skills          String[]
+  aiConfig        AIConfig?
   appointments    Appointment[]
+  company         Company?
+  messagingConfig MessagingConfig?
   projects        Project[]
   reminders       Reminder[]
-  company         Company?
-  aiConfig        AIConfig?
-  messagingConfig MessagingConfig?
 
   @@map("users")
 }
 
 model Company {
   id          String   @id @default(uuid())
-  name        String // Company name
-  logo        String? // Company logo URL
-  description String? // Company description/about
-  mission     String? // Company mission statement
-  vision      String? // Company vision
-  founded     String? // Year founded
-  services    String[] // Array of services offered
-  address     String? // Company address
-  phone       String? // Company phone
-  email       String? // Company contact email
-  website     String? // Company website
-  userId      String   @unique @map("user_id") // One-to-one relation with user
+  name        String
+  logo        String?
+  description String?
+  mission     String?
+  vision      String?
+  founded     String?
+  services    String[]
+  address     String?
+  phone       String?
+  email       String?
+  website     String?
+  userId      String   @unique @map("user_id")
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -73,15 +73,23 @@ model Project {
 }
 
 model Reminder {
-  id          String   @id @default(uuid())
-  title       String
-  description String?
-  dueDate     DateTime @map("due_date")
-  completed   Boolean  @default(false)
-  userId      String   @map("user_id")
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String    @id @default(uuid())
+  title             String
+  description       String?
+  dueDate           DateTime  @map("due_date")
+  completed         Boolean   @default(false)
+  userId            String    @map("user_id")
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+  category          String    @default("general")
+  color             String?
+  notifyBefore      Int       @default(60)
+  notifyEmail       Boolean   @default(true)
+  notifyWhatsapp    Boolean   @default(false)
+  priority          String    @default("medium")
+  recurrence        String?   @map("recurrence")
+  recurrenceEndDate DateTime? @map("recurrence_end_date")
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("reminders")
 }
@@ -102,59 +110,43 @@ model Appointment {
 }
 
 model AIConfig {
-  id              String @id @default(uuid())
-  userId          String @unique @map("user_id")
-  defaultProvider String @default("openai") @map("default_provider")
-  defaultModel    String @default("gpt-3.5-turbo") @map("default_model")
-
-  // OpenAI configuration
-  openaiApiKey  String? @map("openai_api_key")
-  openaiEnabled Boolean @default(false) @map("openai_enabled")
-  openaiModel   String? @map("openai_model")
-
-  // Anthropic configuration
-  anthropicApiKey  String? @map("anthropic_api_key")
-  anthropicEnabled Boolean @default(false) @map("anthropic_enabled")
-  anthropicModel   String? @map("anthropic_model")
-
-  // Groq configuration
-  groqApiKey  String? @map("groq_api_key")
-  groqEnabled Boolean @default(false) @map("groq_enabled")
-  groqModel   String? @map("groq_model")
-
-  // OpenRouter configuration
-  openrouterApiKey  String? @map("openrouter_api_key")
-  openrouterEnabled Boolean @default(false) @map("openrouter_enabled")
-  openrouterModel   String? @map("openrouter_model")
-
-  // Removido: Evolution API configuration (movido para MessagingConfig)
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String   @id @default(uuid())
+  userId            String   @unique @map("user_id")
+  defaultProvider   String   @default("openai") @map("default_provider")
+  defaultModel      String   @default("gpt-3.5-turbo") @map("default_model")
+  openaiApiKey      String?  @map("openai_api_key")
+  openaiEnabled     Boolean  @default(false) @map("openai_enabled")
+  openaiModel       String?  @map("openai_model")
+  anthropicApiKey   String?  @map("anthropic_api_key")
+  anthropicEnabled  Boolean  @default(false) @map("anthropic_enabled")
+  anthropicModel    String?  @map("anthropic_model")
+  groqApiKey        String?  @map("groq_api_key")
+  groqEnabled       Boolean  @default(false) @map("groq_enabled")
+  groqModel         String?  @map("groq_model")
+  openrouterApiKey  String?  @map("openrouter_api_key")
+  openrouterEnabled Boolean  @default(false) @map("openrouter_enabled")
+  openrouterModel   String?  @map("openrouter_model")
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("ai_configs")
 }
 
 model MessagingConfig {
-  id     String @id @default(uuid())
-  userId String @unique @map("user_id")
-
-  // Evolution API configuration
-  evolutionApiKey   String? @map("evolution_api_key")
-  evolutionBaseUrl  String? @map("evolution_base_url")
-  evolutionEnabled  Boolean @default(false) @map("evolution_enabled")
-  evolutionInstance String? @map("evolution_instance")
-
-  // Resend configuration
-  resendApiKey    String? @map("resend_api_key")
-  resendEnabled   Boolean @default(false) @map("resend_enabled")
-  resendFromEmail String? @map("resend_from_email")
-  resendFromName  String? @map("resend_from_name")
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String   @id @default(uuid())
+  userId            String   @unique @map("user_id")
+  evolutionApiKey   String?  @map("evolution_api_key")
+  evolutionBaseUrl  String?  @map("evolution_base_url")
+  evolutionEnabled  Boolean  @default(false) @map("evolution_enabled")
+  evolutionInstance String?  @map("evolution_instance")
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+  resendApiKey      String?  @map("resend_api_key")
+  resendEnabled     Boolean  @default(false) @map("resend_enabled")
+  resendFromEmail   String?  @map("resend_from_email")
+  resendFromName    String?  @map("resend_from_name")
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("messaging_configs")
 }

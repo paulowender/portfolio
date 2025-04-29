@@ -32,6 +32,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { useToast } from '@/components/ui/use-toast';
+import { BellIcon } from 'lucide-react';
 
 interface ReminderItemProps {
   reminder: Reminder;
