@@ -55,6 +55,8 @@
 - Password reset functionality implemented with robust token handling
 - Portfolio homepage created with parallax effects and animations
 - Dashboard layout and navigation implemented
+- Reminder system implemented with categories, priorities, and recurrence
+- Notification system integrated with email (Resend) and WhatsApp (Evolution API)
 - Project management functionality implemented (CRUD operations)
 - Placeholder pages created for future features
 - Prisma ORM implemented for better database management
@@ -140,17 +142,17 @@
 
 ### Reminder System (Fase 1 - Prioridade Alta)
 
-- [ ] Expandir modelo Reminder no Prisma (adicionar campos de categoria, prioridade, status, recorrência)
-- [ ] Criar API endpoints CRUD para lembretes
-- [ ] Implementar página de listagem de lembretes com filtros
-- [ ] Adicionar formulário de criação/edição de lembretes
-- [ ] Implementar marcação de "concluído" para lembretes
-- [ ] Adicionar categorias e prioridades para lembretes
-- [ ] Implementar recorrência básica para lembretes
-- [ ] Adicionar sistema de notificações no dashboard
-- [ ] Integrar notificações com Resend (email) e Evolution API (WhatsApp)
-- [ ] Adicionar opções de configuração para escolher canais de notificação por lembrete
-- [ ] Implementar visualização de lembretes no dashboard
+- [x] Expandir modelo Reminder no Prisma (adicionar campos de categoria, prioridade, status, recorrência)
+- [x] Criar API endpoints CRUD para lembretes
+- [x] Implementar página de listagem de lembretes com filtros
+- [x] Adicionar formulário de criação/edição de lembretes
+- [x] Implementar marcação de "concluído" para lembretes
+- [x] Adicionar categorias e prioridades para lembretes
+- [x] Implementar recorrência básica para lembretes
+- [x] Adicionar sistema de notificações no dashboard
+- [x] Integrar notificações com Resend (email) e Evolution API (WhatsApp)
+- [x] Adicionar opções de configuração para escolher canais de notificação por lembrete
+- [x] Implementar visualização de lembretes no dashboard
 
 ### Calendar System (Fase 2 - Prioridade Média)
 
