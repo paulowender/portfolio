@@ -133,12 +133,50 @@
 
 - [x] Set up a real Supabase instance and configure environment variables
 - [x] Add real project data and images
-- [ ] Implement actual functionality for calendar and reminders
-- [ ] Implement email notifications for reminders
 - [x] Implement React Query for more robust data fetching
 - [x] Add SEO optimization for the landing page
-- [ ] Implement analytics to track conversion rates
 - [ ] Deploy to production server using Docker
+- [ ] Implement analytics to track conversion rates
+
+### Reminder System (Fase 1 - Prioridade Alta)
+
+- [ ] Expandir modelo Reminder no Prisma (adicionar campos de categoria, prioridade, status, recorrência)
+- [ ] Criar API endpoints CRUD para lembretes
+- [ ] Implementar página de listagem de lembretes com filtros
+- [ ] Adicionar formulário de criação/edição de lembretes
+- [ ] Implementar marcação de "concluído" para lembretes
+- [ ] Adicionar categorias e prioridades para lembretes
+- [ ] Implementar recorrência básica para lembretes
+- [ ] Adicionar sistema de notificações no dashboard
+- [ ] Integrar notificações com Resend (email) e Evolution API (WhatsApp)
+- [ ] Adicionar opções de configuração para escolher canais de notificação por lembrete
+- [ ] Implementar visualização de lembretes no dashboard
+
+### Calendar System (Fase 2 - Prioridade Média)
+
+- [ ] Avaliar e escolher biblioteca de calendário (react-big-calendar ou @fullcalendar/react)
+- [ ] Expandir modelo Appointment no Prisma se necessário
+- [ ] Criar API endpoints para gerenciamento de eventos de calendário
+- [ ] Implementar visualização de calendário (mês/semana/dia)
+- [ ] Criar formulário de eventos de calendário
+- [ ] Integrar calendário com sistema de lembretes
+- [ ] Implementar configuração de disponibilidade
+- [ ] Adicionar categorias visuais para eventos
+- [ ] Criar link público para agendamento por clientes
+- [ ] Implementar notificações para eventos do calendário
+
+### CRM System (Fase 3 - Prioridade Baixa)
+
+- [ ] Criar modelos Client e Interaction no Prisma
+- [ ] Estabelecer relacionamentos com modelos existentes (Project, Appointment)
+- [ ] Implementar API endpoints CRUD para clientes e interações
+- [ ] Criar página de listagem de clientes
+- [ ] Implementar formulário de cadastro/edição de clientes
+- [ ] Criar visualização de detalhes do cliente
+- [ ] Implementar registro de interações com clientes
+- [ ] Vincular projetos e compromissos a clientes
+- [ ] Criar dashboard de relacionamento com clientes
+- [ ] Implementar histórico de interações com clientes
 
 ### AI Integrations
 
