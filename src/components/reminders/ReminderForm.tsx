@@ -253,7 +253,6 @@ export default function ReminderForm({ reminder, isOpen, onClose }: ReminderForm
                               selected={field.value}
                               onSelect={field.onChange}
                               disabled={(date) => date < new Date(new Date().setHours(0, 0, 0, 0))}
-                              initialFocus
                               locale={ptBR}
                             />
                           </PopoverContent>
@@ -419,7 +418,6 @@ export default function ReminderForm({ reminder, isOpen, onClose }: ReminderForm
                               selected={field.value || undefined}
                               onSelect={field.onChange}
                               disabled={(date) => date < new Date(form.getValues('dueDate'))}
-                              initialFocus
                               locale={ptBR}
                             />
                           </PopoverContent>
