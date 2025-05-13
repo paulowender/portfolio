@@ -60,9 +60,9 @@ const reminderSchema = z.object({
   priority: z.string(),
   recurrence: z.string().nullable(),
   recurrenceEndDate: z.date().nullable().optional(),
-  notifyEmail: z.boolean().default(true),
-  notifyWhatsapp: z.boolean().default(false),
-  notifyBefore: z.number().int().default(60),
+  notifyEmail: z.boolean(),
+  notifyWhatsapp: z.boolean(),
+  notifyBefore: z.number().int(),
   color: z.string().optional(),
 });
 
