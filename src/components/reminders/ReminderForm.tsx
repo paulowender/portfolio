@@ -77,7 +77,8 @@ interface ReminderFormProps {
 export default function ReminderForm({ reminder, isOpen, onClose }: ReminderFormProps) {
   const { toast } = useToast();
   const createReminder = useCreateReminder();
-  const updateReminder = reminder ? useUpdateReminder(reminder.id) : null;
+  // Sempre chame o hook, mas use um ID temporário se não estiver editando
+  const updateReminder = useUpdateReminder(reminder?.id || 'temp-id');
   const isEditing = !!reminder;
 
   // Initialize form with default values or existing reminder values
@@ -146,7 +147,8 @@ export default function ReminderForm({ reminder, isOpen, onClose }: ReminderForm
         color: data.color,
       };
 
-      if (isEditing && updateReminder) {
+      if (isEditing) {
+        // Só chama updateReminder se estiver editando um lembrete existente
         await updateReminder.mutateAsync(reminderData);
         toast({
           title: 'Lembrete atualizado',
@@ -182,7 +184,7 @@ export default function ReminderForm({ reminder, isOpen, onClose }: ReminderForm
         </DialogHeader>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <form onSubmit={form.handleSubmit(onSubmit as any)} className="space-y-6">
             <Tabs defaultValue="basic" className="w-full">
               <TabsList className="grid grid-cols-3 mb-4">
                 <TabsTrigger value="basic">Básico</TabsTrigger>
@@ -192,7 +194,7 @@ export default function ReminderForm({ reminder, isOpen, onClose }: ReminderForm
 
               <TabsContent value="basic" className="space-y-4">
                 <FormField
-                  control={form.control}
+                  control={form.control as any}
                   name="title"
                   render={({ field }) => (
                     <FormItem>
@@ -206,7 +208,7 @@ export default function ReminderForm({ reminder, isOpen, onClose }: ReminderForm
                 />
 
                 <FormField
-                  control={form.control}
+                  control={form.control as any}
                   name="description"
                   render={({ field }) => (
                     <FormItem>
@@ -226,7 +228,7 @@ export default function ReminderForm({ reminder, isOpen, onClose }: ReminderForm
 
                 <div className="grid grid-cols-2 gap-4">
                   <FormField
-                    control={form.control}
+                    control={form.control as any}
                     name="dueDate"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
@@ -263,7 +265,7 @@ export default function ReminderForm({ reminder, isOpen, onClose }: ReminderForm
                   />
 
                   <FormField
-                    control={form.control}
+                    control={form.control as any}
                     name="dueTime"
                     render={({ field }) => (
                       <FormItem>
@@ -279,7 +281,7 @@ export default function ReminderForm({ reminder, isOpen, onClose }: ReminderForm
 
                 <div className="grid grid-cols-2 gap-4">
                   <FormField
-                    control={form.control}
+                    control={form.control as any}
                     name="category"
                     render={({ field }) => (
                       <FormItem>
@@ -314,7 +316,7 @@ export default function ReminderForm({ reminder, isOpen, onClose }: ReminderForm
                   />
 
                   <FormField
-                    control={form.control}
+                    control={form.control as any}
                     name="priority"
                     render={({ field }) => (
                       <FormItem>
@@ -352,7 +354,7 @@ export default function ReminderForm({ reminder, isOpen, onClose }: ReminderForm
 
               <TabsContent value="recurrence" className="space-y-4">
                 <FormField
-                  control={form.control}
+                  control={form.control as any}
                   name="recurrence"
                   render={({ field }) => (
                     <FormItem>
@@ -381,7 +383,7 @@ export default function ReminderForm({ reminder, isOpen, onClose }: ReminderForm
 
                 {showRecurrenceEndDate && (
                   <FormField
-                    control={form.control}
+                    control={form.control as any}
                     name="recurrenceEndDate"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
@@ -434,7 +436,7 @@ export default function ReminderForm({ reminder, isOpen, onClose }: ReminderForm
 
               <TabsContent value="notifications" className="space-y-4">
                 <FormField
-                  control={form.control}
+                  control={form.control as any}
                   name="notifyBefore"
                   render={({ field }) => (
                     <FormItem>
@@ -466,7 +468,7 @@ export default function ReminderForm({ reminder, isOpen, onClose }: ReminderForm
 
                 <div className="space-y-4">
                   <FormField
-                    control={form.control}
+                    control={form.control as any}
                     name="notifyEmail"
                     render={({ field }) => (
                       <FormItem className="flex flex-row items-center justify-between rounded-lg border border-gray-700 p-3">
@@ -482,7 +484,7 @@ export default function ReminderForm({ reminder, isOpen, onClose }: ReminderForm
                   />
 
                   <FormField
-                    control={form.control}
+                    control={form.control as any}
                     name="notifyWhatsapp"
                     render={({ field }) => (
                       <FormItem className="flex flex-row items-center justify-between rounded-lg border border-gray-700 p-3">
@@ -506,11 +508,8 @@ export default function ReminderForm({ reminder, isOpen, onClose }: ReminderForm
               <Button type="button" variant="outline" onClick={onClose}>
                 Cancelar
               </Button>
-              <Button
-                type="submit"
-                disabled={createReminder.isPending || (updateReminder?.isPending ?? false)}
-              >
-                {createReminder.isPending || (updateReminder?.isPending ?? false) ? (
+              <Button type="submit" disabled={createReminder.isPending || updateReminder.isPending}>
+                {createReminder.isPending || updateReminder.isPending ? (
                   <span className="flex items-center">
                     <svg
                       className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
