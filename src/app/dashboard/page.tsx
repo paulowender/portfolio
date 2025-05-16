@@ -7,6 +7,7 @@ import Button from '@/components/Button';
 import { FolderIcon, CalendarIcon, BellIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { useProjects } from '@/hooks/usePortfolioQuery';
 import { useReminders } from '@/hooks/useReminderQuery';
+import PendingReminders from '@/components/dashboard/PendingReminders';
 import Image from 'next/image';
 
 export default function DashboardPage() {
@@ -105,6 +106,11 @@ export default function DashboardPage() {
         </motion.div>
       </div>
 
+      {/* Pending Reminders Section */}
+      <div className="mb-8">
+        <PendingReminders />
+      </div>
+
       <div className="mb-8">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold">Recent Projects</h2>
@@ -193,11 +199,10 @@ export default function DashboardPage() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span
-                        className={`px-2 py-1 text-xs rounded-full ${
-                          project.featured
-                            ? 'bg-green-900 text-green-300'
-                            : 'bg-gray-700 text-gray-300'
-                        }`}
+                        className={`px-2 py-1 text-xs rounded-full ${project.featured
+                          ? 'bg-green-900 text-green-300'
+                          : 'bg-gray-700 text-gray-300'
+                          }`}
                       >
                         {project.featured ? 'Yes' : 'No'}
                       </span>
@@ -227,68 +232,6 @@ export default function DashboardPage() {
             </Link>
           </div>
         )}
-      </div>
-
-      <div>
-        <h2 className="text-2xl font-bold mb-6">Quick Actions</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Link href="/dashboard/projects/new" className="block">
-            <div className="bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition-colors">
-              <div className="bg-indigo-600/20 p-3 rounded-lg inline-block mb-4">
-                <PlusIcon className="h-6 w-6 text-indigo-400" />
-              </div>
-              <h3 className="text-lg font-medium mb-2">Add Project</h3>
-              <p className="text-gray-400 text-sm">
-                Create a new project to showcase in your portfolio.
-              </p>
-            </div>
-          </Link>
-
-          <Link href="/dashboard/calendar" className="block">
-            <div className="bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition-colors">
-              <div className="bg-green-600/20 p-3 rounded-lg inline-block mb-4">
-                <CalendarIcon className="h-6 w-6 text-green-400" />
-              </div>
-              <h3 className="text-lg font-medium mb-2">Schedule</h3>
-              <p className="text-gray-400 text-sm">Manage your appointments and meetings.</p>
-            </div>
-          </Link>
-
-          <Link href="/dashboard/reminders" className="block">
-            <div className="bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition-colors">
-              <div className="bg-yellow-600/20 p-3 rounded-lg inline-block mb-4">
-                <BellIcon className="h-6 w-6 text-yellow-400" />
-              </div>
-              <h3 className="text-lg font-medium mb-2">Reminders</h3>
-              <p className="text-gray-400 text-sm">
-                Set reminders for important dates and deadlines.
-              </p>
-            </div>
-          </Link>
-
-          <Link href="/dashboard/integrations" className="block">
-            <div className="bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition-colors">
-              <div className="bg-purple-600/20 p-3 rounded-lg inline-block mb-4">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-purple-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"
-                  />
-                </svg>
-              </div>
-              <h3 className="text-lg font-medium mb-2">Integrations</h3>
-              <p className="text-gray-400 text-sm">Connect with third-party services and tools.</p>
-            </div>
-          </Link>
-        </div>
       </div>
     </div>
   );

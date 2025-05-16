@@ -153,6 +153,7 @@
 - [x] Integrar notificações com Resend (email) e Evolution API (WhatsApp)
 - [x] Adicionar opções de configuração para escolher canais de notificação por lembrete
 - [x] Implementar visualização de lembretes no dashboard
+- [x] Adicionar seção "Lembretes pendentes" no dashboard para visualização rápida
 
 ### Calendar System (Fase 2 - Prioridade Média)
 
