@@ -6,9 +6,8 @@ import { ptBR } from 'date-fns/locale';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon as CheckCircleSolidIcon } from '@heroicons/react/24/solid';
 import { Reminder, REMINDER_CATEGORIES, REMINDER_PRIORITIES } from '@/types/reminder';
-import { useToggleReminder } from '@/hooks/useReminderQuery';
+import { useCompleteReminder, useToggleReminder } from '@/hooks/useReminderQuery';
 import { Badge } from '@/components/ui/badge';
-import Link from 'next/link';
 
 interface CompactReminderItemProps {
   reminder: Reminder;
@@ -17,33 +16,41 @@ interface CompactReminderItemProps {
 
 export default function CompactReminderItem({ reminder, index }: CompactReminderItemProps) {
   const toggleReminder = useToggleReminder();
-  
+  const completeReminder = useCompleteReminder();
+
   const categoryInfo =
     REMINDER_CATEGORIES.find((cat) => cat.value === reminder.category) || REMINDER_CATEGORIES[0];
   const priorityInfo =
     REMINDER_PRIORITIES.find((pri) => pri.value === reminder.priority) || REMINDER_PRIORITIES[1];
 
   const isOverdue = !reminder.completed && new Date(reminder.dueDate) < new Date();
+  const isRecurring = reminder.recurrence && reminder.recurrence !== 'none';
 
   const handleToggle = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    toggleReminder.mutate(reminder.id);
+
+    if (!reminder.completed && isRecurring) {
+      // Se for um lembrete recorrente não concluído, use a API de conclusão com recorrência
+      completeReminder.mutate(reminder.id);
+    } else {
+      // Caso contrário, use a API de toggle normal
+      toggleReminder.mutate(reminder.id);
+    }
   };
 
   return (
-    <Link href={`/dashboard/reminders?id=${reminder.id}`}>
+    <>
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.2, delay: index * 0.05 }}
-        className={`bg-gray-800/50 hover:bg-gray-800 rounded-lg p-3 mb-2 border ${
-          reminder.completed
-            ? 'border-gray-700 opacity-75'
-            : isOverdue
-              ? 'border-red-700'
-              : 'border-gray-700'
-        } transition-colors`}
+        className={`bg-gray-800/50 hover:bg-gray-800 rounded-lg p-3 mb-2 border ${reminder.completed
+          ? 'border-gray-700 opacity-75'
+          : isOverdue
+            ? 'border-red-700'
+            : 'border-gray-700'
+          } transition-colors`}
       >
         <div className="flex items-start gap-3">
           <button
@@ -57,18 +64,25 @@ export default function CompactReminderItem({ reminder, index }: CompactReminder
               <CheckCircleIcon className="h-5 w-5 text-gray-400" />
             )}
           </button>
-          
+
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between">
-              <h3 
-                className={`font-medium truncate ${
-                  reminder.completed ? 'line-through text-gray-400' : ''
-                }`}
+              <h3
+                className={`font-medium truncate ${reminder.completed ? 'line-through text-gray-400' : ''
+                  }`}
               >
                 {reminder.title}
               </h3>
             </div>
-            
+
+            <div className="flex flex-wrap items-center mt-1 gap-2">
+              <span
+                className={`text-xs ${isOverdue && !reminder.completed ? 'text-red-400' : 'text-gray-400'}`}
+              >
+                {format(new Date(reminder.dueDate), "dd 'de' MMM 'às' HH:mm", { locale: ptBR })}
+              </span>
+            </div>
+
             <div className="flex flex-wrap items-center mt-1 gap-2">
               <Badge
                 variant="outline"
@@ -80,16 +94,26 @@ export default function CompactReminderItem({ reminder, index }: CompactReminder
               >
                 {priorityInfo.label}
               </Badge>
-
-              <span
-                className={`text-xs ${isOverdue && !reminder.completed ? 'text-red-400' : 'text-gray-400'}`}
+              <Badge
+                variant="outline"
+                className="text-xs"
+                style={{
+                  borderColor: categoryInfo.color,
+                  color: categoryInfo.color,
+                }}
               >
-                {format(new Date(reminder.dueDate), "HH:mm", { locale: ptBR })}
-              </span>
+                {categoryInfo.label}
+              </Badge>
+
+              {isRecurring && (
+                <Badge variant="outline" className="text-xs text-blue-400 border-blue-400">
+                  Recorrente
+                </Badge>
+              )}
             </div>
           </div>
         </div>
       </motion.div>
-    </Link>
+    </>
   );
 }

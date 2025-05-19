@@ -196,10 +196,10 @@ export async function deleteProject(id: string) {
 }
 
 // Reminder functions
-export async function getReminders(userId: string) {
+export async function getReminders(userId: string, where?: Prisma.ReminderWhereInput) {
   try {
     const reminders = await prisma.reminder.findMany({
-      where: { userId },
+      where: { userId, ...where },
       orderBy: { dueDate: 'asc' },
     });
     return { data: reminders, error: null };
@@ -225,13 +225,21 @@ export async function createReminder(reminderData: Prisma.ReminderCreateInput) {
   try {
     console.log('Creating reminder with data:', JSON.stringify(reminderData, null, 2));
 
-    // Criar apenas com os campos básicos
+    // Criar com todos os campos
     const reminder = await prisma.reminder.create({
       data: {
         title: reminderData.title,
         description: reminderData.description,
         dueDate: reminderData.dueDate,
         completed: reminderData.completed || false,
+        category: reminderData.category || 'general',
+        priority: reminderData.priority || 'medium',
+        recurrence: reminderData.recurrence,
+        recurrenceEndDate: reminderData.recurrenceEndDate,
+        notifyEmail: reminderData.notifyEmail ?? true,
+        notifyWhatsapp: reminderData.notifyWhatsapp ?? false,
+        notifyBefore: reminderData.notifyBefore ?? 60,
+        color: reminderData.color,
         user: reminderData.user,
       },
     });
@@ -247,7 +255,7 @@ export async function updateReminder(id: string, reminderData: Prisma.ReminderUp
   try {
     console.log('Updating reminder with data:', JSON.stringify(reminderData, null, 2));
 
-    // Atualizar apenas com os campos básicos
+    // Atualizar com todos os campos
     const reminder = await prisma.reminder.update({
       where: { id },
       data: {
@@ -255,6 +263,14 @@ export async function updateReminder(id: string, reminderData: Prisma.ReminderUp
         description: reminderData.description,
         dueDate: reminderData.dueDate,
         completed: reminderData.completed,
+        category: reminderData.category,
+        priority: reminderData.priority,
+        recurrence: reminderData.recurrence,
+        recurrenceEndDate: reminderData.recurrenceEndDate,
+        notifyEmail: reminderData.notifyEmail,
+        notifyWhatsapp: reminderData.notifyWhatsapp,
+        notifyBefore: reminderData.notifyBefore,
+        color: reminderData.color,
       },
     });
 

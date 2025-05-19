@@ -17,6 +17,7 @@ import {
   useToggleReminder,
   useDeleteReminder,
   useSendReminderNotification,
+  useCompleteReminder
 } from '@/hooks/useReminderQuery';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -37,13 +38,14 @@ import { BellIcon } from 'lucide-react';
 
 interface ReminderItemProps {
   reminder: Reminder;
-  onEdit: (reminder: Reminder) => void;
+  onEdit?: (reminder: Reminder) => void;
 }
 
 export default function ReminderItem({ reminder, onEdit }: ReminderItemProps) {
   const { toast } = useToast();
   const [isExpanded, setIsExpanded] = useState(false);
   const toggleReminder = useToggleReminder();
+  const completeReminder = useCompleteReminder();
   const deleteReminder = useDeleteReminder();
   const sendNotification = useSendReminderNotification();
 
@@ -53,15 +55,23 @@ export default function ReminderItem({ reminder, onEdit }: ReminderItemProps) {
     REMINDER_PRIORITIES.find((pri) => pri.value === reminder.priority) || REMINDER_PRIORITIES[1];
 
   const isOverdue = !reminder.completed && new Date(reminder.dueDate) < new Date();
+  const isRecurring = reminder.recurrence && reminder.recurrence !== 'none';
 
   const handleToggle = (e: React.MouseEvent) => {
     e.stopPropagation();
-    toggleReminder.mutate(reminder.id);
+
+    if (!reminder.completed && isRecurring) {
+      // Se for um lembrete recorrente não concluído, use a API de conclusão com recorrência
+      completeReminder.mutate(reminder.id);
+    } else {
+      // Caso contrário, use a API de toggle normal
+      toggleReminder.mutate(reminder.id);
+    }
   };
 
   const handleEdit = (e: React.MouseEvent) => {
     e.stopPropagation();
-    onEdit(reminder);
+    if (onEdit) onEdit(reminder);
   };
 
   const handleDelete = (e: React.MouseEvent) => {
@@ -76,9 +86,8 @@ export default function ReminderItem({ reminder, onEdit }: ReminderItemProps) {
         if (data.emailSent || data.whatsappSent) {
           toast({
             title: 'Notificação enviada',
-            description: `Notificação enviada com sucesso${data.emailSent ? ' por email' : ''}${
-              data.whatsappSent ? ' por WhatsApp' : ''
-            }.`,
+            description: `Notificação enviada com sucesso${data.emailSent ? ' por email' : ''}${data.whatsappSent ? ' por WhatsApp' : ''
+              }.`,
           });
         } else {
           toast({
@@ -105,13 +114,12 @@ export default function ReminderItem({ reminder, onEdit }: ReminderItemProps) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.2 }}
-      className={`bg-gray-800 rounded-lg overflow-hidden mb-4 border ${
-        reminder.completed
-          ? 'border-gray-700 opacity-75'
-          : isOverdue
-            ? 'border-red-700'
-            : 'border-gray-700'
-      }`}
+      className={`bg-gray-800 rounded-lg overflow-hidden mb-4 border ${reminder.completed
+        ? 'border-gray-700 opacity-75'
+        : isOverdue
+          ? 'border-red-700'
+          : 'border-gray-700'
+        }`}
     >
       <div
         className={`p-4 cursor-pointer ${reminder.completed ? 'bg-gray-800/50' : ''}`}
@@ -138,6 +146,12 @@ export default function ReminderItem({ reminder, onEdit }: ReminderItemProps) {
                 {reminder.title}
               </h3>
 
+              <span
+                className={`text-xs ${isOverdue && !reminder.completed ? 'text-red-400' : 'text-gray-400'}`}
+              >
+                {format(new Date(reminder.dueDate), "dd 'de' MMMM 'às' HH:mm", { locale: ptBR })}
+              </span>
+
               <div className="flex flex-wrap items-center mt-2 gap-2">
                 <Badge
                   variant="outline"
@@ -160,12 +174,6 @@ export default function ReminderItem({ reminder, onEdit }: ReminderItemProps) {
                 >
                   {priorityInfo.label}
                 </Badge>
-
-                <span
-                  className={`text-xs ${isOverdue && !reminder.completed ? 'text-red-400' : 'text-gray-400'}`}
-                >
-                  {format(new Date(reminder.dueDate), "dd 'de' MMMM 'às' HH:mm", { locale: ptBR })}
-                </span>
 
                 {reminder.recurrence && reminder.recurrence !== 'none' && (
                   <Badge variant="outline" className="text-xs text-blue-400 border-blue-400">
@@ -234,14 +242,16 @@ export default function ReminderItem({ reminder, onEdit }: ReminderItemProps) {
               </TooltipProvider>
             )}
 
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={handleEdit}
-              className="h-8 w-8 text-gray-400 hover:text-blue-400"
-            >
-              <PencilIcon className="h-4 w-4" />
-            </Button>
+            {onEdit && (
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={handleEdit}
+                className="h-8 w-8 text-gray-400 hover:text-blue-400"
+              >
+                <PencilIcon className="h-4 w-4" />
+              </Button>
+            )}
 
             <AlertDialog>
               <AlertDialogTrigger asChild>

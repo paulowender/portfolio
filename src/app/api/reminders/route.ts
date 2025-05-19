@@ -62,7 +62,7 @@ export async function GET(request: Request) {
     const effectiveUserId = user.id;
     console.log('Fetching reminders for user:', effectiveUserId);
 
-    const { data: reminders, error: dbError } = await getReminders(effectiveUserId);
+    const { data: reminders, error: dbError } = await getReminders(effectiveUserId, where);
 
     if (dbError) {
       return NextResponse.json(
