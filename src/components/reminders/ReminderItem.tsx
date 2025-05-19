@@ -146,6 +146,12 @@ export default function ReminderItem({ reminder, onEdit }: ReminderItemProps) {
                 {reminder.title}
               </h3>
 
+              <span
+                className={`text-xs ${isOverdue && !reminder.completed ? 'text-red-400' : 'text-gray-400'}`}
+              >
+                {format(new Date(reminder.dueDate), "dd 'de' MMMM 'às' HH:mm", { locale: ptBR })}
+              </span>
+
               <div className="flex flex-wrap items-center mt-2 gap-2">
                 <Badge
                   variant="outline"
@@ -168,12 +174,6 @@ export default function ReminderItem({ reminder, onEdit }: ReminderItemProps) {
                 >
                   {priorityInfo.label}
                 </Badge>
-
-                <span
-                  className={`text-xs ${isOverdue && !reminder.completed ? 'text-red-400' : 'text-gray-400'}`}
-                >
-                  {format(new Date(reminder.dueDate), "dd 'de' MMMM 'às' HH:mm", { locale: ptBR })}
-                </span>
 
                 {reminder.recurrence && reminder.recurrence !== 'none' && (
                   <Badge variant="outline" className="text-xs text-blue-400 border-blue-400">
