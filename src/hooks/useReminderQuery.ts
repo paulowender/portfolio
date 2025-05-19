@@ -128,3 +128,30 @@ export function useSendReminderNotification() {
     },
   });
 }
+
+// Hook to complete a reminder and handle recurrence
+export function useCompleteReminder() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: string) => {
+      const { data } = await axiosClient.post(`/api/reminders/${id}/complete`);
+      return data;
+    },
+    onSuccess: (data) => {
+      // Update the completed reminder in the cache
+      if (data.reminder) {
+        queryClient.setQueryData(reminderKeys.detail(data.reminder.id), data.reminder);
+      }
+
+      // Add the new occurrence to the cache if it exists
+      if (data.nextOccurrence) {
+        // Update any existing queries that might include this reminder
+        queryClient.invalidateQueries({ queryKey: reminderKeys.lists() });
+      } else {
+        // If no new occurrence, just invalidate the lists to remove the completed reminder
+        queryClient.invalidateQueries({ queryKey: reminderKeys.lists() });
+      }
+    },
+  });
+}

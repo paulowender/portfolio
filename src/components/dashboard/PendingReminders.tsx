@@ -1,13 +1,13 @@
 'use client';
 
 import { useMemo } from 'react';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { BellIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { useReminders } from '@/hooks/useReminderQuery';
-import CompactReminderItem from '@/components/reminders/CompactReminderItem';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import Link from 'next/link';
+import ReminderItem from '../reminders/ReminderItem';
 
 export default function PendingReminders() {
   // Fetch all incomplete reminders
@@ -67,14 +67,12 @@ export default function PendingReminders() {
 
       {pendingReminders.length > 0 ? (
         <>
-          <div className="space-y-2 mb-4 max-h-[300px] overflow-y-auto pr-1">
-            {pendingReminders.map((reminder, index) => (
-              <CompactReminderItem
-                key={reminder.id}
-                reminder={reminder}
-                index={index}
-              />
-            ))}
+          <div className="space-y-2 mb-4 max-h-[400px] overflow-y-auto pr-1">
+            <AnimatePresence>
+              {pendingReminders.map((reminder) => (
+                <ReminderItem key={reminder.id} reminder={reminder} />
+              ))}
+            </AnimatePresence>
           </div>
 
           <Link href="/dashboard/reminders">

@@ -149,6 +149,7 @@
 - [x] Implementar marcação de "concluído" para lembretes
 - [x] Adicionar categorias e prioridades para lembretes
 - [x] Implementar recorrência básica para lembretes
+- [x] Adicionar funcionalidade para criar automaticamente próxima ocorrência ao concluir um lembrete recorrente
 - [x] Adicionar sistema de notificações no dashboard
 - [x] Integrar notificações com Resend (email) e Evolution API (WhatsApp)
 - [x] Adicionar opções de configuração para escolher canais de notificação por lembrete
