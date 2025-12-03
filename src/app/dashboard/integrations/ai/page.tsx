@@ -7,8 +7,10 @@ import AIProviderCard from '@/components/ai/AIProviderCard';
 import ModelSelector from '@/components/ai/ModelSelector';
 import { motion } from 'framer-motion';
 import axiosClient from '@/lib/axios-client';
+import { useTranslations } from 'next-intl';
 
 export default function AIIntegrationsPage() {
+  const t = useTranslations('aiIntegrationsPage');
   const { user } = useAuth();
   const [providers, setProviders] = useState<AIProviderConfig[]>(AI_PROVIDERS);
   const [selectedProvider, setSelectedProvider] = useState<AIProvider | null>(null);
@@ -51,7 +53,7 @@ export default function AIIntegrationsPage() {
         }
       } catch (err) {
         console.error('Error fetching AI configuration:', err);
-        setError('Failed to load AI configuration');
+        setError(t('failedToLoad'));
       } finally {
         setIsLoading(false);
       }
@@ -157,10 +159,8 @@ export default function AIIntegrationsPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className="text-3xl font-bold mb-2">AI Integrations</h1>
-        <p className="text-gray-400 mb-8">
-          Connect your AI providers to use AI features throughout the application.
-        </p>
+        <h1 className="text-3xl font-bold mb-2">{t('title')}</h1>
+        <p className="text-gray-400 mb-8">{t('description')}</p>
 
         {error && (
           <div className="bg-red-900 bg-opacity-20 border border-red-700 text-red-300 p-4 rounded-lg mb-6">

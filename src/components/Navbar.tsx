@@ -8,11 +8,14 @@ import { motion } from 'framer-motion';
 import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import LanguageSwitcher from './LanguageSwitcher';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const { user } = useAuth();
+  const t = useTranslations('navbar');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,19 +32,20 @@ export default function Navbar() {
   }, [scrolled]);
 
   const navigation = [
-    { name: 'Home', href: '/' },
-    { name: 'Services', href: '/#services' },
-    { name: 'Projects', href: '/#projects' },
-    { name: 'About', href: '/#about' },
-    { name: 'Contact', href: '/#contact' },
+    { name: t('home'), href: '/' },
+    { name: t('services'), href: '/#services' },
+    { name: t('projects'), href: '/#projects' },
+    { name: t('about'), href: '/#about' },
+    { name: t('contact'), href: '/#contact' },
   ];
 
   return (
     <Disclosure
       as="nav"
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled ? 'bg-gray-900/90 backdrop-blur-md shadow-lg' : 'bg-transparent'
-      }`}
+      className={`fixed w-full z-50 transition-all duration-300 ${scrolled
+        ? 'bg-gray-900/90 backdrop-blur-md shadow-lg'
+        : 'bg-transparent'
+        }`}
     >
       {({ open }) => (
         <>
@@ -75,32 +79,32 @@ export default function Navbar() {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className={`px-3 py-2 text-sm font-medium ${
-                      pathname === item.href ? 'text-indigo-400' : 'text-gray-300 hover:text-white'
-                    } transition-colors duration-300`}
+                    className={`px-3 py-2 text-sm font-medium ${pathname === item.href ? 'text-indigo-400' : 'text-gray-300 hover:text-white'
+                      } transition-colors duration-300`}
                   >
                     {item.name}
                   </Link>
                 ))}
+                <LanguageSwitcher />
                 {user ? (
                   <Link
                     href="/dashboard"
                     className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-300"
                   >
-                    Dashboard
+                    {t('dashboard')}
                   </Link>
                 ) : (
                   <Link
                     href="/login"
                     className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-300"
                   >
-                    Login
+                    {t('login')}
                   </Link>
                 )}
               </div>
               <div className="-mr-2 flex items-center sm:hidden">
                 <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white">
-                  <span className="sr-only">Open main menu</span>
+                  <span className="sr-only">{t('openMenu')}</span>
                   {open ? (
                     <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
                   ) : (
@@ -118,22 +122,24 @@ export default function Navbar() {
                   key={item.name}
                   as={Link}
                   href={item.href}
-                  className={`block px-3 py-2 rounded-md text-base font-medium ${
-                    pathname === item.href
-                      ? 'bg-gray-800 text-white'
-                      : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-                  }`}
+                  className={`block px-3 py-2 rounded-md text-base font-medium ${pathname === item.href
+                    ? 'bg-gray-800 text-white'
+                    : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                    }`}
                 >
                   {item.name}
                 </Disclosure.Button>
               ))}
+              <div className="px-3 py-2">
+                <LanguageSwitcher />
+              </div>
               {user ? (
                 <Disclosure.Button
                   as={Link}
                   href="/dashboard"
                   className="block w-full text-left px-3 py-2 rounded-md text-base font-medium bg-indigo-600 hover:bg-indigo-700 text-white"
                 >
-                  Dashboard
+                  {t('dashboard')}
                 </Disclosure.Button>
               ) : (
                 <Disclosure.Button
@@ -141,7 +147,7 @@ export default function Navbar() {
                   href="/login"
                   className="block w-full text-left px-3 py-2 rounded-md text-base font-medium bg-indigo-600 hover:bg-indigo-700 text-white"
                 >
-                  Login
+                  {t('login')}
                 </Disclosure.Button>
               )}
             </div>

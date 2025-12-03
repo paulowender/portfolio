@@ -15,10 +15,12 @@ import Button from '@/components/Button';
 import TagInput from '@/components/TagInput';
 import { ArrowUpTrayIcon, SparklesIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 export default function ProfilePage() {
   const { user } = useAuth();
   const router = useRouter();
+  const t = useTranslations('profilePage');
 
   const [formData, setFormData] = useState({
     name: '',
@@ -54,14 +56,14 @@ export default function ProfilePage() {
 
           if (error) {
             console.error('Error fetching profile:', error);
-            setError('Failed to load profile: ' + (error.message || 'Unknown error'));
+            setError(t('failedToLoad') + ': ' + (error.message || 'Unknown error'));
             setFetchLoading(false);
             return;
           }
 
           if (!data) {
             console.error('No profile data returned');
-            setError('Profile not found');
+            setError(t('profileNotFound'));
             setFetchLoading(false);
             return;
           }
@@ -146,12 +148,12 @@ export default function ProfilePage() {
 
   const improveBioWithAI = async () => {
     if (!formData.bio.trim()) {
-      setError('Please enter some text in your bio before improving it.');
+      setError(t('enterBioFirst'));
       return;
     }
 
     if (!selectedProvider) {
-      setError('Please select an AI provider first.');
+      setError(t('selectProviderFirst'));
       return;
     }
 
@@ -168,10 +170,10 @@ export default function ProfilePage() {
       );
 
       setFormData((prev) => ({ ...prev, bio: improvedBio }));
-      setSuccess('Bio improved successfully!');
+      setSuccess(t('bioImproved'));
     } catch (error: any) {
       console.error('Error improving bio:', error);
-      setError(error.message || 'Failed to improve bio. Please try again.');
+      setError(error.message || t('failedToImprove'));
     } finally {
       setImprovingBio(false);
     }
@@ -185,7 +187,7 @@ export default function ProfilePage() {
 
     try {
       if (!user) {
-        throw new Error('You must be logged in to update your profile');
+        throw new Error(t('loginRequired'));
       }
 
       // Skills are already filtered by the TagInput component
@@ -196,7 +198,7 @@ export default function ProfilePage() {
       if (imageFile) {
         const { url, error: uploadError } = await uploadProfileImage(imageFile, user.id);
         if (uploadError) {
-          throw new Error('Failed to upload profile image');
+          throw new Error(t('failedToUpload'));
         }
         if (url) {
           avatarUrl = url;
@@ -222,11 +224,11 @@ export default function ProfilePage() {
         throw error;
       }
 
-      setSuccess('Profile updated successfully!');
+      setSuccess(t('profileUpdated'));
       console.log('Profile updated successfully:', data);
     } catch (err: any) {
       console.error('Exception during profile update:', err);
-      setError(err.message || 'Failed to update profile');
+      setError(err.message || t('failedToUpdate'));
     } finally {
       setLoading(false);
     }
@@ -247,10 +249,8 @@ export default function ProfilePage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className="text-3xl font-bold mb-2">Personal Profile</h1>
-        <p className="text-gray-400 mb-8">
-          Update your personal information and skills that will be displayed on your portfolio.
-        </p>
+        <h1 className="text-3xl font-bold mb-2">{t('title')}</h1>
+        <p className="text-gray-400 mb-8">{t('description')}</p>
       </motion.div>
 
       {error && <div className="bg-red-900/50 text-red-200 p-4 rounded-md mb-6">{error}</div>}
@@ -269,7 +269,9 @@ export default function ProfilePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Profile Image */}
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-300 mb-2">Profile Image</label>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                {t('profileImage')}
+              </label>
               <div className="flex items-start space-x-6">
                 <div className="w-32 h-32 bg-gray-700 rounded-lg overflow-hidden flex items-center justify-center">
                   {imagePreview ? (
@@ -281,7 +283,7 @@ export default function ProfilePage() {
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <span className="text-gray-500">No image</span>
+                    <span className="text-gray-500">{t('noImage')}</span>
                   )}
                 </div>
                 <div className="flex-1">
@@ -289,7 +291,7 @@ export default function ProfilePage() {
                     <label className="cursor-pointer">
                       <span className="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-md text-white text-sm font-medium transition-colors">
                         <ArrowUpTrayIcon className="h-5 w-5 mr-2" />
-                        Upload Image
+                        {t('uploadImage')}
                       </span>
                       <input
                         type="file"
@@ -304,13 +306,11 @@ export default function ProfilePage() {
                         onClick={removeImage}
                         className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-md text-white text-sm font-medium transition-colors"
                       >
-                        Remove
+                        {t('remove')}
                       </button>
                     )}
                   </div>
-                  <p className="mt-2 text-sm text-gray-400">
-                    Recommended size: 400x400px. Max file size: 2MB.
-                  </p>
+                  <p className="mt-2 text-sm text-gray-400">{t('imageRecommendation')}</p>
                 </div>
               </div>
             </div>
@@ -318,7 +318,7 @@ export default function ProfilePage() {
             {/* Basic Information */}
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                Full Name
+                {t('fullName')}
               </label>
               <input
                 type="text"
@@ -333,7 +333,7 @@ export default function ProfilePage() {
 
             <div>
               <label htmlFor="title" className="block text-sm font-medium text-gray-300 mb-2">
-                Professional Title
+                {t('professionalTitle')}
               </label>
               <input
                 type="text"
@@ -341,7 +341,7 @@ export default function ProfilePage() {
                 name="title"
                 value={formData.title}
                 onChange={handleChange}
-                placeholder="e.g. Full Stack Developer"
+                placeholder={t('professionalTitlePlaceholder')}
                 className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
@@ -349,7 +349,7 @@ export default function ProfilePage() {
             <div className="md:col-span-2">
               <div className="flex justify-between items-center mb-2">
                 <label htmlFor="bio" className="block text-sm font-medium text-gray-300">
-                  Bio
+                  {t('bio')}
                 </label>
                 <div className="flex items-center space-x-2">
                   <select
@@ -358,11 +358,11 @@ export default function ProfilePage() {
                     className="bg-gray-700 border border-gray-600 text-white text-sm rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     disabled={improvingBio || aiProviders.length === 0}
                   >
-                    <option value="">Select AI Provider</option>
+                    <option value="">{t('selectAIProvider')}</option>
                     {aiProviders.map((p) => (
                       <option key={p.provider} value={p.provider} disabled={!p.isEnabled}>
                         {p.provider.charAt(0).toUpperCase() + p.provider.slice(1)}
-                        {!p.isEnabled && ' (disabled)'}
+                        {!p.isEnabled && ` (${t('disabled')})`}
                       </option>
                     ))}
                   </select>
@@ -380,12 +380,12 @@ export default function ProfilePage() {
                     {improvingBio ? (
                       <>
                         <div className="animate-spin h-4 w-4 mr-2 border-2 border-t-transparent border-white rounded-full"></div>
-                        Improving...
+                        {t('improving')}
                       </>
                     ) : (
                       <>
                         <SparklesIcon className="h-4 w-4 mr-1" />
-                        Improve with AI
+                        {t('improveWithAI')}
                       </>
                     )}
                   </button>
@@ -397,17 +397,15 @@ export default function ProfilePage() {
                 value={formData.bio}
                 onChange={handleChange}
                 rows={4}
-                placeholder="A brief description about yourself and your professional experience"
+                placeholder={t('bioPlaceholder')}
                 className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               ></textarea>
-              <p className="mt-1 text-xs text-gray-400">
-                Use the "Improve with AI" button to enhance your bio with professional language.
-              </p>
+              <p className="mt-1 text-xs text-gray-400">{t('improveWithAIHint')}</p>
             </div>
 
             <div>
               <label htmlFor="location" className="block text-sm font-medium text-gray-300 mb-2">
-                Location
+                {t('location')}
               </label>
               <input
                 type="text"
@@ -415,14 +413,14 @@ export default function ProfilePage() {
                 name="location"
                 value={formData.location}
                 onChange={handleChange}
-                placeholder="e.g. São Paulo, Brazil"
+                placeholder={t('locationPlaceholder')}
                 className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
 
             <div>
               <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-2">
-                Phone
+                {t('phone')}
               </label>
               <input
                 type="text"
@@ -430,7 +428,7 @@ export default function ProfilePage() {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                placeholder="e.g. +55 11 98765-4321"
+                placeholder={t('phonePlaceholder')}
                 className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
@@ -438,7 +436,7 @@ export default function ProfilePage() {
             {/* Social Links */}
             <div>
               <label htmlFor="website" className="block text-sm font-medium text-gray-300 mb-2">
-                Personal Website
+                {t('personalWebsite')}
               </label>
               <input
                 type="url"
@@ -446,14 +444,14 @@ export default function ProfilePage() {
                 name="website"
                 value={formData.website}
                 onChange={handleChange}
-                placeholder="https://yourwebsite.com"
+                placeholder={t('websitePlaceholder')}
                 className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
 
             <div>
               <label htmlFor="linkedin" className="block text-sm font-medium text-gray-300 mb-2">
-                LinkedIn
+                {t('linkedin')}
               </label>
               <input
                 type="url"
@@ -461,14 +459,14 @@ export default function ProfilePage() {
                 name="linkedin"
                 value={formData.linkedin}
                 onChange={handleChange}
-                placeholder="https://linkedin.com/in/yourusername"
+                placeholder={t('linkedinPlaceholder')}
                 className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
 
             <div>
               <label htmlFor="github" className="block text-sm font-medium text-gray-300 mb-2">
-                GitHub
+                {t('github')}
               </label>
               <input
                 type="url"
@@ -476,14 +474,14 @@ export default function ProfilePage() {
                 name="github"
                 value={formData.github}
                 onChange={handleChange}
-                placeholder="https://github.com/yourusername"
+                placeholder={t('githubPlaceholder')}
                 className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
 
             <div>
               <label htmlFor="twitter" className="block text-sm font-medium text-gray-300 mb-2">
-                Twitter/X
+                {t('twitter')}
               </label>
               <input
                 type="url"
@@ -491,22 +489,20 @@ export default function ProfilePage() {
                 name="twitter"
                 value={formData.twitter}
                 onChange={handleChange}
-                placeholder="https://twitter.com/yourusername"
+                placeholder={t('twitterPlaceholder')}
                 className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
 
             {/* Skills */}
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-300 mb-2">Skills</label>
+              <label className="block text-sm font-medium text-gray-300 mb-2">{t('skills')}</label>
               <TagInput
                 value={formData.skills}
                 onChange={handleSkillsChange}
-                placeholder="Type a skill and press Enter (e.g., React, Node.js, TypeScript)"
+                placeholder={t('skillsPlaceholder')}
               />
-              <p className="mt-1 text-xs text-gray-400">
-                Type a skill and press Enter to add it. Click the X to remove.
-              </p>
+              <p className="mt-1 text-xs text-gray-400">{t('skillsHint')}</p>
             </div>
           </div>
 
@@ -517,16 +513,16 @@ export default function ProfilePage() {
               onClick={() => router.push('/dashboard')}
               disabled={loading}
             >
-              Cancel
+              {t('cancel')}
             </Button>
             <Button type="submit">
               {loading ? (
                 <div className="flex items-center">
                   <div className="animate-spin mr-2 h-4 w-4 border-t-2 border-b-2 border-white rounded-full"></div>
-                  Saving...
+                  {t('saving')}
                 </div>
               ) : (
-                'Save Changes'
+                t('saveChanges')
               )}
             </Button>
           </div>

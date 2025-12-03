@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { FaEnvelope, FaLock, FaUser } from 'react-icons/fa';
 import Button from '@/components/Button';
 import { useAuth } from '@/lib/AuthContext';
+import { useTranslations } from 'next-intl';
 
 export default function LoginPage() {
   const [isLogin, setIsLogin] = useState(true);
@@ -18,6 +19,7 @@ export default function LoginPage() {
 
   const router = useRouter();
   const { signIn, signUp } = useAuth();
+  const t = useTranslations('login');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -53,15 +55,15 @@ export default function LoginPage() {
             <h2 className="text-3xl font-extrabold text-white">Wender Tech</h2>
           </Link>
           <h2 className="mt-6 text-3xl font-bold text-white">
-            {isLogin ? 'Sign in to your account' : 'Create a new account'}
+            {isLogin ? t('signInTitle') : t('signUpTitle')}
           </h2>
           <p className="mt-2 text-sm text-gray-400">
-            {isLogin ? "Don't have an account? " : 'Already have an account? '}
+            {isLogin ? t('noAccount') : t('hasAccount')}
             <button
               onClick={() => setIsLogin(!isLogin)}
               className="font-medium text-indigo-400 hover:text-indigo-300 transition-colors"
             >
-              {isLogin ? 'Sign up' : 'Sign in'}
+              {isLogin ? t('signUp') : t('signIn')}
             </button>
           </p>
         </motion.div>
@@ -80,7 +82,7 @@ export default function LoginPage() {
             {!isLogin && (
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-300">
-                  Name
+                  {t('name')}
                 </label>
                 <div className="mt-1 relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -94,7 +96,7 @@ export default function LoginPage() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className="block w-full pl-10 pr-3 py-2 border border-gray-600 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    placeholder="Your name"
+                    placeholder={t('namePlaceholder')}
                   />
                 </div>
               </div>
@@ -102,7 +104,7 @@ export default function LoginPage() {
 
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-300">
-                Email address
+                {t('email')}
               </label>
               <div className="mt-1 relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -117,7 +119,7 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="block w-full pl-10 pr-3 py-2 border border-gray-600 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                  placeholder="Email address"
+                  placeholder={t('emailPlaceholder')}
                 />
               </div>
             </div>
@@ -125,7 +127,7 @@ export default function LoginPage() {
             <div>
               <div className="flex items-center justify-between">
                 <label htmlFor="password" className="block text-sm font-medium text-gray-300">
-                  Password
+                  {t('password')}
                 </label>
                 {isLogin && (
                   <div className="text-sm">
@@ -133,7 +135,7 @@ export default function LoginPage() {
                       href="/forgot-password"
                       className="font-medium text-indigo-400 hover:text-indigo-300 transition-colors"
                     >
-                      Forgot your password?
+                      {t('forgotPassword')}
                     </Link>
                   </div>
                 )}
@@ -151,14 +153,14 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="block w-full pl-10 pr-3 py-2 border border-gray-600 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                  placeholder="Password"
+                  placeholder={t('passwordPlaceholder')}
                 />
               </div>
             </div>
 
             <div>
               <Button type="submit" className="w-full" isLoading={loading}>
-                {isLogin ? 'Sign in' : 'Sign up'}
+                {isLogin ? t('signIn') : t('signUp')}
               </Button>
             </div>
           </form>
@@ -169,7 +171,7 @@ export default function LoginPage() {
                 <div className="w-full border-t border-gray-600"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-gray-800 text-gray-400">Or continue with</span>
+                <span className="px-2 bg-gray-800 text-gray-400">{t('orContinueWith')}</span>
               </div>
             </div>
 
@@ -178,7 +180,7 @@ export default function LoginPage() {
                 type="button"
                 className="w-full inline-flex justify-center py-2 px-4 border border-gray-600 rounded-md shadow-sm bg-gray-700 text-sm font-medium text-gray-300 hover:bg-gray-600"
               >
-                <span className="sr-only">Sign in with Google</span>
+                <span className="sr-only">{t('signInWithGoogle')}</span>
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12.545 10.239v3.821h5.445c-0.712 2.315-2.647 3.972-5.445 3.972-3.332 0-6.033-2.701-6.033-6.032s2.701-6.032 6.033-6.032c1.498 0 2.866 0.549 3.921 1.453l2.814-2.814c-1.798-1.677-4.198-2.701-6.735-2.701-5.539 0-10.032 4.493-10.032 10.032s4.493 10.032 10.032 10.032c8.445 0 10.452-7.888 9.629-11.732h-9.629z" />
                 </svg>
@@ -187,7 +189,7 @@ export default function LoginPage() {
                 type="button"
                 className="w-full inline-flex justify-center py-2 px-4 border border-gray-600 rounded-md shadow-sm bg-gray-700 text-sm font-medium text-gray-300 hover:bg-gray-600"
               >
-                <span className="sr-only">Sign in with GitHub</span>
+                <span className="sr-only">{t('signInWithGitHub')}</span>
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                   <path
                     fillRule="evenodd"

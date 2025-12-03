@@ -6,9 +6,11 @@ import Button from '@/components/Button';
 import ParallaxSection from '@/components/ParallaxSection';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 export default function AboutSection() {
   const { portfolioData, loading } = usePortfolio();
+  const t = useTranslations('about');
 
   return (
     <ParallaxSection bgImage="/images/about-bg.jpg" className="py-20" id="about">
@@ -30,32 +32,30 @@ export default function AboutSection() {
             ) : (
               <>
                 <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-                  Sobre a {portfolioData?.company?.name || 'Wender Tech'}
+                  {t('title', { company: portfolioData?.company?.name || 'Wender Tech' })}
                 </h2>
                 <p className="text-gray-300 mb-4">
-                  {portfolioData?.company?.description ||
-                    'Somos uma empresa especializada em desenvolvimento de software, focada em criar soluções digitais de alta qualidade para empresas e startups.'}
+                  {portfolioData?.company?.description || t('defaultDescription')}
                 </p>
                 {portfolioData?.company?.mission && (
                   <p className="text-gray-300 mb-4">
-                    <span className="font-bold">Nossa Missão:</span> {portfolioData.company.mission}
+                    <span className="font-bold">{t('mission')}:</span> {portfolioData.company.mission}
                   </p>
                 )}
                 {portfolioData?.company?.vision && (
                   <p className="text-gray-300 mb-4">
-                    <span className="font-bold">Nossa Visão:</span> {portfolioData.company.vision}
+                    <span className="font-bold">{t('vision')}:</span> {portfolioData.company.vision}
                   </p>
                 )}
                 <p className="text-gray-300 mb-6">
                   {portfolioData?.company?.founded &&
-                    `Fundada em ${portfolioData.company.founded}, a`}{' '}
-                  {portfolioData?.company?.name || 'Wender Tech'} tem se destacado no mercado por
-                  entregar projetos de qualidade, dentro do prazo e com excelente custo-benefício.
+                    t('foundedIn', { year: portfolioData.company.founded })}{' '}
+                  {t('companyHighlight', { company: portfolioData?.company?.name || 'Wender Tech' })}
                 </p>
               </>
             )}
             <Button>
-              <Link href="/#contact">Entre em Contato</Link>
+              <Link href="/#contact">{t('contactUs')}</Link>
             </Button>
           </motion.div>
 
@@ -70,7 +70,7 @@ export default function AboutSection() {
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent z-10"></div>
             {loading || !portfolioData?.company?.logo ? (
               <div className="w-full h-full bg-gray-700 flex items-center justify-center animate-pulse">
-                <span className="text-gray-500">Logo da Empresa</span>
+                <span className="text-gray-500">{t('companyLogo')}</span>
               </div>
             ) : (
               <div className="w-full h-full bg-gray-900 flex items-center justify-center">

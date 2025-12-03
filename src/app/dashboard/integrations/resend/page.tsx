@@ -5,8 +5,10 @@ import { useAuth } from '@/lib/AuthContext';
 import ResendProviderCard from '@/components/messaging/ResendProviderCard';
 import { motion } from 'framer-motion';
 import axiosClient from '@/lib/axios-client';
+import { useTranslations } from 'next-intl';
 
 export default function ResendIntegrationPage() {
+  const t = useTranslations('resendPage');
   const { user } = useAuth();
   const [apiKey, setApiKey] = useState('');
   const [fromEmail, setFromEmail] = useState('');
@@ -21,7 +23,7 @@ export default function ResendIntegrationPage() {
 
       try {
         const response = await axiosClient.get('/api/resend/config');
-        
+
         if (response.status === 200) {
           const { config } = response.data;
           setApiKey(config.apiKey || '');
@@ -31,7 +33,7 @@ export default function ResendIntegrationPage() {
         }
       } catch (err) {
         console.error('Error fetching Resend configuration:', err);
-        setError('Failed to load Resend configuration');
+        setError(t('failedToLoad'));
       } finally {
         setIsLoading(false);
       }
@@ -100,10 +102,8 @@ export default function ResendIntegrationPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className="text-3xl font-bold mb-2">Email Integration with Resend</h1>
-        <p className="text-gray-400 mb-8">
-          Connect to Resend for sending transactional emails with high deliverability.
-        </p>
+        <h1 className="text-3xl font-bold mb-2">{t('title')}</h1>
+        <p className="text-gray-400 mb-8">{t('description')}</p>
 
         {error && (
           <div className="bg-red-900 bg-opacity-20 border border-red-700 text-red-300 p-4 rounded-lg mb-6">

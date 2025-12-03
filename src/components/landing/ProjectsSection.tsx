@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { usePortfolio } from '@/components/PortfolioData';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 interface ProjectsSectionProps {
   innerRef?: React.RefObject<HTMLElement | null>;
@@ -10,6 +11,8 @@ interface ProjectsSectionProps {
 
 export default function ProjectsSection({ innerRef }: ProjectsSectionProps) {
   const { portfolioData, loading } = usePortfolio();
+  const t = useTranslations('projects');
+  const tCommon = useTranslations('common');
 
   const featuredProjects = portfolioData?.featuredProjects?.toReversed() || [];
 
@@ -23,11 +26,8 @@ export default function ProjectsSection({ innerRef }: ProjectsSectionProps) {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">Projetos em Destaque</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            Conheça alguns dos nossos projetos recentes. Cada projeto representa um desafio único e
-            uma solução personalizada.
-          </p>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4">{t('title')}</h2>
+          <p className="text-gray-400 max-w-2xl mx-auto">{t('description')}</p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -74,7 +74,7 @@ export default function ProjectsSection({ innerRef }: ProjectsSectionProps) {
                     />
                   ) : (
                     <div className="flex items-center justify-center h-full">
-                      <span className="text-gray-500">Sem imagem</span>
+                      <span className="text-gray-500">{tCommon('noImage')}</span>
                     </div>
                   )}
                 </div>
@@ -108,7 +108,7 @@ export default function ProjectsSection({ innerRef }: ProjectsSectionProps) {
                         rel="noopener noreferrer"
                         className="text-indigo-400 hover:text-indigo-300 text-sm"
                       >
-                        Acessar
+                        {t('viewLive')}
                       </a>
                     )}
                     {project.githubUrl && (
@@ -118,7 +118,7 @@ export default function ProjectsSection({ innerRef }: ProjectsSectionProps) {
                         rel="noopener noreferrer"
                         className="text-indigo-400 hover:text-indigo-300 text-sm"
                       >
-                        GitHub
+                        {t('viewCode')}
                       </a>
                     )}
                   </div>
@@ -127,7 +127,7 @@ export default function ProjectsSection({ innerRef }: ProjectsSectionProps) {
             ))
           ) : (
             <div className="col-span-3 text-center py-12">
-              <p className="text-gray-400">Nenhum projeto em destaque no momento.</p>
+              <p className="text-gray-400">{t('noProjects')}</p>
             </div>
           )}
         </div>

@@ -9,8 +9,10 @@ import { uploadProjectImage } from '@/lib/projects';
 import Button from '@/components/Button';
 import { XMarkIcon, ArrowUpTrayIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 export default function NewProjectPage() {
+  const t = useTranslations('newProjectPage');
   const { user } = useAuth();
   const router = useRouter();
 
@@ -70,7 +72,7 @@ export default function NewProjectPage() {
     e.preventDefault();
 
     if (!user) {
-      setError('You must be logged in to create a project');
+      setError(t('loginRequired'));
       return;
     }
 
@@ -87,7 +89,7 @@ export default function NewProjectPage() {
       if (imageFile) {
         const { url, error: uploadError } = await uploadProjectImage(imageFile, user.id);
         if (uploadError) {
-          throw new Error('Failed to upload image');
+          throw new Error(t('failedToUpload'));
         }
         imageUrl = url;
       }
@@ -110,7 +112,7 @@ export default function NewProjectPage() {
 
       router.push('/dashboard/projects');
     } catch (err: any) {
-      setError(err.message || 'Failed to create project');
+      setError(err.message || t('failedToCreate'));
     } finally {
       setLoading(false);
     }
@@ -124,8 +126,8 @@ export default function NewProjectPage() {
         transition={{ duration: 0.5 }}
         className="mb-8"
       >
-        <h1 className="text-3xl font-bold mb-2">Add New Project</h1>
-        <p className="text-gray-400">Create a new project to showcase in your portfolio.</p>
+        <h1 className="text-3xl font-bold mb-2">{t('title')}</h1>
+        <p className="text-gray-400">{t('description')}</p>
       </motion.div>
 
       {error && <div className="mb-6 bg-red-900/50 text-red-200 p-4 rounded-md">{error}</div>}
@@ -139,7 +141,7 @@ export default function NewProjectPage() {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label htmlFor="title" className="block text-sm font-medium text-gray-300 mb-1">
-              Project Title *
+              {t('projectTitle')} *
             </label>
             <input
               type="text"
@@ -154,7 +156,7 @@ export default function NewProjectPage() {
 
           <div>
             <label htmlFor="description" className="block text-sm font-medium text-gray-300 mb-1">
-              Description *
+              {t('projectDescription')} *
             </label>
             <textarea
               id="description"
@@ -168,7 +170,7 @@ export default function NewProjectPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">Technologies *</label>
+            <label className="block text-sm font-medium text-gray-300 mb-1">{t('technologies')} *</label>
             <div className="space-y-2">
               {formData.technologies.map((tech, index) => (
                 <div key={index} className="flex gap-2">
@@ -176,7 +178,7 @@ export default function NewProjectPage() {
                     type="text"
                     value={tech}
                     onChange={(e) => handleTechChange(index, e.target.value)}
-                    placeholder="e.g., React, Node.js, etc."
+                    placeholder={t('techPlaceholder')}
                     className="flex-1 px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   />
                   {formData.technologies.length > 1 && (
@@ -195,7 +197,7 @@ export default function NewProjectPage() {
                 onClick={addTech}
                 className="text-indigo-400 hover:text-indigo-300 text-sm font-medium"
               >
-                + Add Technology
+                {t('addTechnology')}
               </button>
             </div>
           </div>
@@ -203,7 +205,7 @@ export default function NewProjectPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label htmlFor="github_url" className="block text-sm font-medium text-gray-300 mb-1">
-                GitHub URL
+                {t('githubUrl')}
               </label>
               <input
                 type="url"
@@ -211,14 +213,14 @@ export default function NewProjectPage() {
                 name="github_url"
                 value={formData.github_url}
                 onChange={handleChange}
-                placeholder="https://github.com/username/repo"
+                placeholder={t('githubPlaceholder')}
                 className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
 
             <div>
               <label htmlFor="live_url" className="block text-sm font-medium text-gray-300 mb-1">
-                Live URL
+                {t('liveUrl')}
               </label>
               <input
                 type="url"
@@ -226,14 +228,14 @@ export default function NewProjectPage() {
                 name="live_url"
                 value={formData.live_url}
                 onChange={handleChange}
-                placeholder="https://example.com"
+                placeholder={t('livePlaceholder')}
                 className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">Project Image</label>
+            <label className="block text-sm font-medium text-gray-300 mb-1">{t('projectImage')}</label>
             <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-600 border-dashed rounded-md">
               {imagePreview ? (
                 <div className="space-y-2 text-center">
@@ -252,7 +254,7 @@ export default function NewProjectPage() {
                     }}
                     className="text-red-400 hover:text-red-300 text-sm font-medium"
                   >
-                    Remove Image
+                    {t('removeImage')}
                   </button>
                 </div>
               ) : (
@@ -263,7 +265,7 @@ export default function NewProjectPage() {
                       htmlFor="image"
                       className="relative cursor-pointer bg-gray-700 rounded-md font-medium text-indigo-400 hover:text-indigo-300 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                     >
-                      <span className="px-2 py-1">Upload a file</span>
+                      <span className="px-2 py-1">{t('uploadFile')}</span>
                       <input
                         id="image"
                         name="image"
@@ -273,9 +275,9 @@ export default function NewProjectPage() {
                         className="sr-only"
                       />
                     </label>
-                    <p className="pl-1">or drag and drop</p>
+                    <p className="pl-1">{t('orDragDrop')}</p>
                   </div>
-                  <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                  <p className="text-xs text-gray-500">{t('imageFormats')}</p>
                 </div>
               )}
             </div>
@@ -291,7 +293,7 @@ export default function NewProjectPage() {
               className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-600 rounded bg-gray-700"
             />
             <label htmlFor="featured" className="ml-2 block text-sm text-gray-300">
-              Feature this project on your portfolio homepage
+              {t('featuredProject')}
             </label>
           </div>
 
@@ -301,10 +303,10 @@ export default function NewProjectPage() {
               variant="ghost"
               onClick={() => router.push('/dashboard/projects')}
             >
-              Cancel
+              {t('cancel')}
             </Button>
             <Button type="submit" isLoading={loading}>
-              Create Project
+              {t('createProject')}
             </Button>
           </div>
         </form>

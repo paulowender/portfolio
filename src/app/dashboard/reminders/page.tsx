@@ -11,9 +11,11 @@ import { ReminderFilters as FilterOptions } from '@/components/reminders/Reminde
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useToast } from '@/components/ui/use-toast';
+import { useTranslations } from 'next-intl';
 
 export default function RemindersPage() {
   const { toast } = useToast();
+  const t = useTranslations('remindersPage');
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [selectedReminder, setSelectedReminder] = useState<Reminder | undefined>(undefined);
   const [filters, setFilters] = useState<FilterOptions>({
@@ -83,12 +85,12 @@ export default function RemindersPage() {
   useEffect(() => {
     if (error) {
       toast({
-        title: 'Erro',
-        description: 'Ocorreu um erro ao carregar os lembretes. Tente novamente.',
+        title: t('error'),
+        description: t('errorLoading'),
         variant: 'destructive',
       });
     }
-  }, [error, toast]);
+  }, [error, toast, t]);
 
   return (
     <div>
@@ -100,13 +102,13 @@ export default function RemindersPage() {
       >
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
           <div>
-            <h1 className="text-3xl font-bold mb-2">Lembretes</h1>
-            <p className="text-gray-400">Gerencie lembretes para datas e prazos importantes.</p>
+            <h1 className="text-3xl font-bold mb-2">{t('title')}</h1>
+            <p className="text-gray-400">{t('description')}</p>
           </div>
 
           <Button onClick={handleAddReminder} className="flex items-center gap-2">
             <PlusIcon className="h-5 w-5" />
-            <span>Novo Lembrete</span>
+            <span>{t('newReminder')}</span>
           </Button>
         </div>
 
@@ -149,17 +151,17 @@ export default function RemindersPage() {
             <div className="bg-yellow-600/20 p-4 rounded-full inline-block mb-6">
               <BellIcon className="h-12 w-12 text-yellow-400" />
             </div>
-            <h2 className="text-2xl font-bold mb-4">Nenhum lembrete encontrado</h2>
+            <h2 className="text-2xl font-bold mb-4">{t('noRemindersFound')}</h2>
             <p className="text-gray-400 max-w-md mx-auto mb-6">
               {filters.search ||
-              filters.categories.length > 0 ||
-              filters.priorities.length > 0 ||
-              filters.completed !== null ||
-              filters.upcoming
-                ? 'Nenhum lembrete corresponde aos filtros selecionados.'
-                : 'Você ainda não tem lembretes. Crie um novo lembrete para começar a gerenciar suas tarefas e prazos.'}
+                filters.categories.length > 0 ||
+                filters.priorities.length > 0 ||
+                filters.completed !== null ||
+                filters.upcoming
+                ? t('noRemindersFiltered')
+                : t('noRemindersYet')}
             </p>
-            <Button onClick={handleAddReminder}>Criar Lembrete</Button>
+            <Button onClick={handleAddReminder}>{t('createReminder')}</Button>
           </motion.div>
         )}
       </motion.div>

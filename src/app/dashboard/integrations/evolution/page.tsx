@@ -7,8 +7,10 @@ import EvolutionProviderCard from '@/components/messaging/EvolutionProviderCard'
 import { motion } from 'framer-motion';
 import axiosClient from '@/lib/axios-client';
 import EvolutionInstanceManager from '@/components/messaging/EvolutionInstanceManager';
+import { useTranslations } from 'next-intl';
 
 export default function EvolutionIntegrationPage() {
+  const t = useTranslations('evolutionPage');
   const { user } = useAuth();
   const [apiKey, setApiKey] = useState('');
   const [baseUrl, setBaseUrl] = useState('');
@@ -49,7 +51,7 @@ export default function EvolutionIntegrationPage() {
         }
       } catch (err) {
         console.error('Error fetching Evolution API configuration:', err);
-        setError('Failed to load Evolution API configuration');
+        setError(t('failedToLoad'));
       } finally {
         setIsLoading(false);
       }
@@ -220,10 +222,8 @@ export default function EvolutionIntegrationPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className="text-3xl font-bold mb-2">WhatsApp Messaging Integration</h1>
-        <p className="text-gray-400 mb-8">
-          Connect to WhatsApp via Evolution API v2 for client communication and automation.
-        </p>
+        <h1 className="text-3xl font-bold mb-2">{t('title')}</h1>
+        <p className="text-gray-400 mb-8">{t('description')}</p>
 
         {error && (
           <div className="bg-red-900 bg-opacity-20 border border-red-700 text-red-300 p-4 rounded-lg mb-6">

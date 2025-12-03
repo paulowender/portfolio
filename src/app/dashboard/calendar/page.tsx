@@ -2,8 +2,11 @@
 
 import { motion } from 'framer-motion';
 import { CalendarIcon } from '@heroicons/react/24/outline';
+import { useTranslations } from 'next-intl';
 
 export default function CalendarPage() {
+  const t = useTranslations('calendarPage');
+
   return (
     <div>
       <motion.div
@@ -12,12 +15,10 @@ export default function CalendarPage() {
         transition={{ duration: 0.5 }}
         className="mb-8"
       >
-        <h1 className="text-3xl font-bold mb-2">Calendar</h1>
-        <p className="text-gray-400">
-          Manage your appointments and schedule.
-        </p>
+        <h1 className="text-3xl font-bold mb-2">{t('title')}</h1>
+        <p className="text-gray-400">{t('description')}</p>
       </motion.div>
-      
+
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -27,10 +28,8 @@ export default function CalendarPage() {
         <div className="bg-indigo-600/20 p-4 rounded-full inline-block mb-6">
           <CalendarIcon className="h-12 w-12 text-indigo-400" />
         </div>
-        <h2 className="text-2xl font-bold mb-4">Coming Soon</h2>
-        <p className="text-gray-400 max-w-md mx-auto">
-          The calendar feature is currently under development. Soon you'll be able to manage your appointments, set reminders, and sync with external calendars.
-        </p>
+        <h2 className="text-2xl font-bold mb-4">{t('comingSoon')}</h2>
+        <p className="text-gray-400 max-w-md mx-auto">{t('comingSoonDescription')}</p>
       </motion.div>
     </div>
   );
