@@ -2,9 +2,11 @@
 
 import Link from 'next/link';
 import { FaGithub, FaTwitter, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import { useTranslations } from 'next-intl';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const t = useTranslations('footer');
 
   return (
     <footer className="bg-gray-900 text-white">
@@ -12,18 +14,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <h3 className="text-xl font-bold mb-4">Wender Tech</h3>
-            <p className="text-gray-400">
-              Desenvolvimento de soluções digitais de alta qualidade para empresas e startups.
-              Especialistas em aplicações web e mobile com foco em resultados.
-            </p>
+            <p className="text-gray-400">{t('description')}</p>
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('quickLinks')}</h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/" className="text-gray-400 hover:text-white transition-colors">
-                  Home
+                  {t('home')}
                 </Link>
               </li>
               <li>
@@ -31,29 +30,29 @@ export default function Footer() {
                   href="/#projects"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
-                  Projects
+                  {t('projects')}
                 </Link>
               </li>
               <li>
                 <Link href="/#about" className="text-gray-400 hover:text-white transition-colors">
-                  About
+                  {t('about')}
                 </Link>
               </li>
               <li>
                 <Link href="/#contact" className="text-gray-400 hover:text-white transition-colors">
-                  Contact
+                  {t('contact')}
                 </Link>
               </li>
               <li>
                 <Link href="/login" className="text-gray-400 hover:text-white transition-colors">
-                  Login
+                  {t('login')}
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-4">Connect</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('connect')}</h3>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
                 <FaGithub className="h-6 w-6" />
@@ -76,7 +75,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">
-          <p>&copy; {currentYear} Wender Tech. All rights reserved.</p>
+          <p>{t('copyright', { year: currentYear })}</p>
         </div>
       </div>
     </footer>

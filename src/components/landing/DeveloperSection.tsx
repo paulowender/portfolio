@@ -4,9 +4,11 @@ import { motion } from 'framer-motion';
 import { usePortfolio } from '@/components/PortfolioData';
 import { FaLinkedin, FaGithub, FaTwitter, FaGlobe } from 'react-icons/fa';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 export default function DeveloperSection() {
   const { portfolioData, loading } = usePortfolio();
+  const t = useTranslations('developer');
 
   return (
     <section id="developer" className="py-20 bg-gray-800">
@@ -18,9 +20,9 @@ export default function DeveloperSection() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">Conheça o Desenvolvedor</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4">{t('title')}</h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            A pessoa por trás dos projetos da {portfolioData?.company?.name || 'Wender Tech'}
+            {t('subtitle', { company: portfolioData?.company?.name || 'Wender Tech' })}
           </p>
         </motion.div>
 
@@ -64,44 +66,43 @@ export default function DeveloperSection() {
               <>
                 <h3 className="text-2xl font-bold mb-2">{portfolioData?.user?.name || 'Wender'}</h3>
                 <p className="text-indigo-400 text-xl mb-6">
-                  {portfolioData?.user?.title || 'Desenvolvedor Full Stack'}
+                  {portfolioData?.user?.title || t('defaultTitle')}
                 </p>
                 <p className="text-gray-300 mb-6">
-                  {portfolioData?.user?.bio ||
-                    'Desenvolvedor apaixonado por criar soluções digitais de alta qualidade. Com experiência em desenvolvimento web e mobile, estou sempre em busca de novos desafios e aprendizados.'}
+                  {portfolioData?.user?.bio || t('defaultBio')}
                 </p>
               </>
             )}
 
             <div className="mb-8">
-              <h4 className="text-lg font-semibold mb-3">Habilidades</h4>
+              <h4 className="text-lg font-semibold mb-3">{t('skills')}</h4>
               <div className="flex flex-wrap gap-2">
                 {loading
                   ? Array(6)
-                      .fill(0)
-                      .map((_, index) => (
-                        <div
-                          key={index}
-                          className="px-3 py-1 bg-gray-700 animate-pulse rounded-full w-20 h-8"
-                        ></div>
-                      ))
-                  : (
-                      portfolioData?.user?.skills || [
-                        'React',
-                        'Next.js',
-                        'Node.js',
-                        'TypeScript',
-                        'Tailwind CSS',
-                        'MongoDB',
-                      ]
-                    ).map((skill, index) => (
-                      <span
+                    .fill(0)
+                    .map((_, index) => (
+                      <div
                         key={index}
-                        className="px-3 py-1 bg-indigo-900/50 text-indigo-300 rounded-full"
-                      >
-                        {skill}
-                      </span>
-                    ))}
+                        className="px-3 py-1 bg-gray-700 animate-pulse rounded-full w-20 h-8"
+                      ></div>
+                    ))
+                  : (
+                    portfolioData?.user?.skills || [
+                      'React',
+                      'Next.js',
+                      'Node.js',
+                      'TypeScript',
+                      'Tailwind CSS',
+                      'MongoDB',
+                    ]
+                  ).map((skill, index) => (
+                    <span
+                      key={index}
+                      className="px-3 py-1 bg-indigo-900/50 text-indigo-300 rounded-full"
+                    >
+                      {skill}
+                    </span>
+                  ))}
               </div>
             </div>
 

@@ -5,9 +5,11 @@ import { motion } from 'framer-motion';
 import { usePortfolio } from '@/components/PortfolioData';
 import Button from '@/components/Button';
 import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaGlobe } from 'react-icons/fa';
+import { useTranslations } from 'next-intl';
 
 export default function ContactSection() {
   const { portfolioData, loading } = usePortfolio();
+  const t = useTranslations('contact');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -79,7 +81,7 @@ export default function ContactSection() {
       setFormStatus({
         submitted: true,
         success: false,
-        message: 'Erro ao enviar mensagem. Por favor, tente novamente mais tarde.',
+        message: t('errorMessage'),
       });
     } finally {
       setSubmitting(false);
@@ -96,11 +98,8 @@ export default function ContactSection() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">Entre em Contato</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            Tem um projeto em mente? Vamos conversar sobre como podemos ajudar a transformar suas
-            ideias em realidade.
-          </p>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4">{t('title')}</h2>
+          <p className="text-gray-400 max-w-2xl mx-auto">{t('description')}</p>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -112,7 +111,7 @@ export default function ContactSection() {
             className="lg:col-span-1"
           >
             <div className="bg-gray-800 rounded-lg p-8">
-              <h3 className="text-2xl font-bold mb-6">Informações de Contato</h3>
+              <h3 className="text-2xl font-bold mb-6">{t('contactInfo')}</h3>
 
               <div className="space-y-6">
                 <div className="flex items-start">
@@ -120,12 +119,12 @@ export default function ContactSection() {
                     <FaMapMarkerAlt className="h-6 w-6 text-indigo-400" />
                   </div>
                   <div>
-                    <h4 className="text-lg font-medium mb-1">Endereço</h4>
+                    <h4 className="text-lg font-medium mb-1">{t('address')}</h4>
                     {loading ? (
                       <div className="h-6 bg-gray-700 animate-pulse rounded w-full"></div>
                     ) : (
                       <p className="text-gray-400">
-                        {portfolioData?.company?.address || 'Endereço não informado'}
+                        {portfolioData?.company?.address || t('addressNotProvided')}
                       </p>
                     )}
                   </div>
@@ -136,12 +135,12 @@ export default function ContactSection() {
                     <FaPhone className="h-6 w-6 text-indigo-400" />
                   </div>
                   <div>
-                    <h4 className="text-lg font-medium mb-1">Telefone</h4>
+                    <h4 className="text-lg font-medium mb-1">{t('phone')}</h4>
                     {loading ? (
                       <div className="h-6 bg-gray-700 animate-pulse rounded w-full"></div>
                     ) : (
                       <p className="text-gray-400">
-                        {portfolioData?.company?.phone || 'Telefone não informado'}
+                        {portfolioData?.company?.phone || t('phoneNotProvided')}
                       </p>
                     )}
                   </div>
@@ -152,14 +151,14 @@ export default function ContactSection() {
                     <FaEnvelope className="h-6 w-6 text-indigo-400" />
                   </div>
                   <div>
-                    <h4 className="text-lg font-medium mb-1">Email</h4>
+                    <h4 className="text-lg font-medium mb-1">{t('email')}</h4>
                     {loading ? (
                       <div className="h-6 bg-gray-700 animate-pulse rounded w-full"></div>
                     ) : (
                       <p className="text-gray-400">
                         {portfolioData?.company?.email ||
                           portfolioData?.user?.email ||
-                          'Email não informado'}
+                          t('emailNotProvided')}
                       </p>
                     )}
                   </div>
@@ -170,7 +169,7 @@ export default function ContactSection() {
                     <FaGlobe className="h-6 w-6 text-indigo-400" />
                   </div>
                   <div>
-                    <h4 className="text-lg font-medium mb-1">Website</h4>
+                    <h4 className="text-lg font-medium mb-1">{t('website')}</h4>
                     {loading ? (
                       <div className="h-6 bg-gray-700 animate-pulse rounded w-full"></div>
                     ) : (
@@ -185,7 +184,7 @@ export default function ContactSection() {
                             {portfolioData.company.website}
                           </a>
                         ) : (
-                          'Website não informado'
+                          t('websiteNotProvided')
                         )}
                       </p>
                     )}
@@ -203,7 +202,7 @@ export default function ContactSection() {
             className="lg:col-span-2"
           >
             <div className="bg-gray-800 rounded-lg p-8">
-              <h3 className="text-2xl font-bold mb-6">Envie uma Mensagem</h3>
+              <h3 className="text-2xl font-bold mb-6">{t('sendMessage')}</h3>
 
               {formStatus.submitted ? (
                 <div
@@ -217,7 +216,7 @@ export default function ContactSection() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-1">
-                      Nome
+                      {t('name')}
                     </label>
                     <input
                       type="text"
@@ -232,7 +231,7 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
-                      Email
+                      {t('email')}
                     </label>
                     <input
                       type="email"
@@ -248,7 +247,7 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-1">
-                    Assunto
+                    {t('subject')}
                   </label>
                   <input
                     type="text"
@@ -263,7 +262,7 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-1">
-                    Mensagem
+                    {t('message')}
                   </label>
                   <textarea
                     id="message"
@@ -281,10 +280,10 @@ export default function ContactSection() {
                     {submitting ? (
                       <div className="flex items-center justify-center">
                         <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white mr-2"></div>
-                        Enviando...
+                        {t('sending')}
                       </div>
                     ) : (
-                      'Enviar Mensagem'
+                      t('sendButton')
                     )}
                   </Button>
                 </div>

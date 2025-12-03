@@ -6,6 +6,8 @@ import { PortfolioProvider } from '@/components/PortfolioData';
 import ReactQueryProvider from '@/lib/ReactQueryProvider';
 import { Toaster } from '@/components/ui/sonner';
 import { ThemeProvider } from '@/components/theme-provider';
+import { getLocale, getMessages } from 'next-intl/server';
+import I18nProvider from '@/i18n/provider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -23,13 +25,16 @@ export const metadata: Metadata = {
     'Desenvolvimento de aplicações web e mobile de alta qualidade para empresas e startups',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <head>
         <meta name="apple-mobile-web-app-title" content="WenderTech" />
       </head>
@@ -38,15 +43,17 @@ export default function RootLayout({
       >
         <ReactQueryProvider>
           <AuthProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <PortfolioProvider>{children}</PortfolioProvider>
-            </ThemeProvider>
-            <Toaster position="top-right" />
+            <I18nProvider locale={locale} messages={messages}>
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem
+                disableTransitionOnChange
+              >
+                <PortfolioProvider>{children}</PortfolioProvider>
+              </ThemeProvider>
+              <Toaster position="top-right" />
+            </I18nProvider>
           </AuthProvider>
         </ReactQueryProvider>
       </body>

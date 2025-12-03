@@ -5,6 +5,7 @@ import { usePortfolio } from '@/components/PortfolioData';
 import Button from '@/components/Button';
 import { FaArrowDown } from 'react-icons/fa';
 import ParallaxSection from '@/components/ParallaxSection';
+import { useTranslations } from 'next-intl';
 
 interface HeroSectionProps {
   scrollToProjects: () => void;
@@ -12,6 +13,7 @@ interface HeroSectionProps {
 
 export default function HeroSection({ scrollToProjects }: HeroSectionProps) {
   const { portfolioData, loading } = usePortfolio();
+  const t = useTranslations('hero');
 
   return (
     <ParallaxSection
@@ -36,14 +38,13 @@ export default function HeroSection({ scrollToProjects }: HeroSectionProps) {
                 {portfolioData?.company?.name || 'Wender Tech'}
               </h1>
               <p className="text-xl text-gray-300 mb-8">
-                {portfolioData?.company?.description ||
-                  'Desenvolvimento de soluções digitais de alta qualidade para empresas e startups. Especialistas em aplicações web e mobile com foco em resultados.'}
+                {portfolioData?.company?.description || t('defaultDescription')}
               </p>
             </>
           )}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" onClick={scrollToProjects}>
-              Ver Projetos
+              {t('viewProjects')}
             </Button>
             <Button
               size="lg"
@@ -52,7 +53,7 @@ export default function HeroSection({ scrollToProjects }: HeroSectionProps) {
                 document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
               }
             >
-              Fale Conosco
+              {t('contactUs')}
             </Button>
           </div>
         </motion.div>
