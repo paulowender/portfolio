@@ -332,15 +332,4 @@ export const AI_PROVIDERS: AIProviderConfig[] = [
     description:
       'Acesso a diversos modelos de IA através de uma única API, incluindo modelos gratuitos.',
   },
-  {
-    provider: 'evolution',
-    name: 'Evolution API',
-    apiKey: '',
-    isEnabled: false,
-    models: [],
-    baseUrl: 'https://api.example.com',
-    logoUrl: '/images/ai/evolution-logo.svg',
-    description:
-      'Integração com a Evolution API v2 para automação de WhatsApp e comunicação com clientes.',
-  },
 ];

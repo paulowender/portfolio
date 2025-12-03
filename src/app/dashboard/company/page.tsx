@@ -9,10 +9,12 @@ import { uploadCompanyLogo } from '@/lib/profile';
 import Button from '@/components/Button';
 import { ArrowUpTrayIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 export default function CompanyPage() {
   const { user } = useAuth();
   const router = useRouter();
+  const t = useTranslations('companyPage');
 
   const [formData, setFormData] = useState({
     name: '',
@@ -48,7 +50,7 @@ export default function CompanyPage() {
               setFetchLoading(false);
               return;
             }
-            setError('Failed to load company profile: ' + (error.message || 'Unknown error'));
+            setError(t('failedToLoad') + ': ' + (error.message || 'Unknown error'));
             setFetchLoading(false);
             return;
           }
@@ -135,7 +137,7 @@ export default function CompanyPage() {
 
     try {
       if (!user) {
-        throw new Error('You must be logged in to update company information');
+        throw new Error(t('loginRequired'));
       }
 
       // Filter out empty services
@@ -147,7 +149,7 @@ export default function CompanyPage() {
       if (logoFile) {
         const { url, error: uploadError } = await uploadCompanyLogo(logoFile, user.id);
         if (uploadError) {
-          throw new Error('Failed to upload company logo');
+          throw new Error(t('failedToUpload'));
         }
         if (url) {
           logoUrl = url;
@@ -173,11 +175,11 @@ export default function CompanyPage() {
         throw error;
       }
 
-      setSuccess('Company information updated successfully!');
+      setSuccess(t('companyUpdated'));
       console.log('Company profile updated successfully:', data);
     } catch (err: any) {
       console.error('Exception during company profile update:', err);
-      setError(err.message || 'Failed to update company information');
+      setError(err.message || t('failedToUpdate'));
     } finally {
       setLoading(false);
     }
@@ -198,10 +200,8 @@ export default function CompanyPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className="text-3xl font-bold mb-2">Company Profile</h1>
-        <p className="text-gray-400 mb-8">
-          Manage your company information that will be displayed on your portfolio.
-        </p>
+        <h1 className="text-3xl font-bold mb-2">{t('title')}</h1>
+        <p className="text-gray-400 mb-8">{t('description')}</p>
       </motion.div>
 
       {error && <div className="bg-red-900/50 text-red-200 p-4 rounded-md mb-6">{error}</div>}
@@ -220,7 +220,9 @@ export default function CompanyPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Company Logo */}
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-300 mb-2">Company Logo</label>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                {t('companyLogo')}
+              </label>
               <div className="flex items-start space-x-6">
                 <div className="w-32 h-32 bg-gray-700 rounded-lg overflow-hidden flex items-center justify-center">
                   {logoPreview ? (
@@ -232,7 +234,7 @@ export default function CompanyPage() {
                       className="w-full h-full object-contain"
                     />
                   ) : (
-                    <span className="text-gray-500">No logo</span>
+                    <span className="text-gray-500">{t('noLogo')}</span>
                   )}
                 </div>
                 <div className="flex-1">
@@ -240,7 +242,7 @@ export default function CompanyPage() {
                     <label className="cursor-pointer">
                       <span className="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-md text-white text-sm font-medium transition-colors">
                         <ArrowUpTrayIcon className="h-5 w-5 mr-2" />
-                        Upload Logo
+                        {t('uploadLogo')}
                       </span>
                       <input
                         type="file"
@@ -255,13 +257,11 @@ export default function CompanyPage() {
                         onClick={removeLogo}
                         className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-md text-white text-sm font-medium transition-colors"
                       >
-                        Remove
+                        {t('remove')}
                       </button>
                     )}
                   </div>
-                  <p className="mt-2 text-sm text-gray-400">
-                    Recommended size: 400x400px. Max file size: 2MB.
-                  </p>
+                  <p className="mt-2 text-sm text-gray-400">{t('imageRecommendation')}</p>
                 </div>
               </div>
             </div>
@@ -269,7 +269,7 @@ export default function CompanyPage() {
             {/* Basic Information */}
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                Company Name
+                {t('companyName')}
               </label>
               <input
                 type="text"
@@ -277,7 +277,7 @@ export default function CompanyPage() {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="e.g. Wender Tech"
+                placeholder={t('companyNamePlaceholder')}
                 className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 required
               />
@@ -285,7 +285,7 @@ export default function CompanyPage() {
 
             <div>
               <label htmlFor="founded" className="block text-sm font-medium text-gray-300 mb-2">
-                Founded Year
+                {t('foundedYear')}
               </label>
               <input
                 type="text"
@@ -293,14 +293,14 @@ export default function CompanyPage() {
                 name="founded"
                 value={formData.founded}
                 onChange={handleChange}
-                placeholder="e.g. 2020"
+                placeholder={t('foundedYearPlaceholder')}
                 className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
 
             <div className="md:col-span-2">
               <label htmlFor="description" className="block text-sm font-medium text-gray-300 mb-2">
-                Company Description
+                {t('companyDescription')}
               </label>
               <textarea
                 id="description"
@@ -308,14 +308,14 @@ export default function CompanyPage() {
                 value={formData.description}
                 onChange={handleChange}
                 rows={4}
-                placeholder="A brief description about your company and what you do"
+                placeholder={t('companyDescriptionPlaceholder')}
                 className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               ></textarea>
             </div>
 
             <div>
               <label htmlFor="mission" className="block text-sm font-medium text-gray-300 mb-2">
-                Mission Statement
+                {t('missionStatement')}
               </label>
               <textarea
                 id="mission"
@@ -323,14 +323,14 @@ export default function CompanyPage() {
                 value={formData.mission}
                 onChange={handleChange}
                 rows={3}
-                placeholder="Your company's mission"
+                placeholder={t('missionPlaceholder')}
                 className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               ></textarea>
             </div>
 
             <div>
               <label htmlFor="vision" className="block text-sm font-medium text-gray-300 mb-2">
-                Vision Statement
+                {t('visionStatement')}
               </label>
               <textarea
                 id="vision"
@@ -338,7 +338,7 @@ export default function CompanyPage() {
                 value={formData.vision}
                 onChange={handleChange}
                 rows={3}
-                placeholder="Your company's vision"
+                placeholder={t('visionPlaceholder')}
                 className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               ></textarea>
             </div>
@@ -346,7 +346,7 @@ export default function CompanyPage() {
             {/* Contact Information */}
             <div>
               <label htmlFor="address" className="block text-sm font-medium text-gray-300 mb-2">
-                Address
+                {t('address')}
               </label>
               <input
                 type="text"
@@ -354,14 +354,14 @@ export default function CompanyPage() {
                 name="address"
                 value={formData.address}
                 onChange={handleChange}
-                placeholder="Company address"
+                placeholder={t('addressPlaceholder')}
                 className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
 
             <div>
               <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-2">
-                Phone
+                {t('phone')}
               </label>
               <input
                 type="text"
@@ -369,14 +369,14 @@ export default function CompanyPage() {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                placeholder="e.g. +55 11 98765-4321"
+                placeholder={t('phonePlaceholder')}
                 className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
 
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                Email
+                {t('email')}
               </label>
               <input
                 type="email"
@@ -384,14 +384,14 @@ export default function CompanyPage() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="e.g. contact@wendertech.com"
+                placeholder={t('emailPlaceholder')}
                 className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
 
             <div>
               <label htmlFor="website" className="block text-sm font-medium text-gray-300 mb-2">
-                Website
+                {t('website')}
               </label>
               <input
                 type="url"
@@ -399,7 +399,7 @@ export default function CompanyPage() {
                 name="website"
                 value={formData.website}
                 onChange={handleChange}
-                placeholder="https://wendertech.com"
+                placeholder={t('websitePlaceholder')}
                 className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
@@ -407,7 +407,7 @@ export default function CompanyPage() {
             {/* Services */}
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-300 mb-2">
-                Services Offered
+                {t('servicesOffered')}
               </label>
               <div className="space-y-3">
                 {formData.services.map((service, index) => (
@@ -416,7 +416,7 @@ export default function CompanyPage() {
                       type="text"
                       value={service}
                       onChange={(e) => handleServiceChange(index, e.target.value)}
-                      placeholder="e.g. Web Development, Mobile App Development"
+                      placeholder={t('servicePlaceholder')}
                       className="flex-1 px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     />
                     <button
@@ -425,7 +425,7 @@ export default function CompanyPage() {
                       className="px-3 py-2 bg-red-600 hover:bg-red-700 rounded-md text-white text-sm font-medium transition-colors"
                       disabled={formData.services.length <= 1}
                     >
-                      Remove
+                      {t('remove')}
                     </button>
                   </div>
                 ))}
@@ -434,7 +434,7 @@ export default function CompanyPage() {
                   onClick={addService}
                   className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md text-white text-sm font-medium transition-colors"
                 >
-                  Add Service
+                  {t('addService')}
                 </button>
               </div>
             </div>
@@ -447,16 +447,16 @@ export default function CompanyPage() {
               onClick={() => router.push('/dashboard')}
               disabled={loading}
             >
-              Cancel
+              {t('cancel')}
             </Button>
             <Button type="submit" disabled={loading}>
               {loading ? (
                 <div className="flex items-center">
                   <div className="animate-spin mr-2 h-4 w-4 border-t-2 border-b-2 border-white rounded-full"></div>
-                  Saving...
+                  {t('saving')}
                 </div>
               ) : (
-                'Save Changes'
+                t('saveChanges')
               )}
             </Button>
           </div>

@@ -9,11 +9,13 @@ import { useProjects } from '@/hooks/usePortfolioQuery';
 import { useReminders } from '@/hooks/useReminderQuery';
 import PendingReminders from '@/components/dashboard/PendingReminders';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 export default function DashboardPage() {
   const { user } = useAuth();
   const { data: projects, isLoading: projectsLoading } = useProjects(user?.id);
   const { data: reminders, isLoading: remindersLoading } = useReminders({ completed: false });
+  const t = useTranslations('dashboard');
 
   // Count active reminders (not completed)
   const activeRemindersCount = reminders?.length || 0;
@@ -25,9 +27,9 @@ export default function DashboardPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className="text-3xl font-bold mb-2">Welcome back, {user?.name}</h1>
+        <h1 className="text-3xl font-bold mb-2">{t('welcomeBack', { name: user?.name || '' })}</h1>
         <p className="text-gray-400 mb-8">
-          Here's an overview of your portfolio and upcoming tasks.
+          {t('overview')}
         </p>
       </motion.div>
 
@@ -39,7 +41,7 @@ export default function DashboardPage() {
           className="bg-gray-800 rounded-lg p-6"
         >
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold">Projects</h2>
+            <h2 className="text-xl font-semibold">{t('projects')}</h2>
             <div className="bg-indigo-600/20 p-2 rounded-lg">
               <FolderIcon className="h-6 w-6 text-indigo-400" />
             </div>
@@ -47,11 +49,11 @@ export default function DashboardPage() {
           <p className="text-3xl font-bold mb-1">
             {projectsLoading ? '...' : projects?.length || 0}
           </p>
-          <p className="text-gray-400 text-sm">Total projects</p>
+          <p className="text-gray-400 text-sm">{t('totalProjects')}</p>
           <div className="mt-4">
             <Link href="/dashboard/projects">
               <Button variant="outline" size="sm" className="w-full">
-                View All
+                {t('viewAll')}
               </Button>
             </Link>
           </div>
@@ -64,17 +66,17 @@ export default function DashboardPage() {
           className="bg-gray-800 rounded-lg p-6"
         >
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold">Upcoming</h2>
+            <h2 className="text-xl font-semibold">{t('upcoming')}</h2>
             <div className="bg-green-600/20 p-2 rounded-lg">
               <CalendarIcon className="h-6 w-6 text-green-400" />
             </div>
           </div>
           <p className="text-3xl font-bold mb-1">0</p>
-          <p className="text-gray-400 text-sm">Scheduled appointments</p>
+          <p className="text-gray-400 text-sm">{t('scheduledAppointments')}</p>
           <div className="mt-4">
             <Link href="/dashboard/calendar">
               <Button variant="outline" size="sm" className="w-full">
-                View Calendar
+                {t('viewCalendar')}
               </Button>
             </Link>
           </div>
@@ -87,7 +89,7 @@ export default function DashboardPage() {
           className="bg-gray-800 rounded-lg p-6"
         >
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold">Reminders</h2>
+            <h2 className="text-xl font-semibold">{t('reminders')}</h2>
             <div className="bg-yellow-600/20 p-2 rounded-lg">
               <BellIcon className="h-6 w-6 text-yellow-400" />
             </div>
@@ -95,11 +97,11 @@ export default function DashboardPage() {
           <p className="text-3xl font-bold mb-1">
             {remindersLoading ? '...' : activeRemindersCount}
           </p>
-          <p className="text-gray-400 text-sm">Active reminders</p>
+          <p className="text-gray-400 text-sm">{t('activeReminders')}</p>
           <div className="mt-4">
             <Link href="/dashboard/reminders">
               <Button variant="outline" size="sm" className="w-full">
-                View Reminders
+                {t('viewReminders')}
               </Button>
             </Link>
           </div>
@@ -113,10 +115,10 @@ export default function DashboardPage() {
 
       <div className="mb-8">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold">Recent Projects</h2>
+          <h2 className="text-2xl font-bold">{t('recentProjects')}</h2>
           <Link href="/dashboard/projects/new">
             <Button size="sm" icon={<PlusIcon className="h-5 w-5" />}>
-              Add Project
+              {t('addProject')}
             </Button>
           </Link>
         </div>
@@ -134,25 +136,25 @@ export default function DashboardPage() {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
                   >
-                    Project
+                    {t('project')}
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
                   >
-                    Technologies
+                    {t('technologies')}
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
                   >
-                    Featured
+                    {t('featured')}
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
                   >
-                    Actions
+                    {t('actions')}
                   </th>
                 </tr>
               </thead>
@@ -204,7 +206,7 @@ export default function DashboardPage() {
                           : 'bg-gray-700 text-gray-300'
                           }`}
                       >
-                        {project.featured ? 'Yes' : 'No'}
+                        {project.featured ? t('yes') : t('no')}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
@@ -212,9 +214,9 @@ export default function DashboardPage() {
                         href={`/dashboard/projects/${project.id}`}
                         className="text-indigo-400 hover:text-indigo-300 mr-3"
                       >
-                        Edit
+                        {t('edit')}
                       </Link>
-                      <button className="text-red-400 hover:text-red-300">Delete</button>
+                      <button className="text-red-400 hover:text-red-300">{t('delete')}</button>
                     </td>
                   </tr>
                 ))}
@@ -223,12 +225,12 @@ export default function DashboardPage() {
           </div>
         ) : (
           <div className="bg-gray-800 rounded-lg p-12 text-center">
-            <h3 className="text-xl font-medium text-gray-300 mb-4">No projects yet</h3>
+            <h3 className="text-xl font-medium text-gray-300 mb-4">{t('noProjectsYet')}</h3>
             <p className="text-gray-400 mb-6">
-              Start by adding your first project to showcase in your portfolio.
+              {t('startByAdding')}
             </p>
             <Link href="/dashboard/projects/new">
-              <Button icon={<PlusIcon className="h-5 w-5" />}>Add Your First Project</Button>
+              <Button icon={<PlusIcon className="h-5 w-5" />}>{t('addFirstProject')}</Button>
             </Link>
           </div>
         )}

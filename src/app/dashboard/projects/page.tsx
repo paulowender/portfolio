@@ -8,6 +8,7 @@ import { fetchProjects, deleteProjectApi } from '@/lib/api-client';
 import Button from '@/components/Button';
 import { PlusIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 export default function ProjectsPage() {
   const { user } = useAuth();
@@ -16,13 +17,14 @@ export default function ProjectsPage() {
   const [deleteLoading, setDeleteLoading] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isFetching, setIsFetching] = useState(false);
+  const t = useTranslations('projectsPage');
 
   useEffect(() => {
     // Skip if already fetching or no user
     if (isFetching || !user) {
       if (!user) {
         setLoading(false);
-        setError('Please log in to view your projects');
+        setError(t('loginRequired'));
       }
       return;
     }
@@ -59,7 +61,7 @@ export default function ProjectsPage() {
   }, [user, isFetching]);
 
   const handleDelete = async (id: string) => {
-    if (confirm('Are you sure you want to delete this project? This action cannot be undone.')) {
+    if (confirm(t('confirmDelete'))) {
       setDeleteLoading(id);
       setError(null);
 
@@ -93,8 +95,8 @@ export default function ProjectsPage() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-3xl font-bold">Projects</h1>
-          <p className="text-gray-400">Manage the projects displayed in your portfolio.</p>
+          <h1 className="text-3xl font-bold">{t('title')}</h1>
+          <p className="text-gray-400">{t('description')}</p>
         </motion.div>
 
         <motion.div
@@ -103,7 +105,7 @@ export default function ProjectsPage() {
           transition={{ duration: 0.5 }}
         >
           <Link href="/dashboard/projects/new">
-            <Button icon={<PlusIcon className="h-5 w-5" />}>Add Project</Button>
+            <Button icon={<PlusIcon className="h-5 w-5" />}>{t('addProject')}</Button>
           </Link>
         </motion.div>
       </div>
@@ -137,25 +139,25 @@ export default function ProjectsPage() {
                   scope="col"
                   className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
                 >
-                  Project
+                  {t('project')}
                 </th>
                 <th
                   scope="col"
                   className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
                 >
-                  Technologies
+                  {t('technologies')}
                 </th>
                 <th
                   scope="col"
                   className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
                 >
-                  Featured
+                  {t('featured')}
                 </th>
                 <th
                   scope="col"
                   className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
                 >
-                  Actions
+                  {t('actions')}
                 </th>
               </tr>
             </thead>
@@ -202,13 +204,12 @@ export default function ProjectsPage() {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span
-                      className={`px-2 py-1 text-xs rounded-full ${
-                        project.featured
-                          ? 'bg-green-900 text-green-300'
-                          : 'bg-gray-700 text-gray-300'
-                      }`}
+                      className={`px-2 py-1 text-xs rounded-full ${project.featured
+                        ? 'bg-green-900 text-green-300'
+                        : 'bg-gray-700 text-gray-300'
+                        }`}
                     >
-                      {project.featured ? 'Yes' : 'No'}
+                      {project.featured ? t('yes') : t('no')}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
@@ -217,7 +218,7 @@ export default function ProjectsPage() {
                       className="text-indigo-400 hover:text-indigo-300 mr-3 inline-flex items-center"
                     >
                       <PencilIcon className="h-4 w-4 mr-1" />
-                      Edit
+                      {t('edit')}
                     </Link>
                     <button
                       onClick={() => handleDelete(project.id)}
@@ -229,7 +230,7 @@ export default function ProjectsPage() {
                       ) : (
                         <TrashIcon className="h-4 w-4 mr-1" />
                       )}
-                      Delete
+                      {t('delete')}
                     </button>
                   </td>
                 </tr>
@@ -244,12 +245,10 @@ export default function ProjectsPage() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="bg-gray-800 rounded-lg p-12 text-center"
         >
-          <h3 className="text-xl font-medium text-gray-300 mb-4">No projects yet</h3>
-          <p className="text-gray-400 mb-6">
-            Start by adding your first project to showcase in your portfolio.
-          </p>
+          <h3 className="text-xl font-medium text-gray-300 mb-4">{t('noProjectsYet')}</h3>
+          <p className="text-gray-400 mb-6">{t('startByAdding')}</p>
           <Link href="/dashboard/projects/new">
-            <Button icon={<PlusIcon className="h-5 w-5" />}>Add Your First Project</Button>
+            <Button icon={<PlusIcon className="h-5 w-5" />}>{t('addFirstProject')}</Button>
           </Link>
         </motion.div>
       )}

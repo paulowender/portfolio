@@ -7,10 +7,12 @@ import DashboardSidebar from '@/components/DashboardSidebar';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
   const router = useRouter();
+  const t = useTranslations('dashboard');
 
   const [expanded, setExpanded] = useState(false);
 
@@ -45,11 +47,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               >
                 {expanded ? <ChevronLeftIcon /> : <ChevronRightIcon />}
               </button>
-              <h1 className="text-xl font-bold">Dashboard</h1>
+              <h1 className="text-xl font-bold">{t('title')}</h1>
             </div>
             <div className="flex items-center space-x-4">
               <Link href="/" className="text-sm text-indigo-400 hover:text-indigo-300">
-                View Portfolio
+                {t('viewPortfolio')}
               </Link>
             </div>
           </div>

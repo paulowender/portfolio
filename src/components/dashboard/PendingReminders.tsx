@@ -8,24 +8,27 @@ import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import Link from 'next/link';
 import ReminderItem from '../reminders/ReminderItem';
+import { useTranslations } from 'next-intl';
 
 export default function PendingReminders() {
   // Fetch all incomplete reminders
   const { data: reminders, isLoading } = useReminders({ completed: false });
+  const t = useTranslations('pendingReminders');
 
   // Sort reminders by due date (closest first)
   const pendingReminders = useMemo(() => {
     if (!reminders) return [];
 
-    return reminders
-      .sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime());
+    return reminders.sort(
+      (a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime()
+    );
   }, [reminders]);
 
   if (isLoading) {
     return (
       <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold">Lembretes pendentes</h2>
+          <h2 className="text-xl font-semibold">{t('title')}</h2>
           <div className="bg-yellow-600/20 p-2 rounded-lg">
             <BellIcon className="h-6 w-6 text-yellow-400" />
           </div>
@@ -59,7 +62,7 @@ export default function PendingReminders() {
       className="bg-gray-800 rounded-lg p-6 border border-gray-700"
     >
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-semibold">Lembretes pendentes</h2>
+        <h2 className="text-xl font-semibold">{t('title')}</h2>
         <div className="bg-yellow-600/20 p-2 rounded-lg">
           <BellIcon className="h-6 w-6 text-yellow-400" />
         </div>
@@ -76,18 +79,22 @@ export default function PendingReminders() {
           </div>
 
           <Link href="/dashboard/reminders">
-            <Button variant="outline" size="sm" className="w-full flex items-center justify-center gap-1">
-              <span>Ver todos</span>
+            <Button
+              variant="outline"
+              size="sm"
+              className="w-full flex items-center justify-center gap-1"
+            >
+              <span>{t('viewAll')}</span>
               <ArrowRightIcon className="h-4 w-4" />
             </Button>
           </Link>
         </>
       ) : (
         <div className="text-center py-6">
-          <p className="text-gray-400 mb-4">Nenhum lembrete pendente</p>
+          <p className="text-gray-400 mb-4">{t('noReminders')}</p>
           <Link href="/dashboard/reminders">
             <Button variant="outline" size="sm">
-              Gerenciar lembretes
+              {t('manageReminders')}
             </Button>
           </Link>
         </div>

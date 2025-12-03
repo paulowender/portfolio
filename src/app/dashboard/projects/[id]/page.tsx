@@ -10,8 +10,11 @@ import Button from '@/components/Button';
 import TagInput from '@/components/TagInput';
 import { ArrowUpTrayIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 export default function EditProjectPage({ params }: { params: Promise<{ id: string }> }) {
+  const t = useTranslations('editProjectPage');
+  const tNew = useTranslations('newProjectPage');
   const { user } = useAuth();
   const router = useRouter();
   const resolvedParams = use(params);
@@ -43,14 +46,14 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
 
           if (error) {
             console.error('Error fetching project:', error);
-            setError('Failed to load project: ' + (error.message || 'Unknown error'));
+            setError(t('failedToLoad') + ': ' + (error.message || 'Unknown error'));
             setFetchLoading(false);
             return;
           }
 
           if (!data) {
             console.error('No project data returned');
-            setError('Project not found');
+            setError(t('projectNotFound'));
             setFetchLoading(false);
             return;
           }
@@ -122,7 +125,7 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
 
     if (!user) {
       console.error('No user found');
-      setError('You must be logged in to update a project');
+      setError(tNew('loginRequired'));
       return;
     }
 
@@ -185,7 +188,7 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
       router.push('/dashboard/projects');
     } catch (err: any) {
       console.error('Exception during project update:', err);
-      setError(err.message || 'Failed to update project');
+      setError(err.message || t('failedToUpdate'));
     } finally {
       setLoading(false);
     }
@@ -207,8 +210,8 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
         transition={{ duration: 0.5 }}
         className="mb-8"
       >
-        <h1 className="text-3xl font-bold mb-2">Edit Project</h1>
-        <p className="text-gray-400">Update your project details.</p>
+        <h1 className="text-3xl font-bold mb-2">{t('title')}</h1>
+        <p className="text-gray-400">{t('description')}</p>
       </motion.div>
 
       {error && <div className="mb-6 bg-red-900/50 text-red-200 p-4 rounded-md">{error}</div>}
@@ -222,7 +225,7 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label htmlFor="title" className="block text-sm font-medium text-gray-300 mb-1">
-              Project Title *
+              {tNew('projectTitle')} *
             </label>
             <input
               type="text"
@@ -237,7 +240,7 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
 
           <div>
             <label htmlFor="description" className="block text-sm font-medium text-gray-300 mb-1">
-              Description *
+              {tNew('projectDescription')} *
             </label>
             <textarea
               id="description"
@@ -251,21 +254,21 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">Technologies *</label>
+            <label className="block text-sm font-medium text-gray-300 mb-1">{tNew('technologies')} *</label>
             <TagInput
               value={formData.technologies}
               onChange={handleTechnologiesChange}
-              placeholder="Type a technology and press Enter (e.g., React, Node.js)"
+              placeholder={tNew('techPlaceholder')}
             />
             <p className="mt-1 text-xs text-gray-400">
-              Type a technology and press Enter to add it. Click the X to remove.
+              {tNew('techPlaceholder')}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label htmlFor="github_url" className="block text-sm font-medium text-gray-300 mb-1">
-                GitHub URL
+                {tNew('githubUrl')}
               </label>
               <input
                 type="url"
@@ -273,14 +276,14 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
                 name="github_url"
                 value={formData.github_url}
                 onChange={handleChange}
-                placeholder="https://github.com/username/repo"
+                placeholder={tNew('githubPlaceholder')}
                 className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
 
             <div>
               <label htmlFor="live_url" className="block text-sm font-medium text-gray-300 mb-1">
-                Live URL
+                {tNew('liveUrl')}
               </label>
               <input
                 type="url"
@@ -288,14 +291,14 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
                 name="live_url"
                 value={formData.live_url}
                 onChange={handleChange}
-                placeholder="https://example.com"
+                placeholder={tNew('livePlaceholder')}
                 className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">Project Image</label>
+            <label className="block text-sm font-medium text-gray-300 mb-1">{tNew('projectImage')}</label>
             <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-600 border-dashed rounded-md">
               {imagePreview ? (
                 <div className="space-y-2 text-center">
@@ -315,7 +318,7 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
                     }}
                     className="text-red-400 hover:text-red-300 text-sm font-medium"
                   >
-                    Remove Image
+                    {tNew('removeImage')}
                   </button>
                 </div>
               ) : (
@@ -326,7 +329,7 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
                       htmlFor="image"
                       className="relative cursor-pointer bg-gray-700 rounded-md font-medium text-indigo-400 hover:text-indigo-300 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                     >
-                      <span className="px-2 py-1">Upload a file</span>
+                      <span className="px-2 py-1">{tNew('uploadFile')}</span>
                       <input
                         id="image"
                         name="image"
@@ -336,9 +339,9 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
                         className="sr-only"
                       />
                     </label>
-                    <p className="pl-1">or drag and drop</p>
+                    <p className="pl-1">{tNew('orDragDrop')}</p>
                   </div>
-                  <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                  <p className="text-xs text-gray-500">{tNew('imageFormats')}</p>
                 </div>
               )}
             </div>
@@ -354,7 +357,7 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
               className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-600 rounded bg-gray-700"
             />
             <label htmlFor="featured" className="ml-2 block text-sm text-gray-300">
-              Feature this project on your portfolio homepage
+              {tNew('featuredProject')}
             </label>
           </div>
 
@@ -364,10 +367,10 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
               variant="ghost"
               onClick={() => router.push('/dashboard/projects')}
             >
-              Cancel
+              {tNew('cancel')}
             </Button>
             <Button type="submit" isLoading={loading}>
-              Update Project
+              {t('updateProject')}
             </Button>
           </div>
         </form>
