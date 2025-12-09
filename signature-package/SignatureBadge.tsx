@@ -131,7 +131,7 @@ interface SignatureBadgeProps {
 }
 
 export const SignatureBadge: React.FC<SignatureBadgeProps> = ({ 
-  apiUrl = 'https://portfolio-paulowender.vercel.app/api/public/projects', // Replace with actual production URL later if known
+  apiUrl = 'https://wendertech.com.br/api/public/projects', // Replace with actual production URL later if known
   userId 
 }) => {
   const [isOpen, setIsOpen] = useState(false);
