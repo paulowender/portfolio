@@ -143,10 +143,7 @@ const withPWA = require('next-pwa')({
 
 const nextConfig = {
   reactStrictMode: true,
-  eslint: {
-    // Desabilitar a verificação do ESLint durante o build
-    ignoreDuringBuilds: true,
-  },
+
 
   // Configuração para Docker deployment
   output: 'standalone',
