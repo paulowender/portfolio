@@ -11,5 +11,9 @@
   },
   "[dotenv]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
-  }
+  },
+  "i18n-ally.localesPaths": [
+    "messages",
+    "src/i18n"
+  ]
 }

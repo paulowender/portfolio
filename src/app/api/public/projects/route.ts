@@ -2,13 +2,6 @@ import { NextResponse } from 'next/server';
 import { getProjects, getUserById } from '@/lib/db';
 
 export async function GET(request: Request) {
-  // Define CORS headers consistently
-  const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
-  };
-
   try {
     const { searchParams } = new URL(request.url);
     const userId = searchParams.get('userId');
@@ -19,7 +12,7 @@ export async function GET(request: Request) {
       console.error('Error fetching projects for public API:', error);
       return NextResponse.json(
         { error: 'Failed to fetch projects' },
-        { status: 500, headers: corsHeaders }
+        { status: 500 }
       );
     }
 
@@ -39,27 +32,14 @@ export async function GET(request: Request) {
       projects,
       user: userData
     }, {
-      status: 200,
-      headers: corsHeaders
+      status: 200
     });
 
   } catch (error: any) {
     console.error('Exception in public API:', error);
     return NextResponse.json(
       { error: 'Internal Server Error' },
-      { status: 500, headers: corsHeaders }
+      { status: 500 }
     );
   }
-}
-
-export async function OPTIONS(request: Request) {
-  return new NextResponse(null, {
-    status: 204,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
-      'Access-Control-Max-Age': '86400', // Cache preflight por 24 horas
-    },
-  });
 }
