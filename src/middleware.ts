@@ -6,7 +6,7 @@ export function middleware(request: NextRequest) {
   if (request.nextUrl.pathname.startsWith('/api/public')) {
     // Retrieve the origin from the request or default to '*'
     const origin = request.headers.get('origin') || '*';
-    
+
     // Check if it's a preflight request (OPTIONS)
     if (request.method === 'OPTIONS') {
       return new NextResponse(null, {
@@ -22,7 +22,7 @@ export function middleware(request: NextRequest) {
 
     // For other methods (GET, POST, etc.), continue the response chain
     const response = NextResponse.next();
-    
+
     // Add CORS headers to the response
     response.headers.set('Access-Control-Allow-Origin', '*');
     response.headers.set('Access-Control-Allow-Methods', 'GET, OPTIONS, PATCH, DELETE, POST, PUT');
