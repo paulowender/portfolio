@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 // Use a unique namespace for styles to avoid conflicts
 const styles = {
@@ -21,9 +21,12 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     gap: '6px',
-    transition: 'transform 0.2s ease',
+    transition: 'background-color 0.2s ease, transform 0.2s ease',
     border: 'none',
     outline: 'none',
+  },
+  badgePinned: {
+    backgroundColor: '#4CAF50', // Green when pinned
   },
   popup: {
     position: 'absolute' as const,
@@ -110,7 +113,7 @@ const styles = {
     backgroundColor: '#fafafa',
   },
   link: {
-    color: '#444', 
+    color: '#444',
     textDecoration: 'none',
     fontWeight: 500,
   }
@@ -130,31 +133,27 @@ interface SignatureBadgeProps {
   userId?: string;
 }
 
-export const SignatureBadge: React.FC<SignatureBadgeProps> = ({ 
-  apiUrl = 'https://wendertech.com.br/api/public/projects', // Replace with actual production URL later if known
-  userId 
+export const SignatureBadge: React.FC<SignatureBadgeProps> = ({
+  apiUrl = 'https://wendertech.com.br/api/public/projects',
+  userId
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(false);
   const [hasFetched, setHasFetched] = useState(false);
+  const [isHoveringContainer, setIsHoveringContainer] = useState(false);
+  const [isHoveringPopup, setIsHoveringPopup] = useState(false);
+  const [isPinned, setIsPinned] = useState(false); // Track if modal is pinned by click
 
-  const toggleOpen = () => {
-    setIsOpen(!isOpen);
-    if (!hasFetched && !isOpen) {
-      fetchProjects();
-    }
-  };
-
-  const fetchProjects = async () => {
+  const fetchProjects = useMemo(() => async () => {
     setLoading(true);
     try {
       const url = new URL(apiUrl as string); // Cast to string to fix TS if needed, logic is safe-ish
       if (userId) url.searchParams.append('userId', userId);
-      
+
       const res = await fetch(url.toString());
       if (!res.ok) throw new Error('Failed to fetch');
-      
+
       const data = await res.json();
       setProjects(data.projects || []);
       setHasFetched(true);
@@ -163,28 +162,90 @@ export const SignatureBadge: React.FC<SignatureBadgeProps> = ({
     } finally {
       setLoading(false);
     }
+  }, [apiUrl, userId]);
+
+  const handleClick = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent click from bubbling to document
+    setIsPinned(!isPinned);
+    if (!hasFetched) {
+      fetchProjects();
+    }
   };
 
+  // Control modal visibility based on pinned state or hover state
+  useEffect(() => {
+    if (isPinned) {
+      // If pinned, keep open regardless of hover
+      setIsOpen(true);
+    } else if (isHoveringContainer || isHoveringPopup) {
+      // If not pinned, open on hover
+      setIsOpen(true);
+      if (!hasFetched) {
+        fetchProjects();
+      }
+    } else {
+      // If not pinned and not hovering, close
+      setIsOpen(false);
+    }
+  }, [isPinned, isHoveringContainer, isHoveringPopup, hasFetched, fetchProjects]);
+
+  // Close modal when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isPinned) {
+        const target = event.target as HTMLElement;
+        // Check if click is outside the container
+        const container = document.querySelector('[data-signature-badge]');
+        if (container && !container.contains(target)) {
+          setIsPinned(false);
+        }
+      }
+    };
+
+    if (isPinned) {
+      document.addEventListener('click', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [isPinned]);
+
+  useEffect(() => {
+    if (!hasFetched) {
+      fetchProjects();
+    }
+  }, [hasFetched, fetchProjects]);
+
   return (
-    <div style={styles.container} onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
+    <div
+      data-signature-badge
+      style={styles.container}
+      onMouseEnter={() => setIsHoveringContainer(true)}
+      onMouseLeave={() => setIsHoveringContainer(false)}
+    >
       {/* Popup content */}
-      <div style={{...styles.popup, ...(isOpen ? styles.popupVisible : {})}}>
+      <div
+        style={{ ...styles.popup, ...(isOpen ? styles.popupVisible : {}) }}
+        onMouseEnter={() => setIsHoveringPopup(true)}
+        onMouseLeave={() => setIsHoveringPopup(false)}
+      >
         <div style={styles.header}>
           <span>More by Paulo Wender</span>
         </div>
-        
+
         <div style={styles.projectList}>
-          {loading && <div style={{padding: '16px', textAlign: 'center', fontSize: '12px', color: '#666'}}>Loading...</div>}
-          
+          {loading && <div style={{ padding: '16px', textAlign: 'center', fontSize: '12px', color: '#666' }}>Loading...</div>}
+
           {!loading && projects.length === 0 && hasFetched && (
-             <div style={{padding: '16px', textAlign: 'center', fontSize: '12px', color: '#666'}}>No projects found.</div>
+            <div style={{ padding: '16px', textAlign: 'center', fontSize: '12px', color: '#666' }}>No projects found.</div>
           )}
 
           {projects.map(project => (
-            <a 
-              key={project.id} 
-              href={project.liveUrl || '#'} 
-              target="_blank" 
+            <a
+              key={project.id}
+              href={project.liveUrl || '#'}
+              target="_blank"
               rel="noopener noreferrer"
               style={styles.projectItem}
               onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
@@ -211,7 +272,13 @@ export const SignatureBadge: React.FC<SignatureBadgeProps> = ({
       </div>
 
       {/* The visible badge */}
-      <button style={styles.badge} onClick={toggleOpen}>
+      <button
+        style={{
+          ...styles.badge,
+          ...(isPinned ? styles.badgePinned : {})
+        }}
+        onClick={handleClick}
+      >
         <span>⚡</span>
         <span>Made by Paulo Wender</span>
       </button>
