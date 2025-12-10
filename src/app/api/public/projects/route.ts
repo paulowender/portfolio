@@ -22,25 +22,25 @@ export async function GET(request: Request) {
         { status: 500, headers: corsHeaders }
       );
     }
-    
+
     let userData = null;
     if (userId) {
-       const { data: user } = await getUserById(userId);
-       if (user) {
-           userData = {
-               name: user.name,
-               avatarUrl: user.avatarUrl,
-               website: user.website
-           }
-       }
+      const { data: user } = await getUserById(userId);
+      if (user) {
+        userData = {
+          name: user.name,
+          avatarUrl: user.avatarUrl,
+          website: user.website
+        }
+      }
     }
 
-    return NextResponse.json({ 
-        projects,
-        user: userData 
-    }, { 
-        status: 200, 
-        headers: corsHeaders 
+    return NextResponse.json({
+      projects,
+      user: userData
+    }, {
+      status: 200,
+      headers: corsHeaders
     });
 
   } catch (error: any) {
@@ -53,11 +53,13 @@ export async function GET(request: Request) {
 }
 
 export async function OPTIONS(request: Request) {
-  return NextResponse.json({}, {
+  return new NextResponse(null, {
+    status: 204,
     headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
+      'Access-Control-Max-Age': '86400', // Cache preflight por 24 horas
     },
   });
 }

@@ -143,6 +143,11 @@ const withPWA = require('next-pwa')({
 
 const nextConfig = {
   reactStrictMode: true,
+
+  // Desabilitar o redirect automático de trailing slash para evitar problemas de CORS
+  trailingSlash: false,
+  skipTrailingSlashRedirect: true,
+
   eslint: {
     // Desabilitar a verificação do ESLint durante o build
     ignoreDuringBuilds: true,
@@ -196,6 +201,7 @@ const nextConfig = {
           { key: 'Access-Control-Allow-Origin', value: '*' },
           { key: 'Access-Control-Allow-Methods', value: 'GET, OPTIONS, PATCH, DELETE, POST, PUT' },
           { key: 'Access-Control-Allow-Headers', value: 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization' },
+          { key: 'Access-Control-Max-Age', value: '86400' }, // Cache preflight por 24 horas
         ],
       },
       {
