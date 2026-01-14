@@ -200,7 +200,7 @@ export async function getReminders(userId: string, where?: Prisma.ReminderWhereI
   try {
     const reminders = await prisma.reminder.findMany({
       where: { userId, ...where },
-      orderBy: { dueDate: 'asc' },
+      orderBy: { dueDate: 'desc' },
     });
     return { data: reminders, error: null };
   } catch (error) {
