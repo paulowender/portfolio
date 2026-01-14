@@ -51,7 +51,10 @@
     "viewLive": "View Live",
     "viewCode": "GitHub",
     "technologies": "Technologies",
-    "featured": "Featured"
+    "featured": "Featured",
+    "viewAllProjects": "View All Projects",
+    "allProjects": "All Projects",
+    "allProjectsDescription": "Explore all our projects. Each project represents a unique challenge and a customized solution."
   },
   "about": {
     "title": "About {company}",

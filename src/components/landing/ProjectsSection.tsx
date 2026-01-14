@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { usePortfolio } from '@/components/PortfolioData';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
 interface ProjectsSectionProps {
@@ -132,13 +133,16 @@ export default function ProjectsSection({ innerRef }: ProjectsSectionProps) {
           )}
         </div>
 
-        {/* {featuredProjects.length > 0 && (
+        {featuredProjects.length > 0 && (
           <div className="mt-12 text-center">
-            <Button variant="outline">
-              <Link href="/login">Ver Todos os Projetos</Link>
-            </Button>
+            <Link
+              href="/projects"
+              className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-300"
+            >
+              {t('viewAllProjects') || 'Ver Todos os Projetos'}
+            </Link>
           </div>
-        )} */}
+        )}
       </div>
     </section>
   );

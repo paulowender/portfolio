@@ -52,9 +52,9 @@ export async function updateUser(id: string, userData: Prisma.UserUpdateInput) {
 }
 
 // Project functions
-export async function getProjects(userId?: string) {
+export async function getProjects(userId?: string, all: boolean = false) {
   try {
-    const where = userId ? { userId } : { featured: true };
+    const where = userId ? { userId } : !all ? { featured: true } : {};
     const projects = await prisma.project.findMany({
       where,
       orderBy: { createdAt: 'desc' },

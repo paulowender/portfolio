@@ -6,7 +6,7 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const userId = searchParams.get('userId');
 
-    const { data: projects, error } = await getProjects(userId || undefined);
+    const { data: projects, error } = await getProjects(userId || undefined, true);
 
     if (error) {
       console.error('Error fetching projects for public API:', error);
