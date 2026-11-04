@@ -28,6 +28,11 @@
     "openMenu": "Abrir menu principal"
   },
   "hero": {
+    "headline": "Software pensado para o trabalho real.",
+    "selectedWork": "Projeto em destaque",
+    "loadingWork": "Carregando projeto em destaque…",
+    "workComingSoon": "Novos projetos serão apresentados aqui.",
+    "openProject": "Abrir projeto",
     "viewProjects": "Ver Projetos",
     "contactUs": "Fale Conosco",
     "defaultDescription": "Desenvolvimento de soluções digitais de alta qualidade para empresas e startups. Especialistas em aplicações web e mobile com foco em resultados."
@@ -108,6 +113,8 @@
   "login": {
     "signInTitle": "Entrar na sua conta",
     "signUpTitle": "Criar uma nova conta",
+    "welcomeBack": "Retome seu workspace e continue de onde parou.",
+    "createWorkspace": "Comece com uma conta segura para organizar seu trabalho.",
     "signIn": "Entrar",
     "signUp": "Cadastrar",
     "noAccount": "Não tem uma conta? ",
@@ -122,6 +129,11 @@
     "orContinueWith": "Ou continue com",
     "signInWithGoogle": "Entrar com Google",
     "signInWithGitHub": "Entrar com GitHub"
+  },
+  "authShell": {
+    "headline": "Trabalho em ordem. Decisões com clareza.",
+    "description": "Um espaço privado para cuidar do portfólio, das rotinas e das conexões que movimentam o dia a dia.",
+    "workspace": "Wender Tech · Workspace"
   },
   "dashboard": {
     "title": "Dashboard",
@@ -149,7 +161,29 @@
     "noProjectsYet": "Nenhum projeto ainda",
     "startByAdding": "Comece adicionando seu primeiro projeto para exibir em seu portfólio.",
     "addFirstProject": "Adicionar Seu Primeiro Projeto",
-    "viewAll": "Ver Todos"
+    "viewAll": "Ver Todos",
+    "overviewLabel": "Visão geral",
+    "breadcrumbLabel": "Localização no workspace",
+    "expandNavigation": "Expandir navegação",
+    "collapseNavigation": "Recolher navegação",
+    "notifications": "Notificações",
+    "summaryLabel": "Resumo do workspace",
+    "statusControlled": "Tudo sob controle.",
+    "statusControlledDescription": "Nenhuma pendência vencida. Você pode seguir o dia com clareza.",
+    "statusAttention": "Algumas coisas pedem atenção.",
+    "statusAttentionDescription": "Você tem {count} lembrete(s) vencido(s). Vamos resolver o mais importante primeiro.",
+    "statusNeutral": "Seu workspace está sendo atualizado.",
+    "statusNeutralDescription": "Assim que os dados estiverem disponíveis, suas prioridades aparecem aqui.",
+    "dueToday": "{count} para hoje",
+    "nextItems": "próximos itens",
+    "recentProjectsDescription": "Continue de onde parou nos trabalhos mais recentes.",
+    "noProjectDescription": "Projeto sem descrição",
+    "todayPriority": "Prioridade de hoje",
+    "priorityOverdue": "{count} lembrete(s) vencido(s) precisa(m) da sua atenção.",
+    "priorityToday": "{count} lembrete(s) programado(s) para hoje.",
+    "priorityClear": "Nada atrasado. Seu dia está livre de pendências urgentes.",
+    "priorityUnavailable": "As prioridades aparecem aqui assim que os lembretes estiverem disponíveis.",
+    "reviewReminders": "Revisar lembretes"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -162,13 +196,16 @@
     "aiProviders": "Provedores de IA",
     "messaging": "Serviços de Mensagens",
     "email": "Email",
-    "logout": "Sair"
+    "logout": "Sair",
+    "closeNavigation": "Fechar navegação",
+    "workspaceNavigation": "Navegação do workspace"
   },
   "pendingReminders": {
     "title": "Lembretes pendentes",
     "viewAll": "Ver todos",
     "noReminders": "Nenhum lembrete pendente",
-    "manageReminders": "Gerenciar lembretes"
+    "manageReminders": "Gerenciar lembretes",
+    "unavailable": "Não foi possível carregar os lembretes agora. Tente novamente em instantes."
   },
   "projectsPage": {
     "title": "Projetos",
@@ -291,8 +328,14 @@
     "failedToUpdate": "Falha ao atualizar informações da empresa"
   },
   "integrationsPage": {
+    "nfse": "NFS-e · Homologação",
+    "nfseDescription": "Importe uma nota como modelo e teste a emissão pelo Emissor Nacional.",
     "title": "Integrações",
     "description": "Conecte seus serviços favoritos para melhorar seu fluxo de trabalho.",
+    "available": "Disponíveis agora",
+    "availableDescription": "Serviços prontos para configurar e usar no seu fluxo de trabalho.",
+    "plannedDescription": "Conexões previstas para as próximas evoluções do produto.",
+    "services": "serviços",
     "configure": "Configurar",
     "comingSoon": "Em breve",
     "new": "Novo",
@@ -310,17 +353,29 @@
   "aiIntegrationsPage": {
     "title": "Integrações de IA",
     "description": "Conecte seus provedores de IA para usar recursos de IA em toda a aplicação.",
-    "failedToLoad": "Falha ao carregar configuração de IA"
+    "failedToLoad": "Falha ao carregar configuração de IA",
+    "back": "Integrações",
+    "active": "Ativo",
+    "inactive": "Inativo",
+    "disabled": "Desativado",
+    "unconfigured": "Não configurado",
+    "enable": "Ativar",
+    "hideKey": "Ocultar chave",
+    "showKey": "Mostrar chave",
+    "save": "Salvar",
+    "selectModel": "Selecionar modelo"
   },
   "evolutionPage": {
     "title": "Integração Evolution API",
     "description": "Conecte-se ao WhatsApp via Evolution API para comunicação e automação com clientes.",
-    "failedToLoad": "Falha ao carregar configuração da Evolution API"
+    "failedToLoad": "Falha ao carregar configuração da Evolution API",
+    "back": "Integrações"
   },
   "resendPage": {
     "title": "Integração Resend",
     "description": "Conecte-se ao Resend para enviar e-mails transacionais com alta entregabilidade.",
-    "failedToLoad": "Falha ao carregar configuração do Resend"
+    "failedToLoad": "Falha ao carregar configuração do Resend",
+    "back": "Integrações"
   },
   "newProjectPage": {
     "title": "Adicionar Novo Projeto",

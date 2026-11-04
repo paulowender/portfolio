@@ -2,13 +2,15 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { useAuth } from '@/lib/AuthContext';
 import { fetchProjects, deleteProjectApi } from '@/lib/api-client';
-import Button from '@/components/Button';
-import { PlusIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { Button } from '@/components/ui/button';
+import { FolderKanban, Pencil, Plus, Trash2 } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import PageHeader from '@/components/dashboard/PageHeader';
+import EmptyState from '@/components/dashboard/EmptyState';
+import StatusBadge from '@/components/dashboard/StatusBadge';
 
 export default function ProjectsPage() {
   const { user } = useAuth();
@@ -88,147 +90,125 @@ export default function ProjectsPage() {
   };
 
   return (
-    <div>
-      <div className="flex justify-between items-center mb-8">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <h1 className="text-3xl font-bold">{t('title')}</h1>
-          <p className="text-gray-400">{t('description')}</p>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <Link href="/dashboard/projects/new">
-            <Button icon={<PlusIcon className="h-5 w-5" />}>{t('addProject')}</Button>
-          </Link>
-        </motion.div>
-      </div>
+    <div className="space-y-6">
+      <PageHeader
+        title={t('title')}
+        description={t('description')}
+        actions={
+          <Button asChild size="lg">
+            <Link href="/dashboard/projects/new">
+              <Plus className="size-4" />
+              {t('addProject')}
+            </Link>
+          </Button>
+        }
+      />
 
       {error && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="bg-red-900/50 text-red-200 p-4 rounded-md mb-6"
-        >
+        <div className="rounded-xl border border-[#5f343b] bg-[#2d1b1e] p-4 text-sm text-[#f0a2ad]" role="alert">
           {error}
-        </motion.div>
+        </div>
       )}
 
       {loading ? (
         <div className="flex justify-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+          <div className="size-10 animate-spin rounded-full border-2 border-border border-t-primary"></div>
         </div>
       ) : projects.length > 0 ? (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="bg-gray-800 rounded-lg overflow-hidden"
-        >
-          <table className="min-w-full divide-y divide-gray-700">
-            <thead className="bg-gray-700">
+        <div className="overflow-hidden rounded-2xl border border-border bg-card">
+          <div className="overflow-x-auto">
+          <table className="min-w-[720px] w-full divide-y divide-border">
+            <thead className="bg-[#101116]">
               <tr>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                  className="px-6 py-4 text-left text-xs font-semibold text-muted-foreground"
                 >
                   {t('project')}
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                  className="px-6 py-4 text-left text-xs font-semibold text-muted-foreground"
                 >
                   {t('technologies')}
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                  className="px-6 py-4 text-left text-xs font-semibold text-muted-foreground"
                 >
                   {t('featured')}
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                  className="px-6 py-4 text-right text-xs font-semibold text-muted-foreground"
                 >
                   {t('actions')}
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-gray-800 divide-y divide-gray-700">
+            <tbody className="divide-y divide-border bg-card">
               {projects.map((project: any) => (
-                <tr key={project.id}>
+                <tr key={project.id} className="transition-colors hover:bg-[#18181f]">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
-                      <div className="flex-shrink-0 h-10 w-10 bg-gray-700 rounded-md overflow-hidden">
+                      <div className="h-11 w-11 flex-shrink-0 overflow-hidden rounded-xl border border-border bg-[#211e2a]">
                         {project.imageUrl && (
                           <Image
                             width={100}
                             height={100}
                             src={project.imageUrl}
                             alt={project.title}
-                            className="h-10 w-10 object-cover"
+                            className="h-11 w-11 object-cover"
                           />
                         )}
                       </div>
                       <div className="ml-4">
-                        <div className="text-sm font-medium text-white">{project.title}</div>
-                        <div className="text-sm text-gray-400">
-                          {project.description.substring(0, 50)}...
+                        <div className="text-sm font-semibold text-foreground">{project.title}</div>
+                        <div className="mt-1 max-w-md truncate text-xs text-muted-foreground">
+                          {project.description?.substring(0, 70) || ''}
                         </div>
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-4">
                     <div className="flex flex-wrap gap-1">
                       {project.technologies.slice(0, 3).map((tech: string) => (
                         <span
                           key={tech}
-                          className="px-2 py-1 text-xs bg-gray-700 rounded-full text-gray-300"
+                          className="rounded-lg bg-[#211e2a] px-2 py-1 text-xs text-[#c6c1cd]"
                         >
                           {tech}
                         </span>
                       ))}
                       {project.technologies.length > 3 && (
-                        <span className="px-2 py-1 text-xs bg-gray-700 rounded-full text-gray-300">
+                        <span className="rounded-lg bg-[#211e2a] px-2 py-1 text-xs text-[#c6c1cd]">
                           +{project.technologies.length - 3}
                         </span>
                       )}
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span
-                      className={`px-2 py-1 text-xs rounded-full ${project.featured
-                        ? 'bg-green-900 text-green-300'
-                        : 'bg-gray-700 text-gray-300'
-                        }`}
-                    >
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <StatusBadge tone={project.featured ? 'success' : 'neutral'}>
                       {project.featured ? t('yes') : t('no')}
-                    </span>
+                      </StatusBadge>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm">
                     <Link
                       href={`/dashboard/projects/${project.id}`}
-                      className="text-indigo-400 hover:text-indigo-300 mr-3 inline-flex items-center"
+                      className="mr-2 inline-flex min-h-10 items-center gap-1.5 rounded-lg px-3 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
                     >
-                      <PencilIcon className="h-4 w-4 mr-1" />
+                      <Pencil className="size-4" />
                       {t('edit')}
                     </Link>
                     <button
                       onClick={() => handleDelete(project.id)}
                       disabled={deleteLoading === project.id}
-                      className="text-red-400 hover:text-red-300 inline-flex items-center"
+                      className="inline-flex min-h-10 items-center gap-1.5 rounded-lg px-3 text-muted-foreground transition-colors hover:bg-[#2d1b1e] hover:text-[#f0a2ad] disabled:opacity-50"
                     >
                       {deleteLoading === project.id ? (
-                        <div className="animate-spin h-4 w-4 mr-1 border-t-2 border-b-2 border-red-400 rounded-full"></div>
+                        <div className="size-4 animate-spin rounded-full border-2 border-[#5f343b] border-t-[#f0a2ad]"></div>
                       ) : (
-                        <TrashIcon className="h-4 w-4 mr-1" />
+                        <Trash2 className="size-4" />
                       )}
                       {t('delete')}
                     </button>
@@ -237,20 +217,22 @@ export default function ProjectsPage() {
               ))}
             </tbody>
           </table>
-        </motion.div>
+          </div>
+        </div>
       ) : (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="bg-gray-800 rounded-lg p-12 text-center"
-        >
-          <h3 className="text-xl font-medium text-gray-300 mb-4">{t('noProjectsYet')}</h3>
-          <p className="text-gray-400 mb-6">{t('startByAdding')}</p>
-          <Link href="/dashboard/projects/new">
-            <Button icon={<PlusIcon className="h-5 w-5" />}>{t('addFirstProject')}</Button>
-          </Link>
-        </motion.div>
+        <EmptyState
+          icon={<FolderKanban className="size-5" />}
+          title={t('noProjectsYet')}
+          description={t('startByAdding')}
+          action={
+            <Button asChild>
+              <Link href="/dashboard/projects/new">
+                <Plus className="size-4" />
+                {t('addFirstProject')}
+              </Link>
+            </Button>
+          }
+        />
       )}
     </div>
   );

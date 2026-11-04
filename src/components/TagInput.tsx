@@ -46,19 +46,20 @@ const TagInput: React.FC<TagInputProps> = ({
   };
 
   return (
-    <div className={`flex flex-wrap gap-2 p-2 bg-gray-800 border border-gray-700 rounded-md focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-indigo-500 ${className}`}>
+    <div className={`flex min-h-11 flex-wrap gap-2 rounded-xl border border-input bg-[#101116] p-2.5 focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/25 ${className}`}>
       {value.map((tag) => (
         <div
           key={tag}
-          className="flex items-center gap-1 px-2 py-1 text-sm bg-indigo-900 text-indigo-100 rounded-md"
+          className="flex items-center gap-1.5 rounded-lg border border-[#4a435d] bg-[#272331] px-2.5 py-1 text-sm text-[#ddd4f7]"
         >
           <span>{tag}</span>
           <button
             type="button"
             onClick={() => removeTag(tag)}
-            className="text-indigo-300 hover:text-white focus:outline-none"
+            className="grid size-6 place-items-center rounded-md text-[#b9ace0] hover:bg-[#352f42] hover:text-white focus-visible:outline-none"
+            aria-label={`Remover ${tag}`}
           >
-            <XMarkIcon className="h-3 w-3" />
+            <XMarkIcon className="size-3.5" />
           </button>
         </div>
       ))}
@@ -69,7 +70,7 @@ const TagInput: React.FC<TagInputProps> = ({
         onChange={(e) => setInputValue(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder={value.length === 0 ? placeholder : ''}
-        className="flex-grow min-w-[120px] bg-transparent border-none outline-none text-white placeholder-gray-400"
+        className="min-w-[120px] flex-grow border-none bg-transparent text-foreground outline-none placeholder:text-muted-foreground"
       />
     </div>
   );

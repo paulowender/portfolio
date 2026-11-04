@@ -177,3 +177,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## NFS-e — ambiente de homologação
+
+Integração disponível em **Dashboard → Integrações → NFS-e · Homologação**. Consulte [configuração, migração e testes](docs/nfse-homologacao.md). É necessário configurar o certificado A1 no servidor e o usuário autorizado; a emissão em produção não está habilitada.

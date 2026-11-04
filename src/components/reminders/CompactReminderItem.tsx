@@ -42,7 +42,7 @@ export default function CompactReminderItem({ reminder, index }: CompactReminder
   return (
     <>
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
+        initial={false}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.2, delay: index * 0.05 }}
         className={`bg-gray-800/50 hover:bg-gray-800 rounded-lg p-3 mb-2 border ${reminder.completed

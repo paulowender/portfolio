@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { BellIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
+import { ArrowRight, Clock3 } from 'lucide-react';
 import { useReminders } from '@/hooks/useReminderQuery';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -12,31 +12,31 @@ import { useTranslations } from 'next-intl';
 
 export default function PendingReminders() {
   // Fetch all incomplete reminders
-  const { data: reminders, isLoading } = useReminders({ completed: false });
+  const { data: reminders, isLoading, isError } = useReminders({ completed: false });
   const t = useTranslations('pendingReminders');
 
   // Sort reminders by due date (closest first)
   const pendingReminders = useMemo(() => {
     if (!reminders) return [];
 
-    return reminders.sort(
+    return [...reminders].sort(
       (a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime()
     );
   }, [reminders]);
 
   if (isLoading) {
     return (
-      <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold">{t('title')}</h2>
-          <div className="bg-yellow-600/20 p-2 rounded-lg">
-            <BellIcon className="h-6 w-6 text-yellow-400" />
+      <div className="rounded-2xl border border-border bg-card p-5">
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-base font-semibold text-foreground">{t('title')}</h2>
+          <div className="grid size-9 place-items-center rounded-xl bg-[#211e2a] text-[#b9ace0]">
+            <Clock3 className="size-4" />
           </div>
         </div>
 
-        <div className="space-y-3">
+        <div className="space-y-2.5">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-gray-800/50 rounded-lg p-3 border border-gray-700">
+            <div key={i} className="rounded-xl border border-border bg-[#101116] p-3">
               <div className="flex items-start space-x-3">
                 <Skeleton className="h-5 w-5 rounded-full" />
                 <div className="flex-1">
@@ -54,23 +54,35 @@ export default function PendingReminders() {
     );
   }
 
+  if (isError) {
+    return (
+      <div className="rounded-2xl border border-border bg-card p-5">
+        <h2 className="text-base font-semibold text-foreground">{t('title')}</h2>
+        <p role="status" className="mt-3 text-sm leading-6 text-muted-foreground">{t('unavailable')}</p>
+        <Button asChild variant="outline" size="sm" className="mt-4 w-full">
+          <Link href="/dashboard/reminders">{t('manageReminders')}</Link>
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={false}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-gray-800 rounded-lg p-6 border border-gray-700"
+      className="rounded-2xl border border-border bg-card p-5"
     >
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-semibold">{t('title')}</h2>
-        <div className="bg-yellow-600/20 p-2 rounded-lg">
-          <BellIcon className="h-6 w-6 text-yellow-400" />
+      <div className="mb-4 flex items-center justify-between">
+        <h2 className="text-base font-semibold text-foreground">{t('title')}</h2>
+        <div className="grid size-9 place-items-center rounded-xl bg-[#211e2a] text-[#b9ace0]">
+          <Clock3 className="size-4" />
         </div>
       </div>
 
       {pendingReminders.length > 0 ? (
         <>
-          <div className="space-y-2 mb-4 max-h-[400px] overflow-y-auto pr-1">
+          <div className="mb-4 max-h-[360px] space-y-2 overflow-y-auto pr-1">
             <AnimatePresence>
               {pendingReminders.map((reminder) => (
                 <ReminderItem key={reminder.id} reminder={reminder} />
@@ -85,13 +97,13 @@ export default function PendingReminders() {
               className="w-full flex items-center justify-center gap-1"
             >
               <span>{t('viewAll')}</span>
-              <ArrowRightIcon className="h-4 w-4" />
+              <ArrowRight className="size-4" />
             </Button>
           </Link>
         </>
       ) : (
-        <div className="text-center py-6">
-          <p className="text-gray-400 mb-4">{t('noReminders')}</p>
+        <div className="py-6 text-center">
+          <p className="mb-4 text-sm text-muted-foreground">{t('noReminders')}</p>
           <Link href="/dashboard/reminders">
             <Button variant="outline" size="sm">
               {t('manageReminders')}

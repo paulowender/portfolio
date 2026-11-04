@@ -5,9 +5,9 @@ import { useAuth } from '@/lib/AuthContext';
 import { AI_PROVIDERS, AIModel, AIProvider, AIProviderConfig } from '@/types/ai';
 import AIProviderCard from '@/components/ai/AIProviderCard';
 import ModelSelector from '@/components/ai/ModelSelector';
-import { motion } from 'framer-motion';
 import axiosClient from '@/lib/axios-client';
 import { useTranslations } from 'next-intl';
+import PageHeader from '@/components/dashboard/PageHeader';
 
 export default function AIIntegrationsPage() {
   const t = useTranslations('aiIntegrationsPage');
@@ -147,20 +147,14 @@ export default function AIIntegrationsPage() {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-96">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+        <div className="h-12 w-12 animate-spin rounded-full border-2 border-muted border-t-primary"></div>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <h1 className="text-3xl font-bold mb-2">{t('title')}</h1>
-        <p className="text-gray-400 mb-8">{t('description')}</p>
+    <div className="mx-auto max-w-6xl">
+      <PageHeader title={t('title')} description={t('description')} backHref="/dashboard/integrations" backLabel={t('back')} />
 
         {error && (
           <div className="bg-red-900 bg-opacity-20 border border-red-700 text-red-300 p-4 rounded-lg mb-6">
@@ -168,7 +162,7 @@ export default function AIIntegrationsPage() {
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
           {providers.map((provider) => (
             <AIProviderCard
               key={provider.provider}
@@ -178,8 +172,6 @@ export default function AIIntegrationsPage() {
             />
           ))}
         </div>
-      </motion.div>
-
       {selectedProvider && (
         <ModelSelector
           provider={selectedProvider}

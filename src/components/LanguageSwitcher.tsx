@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useLocale } from 'next-intl';
 import { locales, localeNames, localeFlags, type Locale } from '@/i18n/config';
 import { useRouter } from 'next/navigation';
+import { Check, ChevronDown } from 'lucide-react';
 
 export default function LanguageSwitcher() {
   const locale = useLocale() as Locale;
@@ -35,45 +36,31 @@ export default function LanguageSwitcher() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-300 hover:text-white transition-colors duration-300 rounded-md hover:bg-gray-700/50"
+        className="flex min-h-10 items-center gap-2 rounded-xl border border-transparent px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:border-border hover:bg-accent hover:text-foreground"
         aria-label="Change language"
+        aria-expanded={isOpen}
+        aria-haspopup="menu"
       >
         <span className="text-lg">{localeFlags[locale]}</span>
         <span className="hidden sm:inline">{localeNames[locale]}</span>
-        <svg
-          className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
+        <ChevronDown className={`size-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-40 bg-gray-800 border border-gray-700 rounded-md shadow-lg z-50">
+        <div className="absolute right-0 z-50 mt-2 w-44 rounded-xl border border-border bg-popover p-1.5 text-popover-foreground shadow-[0_16px_48px_rgba(0,0,0,0.45)]" role="menu">
           {locales.map((loc) => (
             <button
               key={loc}
               onClick={() => changeLocale(loc)}
-              className={`w-full flex items-center gap-2 px-4 py-2 text-sm text-left hover:bg-gray-700 transition-colors ${
-                locale === loc ? 'text-indigo-400 bg-gray-700/50' : 'text-gray-300'
+              className={`flex min-h-10 w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm transition-colors hover:bg-accent ${
+                locale === loc ? 'bg-accent text-[#d8cef5]' : 'text-muted-foreground'
               }`}
+              role="menuitem"
             >
               <span className="text-lg">{localeFlags[loc]}</span>
               <span>{localeNames[loc]}</span>
               {locale === loc && (
-                <svg
-                  className="w-4 h-4 ml-auto"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
+                <Check className="ml-auto size-4" />
               )}
             </button>
           ))}

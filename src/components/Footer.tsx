@@ -1,81 +1,38 @@
 'use client';
 
 import Link from 'next/link';
-import { FaGithub, FaTwitter, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import { ArrowUpRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const t = useTranslations('footer');
+  const links = [
+    { href: '/', label: t('home') },
+    { href: '/#projects', label: t('projects') },
+    { href: '/#about', label: t('about') },
+    { href: '/#contact', label: t('contact') },
+    { href: '/login', label: t('login') },
+  ];
 
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <h3 className="text-xl font-bold mb-4">Wender Tech</h3>
-            <p className="text-gray-400">{t('description')}</p>
+    <footer className="border-t border-border bg-background text-foreground">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+        <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
+          <div className="max-w-xl">
+            <Link href="/" className="inline-flex items-center gap-3 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+              <span className="flex size-10 items-center justify-center rounded-full border border-border-strong bg-secondary font-semibold">W</span>
+              <span className="font-semibold">Wender Tech</span>
+            </Link>
+            <p className="mt-5 text-sm leading-6 text-muted-foreground">{t('description')}</p>
           </div>
-
-          <div>
-            <h3 className="text-lg font-semibold mb-4">{t('quickLinks')}</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/" className="text-gray-400 hover:text-white transition-colors">
-                  {t('home')}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/#projects"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  {t('projects')}
-                </Link>
-              </li>
-              <li>
-                <Link href="/#about" className="text-gray-400 hover:text-white transition-colors">
-                  {t('about')}
-                </Link>
-              </li>
-              <li>
-                <Link href="/#contact" className="text-gray-400 hover:text-white transition-colors">
-                  {t('contact')}
-                </Link>
-              </li>
-              <li>
-                <Link href="/login" className="text-gray-400 hover:text-white transition-colors">
-                  {t('login')}
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-semibold mb-4">{t('connect')}</h3>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <FaGithub className="h-6 w-6" />
-                <span className="sr-only">GitHub</span>
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <FaTwitter className="h-6 w-6" />
-                <span className="sr-only">Twitter</span>
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <FaLinkedin className="h-6 w-6" />
-                <span className="sr-only">LinkedIn</span>
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <FaEnvelope className="h-6 w-6" />
-                <span className="sr-only">Email</span>
-              </a>
-            </div>
-          </div>
+          <nav aria-label={t('quickLinks')} className="flex flex-wrap gap-x-6 gap-y-3 lg:justify-end">
+            {links.map((link) => <Link key={link.href} href={link.href} className="inline-flex min-h-10 items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">{link.label}</Link>)}
+          </nav>
         </div>
-
-        <div className="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">
+        <div className="mt-10 flex flex-col gap-4 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <p>{t('copyright', { year: currentYear })}</p>
+          <Link href="/#contact" className="inline-flex min-h-10 w-fit items-center gap-2 font-semibold text-primary hover:text-primary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">{t('contact')}<ArrowUpRight className="size-3.5" /></Link>
         </div>
       </div>
     </footer>

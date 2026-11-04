@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { ReactNode } from 'react';
 
 interface ParallaxSectionProps {
@@ -22,6 +22,7 @@ export default function ParallaxSection({
   id,
 }: ParallaxSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start start', 'end start'],
@@ -32,12 +33,12 @@ export default function ParallaxSection({
   return (
     <div ref={ref} id={id} className={`relative overflow-hidden ${className}`}>
       {bgImage && (
-        <motion.div style={{ y }} className="absolute inset-0 w-full h-full">
+        <motion.div style={{ y: reduceMotion ? 0 : y }} className="absolute inset-0 h-full w-full">
           <div
             className="absolute inset-0 w-full h-full bg-cover bg-center"
             style={{ backgroundImage: `url(${bgImage})` }}
           />
-          {overlay && <div className="absolute inset-0 bg-black/50" />}
+          {overlay && <div className="absolute inset-0 bg-background/70" />}
         </motion.div>
       )}
       <div className="relative z-10">{children}</div>

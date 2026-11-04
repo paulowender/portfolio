@@ -1,240 +1,224 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { useLocale, useTranslations } from 'next-intl';
+import { CalendarDays, Clock3, FolderKanban, Plus, Sparkles } from 'lucide-react';
 import { useAuth } from '@/lib/AuthContext';
-import Button from '@/components/Button';
-import { FolderIcon, CalendarIcon, BellIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { useProjects } from '@/hooks/usePortfolioQuery';
 import { useReminders } from '@/hooks/useReminderQuery';
+import { getDashboardStatus, getPrioritySummary } from '@/lib/dashboard-status';
 import PendingReminders from '@/components/dashboard/PendingReminders';
-import Image from 'next/image';
-import { useTranslations } from 'next-intl';
+import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+
+interface DashboardProject {
+  id: string;
+  title: string;
+  description?: string | null;
+  imageUrl?: string | null;
+  technologies?: string[];
+  featured?: boolean;
+}
 
 export default function DashboardPage() {
   const { user } = useAuth();
-  const { data: projects, isLoading: projectsLoading } = useProjects(user?.id);
-  const { data: reminders, isLoading: remindersLoading } = useReminders({ completed: false });
+  const locale = useLocale();
   const t = useTranslations('dashboard');
+  const { data: projectData, isLoading: projectsLoading } = useProjects(user?.id);
+  const {
+    data: reminders,
+    isLoading: remindersLoading,
+    isError: remindersError,
+  } = useReminders({ completed: false });
 
-  // Count active reminders (not completed)
-  const activeRemindersCount = reminders?.length || 0;
+  const projects = (projectData || []) as DashboardProject[];
+  const reminderState = remindersLoading ? 'loading' : remindersError ? 'error' : 'ready';
+  const status = getDashboardStatus(reminders, reminderState, new Date());
+  const prioritySummary = getPrioritySummary(status);
+  const statusTitle =
+    status.tone === 'controlled'
+      ? t('statusControlled')
+      : status.tone === 'attention'
+        ? t('statusAttention')
+        : t('statusNeutral');
+  const statusDescription =
+    status.tone === 'controlled'
+      ? t('statusControlledDescription')
+      : status.tone === 'attention'
+        ? t('statusAttentionDescription', { count: status.overdueCount })
+        : t('statusNeutralDescription');
+  const formattedDate = new Intl.DateTimeFormat(locale, {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+  }).format(new Date());
 
   return (
-    <div>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <h1 className="text-3xl font-bold mb-2">{t('welcomeBack', { name: user?.name || '' })}</h1>
-        <p className="text-gray-400 mb-8">
-          {t('overview')}
-        </p>
-      </motion.div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="bg-gray-800 rounded-lg p-6"
-        >
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold">{t('projects')}</h2>
-            <div className="bg-indigo-600/20 p-2 rounded-lg">
-              <FolderIcon className="h-6 w-6 text-indigo-400" />
-            </div>
-          </div>
-          <p className="text-3xl font-bold mb-1">
-            {projectsLoading ? '...' : projects?.length || 0}
+    <div className="space-y-6 sm:space-y-8">
+      <section className="flex flex-col gap-5 border-b border-border pb-7 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p className="mb-3 text-sm capitalize text-muted-foreground">{formattedDate}</p>
+          <h1 className="max-w-4xl text-4xl font-semibold tracking-[-0.04em] text-foreground sm:text-5xl lg:text-[3.5rem]">
+            {statusTitle}
+          </h1>
+          <p className="mt-4 max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">
+            {statusDescription}
           </p>
-          <p className="text-gray-400 text-sm">{t('totalProjects')}</p>
-          <div className="mt-4">
-            <Link href="/dashboard/projects">
-              <Button variant="outline" size="sm" className="w-full">
-                {t('viewAll')}
-              </Button>
-            </Link>
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="bg-gray-800 rounded-lg p-6"
-        >
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold">{t('upcoming')}</h2>
-            <div className="bg-green-600/20 p-2 rounded-lg">
-              <CalendarIcon className="h-6 w-6 text-green-400" />
-            </div>
-          </div>
-          <p className="text-3xl font-bold mb-1">0</p>
-          <p className="text-gray-400 text-sm">{t('scheduledAppointments')}</p>
-          <div className="mt-4">
-            <Link href="/dashboard/calendar">
-              <Button variant="outline" size="sm" className="w-full">
-                {t('viewCalendar')}
-              </Button>
-            </Link>
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="bg-gray-800 rounded-lg p-6"
-        >
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold">{t('reminders')}</h2>
-            <div className="bg-yellow-600/20 p-2 rounded-lg">
-              <BellIcon className="h-6 w-6 text-yellow-400" />
-            </div>
-          </div>
-          <p className="text-3xl font-bold mb-1">
-            {remindersLoading ? '...' : activeRemindersCount}
-          </p>
-          <p className="text-gray-400 text-sm">{t('activeReminders')}</p>
-          <div className="mt-4">
-            <Link href="/dashboard/reminders">
-              <Button variant="outline" size="sm" className="w-full">
-                {t('viewReminders')}
-              </Button>
-            </Link>
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Pending Reminders Section */}
-      <div className="mb-8">
-        <PendingReminders />
-      </div>
-
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold">{t('recentProjects')}</h2>
+        </div>
+        <Button asChild size="lg" className="w-full sm:w-auto">
           <Link href="/dashboard/projects/new">
-            <Button size="sm" icon={<PlusIcon className="h-5 w-5" />}>
-              {t('addProject')}
-            </Button>
+            <Plus className="size-4" />
+            {t('addProject')}
           </Link>
+        </Button>
+      </section>
+
+      <section className="grid gap-3 md:grid-cols-3" aria-label={t('summaryLabel')}>
+        <Link
+          href="/dashboard/projects"
+          className="group flex min-h-36 flex-col justify-between rounded-2xl border border-primary bg-primary p-5 text-primary-foreground transition-transform duration-200 hover:-translate-y-0.5"
+        >
+          <div className="flex items-center justify-between gap-4">
+            <span className="text-sm font-semibold">{t('projects')}</span>
+            <FolderKanban className="size-5" strokeWidth={1.8} />
+          </div>
+          <div>
+            <span className="text-4xl font-semibold tracking-[-0.04em]">
+              {projectsLoading ? '—' : projects.length}
+            </span>
+            <span className="ml-2 text-xs text-[#3d344c]">{t('totalProjects')}</span>
+          </div>
+        </Link>
+
+        <Link
+          href="/dashboard/reminders"
+          className="flex min-h-36 flex-col justify-between rounded-2xl border border-border bg-card p-5 transition-colors hover:border-[#4a4658] hover:bg-[#17181e]"
+        >
+          <div className="flex items-center justify-between gap-4">
+            <span className="text-sm font-semibold text-muted-foreground">{t('reminders')}</span>
+            <Clock3 className="size-5 text-[#b9ace0]" strokeWidth={1.8} />
+          </div>
+          <div>
+            <span className="text-4xl font-semibold tracking-[-0.04em] text-foreground">
+              {remindersLoading ? '—' : reminders?.length || 0}
+            </span>
+            <span className="ml-2 text-xs text-muted-foreground">
+              {status.dueTodayCount > 0
+                ? t('dueToday', { count: status.dueTodayCount })
+                : t('activeReminders')}
+            </span>
+          </div>
+        </Link>
+
+        <Link
+          href="/dashboard/calendar"
+          className="flex min-h-36 flex-col justify-between rounded-2xl border border-border bg-card p-5 transition-colors hover:border-[#4a4658] hover:bg-[#17181e]"
+        >
+          <div className="flex items-center justify-between gap-4">
+            <span className="text-sm font-semibold text-muted-foreground">{t('upcoming')}</span>
+            <CalendarDays className="size-5 text-[#b9ace0]" strokeWidth={1.8} />
+          </div>
+          <div>
+            <span className="text-4xl font-semibold tracking-[-0.04em] text-foreground">
+              {remindersLoading ? '—' : Math.min(status.priority.length, 3)}
+            </span>
+            <span className="ml-2 text-xs text-muted-foreground">{t('nextItems')}</span>
+          </div>
+        </Link>
+      </section>
+
+      <section className="grid gap-6 xl:grid-cols-[minmax(0,1.55fr)_minmax(320px,.75fr)]">
+        <div className="overflow-hidden rounded-2xl border border-border bg-card">
+          <div className="flex items-center justify-between gap-4 border-b border-border px-5 py-4 sm:px-6">
+            <div>
+              <h2 className="text-lg font-semibold text-foreground">{t('recentProjects')}</h2>
+              <p className="mt-1 text-sm text-muted-foreground">{t('recentProjectsDescription')}</p>
+            </div>
+            <Button asChild variant="ghost" size="sm">
+              <Link href="/dashboard/projects">{t('viewAll')}</Link>
+            </Button>
+          </div>
+
+          {projectsLoading ? (
+            <div className="space-y-3 p-5 sm:p-6">
+              {[1, 2, 3].map((item) => (
+                <Skeleton key={item} className="h-16 w-full" />
+              ))}
+            </div>
+          ) : projects.length > 0 ? (
+            <div className="divide-y divide-border">
+              {projects.slice(0, 5).map((project) => (
+                <Link
+                  key={project.id}
+                  href={`/dashboard/projects/${project.id}`}
+                  className="grid gap-3 px-5 py-4 transition-colors hover:bg-[#18181f] sm:grid-cols-[minmax(0,1.2fr)_minmax(160px,.7fr)_auto] sm:items-center sm:px-6"
+                >
+                  <div className="flex min-w-0 items-center gap-3">
+                    <div className="relative size-11 shrink-0 overflow-hidden rounded-xl border border-border bg-[#211e2a]">
+                      {project.imageUrl ? (
+                        <Image src={project.imageUrl} alt="" fill className="object-cover" sizes="44px" />
+                      ) : (
+                        <Sparkles className="absolute inset-0 m-auto size-4 text-[#9189a1]" />
+                      )}
+                    </div>
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-semibold text-foreground">{project.title}</p>
+                      <p className="mt-1 truncate text-xs text-muted-foreground">
+                        {project.description || t('noProjectDescription')}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {(project.technologies || []).slice(0, 2).map((technology) => (
+                      <span key={technology} className="rounded-lg bg-[#211e2a] px-2 py-1 text-xs text-[#c5bdd2]">
+                        {technology}
+                      </span>
+                    ))}
+                  </div>
+                  <span className="text-xs font-medium text-[#b9ace0]">
+                    {project.featured ? t('featured') : t('edit')}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="px-6 py-14 text-center">
+              <FolderKanban className="mx-auto size-8 text-[#716b7b]" />
+              <h3 className="mt-4 text-lg font-semibold text-foreground">{t('noProjectsYet')}</h3>
+              <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">{t('startByAdding')}</p>
+              <Button asChild className="mt-6">
+                <Link href="/dashboard/projects/new">{t('addFirstProject')}</Link>
+              </Button>
+            </div>
+          )}
         </div>
 
-        {projectsLoading ? (
-          <div className="flex justify-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
-          </div>
-        ) : projects && projects.length > 0 ? (
-          <div className="bg-gray-800 rounded-lg overflow-hidden">
-            <table className="min-w-full divide-y divide-gray-700">
-              <thead className="bg-gray-700">
-                <tr>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
-                  >
-                    {t('project')}
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
-                  >
-                    {t('technologies')}
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
-                  >
-                    {t('featured')}
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
-                  >
-                    {t('actions')}
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-800 divide-y divide-gray-700">
-                {projects.slice(0, 5).map((project: any) => (
-                  <tr key={project.id}>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center">
-                        <div className="flex-shrink-0 h-10 w-10 bg-gray-700 rounded-md">
-                          {project.imageUrl && (
-                            <Image
-                              width={100}
-                              height={100}
-                              src={project.imageUrl}
-                              alt={project.title}
-                              className="h-10 w-10 object-cover"
-                            />
-                          )}
-                        </div>
-                        <div className="ml-4">
-                          <div className="text-sm font-medium text-white">{project.title}</div>
-                          <div className="text-sm text-gray-400">
-                            {project.description.substring(0, 50)}...
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex flex-wrap gap-1">
-                        {project.technologies.slice(0, 3).map((tech: string) => (
-                          <span
-                            key={tech}
-                            className="px-2 py-1 text-xs bg-gray-700 rounded-full text-gray-300"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                        {project.technologies.length > 3 && (
-                          <span className="px-2 py-1 text-xs bg-gray-700 rounded-full text-gray-300">
-                            +{project.technologies.length - 3}
-                          </span>
-                        )}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span
-                        className={`px-2 py-1 text-xs rounded-full ${project.featured
-                          ? 'bg-green-900 text-green-300'
-                          : 'bg-gray-700 text-gray-300'
-                          }`}
-                      >
-                        {project.featured ? t('yes') : t('no')}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
-                      <Link
-                        href={`/dashboard/projects/${project.id}`}
-                        className="text-indigo-400 hover:text-indigo-300 mr-3"
-                      >
-                        {t('edit')}
-                      </Link>
-                      <button className="text-red-400 hover:text-red-300">{t('delete')}</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <div className="bg-gray-800 rounded-lg p-12 text-center">
-            <h3 className="text-xl font-medium text-gray-300 mb-4">{t('noProjectsYet')}</h3>
-            <p className="text-gray-400 mb-6">
-              {t('startByAdding')}
+        <aside className="space-y-6">
+          <div className="rounded-2xl border border-[#3a3546] bg-[#18171e] p-5">
+            <p className="text-sm text-muted-foreground">{t('todayPriority')}</p>
+            <p className="mt-4 text-5xl font-semibold tracking-[-0.05em] text-foreground">
+              {prioritySummary === 'unavailable' ? '—' : String(status.overdueCount + status.dueTodayCount).padStart(2, '0')}
             </p>
-            <Link href="/dashboard/projects/new">
-              <Button icon={<PlusIcon className="h-5 w-5" />}>{t('addFirstProject')}</Button>
-            </Link>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">
+              {prioritySummary === 'unavailable'
+                ? t('priorityUnavailable')
+                : prioritySummary === 'overdue'
+                ? t('priorityOverdue', { count: status.overdueCount })
+                : prioritySummary === 'today'
+                  ? t('priorityToday', { count: status.dueTodayCount })
+                  : t('priorityClear')}
+            </p>
+            <Button asChild variant="secondary" className="mt-5 w-full justify-between">
+              <Link href="/dashboard/reminders">
+                {t('reviewReminders')}
+                <span aria-hidden="true">→</span>
+              </Link>
+            </Button>
           </div>
-        )}
-      </div>
+          <PendingReminders />
+        </aside>
+      </section>
     </div>
   );
 }

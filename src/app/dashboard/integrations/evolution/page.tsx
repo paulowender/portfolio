@@ -4,10 +4,10 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/lib/AuthContext';
 import { EvolutionInstance } from '@/types/messaging';
 import EvolutionProviderCard from '@/components/messaging/EvolutionProviderCard';
-import { motion } from 'framer-motion';
 import axiosClient from '@/lib/axios-client';
 import EvolutionInstanceManager from '@/components/messaging/EvolutionInstanceManager';
 import { useTranslations } from 'next-intl';
+import PageHeader from '@/components/dashboard/PageHeader';
 
 export default function EvolutionIntegrationPage() {
   const t = useTranslations('evolutionPage');
@@ -210,20 +210,14 @@ export default function EvolutionIntegrationPage() {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-96">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div>
+        <div className="h-12 w-12 animate-spin rounded-full border-2 border-muted border-t-primary"></div>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <h1 className="text-3xl font-bold mb-2">{t('title')}</h1>
-        <p className="text-gray-400 mb-8">{t('description')}</p>
+    <div className="mx-auto max-w-5xl">
+      <PageHeader title={t('title')} description={t('description')} backHref="/dashboard/integrations" backLabel={t('back')} />
 
         {error && (
           <div className="bg-red-900 bg-opacity-20 border border-red-700 text-red-300 p-4 rounded-lg mb-6">
@@ -231,7 +225,7 @@ export default function EvolutionIntegrationPage() {
           </div>
         )}
 
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-3xl">
           <EvolutionProviderCard
             apiKey={apiKey}
             baseUrl={baseUrl}
@@ -241,8 +235,6 @@ export default function EvolutionIntegrationPage() {
             onTestConnection={handleTestConnection}
           />
         </div>
-      </motion.div>
-
       {showInstanceManager && (
         <EvolutionInstanceManager
           instances={instances}

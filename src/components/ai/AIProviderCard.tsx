@@ -4,7 +4,11 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { AIProviderConfig } from '@/types/ai';
 import Button from '@/components/Button';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+import { Eye, EyeOff } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Switch } from '@/components/ui/switch';
+import StatusBadge from '@/components/dashboard/StatusBadge';
+import { useTranslations } from 'next-intl';
 
 interface AIProviderCardProps {
   provider: AIProviderConfig;
@@ -13,6 +17,7 @@ interface AIProviderCardProps {
 }
 
 export default function AIProviderCard({ provider, onSave, onSelectModel }: AIProviderCardProps) {
+  const t = useTranslations('aiIntegrationsPage');
   const [apiKey, setApiKey] = useState(provider.apiKey || '');
   const [isEnabled, setIsEnabled] = useState(provider.isEnabled);
   const [isLoading, setIsLoading] = useState(false);
@@ -30,80 +35,75 @@ export default function AIProviderCard({ provider, onSave, onSelectModel }: AIPr
 
     try {
       await onSave(provider.provider, apiKey, isEnabled);
-    } catch (err: any) {
-      setError(err.message || 'Failed to save configuration');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Failed to save configuration');
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="bg-gray-800 rounded-lg p-6 border border-gray-700 hover:border-indigo-500 transition-all">
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 relative">
+    <article className="rounded-2xl border border-border bg-card p-5 transition-colors hover:border-border-strong sm:p-6">
+      <div className="mb-5 flex flex-wrap items-start justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="relative size-11 overflow-hidden rounded-xl border border-border bg-secondary p-1.5">
             <Image
               src={provider.logoUrl}
               alt={`${provider.name} logo`}
               width={40}
               height={40}
-              className="rounded-md"
+              className="h-full w-full rounded-lg object-contain"
             />
           </div>
-          <h3 className="text-xl font-semibold">{provider.name}</h3>
+          <div>
+            <h3 className="font-semibold text-foreground">{provider.name}</h3>
+            <StatusBadge tone={isEnabled ? 'success' : apiKey ? 'neutral' : 'warning'}>
+              {isEnabled ? t('active') : apiKey ? t('disabled') : t('unconfigured')}
+            </StatusBadge>
+          </div>
         </div>
-        <div className="flex items-center">
-          <label className="relative inline-flex items-center cursor-pointer">
-            <input
-              type="checkbox"
-              className="sr-only peer"
-              checked={isEnabled}
-              onChange={() => setIsEnabled(!isEnabled)}
-              disabled={!apiKey}
-            />
-            <div className="w-11 h-6 bg-gray-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
-            <span className="ml-3 text-sm font-medium text-gray-300">
-              {isEnabled ? 'Enabled' : 'Disabled'}
-            </span>
-          </label>
-        </div>
+        <label className="flex min-h-10 cursor-pointer items-center gap-3 text-sm font-medium text-muted-foreground">
+          <Switch checked={isEnabled} onCheckedChange={setIsEnabled} disabled={!apiKey} aria-label={`${t('enable')} ${provider.name}`} />
+          {isEnabled ? t('active') : t('inactive')}
+        </label>
       </div>
 
-      <p className="text-gray-400 mb-4 text-sm">{provider.description}</p>
+      <p className="mb-5 text-sm leading-6 text-muted-foreground">{provider.description}</p>
 
-      <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-300 mb-1">API Key</label>
+      <div className="mb-5">
+        <label className="mb-2 block text-sm font-medium text-foreground">API Key</label>
         <div className="relative">
-          <input
+          <Input
             type={showApiKey ? 'text' : 'password'}
             value={apiKey}
             onChange={(e) => setApiKey(e.target.value)}
-            className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="pr-12"
             placeholder={`Enter your ${provider.name} API key`}
           />
           <button
             type="button"
             onClick={() => setShowApiKey(!showApiKey)}
-            className="absolute inset-y-0 right-0 pr-3 flex items-center"
+            className="absolute inset-y-0 right-0 flex w-11 items-center justify-center rounded-r-xl text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
+            aria-label={showApiKey ? t('hideKey') : t('showKey')}
           >
             {showApiKey ? (
-              <EyeSlashIcon className="h-5 w-5 text-gray-400" />
+              <EyeOff className="size-4" />
             ) : (
-              <EyeIcon className="h-5 w-5 text-gray-400" />
+              <Eye className="size-4" />
             )}
           </button>
         </div>
-        {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
+        {error && <p role="alert" className="mt-2 text-sm text-destructive">{error}</p>}
       </div>
 
-      <div className="flex space-x-3">
+      <div className="flex flex-col gap-3 sm:flex-row">
         <Button
           onClick={handleSave}
           isLoading={isLoading}
           disabled={!apiKey}
           className="flex-1"
         >
-          Save
+          {t('save')}
         </Button>
         <Button
           variant="outline"
@@ -111,9 +111,9 @@ export default function AIProviderCard({ provider, onSave, onSelectModel }: AIPr
           disabled={!isEnabled || !apiKey}
           className="flex-1"
         >
-          Select Model
+          {t('selectModel')}
         </Button>
       </div>
-    </div>
+    </article>
   );
 }

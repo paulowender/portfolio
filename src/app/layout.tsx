@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Geist_Mono, Manrope } from 'next/font/google';
 import './globals.css';
 import { AuthProvider } from '@/lib/AuthContext';
 import { PortfolioProvider } from '@/components/PortfolioData';
@@ -9,8 +9,8 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { getLocale, getMessages } from 'next-intl/server';
 import I18nProvider from '@/i18n/provider';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const manrope = Manrope({
+  variable: '--font-manrope',
   subsets: ['latin'],
 });
 
@@ -34,20 +34,22 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang={locale} className={`${manrope.variable} ${geistMono.variable}`} suppressHydrationWarning>
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
         <meta name="apple-mobile-web-app-title" content="WenderTech" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased dark:bg-gray-900 dark:text-white`}
+        className="min-h-screen bg-background text-foreground antialiased"
       >
         <ReactQueryProvider>
           <AuthProvider>
             <I18nProvider locale={locale} messages={messages}>
               <ThemeProvider
                 attribute="class"
-                defaultTheme="system"
-                enableSystem
+                defaultTheme="dark"
+                forcedTheme="dark"
+                enableSystem={false}
                 disableTransitionOnChange
               >
                 <PortfolioProvider>{children}</PortfolioProvider>

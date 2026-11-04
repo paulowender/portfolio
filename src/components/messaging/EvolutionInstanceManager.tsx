@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { EvolutionInstance } from '@/types/messaging';
 import Button from '@/components/Button';
 import { XMarkIcon, PlusIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 
 interface EvolutionInstanceManagerProps {
   instances: EvolutionInstance[];
@@ -38,6 +39,7 @@ export default function EvolutionInstanceManager({
   const [qrCode, setQrCode] = useState<string | null>(null);
   const [isLoadingQR, setIsLoadingQR] = useState(false);
   const [error, setError] = useState('');
+  const openerRef = useRef<HTMLElement | null>(typeof document === 'undefined' ? null : document.activeElement as HTMLElement | null);
 
   const handleAddInstance = async () => {
     if (!newInstanceName) {
@@ -51,8 +53,8 @@ export default function EvolutionInstanceManager({
     try {
       await onAddInstance(newInstanceName);
       setNewInstanceName('');
-    } catch (err: any) {
-      setError(err.message || 'Failed to add instance');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Failed to add instance');
     } finally {
       setIsAddingInstance(false);
     }
@@ -64,8 +66,8 @@ export default function EvolutionInstanceManager({
 
     try {
       await onRefreshInstances();
-    } catch (err: any) {
-      setError(err.message || 'Failed to refresh instances');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Failed to refresh instances');
     } finally {
       setIsRefreshing(false);
     }
@@ -79,8 +81,8 @@ export default function EvolutionInstanceManager({
     try {
       const qrCodeData = await onGetQRCode(instanceId);
       setQrCode(qrCodeData);
-    } catch (err: any) {
-      setError(err.message || 'Failed to get QR code');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Failed to get QR code');
       setQrCode(null);
     } finally {
       setIsLoadingQR(false);
@@ -102,16 +104,17 @@ export default function EvolutionInstanceManager({
       } else if (action === 'delete') {
         await onDeleteInstance(instanceId);
       }
-    } catch (err: any) {
-      setError(err.message || `Failed to ${action} instance`);
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : `Failed to ${action} instance`);
     } finally {
       setSelectedInstance(null);
     }
   };
 
   return (
-    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
-      <div className="bg-gray-800 rounded-lg p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+    <Dialog open onOpenChange={(open) => { if (!open) onClose(); }}>
+      <DialogContent className="max-h-[84vh] overflow-y-auto sm:max-w-2xl" onCloseAutoFocus={(event) => { event.preventDefault(); openerRef.current?.focus(); }}>
+        <DialogTitle className="sr-only">Manage WhatsApp Instances</DialogTitle>
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-semibold">Manage WhatsApp Instances</h2>
           <button onClick={onClose} className="text-gray-400 hover:text-white">
@@ -254,7 +257,7 @@ export default function EvolutionInstanceManager({
 
                 {qrCode && selectedInstance === instance.id && (
                   <div className="mt-4 p-4 bg-white flex justify-center rounded-lg">
-                    <img src={qrCode} alt="WhatsApp QR Code" className="w-48 h-48" />
+                    <Image src={qrCode} alt="WhatsApp QR Code" width={192} height={192} unoptimized className="h-48 w-48" />
                   </div>
                 )}
               </div>
@@ -267,7 +270,7 @@ export default function EvolutionInstanceManager({
             Close
           </Button>
         </div>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }

@@ -3,9 +3,10 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
-import { FaLock } from 'react-icons/fa';
+import { LoaderCircle, LockKeyhole } from 'lucide-react';
 import Button from '@/components/Button';
+import AuthShell from '@/components/auth/AuthShell';
+import { Input } from '@/components/ui/input';
 import { useAuth } from '@/lib/AuthContext';
 import { supabase } from '@/lib/supabase';
 import { createClient } from '@supabase/supabase-js';
@@ -82,7 +83,7 @@ export default function ResetPasswordPage() {
               setCheckingAuth(false);
               return;
             }
-          } catch (setSessionError) {
+          } catch {
             // Continuar com outras abordagens se falhar
           }
         }
@@ -120,7 +121,7 @@ export default function ResetPasswordPage() {
         return () => {
           subscription.unsubscribe();
         };
-      } catch (err) {
+      } catch {
         setCheckingAuth(false);
       }
     };
@@ -193,7 +194,7 @@ export default function ResetPasswordPage() {
             }, 3000);
 
             return; // Sair da função para não executar o updatePassword abaixo
-          } catch (directError: any) {
+          } catch (directError: unknown) {
             throw directError;
           }
         }
@@ -209,8 +210,8 @@ export default function ResetPasswordPage() {
       setTimeout(() => {
         router.push('/dashboard');
       }, 3000);
-    } catch (err: any) {
-      setError(err.message || 'Ocorreu um erro ao atualizar sua senha');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Ocorreu um erro ao atualizar sua senha');
     } finally {
       setLoading(false);
     }
@@ -218,95 +219,36 @@ export default function ResetPasswordPage() {
 
   if (checkingAuth) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
-        <div className="max-w-md w-full space-y-8 text-center">
-          <div className="text-white">
-            <div className="mb-4">
-              <div
-                className="animate-spin inline-block w-8 h-8 border-4 border-current border-t-transparent text-indigo-400 rounded-full"
-                role="status"
-                aria-label="loading"
-              >
-                <span className="sr-only">Loading...</span>
-              </div>
-            </div>
-            <div className="animate-pulse">Verificando sua solicitação...</div>
-            <p className="text-gray-400 text-sm mt-4">
-              Isso pode levar alguns segundos. Por favor, aguarde.
-            </p>
-          </div>
+      <AuthShell title="Verificando sua solicitação" description="Isso pode levar alguns segundos. Por favor, aguarde.">
+        <div role="status" className="flex items-center gap-3 text-sm text-muted-foreground">
+          <LoaderCircle className="size-5 animate-spin text-primary" aria-hidden="true" />
+          <span>Validando o link de recuperação…</span>
         </div>
-      </div>
+      </AuthShell>
     );
   }
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
-        <div className="max-w-md w-full space-y-8">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-white">
-              Não foi possível verificar automaticamente
-            </h2>
-            <p className="text-gray-400 mt-2">
-              Você pode tentar novamente ou solicitar um novo link de redefinição de senha na{' '}
-              <Link href="/forgot-password" className="text-indigo-400 hover:text-indigo-300">
-                página de recuperação de senha
-              </Link>
-              .
-            </p>
-          </div>
-
-          <div className="mt-8 bg-gray-800 py-8 px-4 shadow-lg sm:rounded-lg sm:px-10">
-            <div className="text-center mb-4">
-              <button
-                onClick={() => window.location.reload()}
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                Tentar novamente
-              </button>
-            </div>
-
-            <div className="text-center">
-              <p className="text-gray-400 text-sm">
-                Se o problema persistir, entre em contato com o suporte.
-              </p>
-            </div>
-          </div>
+      <AuthShell title="Não foi possível verificar automaticamente" description="O link pode ter expirado ou já ter sido utilizado.">
+        <div className="space-y-5">
+          <p className="text-sm leading-6 text-muted-foreground">Você pode tentar novamente ou solicitar um novo link na <Link href="/forgot-password" className="font-semibold text-primary hover:text-primary/80">página de recuperação de senha</Link>.</p>
+          <Button onClick={() => window.location.reload()} className="w-full">Tentar novamente</Button>
+          <p className="text-center text-xs text-muted-foreground">Se o problema persistir, entre em contato com o suporte.</p>
         </div>
-      </div>
+      </AuthShell>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center"
-        >
-          <Link href="/" className="inline-block">
-            <h2 className="text-3xl font-extrabold text-white">Wender Tech</h2>
-          </Link>
-          <h2 className="mt-6 text-3xl font-bold text-white">Set new password</h2>
-          <p className="mt-2 text-sm text-gray-400">Enter your new password below</p>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-8 bg-gray-800 py-8 px-4 shadow-lg sm:rounded-lg sm:px-10"
-        >
+    <AuthShell title="Set new password" description="Enter your new password below.">
           {error && (
-            <div className="mb-4 bg-red-900/50 text-red-200 p-3 rounded-md text-sm">{error}</div>
+            <div role="alert" className="mb-5 break-words rounded-xl border border-destructive/35 bg-destructive/10 p-3 text-sm text-destructive">{error}</div>
           )}
 
           {success ? (
             <div className="text-center">
-              <div className="mb-4 bg-green-900/50 text-green-200 p-3 rounded-md text-sm">
+              <div role="status" className="rounded-xl border border-success/35 bg-success/10 p-4 text-sm text-foreground">
                 Password updated successfully! You will be redirected to the dashboard.
               </div>
             </div>
@@ -317,10 +259,8 @@ export default function ResetPasswordPage() {
                   New Password
                 </label>
                 <div className="mt-1 relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FaLock className="h-5 w-5 text-gray-500" />
-                  </div>
-                  <input
+                  <LockKeyhole className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
+                  <Input
                     id="password"
                     name="password"
                     type="password"
@@ -328,7 +268,7 @@ export default function ResetPasswordPage() {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="block w-full pl-10 pr-3 py-2 border border-gray-600 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                    className="pl-10"
                     placeholder="New password"
                   />
                 </div>
@@ -342,10 +282,8 @@ export default function ResetPasswordPage() {
                   Confirm New Password
                 </label>
                 <div className="mt-1 relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FaLock className="h-5 w-5 text-gray-500" />
-                  </div>
-                  <input
+                  <LockKeyhole className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
+                  <Input
                     id="confirmPassword"
                     name="confirmPassword"
                     type="password"
@@ -353,7 +291,7 @@ export default function ResetPasswordPage() {
                     required
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="block w-full pl-10 pr-3 py-2 border border-gray-600 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                    className="pl-10"
                     placeholder="Confirm new password"
                   />
                 </div>
@@ -366,8 +304,6 @@ export default function ResetPasswordPage() {
               </div>
             </form>
           )}
-        </motion.div>
-      </div>
-    </div>
+    </AuthShell>
   );
 }

@@ -252,7 +252,7 @@ export default function ReminderFilters({ onFilterChange }: ReminderFiltersProps
       {/* Active filters display */}
       {hasActiveFilters && (
         <motion.div
-          initial={{ opacity: 0, y: -10 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           className="flex flex-wrap gap-2"

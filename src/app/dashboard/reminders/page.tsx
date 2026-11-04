@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { BellIcon, PlusIcon } from '@heroicons/react/24/outline';
+import { AnimatePresence } from 'framer-motion';
+import { Bell, Plus } from 'lucide-react';
 import { useReminders } from '@/hooks/useReminderQuery';
 import { Reminder, ReminderCategory, ReminderPriority } from '@/types/reminder';
 import ReminderItem from '@/components/reminders/ReminderItem';
@@ -12,6 +12,8 @@ import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useToast } from '@/components/ui/use-toast';
 import { useTranslations } from 'next-intl';
+import PageHeader from '@/components/dashboard/PageHeader';
+import EmptyState from '@/components/dashboard/EmptyState';
 
 export default function RemindersPage() {
   const { toast } = useToast();
@@ -93,24 +95,17 @@ export default function RemindersPage() {
   }, [error, toast, t]);
 
   return (
-    <div>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="mb-8"
-      >
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-          <div>
-            <h1 className="text-3xl font-bold mb-2">{t('title')}</h1>
-            <p className="text-gray-400">{t('description')}</p>
-          </div>
-
+    <div className="space-y-6">
+      <PageHeader
+        title={t('title')}
+        description={t('description')}
+        actions={
           <Button onClick={handleAddReminder} className="flex items-center gap-2">
-            <PlusIcon className="h-5 w-5" />
+            <Plus className="size-4" />
             <span>{t('newReminder')}</span>
           </Button>
-        </div>
+        }
+      />
 
         {/* <ReminderFilters onFilterChange={handleFilterChange} /> */}
 
@@ -118,7 +113,7 @@ export default function RemindersPage() {
           // Loading skeleton
           <div className="space-y-4">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-gray-800 rounded-lg p-4 border border-gray-700">
+              <div key={i} className="rounded-2xl border border-border bg-card p-4">
                 <div className="flex items-start space-x-3">
                   <Skeleton className="h-6 w-6 rounded-full" />
                   <div className="flex-1">
@@ -142,29 +137,21 @@ export default function RemindersPage() {
           </AnimatePresence>
         ) : (
           // Empty state
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="bg-gray-800 rounded-lg p-12 text-center border border-gray-700"
-          >
-            <div className="bg-yellow-600/20 p-4 rounded-full inline-block mb-6">
-              <BellIcon className="h-12 w-12 text-yellow-400" />
-            </div>
-            <h2 className="text-2xl font-bold mb-4">{t('noRemindersFound')}</h2>
-            <p className="text-gray-400 max-w-md mx-auto mb-6">
-              {filters.search ||
+          <EmptyState
+            icon={<Bell className="size-5" />}
+            title={t('noRemindersFound')}
+            description={
+              filters.search ||
                 filters.categories.length > 0 ||
                 filters.priorities.length > 0 ||
                 filters.completed !== null ||
                 filters.upcoming
                 ? t('noRemindersFiltered')
-                : t('noRemindersYet')}
-            </p>
-            <Button onClick={handleAddReminder}>{t('createReminder')}</Button>
-          </motion.div>
+                : t('noRemindersYet')
+            }
+            action={<Button onClick={handleAddReminder}>{t('createReminder')}</Button>}
+          />
         )}
-      </motion.div>
 
       {/* Reminder form dialog */}
       <ReminderForm reminder={selectedReminder} isOpen={isFormOpen} onClose={handleCloseForm} />

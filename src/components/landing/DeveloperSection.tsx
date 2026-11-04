@@ -11,30 +11,30 @@ export default function DeveloperSection() {
   const t = useTranslations('developer');
 
   return (
-    <section id="developer" className="py-20 bg-gray-800">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="developer" className="border-y border-border bg-surface py-24 sm:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="mb-12 max-w-2xl"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">{t('title')}</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
+          <h2 className="text-3xl font-semibold tracking-[-0.04em] sm:text-5xl">{t('title')}</h2>
+          <p className="mt-4 text-muted-foreground">
             {t('subtitle', { company: portfolioData?.company?.name || 'Wender Tech' })}
           </p>
         </motion.div>
 
-        <div className="flex flex-col md:flex-row items-center gap-12">
+        <div className="grid items-center gap-12 md:grid-cols-[.72fr_1.28fr] lg:gap-20">
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={false}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="md:w-1/3"
+            className="w-full"
           >
-            <div className="relative w-64 h-64 mx-auto rounded-full overflow-hidden border-4 border-indigo-600">
+            <div className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-3xl border border-border-strong bg-card">
               {loading || !portfolioData?.user?.avatarUrl ? (
                 <div className="w-full h-full bg-gray-700 animate-pulse"></div>
               ) : (
@@ -43,18 +43,18 @@ export default function DeveloperSection() {
                   height={256}
                   src={portfolioData.user.avatarUrl}
                   alt={portfolioData.user.name}
-                  className="w-full h-full object-cover"
+                  className="h-full w-full object-cover"
                 />
               )}
             </div>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={false}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="md:w-2/3"
+            className="min-w-0"
           >
             {loading ? (
               <>
@@ -65,10 +65,10 @@ export default function DeveloperSection() {
             ) : (
               <>
                 <h3 className="text-2xl font-bold mb-2">{portfolioData?.user?.name || 'Wender'}</h3>
-                <p className="text-indigo-400 text-xl mb-6">
+                <p className="mb-6 mt-2 text-lg text-primary">
                   {portfolioData?.user?.title || t('defaultTitle')}
                 </p>
-                <p className="text-gray-300 mb-6">
+                <p className="mb-6 max-w-3xl leading-7 text-muted-foreground">
                   {portfolioData?.user?.bio || t('defaultBio')}
                 </p>
               </>
@@ -98,7 +98,7 @@ export default function DeveloperSection() {
                   ).map((skill, index) => (
                     <span
                       key={index}
-                      className="px-3 py-1 bg-indigo-900/50 text-indigo-300 rounded-full"
+                      className="rounded-full border border-border bg-card px-3 py-1.5 text-sm text-muted-foreground"
                     >
                       {skill}
                     </span>
@@ -106,7 +106,7 @@ export default function DeveloperSection() {
               </div>
             </div>
 
-            <div className="flex space-x-4">
+            <div className="flex flex-wrap gap-2">
               {portfolioData?.user?.linkedin && (
                 <a
                   href={portfolioData.user.linkedin}

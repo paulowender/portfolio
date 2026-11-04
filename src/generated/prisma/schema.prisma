@@ -30,6 +30,8 @@ model User {
   messagingConfig MessagingConfig?
   projects        Project[]
   reminders       Reminder[]
+  nfseTemplates   NfseTemplate[]
+  nfseEmissions   NfseEmission[]
 
   @@map("users")
 }
@@ -149,4 +151,42 @@ model MessagingConfig {
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("messaging_configs")
+}
+
+model NfseTemplate {
+  id          String         @id @default(uuid())
+  userId      String         @map("user_id")
+  name        String
+  xml         String
+  businessKey String         @map("business_key")
+  createdAt   DateTime       @default(now()) @map("created_at")
+  user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  emissions   NfseEmission[]
+
+  @@unique([userId, name])
+  @@unique([userId, businessKey])
+  @@map("nfse_templates")
+}
+
+model NfseEmission {
+  id          String       @id @default(uuid())
+  number      Int          @unique @default(autoincrement())
+  userId      String       @map("user_id")
+  templateId  String       @map("template_id")
+  competence  String
+  amount      String
+  description String
+  status      String       @default("prepared")
+  dpsId       String?      @map("dps_id")
+  signedXml   String?      @map("signed_xml")
+  accessKey   String?      @map("access_key")
+  response    Json?
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  template    NfseTemplate @relation(fields: [templateId], references: [id])
+
+  @@unique([templateId, competence])
+  @@index([userId, createdAt])
+  @@map("nfse_emissions")
 }

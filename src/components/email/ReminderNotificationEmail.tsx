@@ -42,36 +42,36 @@ export default function ReminderNotificationEmail({
       <Head />
       <Preview>Lembrete: {reminderTitle}</Preview>
       <Tailwind>
-        <Body className="bg-gray-100 font-sans">
-          <Container className="bg-white p-8 rounded-lg shadow-lg my-8 mx-auto max-w-xl">
-            <Heading className="text-2xl font-bold text-gray-800 mb-2">Olá, {userName}!</Heading>
-            <Text className="text-gray-600 mb-6">
+        <Body className="bg-[#08090D] font-sans">
+          <Container className="mx-auto my-8 max-w-xl rounded-xl border border-solid border-[#2A2932] bg-[#0C0D12] p-8">
+            <Heading className="mb-2 text-2xl font-bold text-[#F3F1F8]">Olá, {userName}!</Heading>
+            <Text className="mb-6 text-[#AAA6B4]">
               Este é um lembrete para um evento importante:
             </Text>
             
-            <Section className="bg-gray-50 p-6 rounded-lg border-l-4 mb-6" style={{ borderColor: priorityInfo.color }}>
-              <Heading className="text-xl font-bold text-gray-800 mb-2">{reminderTitle}</Heading>
+            <Section className="mb-6 rounded-xl border border-solid border-[#2A2932] bg-[#14151A] p-6">
+              <Heading className="mb-2 text-xl font-bold text-[#F3F1F8]">{reminderTitle}</Heading>
               
               {reminderDescription && (
-                <Text className="text-gray-700 mb-4 whitespace-pre-line">{reminderDescription}</Text>
+                <Text className="mb-4 whitespace-pre-line text-[#AAA6B4]">{reminderDescription}</Text>
               )}
               
-              <Text className="text-gray-700 mb-1">
+              <Text className="mb-1 text-[#AAA6B4]">
                 <strong>Data:</strong> {formattedDate}
               </Text>
               
-              <Text className="text-gray-700 mb-1">
+              <Text className="mb-1 text-[#AAA6B4]">
                 <strong>Categoria:</strong> {categoryInfo.label}
               </Text>
               
-              <Text className="text-gray-700">
+              <Text className="text-[#AAA6B4]">
                 <strong>Prioridade:</strong> {priorityInfo.label}
               </Text>
             </Section>
             
-            <Hr className="border-gray-200 my-6" />
+            <Hr className="my-6 border-[#2A2932]" />
             
-            <Text className="text-gray-500 text-sm text-center">
+            <Text className="text-center text-sm text-[#77727F]">
               Este é um email automático. Por favor, não responda a este email.
             </Text>
           </Container>

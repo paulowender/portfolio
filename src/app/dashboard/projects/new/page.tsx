@@ -10,6 +10,7 @@ import Button from '@/components/Button';
 import { XMarkIcon, ArrowUpTrayIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import PageHeader from '@/components/dashboard/PageHeader';
 
 export default function NewProjectPage() {
   const t = useTranslations('newProjectPage');
@@ -120,20 +121,17 @@ export default function NewProjectPage() {
 
   return (
     <div>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="mb-8"
-      >
-        <h1 className="text-3xl font-bold mb-2">{t('title')}</h1>
-        <p className="text-gray-400">{t('description')}</p>
-      </motion.div>
+      <PageHeader
+        title={t('title')}
+        description={t('description')}
+        backHref="/dashboard/projects"
+        backLabel={t('cancel')}
+      />
 
       {error && <div className="mb-6 bg-red-900/50 text-red-200 p-4 rounded-md">{error}</div>}
 
       <motion.div
-        initial={{ opacity: 0 }}
+        initial={false}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}
         className="bg-gray-800 rounded-lg p-6"

@@ -10,6 +10,7 @@ import Button from '@/components/Button';
 import { ArrowUpTrayIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import PageHeader from '@/components/dashboard/PageHeader';
 
 export default function CompanyPage() {
   const { user } = useAuth();
@@ -188,21 +189,14 @@ export default function CompanyPage() {
   if (fetchLoading) {
     return (
       <div className="flex justify-center py-12">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+        <div className="h-12 w-12 animate-spin rounded-full border-2 border-muted border-t-primary"></div>
       </div>
     );
   }
 
   return (
     <div>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <h1 className="text-3xl font-bold mb-2">{t('title')}</h1>
-        <p className="text-gray-400 mb-8">{t('description')}</p>
-      </motion.div>
+      <PageHeader title={t('title')} description={t('description')} />
 
       {error && <div className="bg-red-900/50 text-red-200 p-4 rounded-md mb-6">{error}</div>}
 
@@ -211,7 +205,7 @@ export default function CompanyPage() {
       )}
 
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={false}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
         className="bg-gray-800 rounded-lg p-6"
@@ -223,8 +217,8 @@ export default function CompanyPage() {
               <label className="block text-sm font-medium text-gray-300 mb-2">
                 {t('companyLogo')}
               </label>
-              <div className="flex items-start space-x-6">
-                <div className="w-32 h-32 bg-gray-700 rounded-lg overflow-hidden flex items-center justify-center">
+              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
+                <div className="w-32 h-32 bg-gray-700 rounded-lg overflow-hidden flex items-center justify-center flex-shrink-0">
                   {logoPreview ? (
                     <Image
                       width={400}
@@ -238,7 +232,7 @@ export default function CompanyPage() {
                   )}
                 </div>
                 <div className="flex-1">
-                  <div className="flex items-center space-x-3">
+                  <div className="flex flex-wrap items-center gap-3">
                     <label className="cursor-pointer">
                       <span className="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-md text-white text-sm font-medium transition-colors">
                         <ArrowUpTrayIcon className="h-5 w-5 mr-2" />
@@ -452,7 +446,7 @@ export default function CompanyPage() {
             <Button type="submit" disabled={loading}>
               {loading ? (
                 <div className="flex items-center">
-                  <div className="animate-spin mr-2 h-4 w-4 border-t-2 border-b-2 border-white rounded-full"></div>
+                  <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-primary-foreground/35 border-t-primary-foreground"></div>
                   {t('saving')}
                 </div>
               ) : (

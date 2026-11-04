@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-04T14:18:20-04:00",
+  "title": "Design System: WenderTech Nocturne",
+  "extensions": {
+    "colorMeta": {
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Canvas Noturno",
+        "canonical": "#08090D",
+        "tonalRamp": [
+          "#08090D",
+          "#11131A",
+          "#1D202B",
+          "#343947",
+          "#555C6D",
+          "#818898",
+          "#B4BAC5",
+          "#ECEEF2"
+        ]
+      },
+      "workspace": {
+        "role": "neutral",
+        "displayName": "Workspace Obsidiana",
+        "canonical": "#0C0D12",
+        "tonalRamp": [
+          "#0C0D12",
+          "#15161D",
+          "#22242D",
+          "#393C48",
+          "#5B5F6D",
+          "#858995",
+          "#B6B9C1",
+          "#EDEEF1"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Superfície Grafite",
+        "canonical": "#14151A",
+        "tonalRamp": [
+          "#101116",
+          "#181A20",
+          "#272A32",
+          "#40444E",
+          "#626773",
+          "#8C919B",
+          "#BCC0C7",
+          "#F0F1F3"
+        ]
+      },
+      "violet": {
+        "role": "primary",
+        "displayName": "Violeta de Sinal",
+        "canonical": "#A995FF",
+        "tonalRamp": [
+          "#21183F",
+          "#33235E",
+          "#49327F",
+          "#654AA4",
+          "#8469CC",
+          "#A995FF",
+          "#C9BEFF",
+          "#F0ECFF"
+        ]
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "Texto Lunar",
+        "canonical": "#F3F1F8",
+        "tonalRamp": [
+          "#202027",
+          "#34333D",
+          "#53515F",
+          "#777482",
+          "#9B98A5",
+          "#BFBDC7",
+          "#DDDCE3",
+          "#F3F1F8"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Aberturas públicas e mensagens de alto impacto."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Títulos de seção e momentos editoriais."
+      },
+      "body": { "displayName": "Body", "purpose": "Conteúdo contínuo e interface operacional." },
+      "label": {
+        "displayName": "Precision Label",
+        "purpose": "Caminhos, estados, datas compactas e metadados."
+      }
+    },
+    "shadows": [
+      {
+        "name": "modal-ambient",
+        "value": "0 24px 80px rgba(0, 0, 0, 0.48)",
+        "purpose": "Separar modais e drawers do workspace sem efeito luminoso."
+      }
+    ],
+    "motion": [
+      {
+        "name": "state-fast",
+        "value": "160ms cubic-bezier(0.2, 0, 0, 1)",
+        "purpose": "Hover, foco e seleção."
+      },
+      {
+        "name": "panel",
+        "value": "240ms cubic-bezier(0.2, 0, 0, 1)",
+        "purpose": "Abertura de drawer e diálogo; desativada com reduced motion."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Ação principal rara e inequívoca.",
+      "html": "<button class=\"ds-btn-primary\">Continuar</button>",
+      "css": ".ds-btn-primary { background:#A995FF; color:#17131F; border:0; border-radius:12px; padding:12px 18px; font:600 14px/1.2 Manrope,system-ui,sans-serif; transition:background 160ms,transform 160ms; } .ds-btn-primary:hover { background:#B8A8FF; transform:translateY(-1px); } .ds-btn-primary:focus-visible { outline:2px solid #A995FF; outline-offset:3px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Ação de apoio silenciosa sobre superfície escura.",
+      "html": "<button class=\"ds-btn-secondary\">Ver detalhes</button>",
+      "css": ".ds-btn-secondary { background:#211E2A; color:#F3F1F8; border:1px solid #413C50; border-radius:12px; padding:12px 18px; font:600 14px/1.2 Manrope,system-ui,sans-serif; transition:background 160ms,border-color 160ms; } .ds-btn-secondary:hover { background:#292532; border-color:#5B536D; } .ds-btn-secondary:focus-visible { outline:2px solid #A995FF; outline-offset:3px; }"
+    },
+    {
+      "name": "Nocturne Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Campo operacional de alto contraste e foco evidente.",
+      "html": "<label class=\"ds-field\"><span>E-mail</span><input placeholder=\"voce@empresa.com\"></label>",
+      "css": ".ds-field { display:grid; gap:8px; color:#AAA6B4; font:550 12px/1.4 Manrope,system-ui,sans-serif; } .ds-field input { background:#0C0D12; color:#F3F1F8; border:1px solid #2A2932; border-radius:12px; padding:12px 14px; font:450 14px/1.4 Manrope,system-ui,sans-serif; } .ds-field input:hover { border-color:#413C50; } .ds-field input:focus-visible { border-color:#A995FF; outline:2px solid rgba(169,149,255,.28); outline-offset:2px; }"
+    },
+    {
+      "name": "Surface Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Agrupamento tonal para informação e ação relacionadas.",
+      "html": "<article class=\"ds-card\"><span>VISÃO GERAL</span><h3>Tudo sob controle</h3><p>Suas prioridades aparecem aqui quando precisam de atenção.</p></article>",
+      "css": ".ds-card { background:#14151A; color:#F3F1F8; border:1px solid #2A2932; border-radius:18px; padding:24px; font-family:Manrope,system-ui,sans-serif; } .ds-card span { color:#A995FF; font:550 11px/1.4 'Geist Mono',monospace; letter-spacing:.08em; } .ds-card h3 { margin:16px 0 8px; font-size:22px; line-height:1.2; } .ds-card p { margin:0; color:#AAA6B4; line-height:1.6; } .ds-card:hover { border-color:#413C50; } .ds-card:focus-within { outline:2px solid #A995FF; outline-offset:3px; }"
+    },
+    {
+      "name": "Active Navigation Item",
+      "kind": "nav",
+      "description": "Localização atual com sinal violeta contido.",
+      "html": "<a class=\"ds-nav-active\" href=\"#\"><span class=\"ds-nav-dot\"></span>Visão geral</a>",
+      "css": ".ds-nav-active { display:flex; align-items:center; gap:10px; background:#211E2A; color:#F3F1F8; border:1px solid #2A2932; border-radius:12px; padding:11px 12px; text-decoration:none; font:600 14px/1.2 Manrope,system-ui,sans-serif; } .ds-nav-dot { width:6px; height:6px; border-radius:999px; background:#A995FF; } .ds-nav-active:hover { border-color:#413C50; } .ds-nav-active:focus-visible { outline:2px solid #A995FF; outline-offset:3px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Nocturne Interface",
+    "overview": "Nocturne é uma interface noturna premium: profunda sem ser pesada, tecnológica sem parecer um painel genérico. Ela combina a concentração de um workspace profissional com o ritmo cinematográfico de uma plataforma de conteúdo, usando violeta com parcimônia para orientar atenção. O sistema alterna três modos coerentes — Operate, Persuade e Experience — todos com a mesma paleta, tipografia e linguagem de superfícies.",
+    "keyCharacteristics": [
+      "Escuro profundo com contraste confortável e camadas tonais discretas.",
+      "Violeta raro, funcional e reconhecível — nunca uma inundação decorativa.",
+      "Informação útil antes de rótulos óbvios ou texto institucional redundante.",
+      "Geometria precisa, ícones simples e hierarquia tipográfica confiante."
+    ],
+    "rules": [
+      {
+        "name": "The Rare Violet Rule",
+        "body": "O violeta deve ocupar uma pequena fração da tela; sua raridade é o que cria hierarquia.",
+        "section": "colors"
+      },
+      {
+        "name": "The No Neon Rule",
+        "body": "Não usar verde, roxo ou ciano saturado como grandes áreas luminosas, bordas brilhantes ou halos decorativos.",
+        "section": "colors"
+      },
+      {
+        "name": "The Human Case Rule",
+        "body": "Frases e conteúdo permanecem em caixa normal; caixa alta fica restrita a micro-rótulos curtos.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tonal First Rule",
+        "body": "Antes de adicionar sombra, resolva a hierarquia com superfície, borda e espaçamento.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do usar informação contextual útil em cabeçalhos, como data, caminho, pendências ou estado real.",
+      "Do reservar o violeta para ação, foco, seleção e assinatura de marca.",
+      "Do manter alvos interativos confortáveis, foco visível e texto funcional com pelo menos 11px.",
+      "Do respeitar prefers-reduced-motion e usar transições apenas para explicar mudança de estado.",
+      "Do testar a composição em 390px, 1024px e telas amplas."
+    ],
+    "donts": [
+      "Don't preencher telas com gradientes, brilhos neon ou cartões translúcidos genéricos.",
+      "Don't usar títulos óbvios como Command Center quando o contexto já explica a função da tela.",
+      "Don't esconder navegação apenas visualmente e deixá-la acessível ao teclado fora da tela.",
+      "Don't animar a entrada de todo conteúdo; a interface deve estar pronta quando aparece.",
+      "Don't usar caixa alta em parágrafos, tracking excessivamente apertado ou padding menor que 8px em contêineres visíveis."
+    ]
+  }
+}

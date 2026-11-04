@@ -13,6 +13,7 @@ const withPWA = require('next-pwa')({
   register: true,
   skipWaiting: true,
   runtimeCaching: [
+    { urlPattern: /\/api\/nfse(?:\/|\?|$)/i, handler: 'NetworkOnly' },
     {
       urlPattern: /^https:\/\/fonts\.(?:gstatic|googleapis)\.com\/.*/i,
       handler: 'CacheFirst',
@@ -143,6 +144,7 @@ const withPWA = require('next-pwa')({
 
 const nextConfig = {
   reactStrictMode: true,
+  serverExternalPackages: ['pdfkit'],
 
   // Desabilitar o redirect automático de trailing slash para evitar problemas de CORS
   trailingSlash: false,

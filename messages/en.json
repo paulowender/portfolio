@@ -28,6 +28,11 @@
     "openMenu": "Open main menu"
   },
   "hero": {
+    "headline": "Software designed for real work.",
+    "selectedWork": "Selected project",
+    "loadingWork": "Loading selected project…",
+    "workComingSoon": "New projects will be presented here.",
+    "openProject": "Open project",
     "viewProjects": "View Projects",
     "contactUs": "Contact Us",
     "defaultDescription": "Development of high-quality digital solutions for businesses and startups. Specialists in web and mobile applications focused on results."
@@ -108,6 +113,8 @@
   "login": {
     "signInTitle": "Sign in to your account",
     "signUpTitle": "Create a new account",
+    "welcomeBack": "Return to your workspace and continue where you left off.",
+    "createWorkspace": "Start with a secure account to organize your work.",
     "signIn": "Sign in",
     "signUp": "Sign up",
     "noAccount": "Don't have an account? ",
@@ -122,6 +129,11 @@
     "orContinueWith": "Or continue with",
     "signInWithGoogle": "Sign in with Google",
     "signInWithGitHub": "Sign in with GitHub"
+  },
+  "authShell": {
+    "headline": "Work in order. Decisions with clarity.",
+    "description": "A private space to manage your portfolio, routines, and the connections that keep daily work moving.",
+    "workspace": "Wender Tech · Workspace"
   },
   "dashboard": {
     "title": "Dashboard",
@@ -149,7 +161,29 @@
     "noProjectsYet": "No projects yet",
     "startByAdding": "Start by adding your first project to showcase in your portfolio.",
     "addFirstProject": "Add Your First Project",
-    "viewAll": "View All"
+    "viewAll": "View All",
+    "overviewLabel": "Overview",
+    "breadcrumbLabel": "Workspace location",
+    "expandNavigation": "Expand navigation",
+    "collapseNavigation": "Collapse navigation",
+    "notifications": "Notifications",
+    "summaryLabel": "Workspace summary",
+    "statusControlled": "Everything is under control.",
+    "statusControlledDescription": "Nothing is overdue. You can move through the day with clarity.",
+    "statusAttention": "A few things need attention.",
+    "statusAttentionDescription": "You have {count} overdue reminder(s). Let's resolve the most important first.",
+    "statusNeutral": "Your workspace is being updated.",
+    "statusNeutralDescription": "Your priorities will appear here as soon as the data is available.",
+    "dueToday": "{count} due today",
+    "nextItems": "upcoming items",
+    "recentProjectsDescription": "Continue where you left off on your latest work.",
+    "noProjectDescription": "Project without a description",
+    "todayPriority": "Today's priority",
+    "priorityOverdue": "{count} overdue reminder(s) need your attention.",
+    "priorityToday": "{count} reminder(s) scheduled for today.",
+    "priorityClear": "Nothing is overdue. Your day is clear of urgent tasks.",
+    "priorityUnavailable": "Priorities will appear here as soon as reminders are available.",
+    "reviewReminders": "Review reminders"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -162,13 +196,16 @@
     "aiProviders": "AI Providers",
     "messaging": "Messaging Services",
     "email": "Email",
-    "logout": "Logout"
+    "logout": "Logout",
+    "closeNavigation": "Close navigation",
+    "workspaceNavigation": "Workspace navigation"
   },
   "pendingReminders": {
     "title": "Pending Reminders",
     "viewAll": "View all",
     "noReminders": "No pending reminders",
-    "manageReminders": "Manage reminders"
+    "manageReminders": "Manage reminders",
+    "unavailable": "Reminders could not be loaded right now. Please try again shortly."
   },
   "projectsPage": {
     "title": "Projects",
@@ -291,8 +328,14 @@
     "failedToUpdate": "Failed to update company information"
   },
   "integrationsPage": {
+    "nfse": "NFS-e · Test environment",
+    "nfseDescription": "Import an invoice as a template and test issuance through the National Issuer.",
     "title": "Integrations",
     "description": "Connect your favorite services to enhance your workflow.",
+    "available": "Available now",
+    "availableDescription": "Services ready to configure and use in your workflow.",
+    "plannedDescription": "Connections planned for the product's next evolutions.",
+    "services": "services",
     "configure": "Configure",
     "comingSoon": "Coming soon",
     "new": "New",
@@ -310,17 +353,29 @@
   "aiIntegrationsPage": {
     "title": "AI Integrations",
     "description": "Connect your AI providers to use AI features throughout the application.",
-    "failedToLoad": "Failed to load AI configuration"
+    "failedToLoad": "Failed to load AI configuration",
+    "back": "Integrations",
+    "active": "Active",
+    "inactive": "Inactive",
+    "disabled": "Disabled",
+    "unconfigured": "Not configured",
+    "enable": "Enable",
+    "hideKey": "Hide key",
+    "showKey": "Show key",
+    "save": "Save",
+    "selectModel": "Select model"
   },
   "evolutionPage": {
     "title": "Evolution API Integration",
     "description": "Connect to WhatsApp via Evolution API for client communication and automation.",
-    "failedToLoad": "Failed to load Evolution API configuration"
+    "failedToLoad": "Failed to load Evolution API configuration",
+    "back": "Integrations"
   },
   "resendPage": {
     "title": "Resend Integration",
     "description": "Connect to Resend for sending transactional emails with high deliverability.",
-    "failedToLoad": "Failed to load Resend configuration"
+    "failedToLoad": "Failed to load Resend configuration",
+    "back": "Integrations"
   },
   "newProjectPage": {
     "title": "Add New Project",

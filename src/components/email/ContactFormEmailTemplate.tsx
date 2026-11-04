@@ -21,16 +21,16 @@ export const ContactFormEmailTemplate: React.FC<Readonly<ContactFormEmailTemplat
       maxWidth: '600px',
       margin: '0 auto',
       padding: '20px',
-      border: '1px solid #e0e0e0',
-      borderRadius: '5px',
-      backgroundColor: '#f9f9f9',
+      border: '1px solid #2A2932',
+      borderRadius: '12px',
+      backgroundColor: '#0C0D12',
     }}
   >
     <h1
       style={{
-        color: '#333',
+        color: '#F3F1F8',
         fontSize: '24px',
-        borderBottom: '1px solid #e0e0e0',
+        borderBottom: '1px solid #2A2932',
         paddingBottom: '10px',
       }}
     >
@@ -38,28 +38,28 @@ export const ContactFormEmailTemplate: React.FC<Readonly<ContactFormEmailTemplat
     </h1>
 
     <div style={{ marginBottom: '20px' }}>
-      <p style={{ color: '#666', fontSize: '16px', lineHeight: '1.5', margin: '5px 0' }}>
+      <p style={{ color: '#AAA6B4', fontSize: '16px', lineHeight: '1.5', margin: '5px 0' }}>
         <strong>Nome:</strong> {name}
       </p>
-      <p style={{ color: '#666', fontSize: '16px', lineHeight: '1.5', margin: '5px 0' }}>
+      <p style={{ color: '#AAA6B4', fontSize: '16px', lineHeight: '1.5', margin: '5px 0' }}>
         <strong>Email:</strong> {email}
       </p>
-      <p style={{ color: '#666', fontSize: '16px', lineHeight: '1.5', margin: '5px 0' }}>
+      <p style={{ color: '#AAA6B4', fontSize: '16px', lineHeight: '1.5', margin: '5px 0' }}>
         <strong>Assunto:</strong> {subject}
       </p>
     </div>
 
     <div
       style={{
-        backgroundColor: '#fff',
+        backgroundColor: '#14151A',
         padding: '15px',
-        borderRadius: '5px',
-        border: '1px solid #e0e0e0',
+        borderRadius: '10px',
+        border: '1px solid #2A2932',
         marginBottom: '20px',
       }}
     >
-      <h2 style={{ color: '#333', fontSize: '18px', marginTop: '0' }}>Mensagem:</h2>
-      <p style={{ color: '#666', fontSize: '16px', lineHeight: '1.5', whiteSpace: 'pre-wrap' }}>
+      <h2 style={{ color: '#F3F1F8', fontSize: '18px', marginTop: '0' }}>Mensagem:</h2>
+      <p style={{ color: '#AAA6B4', fontSize: '16px', lineHeight: '1.5', whiteSpace: 'pre-wrap' }}>
         {message}
       </p>
     </div>
@@ -68,9 +68,9 @@ export const ContactFormEmailTemplate: React.FC<Readonly<ContactFormEmailTemplat
       style={{
         marginTop: '30px',
         paddingTop: '20px',
-        borderTop: '1px solid #e0e0e0',
+        borderTop: '1px solid #2A2932',
         fontSize: '14px',
-        color: '#999',
+        color: '#77727F',
         textAlign: 'center' as const,
       }}
     >
@@ -93,16 +93,16 @@ export const ContactFormConfirmationEmailTemplate: React.FC<
       maxWidth: '600px',
       margin: '0 auto',
       padding: '20px',
-      border: '1px solid #e0e0e0',
-      borderRadius: '5px',
-      backgroundColor: '#f9f9f9',
+      border: '1px solid #2A2932',
+      borderRadius: '12px',
+      backgroundColor: '#0C0D12',
     }}
   >
     <h1
       style={{
-        color: '#333',
+        color: '#F3F1F8',
         fontSize: '24px',
-        borderBottom: '1px solid #e0e0e0',
+        borderBottom: '1px solid #2A2932',
         paddingBottom: '10px',
       }}
     >
@@ -110,36 +110,36 @@ export const ContactFormConfirmationEmailTemplate: React.FC<
     </h1>
 
     <div style={{ marginBottom: '20px' }}>
-      <p style={{ color: '#666', fontSize: '16px', lineHeight: '1.5' }}>Olá {name},</p>
-      <p style={{ color: '#666', fontSize: '16px', lineHeight: '1.5' }}>
+      <p style={{ color: '#AAA6B4', fontSize: '16px', lineHeight: '1.5' }}>Olá {name},</p>
+      <p style={{ color: '#AAA6B4', fontSize: '16px', lineHeight: '1.5' }}>
         Obrigado por entrar em contato com a {companyName}. Recebemos sua mensagem e responderemos o
         mais breve possível.
       </p>
 
       <div
         style={{
-          backgroundColor: '#fff',
+          backgroundColor: '#14151A',
           padding: '15px',
-          borderRadius: '5px',
-          border: '1px solid #e0e0e0',
+          borderRadius: '10px',
+          border: '1px solid #2A2932',
           marginTop: '20px',
           marginBottom: '20px',
         }}
       >
-        <h2 style={{ color: '#333', fontSize: '18px', marginTop: '0' }}>Informações de Contato:</h2>
+        <h2 style={{ color: '#F3F1F8', fontSize: '18px', marginTop: '0' }}>Informações de Contato:</h2>
         {companyEmail && (
-          <p style={{ color: '#666', fontSize: '16px', lineHeight: '1.5', margin: '5px 0' }}>
+          <p style={{ color: '#AAA6B4', fontSize: '16px', lineHeight: '1.5', margin: '5px 0' }}>
             <strong>Email:</strong> {companyEmail}
           </p>
         )}
         {companyPhone && (
-          <p style={{ color: '#666', fontSize: '16px', lineHeight: '1.5', margin: '5px 0' }}>
+          <p style={{ color: '#AAA6B4', fontSize: '16px', lineHeight: '1.5', margin: '5px 0' }}>
             <strong>Telefone:</strong> {companyPhone}
           </p>
         )}
       </div>
 
-      <p style={{ color: '#666', fontSize: '16px', lineHeight: '1.5' }}>
+      <p style={{ color: '#AAA6B4', fontSize: '16px', lineHeight: '1.5' }}>
         Atenciosamente,
         <br />
         Equipe {companyName}
@@ -150,9 +150,9 @@ export const ContactFormConfirmationEmailTemplate: React.FC<
       style={{
         marginTop: '30px',
         paddingTop: '20px',
-        borderTop: '1px solid #e0e0e0',
+        borderTop: '1px solid #2A2932',
         fontSize: '14px',
-        color: '#999',
+        color: '#77727F',
         textAlign: 'center' as const,
       }}
     >

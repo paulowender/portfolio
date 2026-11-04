@@ -48,6 +48,16 @@ export type AIConfig = $Result.DefaultSelection<Prisma.$AIConfigPayload>
  * 
  */
 export type MessagingConfig = $Result.DefaultSelection<Prisma.$MessagingConfigPayload>
+/**
+ * Model NfseTemplate
+ * 
+ */
+export type NfseTemplate = $Result.DefaultSelection<Prisma.$NfseTemplatePayload>
+/**
+ * Model NfseEmission
+ * 
+ */
+export type NfseEmission = $Result.DefaultSelection<Prisma.$NfseEmissionPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -243,6 +253,26 @@ export class PrismaClient<
     * ```
     */
   get messagingConfig(): Prisma.MessagingConfigDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.nfseTemplate`: Exposes CRUD operations for the **NfseTemplate** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more NfseTemplates
+    * const nfseTemplates = await prisma.nfseTemplate.findMany()
+    * ```
+    */
+  get nfseTemplate(): Prisma.NfseTemplateDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.nfseEmission`: Exposes CRUD operations for the **NfseEmission** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more NfseEmissions
+    * const nfseEmissions = await prisma.nfseEmission.findMany()
+    * ```
+    */
+  get nfseEmission(): Prisma.NfseEmissionDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -689,7 +719,9 @@ export namespace Prisma {
     Reminder: 'Reminder',
     Appointment: 'Appointment',
     AIConfig: 'AIConfig',
-    MessagingConfig: 'MessagingConfig'
+    MessagingConfig: 'MessagingConfig',
+    NfseTemplate: 'NfseTemplate',
+    NfseEmission: 'NfseEmission'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -708,7 +740,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "company" | "project" | "reminder" | "appointment" | "aIConfig" | "messagingConfig"
+      modelProps: "user" | "company" | "project" | "reminder" | "appointment" | "aIConfig" | "messagingConfig" | "nfseTemplate" | "nfseEmission"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1230,6 +1262,154 @@ export namespace Prisma {
           }
         }
       }
+      NfseTemplate: {
+        payload: Prisma.$NfseTemplatePayload<ExtArgs>
+        fields: Prisma.NfseTemplateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.NfseTemplateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NfseTemplatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.NfseTemplateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NfseTemplatePayload>
+          }
+          findFirst: {
+            args: Prisma.NfseTemplateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NfseTemplatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.NfseTemplateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NfseTemplatePayload>
+          }
+          findMany: {
+            args: Prisma.NfseTemplateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NfseTemplatePayload>[]
+          }
+          create: {
+            args: Prisma.NfseTemplateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NfseTemplatePayload>
+          }
+          createMany: {
+            args: Prisma.NfseTemplateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.NfseTemplateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NfseTemplatePayload>[]
+          }
+          delete: {
+            args: Prisma.NfseTemplateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NfseTemplatePayload>
+          }
+          update: {
+            args: Prisma.NfseTemplateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NfseTemplatePayload>
+          }
+          deleteMany: {
+            args: Prisma.NfseTemplateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.NfseTemplateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.NfseTemplateUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NfseTemplatePayload>[]
+          }
+          upsert: {
+            args: Prisma.NfseTemplateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NfseTemplatePayload>
+          }
+          aggregate: {
+            args: Prisma.NfseTemplateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateNfseTemplate>
+          }
+          groupBy: {
+            args: Prisma.NfseTemplateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<NfseTemplateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.NfseTemplateCountArgs<ExtArgs>
+            result: $Utils.Optional<NfseTemplateCountAggregateOutputType> | number
+          }
+        }
+      }
+      NfseEmission: {
+        payload: Prisma.$NfseEmissionPayload<ExtArgs>
+        fields: Prisma.NfseEmissionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.NfseEmissionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NfseEmissionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.NfseEmissionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NfseEmissionPayload>
+          }
+          findFirst: {
+            args: Prisma.NfseEmissionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NfseEmissionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.NfseEmissionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NfseEmissionPayload>
+          }
+          findMany: {
+            args: Prisma.NfseEmissionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NfseEmissionPayload>[]
+          }
+          create: {
+            args: Prisma.NfseEmissionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NfseEmissionPayload>
+          }
+          createMany: {
+            args: Prisma.NfseEmissionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.NfseEmissionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NfseEmissionPayload>[]
+          }
+          delete: {
+            args: Prisma.NfseEmissionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NfseEmissionPayload>
+          }
+          update: {
+            args: Prisma.NfseEmissionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NfseEmissionPayload>
+          }
+          deleteMany: {
+            args: Prisma.NfseEmissionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.NfseEmissionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.NfseEmissionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NfseEmissionPayload>[]
+          }
+          upsert: {
+            args: Prisma.NfseEmissionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NfseEmissionPayload>
+          }
+          aggregate: {
+            args: Prisma.NfseEmissionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateNfseEmission>
+          }
+          groupBy: {
+            args: Prisma.NfseEmissionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<NfseEmissionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.NfseEmissionCountArgs<ExtArgs>
+            result: $Utils.Optional<NfseEmissionCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1321,6 +1501,8 @@ export namespace Prisma {
     appointment?: AppointmentOmit
     aIConfig?: AIConfigOmit
     messagingConfig?: MessagingConfigOmit
+    nfseTemplate?: NfseTemplateOmit
+    nfseEmission?: NfseEmissionOmit
   }
 
   /* Types for Logging */
@@ -1418,12 +1600,16 @@ export namespace Prisma {
     appointments: number
     projects: number
     reminders: number
+    nfseTemplates: number
+    nfseEmissions: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     appointments?: boolean | UserCountOutputTypeCountAppointmentsArgs
     projects?: boolean | UserCountOutputTypeCountProjectsArgs
     reminders?: boolean | UserCountOutputTypeCountRemindersArgs
+    nfseTemplates?: boolean | UserCountOutputTypeCountNfseTemplatesArgs
+    nfseEmissions?: boolean | UserCountOutputTypeCountNfseEmissionsArgs
   }
 
   // Custom InputTypes
@@ -1456,6 +1642,51 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountRemindersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ReminderWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountNfseTemplatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NfseTemplateWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountNfseEmissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NfseEmissionWhereInput
+  }
+
+
+  /**
+   * Count Type NfseTemplateCountOutputType
+   */
+
+  export type NfseTemplateCountOutputType = {
+    emissions: number
+  }
+
+  export type NfseTemplateCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    emissions?: boolean | NfseTemplateCountOutputTypeCountEmissionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * NfseTemplateCountOutputType without action
+   */
+  export type NfseTemplateCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NfseTemplateCountOutputType
+     */
+    select?: NfseTemplateCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * NfseTemplateCountOutputType without action
+   */
+  export type NfseTemplateCountOutputTypeCountEmissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NfseEmissionWhereInput
   }
 
 
@@ -1709,6 +1940,8 @@ export namespace Prisma {
     messagingConfig?: boolean | User$messagingConfigArgs<ExtArgs>
     projects?: boolean | User$projectsArgs<ExtArgs>
     reminders?: boolean | User$remindersArgs<ExtArgs>
+    nfseTemplates?: boolean | User$nfseTemplatesArgs<ExtArgs>
+    nfseEmissions?: boolean | User$nfseEmissionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1774,6 +2007,8 @@ export namespace Prisma {
     messagingConfig?: boolean | User$messagingConfigArgs<ExtArgs>
     projects?: boolean | User$projectsArgs<ExtArgs>
     reminders?: boolean | User$remindersArgs<ExtArgs>
+    nfseTemplates?: boolean | User$nfseTemplatesArgs<ExtArgs>
+    nfseEmissions?: boolean | User$nfseEmissionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1788,6 +2023,8 @@ export namespace Prisma {
       messagingConfig: Prisma.$MessagingConfigPayload<ExtArgs> | null
       projects: Prisma.$ProjectPayload<ExtArgs>[]
       reminders: Prisma.$ReminderPayload<ExtArgs>[]
+      nfseTemplates: Prisma.$NfseTemplatePayload<ExtArgs>[]
+      nfseEmissions: Prisma.$NfseEmissionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2205,6 +2442,8 @@ export namespace Prisma {
     messagingConfig<T extends User$messagingConfigArgs<ExtArgs> = {}>(args?: Subset<T, User$messagingConfigArgs<ExtArgs>>): Prisma__MessagingConfigClient<$Result.GetResult<Prisma.$MessagingConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     projects<T extends User$projectsArgs<ExtArgs> = {}>(args?: Subset<T, User$projectsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reminders<T extends User$remindersArgs<ExtArgs> = {}>(args?: Subset<T, User$remindersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    nfseTemplates<T extends User$nfseTemplatesArgs<ExtArgs> = {}>(args?: Subset<T, User$nfseTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NfseTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    nfseEmissions<T extends User$nfseEmissionsArgs<ExtArgs> = {}>(args?: Subset<T, User$nfseEmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NfseEmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2763,6 +3002,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ReminderScalarFieldEnum | ReminderScalarFieldEnum[]
+  }
+
+  /**
+   * User.nfseTemplates
+   */
+  export type User$nfseTemplatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NfseTemplate
+     */
+    select?: NfseTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NfseTemplate
+     */
+    omit?: NfseTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NfseTemplateInclude<ExtArgs> | null
+    where?: NfseTemplateWhereInput
+    orderBy?: NfseTemplateOrderByWithRelationInput | NfseTemplateOrderByWithRelationInput[]
+    cursor?: NfseTemplateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NfseTemplateScalarFieldEnum | NfseTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * User.nfseEmissions
+   */
+  export type User$nfseEmissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NfseEmission
+     */
+    select?: NfseEmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NfseEmission
+     */
+    omit?: NfseEmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NfseEmissionInclude<ExtArgs> | null
+    where?: NfseEmissionWhereInput
+    orderBy?: NfseEmissionOrderByWithRelationInput | NfseEmissionOrderByWithRelationInput[]
+    cursor?: NfseEmissionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NfseEmissionScalarFieldEnum | NfseEmissionScalarFieldEnum[]
   }
 
   /**
@@ -9822,6 +10109,2320 @@ export namespace Prisma {
 
 
   /**
+   * Model NfseTemplate
+   */
+
+  export type AggregateNfseTemplate = {
+    _count: NfseTemplateCountAggregateOutputType | null
+    _min: NfseTemplateMinAggregateOutputType | null
+    _max: NfseTemplateMaxAggregateOutputType | null
+  }
+
+  export type NfseTemplateMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    name: string | null
+    xml: string | null
+    businessKey: string | null
+    createdAt: Date | null
+  }
+
+  export type NfseTemplateMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    name: string | null
+    xml: string | null
+    businessKey: string | null
+    createdAt: Date | null
+  }
+
+  export type NfseTemplateCountAggregateOutputType = {
+    id: number
+    userId: number
+    name: number
+    xml: number
+    businessKey: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type NfseTemplateMinAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    xml?: true
+    businessKey?: true
+    createdAt?: true
+  }
+
+  export type NfseTemplateMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    xml?: true
+    businessKey?: true
+    createdAt?: true
+  }
+
+  export type NfseTemplateCountAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    xml?: true
+    businessKey?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type NfseTemplateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NfseTemplate to aggregate.
+     */
+    where?: NfseTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NfseTemplates to fetch.
+     */
+    orderBy?: NfseTemplateOrderByWithRelationInput | NfseTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: NfseTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NfseTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NfseTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned NfseTemplates
+    **/
+    _count?: true | NfseTemplateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NfseTemplateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NfseTemplateMaxAggregateInputType
+  }
+
+  export type GetNfseTemplateAggregateType<T extends NfseTemplateAggregateArgs> = {
+        [P in keyof T & keyof AggregateNfseTemplate]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNfseTemplate[P]>
+      : GetScalarType<T[P], AggregateNfseTemplate[P]>
+  }
+
+
+
+
+  export type NfseTemplateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NfseTemplateWhereInput
+    orderBy?: NfseTemplateOrderByWithAggregationInput | NfseTemplateOrderByWithAggregationInput[]
+    by: NfseTemplateScalarFieldEnum[] | NfseTemplateScalarFieldEnum
+    having?: NfseTemplateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NfseTemplateCountAggregateInputType | true
+    _min?: NfseTemplateMinAggregateInputType
+    _max?: NfseTemplateMaxAggregateInputType
+  }
+
+  export type NfseTemplateGroupByOutputType = {
+    id: string
+    userId: string
+    name: string
+    xml: string
+    businessKey: string
+    createdAt: Date
+    _count: NfseTemplateCountAggregateOutputType | null
+    _min: NfseTemplateMinAggregateOutputType | null
+    _max: NfseTemplateMaxAggregateOutputType | null
+  }
+
+  type GetNfseTemplateGroupByPayload<T extends NfseTemplateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<NfseTemplateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NfseTemplateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NfseTemplateGroupByOutputType[P]>
+            : GetScalarType<T[P], NfseTemplateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type NfseTemplateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    xml?: boolean
+    businessKey?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    emissions?: boolean | NfseTemplate$emissionsArgs<ExtArgs>
+    _count?: boolean | NfseTemplateCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["nfseTemplate"]>
+
+  export type NfseTemplateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    xml?: boolean
+    businessKey?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["nfseTemplate"]>
+
+  export type NfseTemplateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    xml?: boolean
+    businessKey?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["nfseTemplate"]>
+
+  export type NfseTemplateSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    xml?: boolean
+    businessKey?: boolean
+    createdAt?: boolean
+  }
+
+  export type NfseTemplateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name" | "xml" | "businessKey" | "createdAt", ExtArgs["result"]["nfseTemplate"]>
+  export type NfseTemplateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    emissions?: boolean | NfseTemplate$emissionsArgs<ExtArgs>
+    _count?: boolean | NfseTemplateCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type NfseTemplateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type NfseTemplateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $NfseTemplatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "NfseTemplate"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      emissions: Prisma.$NfseEmissionPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      name: string
+      xml: string
+      businessKey: string
+      createdAt: Date
+    }, ExtArgs["result"]["nfseTemplate"]>
+    composites: {}
+  }
+
+  type NfseTemplateGetPayload<S extends boolean | null | undefined | NfseTemplateDefaultArgs> = $Result.GetResult<Prisma.$NfseTemplatePayload, S>
+
+  type NfseTemplateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<NfseTemplateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: NfseTemplateCountAggregateInputType | true
+    }
+
+  export interface NfseTemplateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['NfseTemplate'], meta: { name: 'NfseTemplate' } }
+    /**
+     * Find zero or one NfseTemplate that matches the filter.
+     * @param {NfseTemplateFindUniqueArgs} args - Arguments to find a NfseTemplate
+     * @example
+     * // Get one NfseTemplate
+     * const nfseTemplate = await prisma.nfseTemplate.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends NfseTemplateFindUniqueArgs>(args: SelectSubset<T, NfseTemplateFindUniqueArgs<ExtArgs>>): Prisma__NfseTemplateClient<$Result.GetResult<Prisma.$NfseTemplatePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one NfseTemplate that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {NfseTemplateFindUniqueOrThrowArgs} args - Arguments to find a NfseTemplate
+     * @example
+     * // Get one NfseTemplate
+     * const nfseTemplate = await prisma.nfseTemplate.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends NfseTemplateFindUniqueOrThrowArgs>(args: SelectSubset<T, NfseTemplateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__NfseTemplateClient<$Result.GetResult<Prisma.$NfseTemplatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NfseTemplate that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NfseTemplateFindFirstArgs} args - Arguments to find a NfseTemplate
+     * @example
+     * // Get one NfseTemplate
+     * const nfseTemplate = await prisma.nfseTemplate.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends NfseTemplateFindFirstArgs>(args?: SelectSubset<T, NfseTemplateFindFirstArgs<ExtArgs>>): Prisma__NfseTemplateClient<$Result.GetResult<Prisma.$NfseTemplatePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NfseTemplate that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NfseTemplateFindFirstOrThrowArgs} args - Arguments to find a NfseTemplate
+     * @example
+     * // Get one NfseTemplate
+     * const nfseTemplate = await prisma.nfseTemplate.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends NfseTemplateFindFirstOrThrowArgs>(args?: SelectSubset<T, NfseTemplateFindFirstOrThrowArgs<ExtArgs>>): Prisma__NfseTemplateClient<$Result.GetResult<Prisma.$NfseTemplatePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more NfseTemplates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NfseTemplateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all NfseTemplates
+     * const nfseTemplates = await prisma.nfseTemplate.findMany()
+     * 
+     * // Get first 10 NfseTemplates
+     * const nfseTemplates = await prisma.nfseTemplate.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const nfseTemplateWithIdOnly = await prisma.nfseTemplate.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends NfseTemplateFindManyArgs>(args?: SelectSubset<T, NfseTemplateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NfseTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a NfseTemplate.
+     * @param {NfseTemplateCreateArgs} args - Arguments to create a NfseTemplate.
+     * @example
+     * // Create one NfseTemplate
+     * const NfseTemplate = await prisma.nfseTemplate.create({
+     *   data: {
+     *     // ... data to create a NfseTemplate
+     *   }
+     * })
+     * 
+     */
+    create<T extends NfseTemplateCreateArgs>(args: SelectSubset<T, NfseTemplateCreateArgs<ExtArgs>>): Prisma__NfseTemplateClient<$Result.GetResult<Prisma.$NfseTemplatePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many NfseTemplates.
+     * @param {NfseTemplateCreateManyArgs} args - Arguments to create many NfseTemplates.
+     * @example
+     * // Create many NfseTemplates
+     * const nfseTemplate = await prisma.nfseTemplate.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends NfseTemplateCreateManyArgs>(args?: SelectSubset<T, NfseTemplateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many NfseTemplates and returns the data saved in the database.
+     * @param {NfseTemplateCreateManyAndReturnArgs} args - Arguments to create many NfseTemplates.
+     * @example
+     * // Create many NfseTemplates
+     * const nfseTemplate = await prisma.nfseTemplate.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many NfseTemplates and only return the `id`
+     * const nfseTemplateWithIdOnly = await prisma.nfseTemplate.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends NfseTemplateCreateManyAndReturnArgs>(args?: SelectSubset<T, NfseTemplateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NfseTemplatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a NfseTemplate.
+     * @param {NfseTemplateDeleteArgs} args - Arguments to delete one NfseTemplate.
+     * @example
+     * // Delete one NfseTemplate
+     * const NfseTemplate = await prisma.nfseTemplate.delete({
+     *   where: {
+     *     // ... filter to delete one NfseTemplate
+     *   }
+     * })
+     * 
+     */
+    delete<T extends NfseTemplateDeleteArgs>(args: SelectSubset<T, NfseTemplateDeleteArgs<ExtArgs>>): Prisma__NfseTemplateClient<$Result.GetResult<Prisma.$NfseTemplatePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one NfseTemplate.
+     * @param {NfseTemplateUpdateArgs} args - Arguments to update one NfseTemplate.
+     * @example
+     * // Update one NfseTemplate
+     * const nfseTemplate = await prisma.nfseTemplate.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends NfseTemplateUpdateArgs>(args: SelectSubset<T, NfseTemplateUpdateArgs<ExtArgs>>): Prisma__NfseTemplateClient<$Result.GetResult<Prisma.$NfseTemplatePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more NfseTemplates.
+     * @param {NfseTemplateDeleteManyArgs} args - Arguments to filter NfseTemplates to delete.
+     * @example
+     * // Delete a few NfseTemplates
+     * const { count } = await prisma.nfseTemplate.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends NfseTemplateDeleteManyArgs>(args?: SelectSubset<T, NfseTemplateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NfseTemplates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NfseTemplateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many NfseTemplates
+     * const nfseTemplate = await prisma.nfseTemplate.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends NfseTemplateUpdateManyArgs>(args: SelectSubset<T, NfseTemplateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NfseTemplates and returns the data updated in the database.
+     * @param {NfseTemplateUpdateManyAndReturnArgs} args - Arguments to update many NfseTemplates.
+     * @example
+     * // Update many NfseTemplates
+     * const nfseTemplate = await prisma.nfseTemplate.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more NfseTemplates and only return the `id`
+     * const nfseTemplateWithIdOnly = await prisma.nfseTemplate.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends NfseTemplateUpdateManyAndReturnArgs>(args: SelectSubset<T, NfseTemplateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NfseTemplatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one NfseTemplate.
+     * @param {NfseTemplateUpsertArgs} args - Arguments to update or create a NfseTemplate.
+     * @example
+     * // Update or create a NfseTemplate
+     * const nfseTemplate = await prisma.nfseTemplate.upsert({
+     *   create: {
+     *     // ... data to create a NfseTemplate
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the NfseTemplate we want to update
+     *   }
+     * })
+     */
+    upsert<T extends NfseTemplateUpsertArgs>(args: SelectSubset<T, NfseTemplateUpsertArgs<ExtArgs>>): Prisma__NfseTemplateClient<$Result.GetResult<Prisma.$NfseTemplatePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of NfseTemplates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NfseTemplateCountArgs} args - Arguments to filter NfseTemplates to count.
+     * @example
+     * // Count the number of NfseTemplates
+     * const count = await prisma.nfseTemplate.count({
+     *   where: {
+     *     // ... the filter for the NfseTemplates we want to count
+     *   }
+     * })
+    **/
+    count<T extends NfseTemplateCountArgs>(
+      args?: Subset<T, NfseTemplateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NfseTemplateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a NfseTemplate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NfseTemplateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NfseTemplateAggregateArgs>(args: Subset<T, NfseTemplateAggregateArgs>): Prisma.PrismaPromise<GetNfseTemplateAggregateType<T>>
+
+    /**
+     * Group by NfseTemplate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NfseTemplateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends NfseTemplateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: NfseTemplateGroupByArgs['orderBy'] }
+        : { orderBy?: NfseTemplateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, NfseTemplateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNfseTemplateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the NfseTemplate model
+   */
+  readonly fields: NfseTemplateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for NfseTemplate.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__NfseTemplateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    emissions<T extends NfseTemplate$emissionsArgs<ExtArgs> = {}>(args?: Subset<T, NfseTemplate$emissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NfseEmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the NfseTemplate model
+   */
+  interface NfseTemplateFieldRefs {
+    readonly id: FieldRef<"NfseTemplate", 'String'>
+    readonly userId: FieldRef<"NfseTemplate", 'String'>
+    readonly name: FieldRef<"NfseTemplate", 'String'>
+    readonly xml: FieldRef<"NfseTemplate", 'String'>
+    readonly businessKey: FieldRef<"NfseTemplate", 'String'>
+    readonly createdAt: FieldRef<"NfseTemplate", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * NfseTemplate findUnique
+   */
+  export type NfseTemplateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NfseTemplate
+     */
+    select?: NfseTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NfseTemplate
+     */
+    omit?: NfseTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NfseTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which NfseTemplate to fetch.
+     */
+    where: NfseTemplateWhereUniqueInput
+  }
+
+  /**
+   * NfseTemplate findUniqueOrThrow
+   */
+  export type NfseTemplateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NfseTemplate
+     */
+    select?: NfseTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NfseTemplate
+     */
+    omit?: NfseTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NfseTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which NfseTemplate to fetch.
+     */
+    where: NfseTemplateWhereUniqueInput
+  }
+
+  /**
+   * NfseTemplate findFirst
+   */
+  export type NfseTemplateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NfseTemplate
+     */
+    select?: NfseTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NfseTemplate
+     */
+    omit?: NfseTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NfseTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which NfseTemplate to fetch.
+     */
+    where?: NfseTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NfseTemplates to fetch.
+     */
+    orderBy?: NfseTemplateOrderByWithRelationInput | NfseTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NfseTemplates.
+     */
+    cursor?: NfseTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NfseTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NfseTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NfseTemplates.
+     */
+    distinct?: NfseTemplateScalarFieldEnum | NfseTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * NfseTemplate findFirstOrThrow
+   */
+  export type NfseTemplateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NfseTemplate
+     */
+    select?: NfseTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NfseTemplate
+     */
+    omit?: NfseTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NfseTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which NfseTemplate to fetch.
+     */
+    where?: NfseTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NfseTemplates to fetch.
+     */
+    orderBy?: NfseTemplateOrderByWithRelationInput | NfseTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NfseTemplates.
+     */
+    cursor?: NfseTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NfseTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NfseTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NfseTemplates.
+     */
+    distinct?: NfseTemplateScalarFieldEnum | NfseTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * NfseTemplate findMany
+   */
+  export type NfseTemplateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NfseTemplate
+     */
+    select?: NfseTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NfseTemplate
+     */
+    omit?: NfseTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NfseTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which NfseTemplates to fetch.
+     */
+    where?: NfseTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NfseTemplates to fetch.
+     */
+    orderBy?: NfseTemplateOrderByWithRelationInput | NfseTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing NfseTemplates.
+     */
+    cursor?: NfseTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NfseTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NfseTemplates.
+     */
+    skip?: number
+    distinct?: NfseTemplateScalarFieldEnum | NfseTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * NfseTemplate create
+   */
+  export type NfseTemplateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NfseTemplate
+     */
+    select?: NfseTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NfseTemplate
+     */
+    omit?: NfseTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NfseTemplateInclude<ExtArgs> | null
+    /**
+     * The data needed to create a NfseTemplate.
+     */
+    data: XOR<NfseTemplateCreateInput, NfseTemplateUncheckedCreateInput>
+  }
+
+  /**
+   * NfseTemplate createMany
+   */
+  export type NfseTemplateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many NfseTemplates.
+     */
+    data: NfseTemplateCreateManyInput | NfseTemplateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * NfseTemplate createManyAndReturn
+   */
+  export type NfseTemplateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NfseTemplate
+     */
+    select?: NfseTemplateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the NfseTemplate
+     */
+    omit?: NfseTemplateOmit<ExtArgs> | null
+    /**
+     * The data used to create many NfseTemplates.
+     */
+    data: NfseTemplateCreateManyInput | NfseTemplateCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NfseTemplateIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * NfseTemplate update
+   */
+  export type NfseTemplateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NfseTemplate
+     */
+    select?: NfseTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NfseTemplate
+     */
+    omit?: NfseTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NfseTemplateInclude<ExtArgs> | null
+    /**
+     * The data needed to update a NfseTemplate.
+     */
+    data: XOR<NfseTemplateUpdateInput, NfseTemplateUncheckedUpdateInput>
+    /**
+     * Choose, which NfseTemplate to update.
+     */
+    where: NfseTemplateWhereUniqueInput
+  }
+
+  /**
+   * NfseTemplate updateMany
+   */
+  export type NfseTemplateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update NfseTemplates.
+     */
+    data: XOR<NfseTemplateUpdateManyMutationInput, NfseTemplateUncheckedUpdateManyInput>
+    /**
+     * Filter which NfseTemplates to update
+     */
+    where?: NfseTemplateWhereInput
+    /**
+     * Limit how many NfseTemplates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * NfseTemplate updateManyAndReturn
+   */
+  export type NfseTemplateUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NfseTemplate
+     */
+    select?: NfseTemplateSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the NfseTemplate
+     */
+    omit?: NfseTemplateOmit<ExtArgs> | null
+    /**
+     * The data used to update NfseTemplates.
+     */
+    data: XOR<NfseTemplateUpdateManyMutationInput, NfseTemplateUncheckedUpdateManyInput>
+    /**
+     * Filter which NfseTemplates to update
+     */
+    where?: NfseTemplateWhereInput
+    /**
+     * Limit how many NfseTemplates to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NfseTemplateIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * NfseTemplate upsert
+   */
+  export type NfseTemplateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NfseTemplate
+     */
+    select?: NfseTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NfseTemplate
+     */
+    omit?: NfseTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NfseTemplateInclude<ExtArgs> | null
+    /**
+     * The filter to search for the NfseTemplate to update in case it exists.
+     */
+    where: NfseTemplateWhereUniqueInput
+    /**
+     * In case the NfseTemplate found by the `where` argument doesn't exist, create a new NfseTemplate with this data.
+     */
+    create: XOR<NfseTemplateCreateInput, NfseTemplateUncheckedCreateInput>
+    /**
+     * In case the NfseTemplate was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<NfseTemplateUpdateInput, NfseTemplateUncheckedUpdateInput>
+  }
+
+  /**
+   * NfseTemplate delete
+   */
+  export type NfseTemplateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NfseTemplate
+     */
+    select?: NfseTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NfseTemplate
+     */
+    omit?: NfseTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NfseTemplateInclude<ExtArgs> | null
+    /**
+     * Filter which NfseTemplate to delete.
+     */
+    where: NfseTemplateWhereUniqueInput
+  }
+
+  /**
+   * NfseTemplate deleteMany
+   */
+  export type NfseTemplateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NfseTemplates to delete
+     */
+    where?: NfseTemplateWhereInput
+    /**
+     * Limit how many NfseTemplates to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * NfseTemplate.emissions
+   */
+  export type NfseTemplate$emissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NfseEmission
+     */
+    select?: NfseEmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NfseEmission
+     */
+    omit?: NfseEmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NfseEmissionInclude<ExtArgs> | null
+    where?: NfseEmissionWhereInput
+    orderBy?: NfseEmissionOrderByWithRelationInput | NfseEmissionOrderByWithRelationInput[]
+    cursor?: NfseEmissionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NfseEmissionScalarFieldEnum | NfseEmissionScalarFieldEnum[]
+  }
+
+  /**
+   * NfseTemplate without action
+   */
+  export type NfseTemplateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NfseTemplate
+     */
+    select?: NfseTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NfseTemplate
+     */
+    omit?: NfseTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NfseTemplateInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model NfseEmission
+   */
+
+  export type AggregateNfseEmission = {
+    _count: NfseEmissionCountAggregateOutputType | null
+    _avg: NfseEmissionAvgAggregateOutputType | null
+    _sum: NfseEmissionSumAggregateOutputType | null
+    _min: NfseEmissionMinAggregateOutputType | null
+    _max: NfseEmissionMaxAggregateOutputType | null
+  }
+
+  export type NfseEmissionAvgAggregateOutputType = {
+    number: number | null
+  }
+
+  export type NfseEmissionSumAggregateOutputType = {
+    number: number | null
+  }
+
+  export type NfseEmissionMinAggregateOutputType = {
+    id: string | null
+    number: number | null
+    userId: string | null
+    templateId: string | null
+    competence: string | null
+    amount: string | null
+    description: string | null
+    status: string | null
+    dpsId: string | null
+    signedXml: string | null
+    accessKey: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type NfseEmissionMaxAggregateOutputType = {
+    id: string | null
+    number: number | null
+    userId: string | null
+    templateId: string | null
+    competence: string | null
+    amount: string | null
+    description: string | null
+    status: string | null
+    dpsId: string | null
+    signedXml: string | null
+    accessKey: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type NfseEmissionCountAggregateOutputType = {
+    id: number
+    number: number
+    userId: number
+    templateId: number
+    competence: number
+    amount: number
+    description: number
+    status: number
+    dpsId: number
+    signedXml: number
+    accessKey: number
+    response: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type NfseEmissionAvgAggregateInputType = {
+    number?: true
+  }
+
+  export type NfseEmissionSumAggregateInputType = {
+    number?: true
+  }
+
+  export type NfseEmissionMinAggregateInputType = {
+    id?: true
+    number?: true
+    userId?: true
+    templateId?: true
+    competence?: true
+    amount?: true
+    description?: true
+    status?: true
+    dpsId?: true
+    signedXml?: true
+    accessKey?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type NfseEmissionMaxAggregateInputType = {
+    id?: true
+    number?: true
+    userId?: true
+    templateId?: true
+    competence?: true
+    amount?: true
+    description?: true
+    status?: true
+    dpsId?: true
+    signedXml?: true
+    accessKey?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type NfseEmissionCountAggregateInputType = {
+    id?: true
+    number?: true
+    userId?: true
+    templateId?: true
+    competence?: true
+    amount?: true
+    description?: true
+    status?: true
+    dpsId?: true
+    signedXml?: true
+    accessKey?: true
+    response?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type NfseEmissionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NfseEmission to aggregate.
+     */
+    where?: NfseEmissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NfseEmissions to fetch.
+     */
+    orderBy?: NfseEmissionOrderByWithRelationInput | NfseEmissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: NfseEmissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NfseEmissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NfseEmissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned NfseEmissions
+    **/
+    _count?: true | NfseEmissionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: NfseEmissionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: NfseEmissionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NfseEmissionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NfseEmissionMaxAggregateInputType
+  }
+
+  export type GetNfseEmissionAggregateType<T extends NfseEmissionAggregateArgs> = {
+        [P in keyof T & keyof AggregateNfseEmission]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNfseEmission[P]>
+      : GetScalarType<T[P], AggregateNfseEmission[P]>
+  }
+
+
+
+
+  export type NfseEmissionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NfseEmissionWhereInput
+    orderBy?: NfseEmissionOrderByWithAggregationInput | NfseEmissionOrderByWithAggregationInput[]
+    by: NfseEmissionScalarFieldEnum[] | NfseEmissionScalarFieldEnum
+    having?: NfseEmissionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NfseEmissionCountAggregateInputType | true
+    _avg?: NfseEmissionAvgAggregateInputType
+    _sum?: NfseEmissionSumAggregateInputType
+    _min?: NfseEmissionMinAggregateInputType
+    _max?: NfseEmissionMaxAggregateInputType
+  }
+
+  export type NfseEmissionGroupByOutputType = {
+    id: string
+    number: number
+    userId: string
+    templateId: string
+    competence: string
+    amount: string
+    description: string
+    status: string
+    dpsId: string | null
+    signedXml: string | null
+    accessKey: string | null
+    response: JsonValue | null
+    createdAt: Date
+    updatedAt: Date
+    _count: NfseEmissionCountAggregateOutputType | null
+    _avg: NfseEmissionAvgAggregateOutputType | null
+    _sum: NfseEmissionSumAggregateOutputType | null
+    _min: NfseEmissionMinAggregateOutputType | null
+    _max: NfseEmissionMaxAggregateOutputType | null
+  }
+
+  type GetNfseEmissionGroupByPayload<T extends NfseEmissionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<NfseEmissionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NfseEmissionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NfseEmissionGroupByOutputType[P]>
+            : GetScalarType<T[P], NfseEmissionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type NfseEmissionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    number?: boolean
+    userId?: boolean
+    templateId?: boolean
+    competence?: boolean
+    amount?: boolean
+    description?: boolean
+    status?: boolean
+    dpsId?: boolean
+    signedXml?: boolean
+    accessKey?: boolean
+    response?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    template?: boolean | NfseTemplateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["nfseEmission"]>
+
+  export type NfseEmissionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    number?: boolean
+    userId?: boolean
+    templateId?: boolean
+    competence?: boolean
+    amount?: boolean
+    description?: boolean
+    status?: boolean
+    dpsId?: boolean
+    signedXml?: boolean
+    accessKey?: boolean
+    response?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    template?: boolean | NfseTemplateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["nfseEmission"]>
+
+  export type NfseEmissionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    number?: boolean
+    userId?: boolean
+    templateId?: boolean
+    competence?: boolean
+    amount?: boolean
+    description?: boolean
+    status?: boolean
+    dpsId?: boolean
+    signedXml?: boolean
+    accessKey?: boolean
+    response?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    template?: boolean | NfseTemplateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["nfseEmission"]>
+
+  export type NfseEmissionSelectScalar = {
+    id?: boolean
+    number?: boolean
+    userId?: boolean
+    templateId?: boolean
+    competence?: boolean
+    amount?: boolean
+    description?: boolean
+    status?: boolean
+    dpsId?: boolean
+    signedXml?: boolean
+    accessKey?: boolean
+    response?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type NfseEmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "number" | "userId" | "templateId" | "competence" | "amount" | "description" | "status" | "dpsId" | "signedXml" | "accessKey" | "response" | "createdAt" | "updatedAt", ExtArgs["result"]["nfseEmission"]>
+  export type NfseEmissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    template?: boolean | NfseTemplateDefaultArgs<ExtArgs>
+  }
+  export type NfseEmissionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    template?: boolean | NfseTemplateDefaultArgs<ExtArgs>
+  }
+  export type NfseEmissionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    template?: boolean | NfseTemplateDefaultArgs<ExtArgs>
+  }
+
+  export type $NfseEmissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "NfseEmission"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      template: Prisma.$NfseTemplatePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      number: number
+      userId: string
+      templateId: string
+      competence: string
+      amount: string
+      description: string
+      status: string
+      dpsId: string | null
+      signedXml: string | null
+      accessKey: string | null
+      response: Prisma.JsonValue | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["nfseEmission"]>
+    composites: {}
+  }
+
+  type NfseEmissionGetPayload<S extends boolean | null | undefined | NfseEmissionDefaultArgs> = $Result.GetResult<Prisma.$NfseEmissionPayload, S>
+
+  type NfseEmissionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<NfseEmissionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: NfseEmissionCountAggregateInputType | true
+    }
+
+  export interface NfseEmissionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['NfseEmission'], meta: { name: 'NfseEmission' } }
+    /**
+     * Find zero or one NfseEmission that matches the filter.
+     * @param {NfseEmissionFindUniqueArgs} args - Arguments to find a NfseEmission
+     * @example
+     * // Get one NfseEmission
+     * const nfseEmission = await prisma.nfseEmission.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends NfseEmissionFindUniqueArgs>(args: SelectSubset<T, NfseEmissionFindUniqueArgs<ExtArgs>>): Prisma__NfseEmissionClient<$Result.GetResult<Prisma.$NfseEmissionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one NfseEmission that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {NfseEmissionFindUniqueOrThrowArgs} args - Arguments to find a NfseEmission
+     * @example
+     * // Get one NfseEmission
+     * const nfseEmission = await prisma.nfseEmission.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends NfseEmissionFindUniqueOrThrowArgs>(args: SelectSubset<T, NfseEmissionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__NfseEmissionClient<$Result.GetResult<Prisma.$NfseEmissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NfseEmission that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NfseEmissionFindFirstArgs} args - Arguments to find a NfseEmission
+     * @example
+     * // Get one NfseEmission
+     * const nfseEmission = await prisma.nfseEmission.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends NfseEmissionFindFirstArgs>(args?: SelectSubset<T, NfseEmissionFindFirstArgs<ExtArgs>>): Prisma__NfseEmissionClient<$Result.GetResult<Prisma.$NfseEmissionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NfseEmission that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NfseEmissionFindFirstOrThrowArgs} args - Arguments to find a NfseEmission
+     * @example
+     * // Get one NfseEmission
+     * const nfseEmission = await prisma.nfseEmission.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends NfseEmissionFindFirstOrThrowArgs>(args?: SelectSubset<T, NfseEmissionFindFirstOrThrowArgs<ExtArgs>>): Prisma__NfseEmissionClient<$Result.GetResult<Prisma.$NfseEmissionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more NfseEmissions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NfseEmissionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all NfseEmissions
+     * const nfseEmissions = await prisma.nfseEmission.findMany()
+     * 
+     * // Get first 10 NfseEmissions
+     * const nfseEmissions = await prisma.nfseEmission.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const nfseEmissionWithIdOnly = await prisma.nfseEmission.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends NfseEmissionFindManyArgs>(args?: SelectSubset<T, NfseEmissionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NfseEmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a NfseEmission.
+     * @param {NfseEmissionCreateArgs} args - Arguments to create a NfseEmission.
+     * @example
+     * // Create one NfseEmission
+     * const NfseEmission = await prisma.nfseEmission.create({
+     *   data: {
+     *     // ... data to create a NfseEmission
+     *   }
+     * })
+     * 
+     */
+    create<T extends NfseEmissionCreateArgs>(args: SelectSubset<T, NfseEmissionCreateArgs<ExtArgs>>): Prisma__NfseEmissionClient<$Result.GetResult<Prisma.$NfseEmissionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many NfseEmissions.
+     * @param {NfseEmissionCreateManyArgs} args - Arguments to create many NfseEmissions.
+     * @example
+     * // Create many NfseEmissions
+     * const nfseEmission = await prisma.nfseEmission.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends NfseEmissionCreateManyArgs>(args?: SelectSubset<T, NfseEmissionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many NfseEmissions and returns the data saved in the database.
+     * @param {NfseEmissionCreateManyAndReturnArgs} args - Arguments to create many NfseEmissions.
+     * @example
+     * // Create many NfseEmissions
+     * const nfseEmission = await prisma.nfseEmission.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many NfseEmissions and only return the `id`
+     * const nfseEmissionWithIdOnly = await prisma.nfseEmission.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends NfseEmissionCreateManyAndReturnArgs>(args?: SelectSubset<T, NfseEmissionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NfseEmissionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a NfseEmission.
+     * @param {NfseEmissionDeleteArgs} args - Arguments to delete one NfseEmission.
+     * @example
+     * // Delete one NfseEmission
+     * const NfseEmission = await prisma.nfseEmission.delete({
+     *   where: {
+     *     // ... filter to delete one NfseEmission
+     *   }
+     * })
+     * 
+     */
+    delete<T extends NfseEmissionDeleteArgs>(args: SelectSubset<T, NfseEmissionDeleteArgs<ExtArgs>>): Prisma__NfseEmissionClient<$Result.GetResult<Prisma.$NfseEmissionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one NfseEmission.
+     * @param {NfseEmissionUpdateArgs} args - Arguments to update one NfseEmission.
+     * @example
+     * // Update one NfseEmission
+     * const nfseEmission = await prisma.nfseEmission.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends NfseEmissionUpdateArgs>(args: SelectSubset<T, NfseEmissionUpdateArgs<ExtArgs>>): Prisma__NfseEmissionClient<$Result.GetResult<Prisma.$NfseEmissionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more NfseEmissions.
+     * @param {NfseEmissionDeleteManyArgs} args - Arguments to filter NfseEmissions to delete.
+     * @example
+     * // Delete a few NfseEmissions
+     * const { count } = await prisma.nfseEmission.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends NfseEmissionDeleteManyArgs>(args?: SelectSubset<T, NfseEmissionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NfseEmissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NfseEmissionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many NfseEmissions
+     * const nfseEmission = await prisma.nfseEmission.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends NfseEmissionUpdateManyArgs>(args: SelectSubset<T, NfseEmissionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NfseEmissions and returns the data updated in the database.
+     * @param {NfseEmissionUpdateManyAndReturnArgs} args - Arguments to update many NfseEmissions.
+     * @example
+     * // Update many NfseEmissions
+     * const nfseEmission = await prisma.nfseEmission.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more NfseEmissions and only return the `id`
+     * const nfseEmissionWithIdOnly = await prisma.nfseEmission.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends NfseEmissionUpdateManyAndReturnArgs>(args: SelectSubset<T, NfseEmissionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NfseEmissionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one NfseEmission.
+     * @param {NfseEmissionUpsertArgs} args - Arguments to update or create a NfseEmission.
+     * @example
+     * // Update or create a NfseEmission
+     * const nfseEmission = await prisma.nfseEmission.upsert({
+     *   create: {
+     *     // ... data to create a NfseEmission
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the NfseEmission we want to update
+     *   }
+     * })
+     */
+    upsert<T extends NfseEmissionUpsertArgs>(args: SelectSubset<T, NfseEmissionUpsertArgs<ExtArgs>>): Prisma__NfseEmissionClient<$Result.GetResult<Prisma.$NfseEmissionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of NfseEmissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NfseEmissionCountArgs} args - Arguments to filter NfseEmissions to count.
+     * @example
+     * // Count the number of NfseEmissions
+     * const count = await prisma.nfseEmission.count({
+     *   where: {
+     *     // ... the filter for the NfseEmissions we want to count
+     *   }
+     * })
+    **/
+    count<T extends NfseEmissionCountArgs>(
+      args?: Subset<T, NfseEmissionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NfseEmissionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a NfseEmission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NfseEmissionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NfseEmissionAggregateArgs>(args: Subset<T, NfseEmissionAggregateArgs>): Prisma.PrismaPromise<GetNfseEmissionAggregateType<T>>
+
+    /**
+     * Group by NfseEmission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NfseEmissionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends NfseEmissionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: NfseEmissionGroupByArgs['orderBy'] }
+        : { orderBy?: NfseEmissionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, NfseEmissionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNfseEmissionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the NfseEmission model
+   */
+  readonly fields: NfseEmissionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for NfseEmission.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__NfseEmissionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    template<T extends NfseTemplateDefaultArgs<ExtArgs> = {}>(args?: Subset<T, NfseTemplateDefaultArgs<ExtArgs>>): Prisma__NfseTemplateClient<$Result.GetResult<Prisma.$NfseTemplatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the NfseEmission model
+   */
+  interface NfseEmissionFieldRefs {
+    readonly id: FieldRef<"NfseEmission", 'String'>
+    readonly number: FieldRef<"NfseEmission", 'Int'>
+    readonly userId: FieldRef<"NfseEmission", 'String'>
+    readonly templateId: FieldRef<"NfseEmission", 'String'>
+    readonly competence: FieldRef<"NfseEmission", 'String'>
+    readonly amount: FieldRef<"NfseEmission", 'String'>
+    readonly description: FieldRef<"NfseEmission", 'String'>
+    readonly status: FieldRef<"NfseEmission", 'String'>
+    readonly dpsId: FieldRef<"NfseEmission", 'String'>
+    readonly signedXml: FieldRef<"NfseEmission", 'String'>
+    readonly accessKey: FieldRef<"NfseEmission", 'String'>
+    readonly response: FieldRef<"NfseEmission", 'Json'>
+    readonly createdAt: FieldRef<"NfseEmission", 'DateTime'>
+    readonly updatedAt: FieldRef<"NfseEmission", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * NfseEmission findUnique
+   */
+  export type NfseEmissionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NfseEmission
+     */
+    select?: NfseEmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NfseEmission
+     */
+    omit?: NfseEmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NfseEmissionInclude<ExtArgs> | null
+    /**
+     * Filter, which NfseEmission to fetch.
+     */
+    where: NfseEmissionWhereUniqueInput
+  }
+
+  /**
+   * NfseEmission findUniqueOrThrow
+   */
+  export type NfseEmissionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NfseEmission
+     */
+    select?: NfseEmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NfseEmission
+     */
+    omit?: NfseEmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NfseEmissionInclude<ExtArgs> | null
+    /**
+     * Filter, which NfseEmission to fetch.
+     */
+    where: NfseEmissionWhereUniqueInput
+  }
+
+  /**
+   * NfseEmission findFirst
+   */
+  export type NfseEmissionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NfseEmission
+     */
+    select?: NfseEmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NfseEmission
+     */
+    omit?: NfseEmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NfseEmissionInclude<ExtArgs> | null
+    /**
+     * Filter, which NfseEmission to fetch.
+     */
+    where?: NfseEmissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NfseEmissions to fetch.
+     */
+    orderBy?: NfseEmissionOrderByWithRelationInput | NfseEmissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NfseEmissions.
+     */
+    cursor?: NfseEmissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NfseEmissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NfseEmissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NfseEmissions.
+     */
+    distinct?: NfseEmissionScalarFieldEnum | NfseEmissionScalarFieldEnum[]
+  }
+
+  /**
+   * NfseEmission findFirstOrThrow
+   */
+  export type NfseEmissionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NfseEmission
+     */
+    select?: NfseEmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NfseEmission
+     */
+    omit?: NfseEmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NfseEmissionInclude<ExtArgs> | null
+    /**
+     * Filter, which NfseEmission to fetch.
+     */
+    where?: NfseEmissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NfseEmissions to fetch.
+     */
+    orderBy?: NfseEmissionOrderByWithRelationInput | NfseEmissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NfseEmissions.
+     */
+    cursor?: NfseEmissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NfseEmissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NfseEmissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NfseEmissions.
+     */
+    distinct?: NfseEmissionScalarFieldEnum | NfseEmissionScalarFieldEnum[]
+  }
+
+  /**
+   * NfseEmission findMany
+   */
+  export type NfseEmissionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NfseEmission
+     */
+    select?: NfseEmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NfseEmission
+     */
+    omit?: NfseEmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NfseEmissionInclude<ExtArgs> | null
+    /**
+     * Filter, which NfseEmissions to fetch.
+     */
+    where?: NfseEmissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NfseEmissions to fetch.
+     */
+    orderBy?: NfseEmissionOrderByWithRelationInput | NfseEmissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing NfseEmissions.
+     */
+    cursor?: NfseEmissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NfseEmissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NfseEmissions.
+     */
+    skip?: number
+    distinct?: NfseEmissionScalarFieldEnum | NfseEmissionScalarFieldEnum[]
+  }
+
+  /**
+   * NfseEmission create
+   */
+  export type NfseEmissionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NfseEmission
+     */
+    select?: NfseEmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NfseEmission
+     */
+    omit?: NfseEmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NfseEmissionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a NfseEmission.
+     */
+    data: XOR<NfseEmissionCreateInput, NfseEmissionUncheckedCreateInput>
+  }
+
+  /**
+   * NfseEmission createMany
+   */
+  export type NfseEmissionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many NfseEmissions.
+     */
+    data: NfseEmissionCreateManyInput | NfseEmissionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * NfseEmission createManyAndReturn
+   */
+  export type NfseEmissionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NfseEmission
+     */
+    select?: NfseEmissionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the NfseEmission
+     */
+    omit?: NfseEmissionOmit<ExtArgs> | null
+    /**
+     * The data used to create many NfseEmissions.
+     */
+    data: NfseEmissionCreateManyInput | NfseEmissionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NfseEmissionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * NfseEmission update
+   */
+  export type NfseEmissionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NfseEmission
+     */
+    select?: NfseEmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NfseEmission
+     */
+    omit?: NfseEmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NfseEmissionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a NfseEmission.
+     */
+    data: XOR<NfseEmissionUpdateInput, NfseEmissionUncheckedUpdateInput>
+    /**
+     * Choose, which NfseEmission to update.
+     */
+    where: NfseEmissionWhereUniqueInput
+  }
+
+  /**
+   * NfseEmission updateMany
+   */
+  export type NfseEmissionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update NfseEmissions.
+     */
+    data: XOR<NfseEmissionUpdateManyMutationInput, NfseEmissionUncheckedUpdateManyInput>
+    /**
+     * Filter which NfseEmissions to update
+     */
+    where?: NfseEmissionWhereInput
+    /**
+     * Limit how many NfseEmissions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * NfseEmission updateManyAndReturn
+   */
+  export type NfseEmissionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NfseEmission
+     */
+    select?: NfseEmissionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the NfseEmission
+     */
+    omit?: NfseEmissionOmit<ExtArgs> | null
+    /**
+     * The data used to update NfseEmissions.
+     */
+    data: XOR<NfseEmissionUpdateManyMutationInput, NfseEmissionUncheckedUpdateManyInput>
+    /**
+     * Filter which NfseEmissions to update
+     */
+    where?: NfseEmissionWhereInput
+    /**
+     * Limit how many NfseEmissions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NfseEmissionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * NfseEmission upsert
+   */
+  export type NfseEmissionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NfseEmission
+     */
+    select?: NfseEmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NfseEmission
+     */
+    omit?: NfseEmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NfseEmissionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the NfseEmission to update in case it exists.
+     */
+    where: NfseEmissionWhereUniqueInput
+    /**
+     * In case the NfseEmission found by the `where` argument doesn't exist, create a new NfseEmission with this data.
+     */
+    create: XOR<NfseEmissionCreateInput, NfseEmissionUncheckedCreateInput>
+    /**
+     * In case the NfseEmission was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<NfseEmissionUpdateInput, NfseEmissionUncheckedUpdateInput>
+  }
+
+  /**
+   * NfseEmission delete
+   */
+  export type NfseEmissionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NfseEmission
+     */
+    select?: NfseEmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NfseEmission
+     */
+    omit?: NfseEmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NfseEmissionInclude<ExtArgs> | null
+    /**
+     * Filter which NfseEmission to delete.
+     */
+    where: NfseEmissionWhereUniqueInput
+  }
+
+  /**
+   * NfseEmission deleteMany
+   */
+  export type NfseEmissionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NfseEmissions to delete
+     */
+    where?: NfseEmissionWhereInput
+    /**
+     * Limit how many NfseEmissions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * NfseEmission without action
+   */
+  export type NfseEmissionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NfseEmission
+     */
+    select?: NfseEmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NfseEmission
+     */
+    omit?: NfseEmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NfseEmissionInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -9973,12 +12574,52 @@ export namespace Prisma {
   export type MessagingConfigScalarFieldEnum = (typeof MessagingConfigScalarFieldEnum)[keyof typeof MessagingConfigScalarFieldEnum]
 
 
+  export const NfseTemplateScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    name: 'name',
+    xml: 'xml',
+    businessKey: 'businessKey',
+    createdAt: 'createdAt'
+  };
+
+  export type NfseTemplateScalarFieldEnum = (typeof NfseTemplateScalarFieldEnum)[keyof typeof NfseTemplateScalarFieldEnum]
+
+
+  export const NfseEmissionScalarFieldEnum: {
+    id: 'id',
+    number: 'number',
+    userId: 'userId',
+    templateId: 'templateId',
+    competence: 'competence',
+    amount: 'amount',
+    description: 'description',
+    status: 'status',
+    dpsId: 'dpsId',
+    signedXml: 'signedXml',
+    accessKey: 'accessKey',
+    response: 'response',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type NfseEmissionScalarFieldEnum = (typeof NfseEmissionScalarFieldEnum)[keyof typeof NfseEmissionScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const QueryMode: {
@@ -9995,6 +12636,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -10052,6 +12702,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -10093,6 +12757,8 @@ export namespace Prisma {
     messagingConfig?: XOR<MessagingConfigNullableScalarRelationFilter, MessagingConfigWhereInput> | null
     projects?: ProjectListRelationFilter
     reminders?: ReminderListRelationFilter
+    nfseTemplates?: NfseTemplateListRelationFilter
+    nfseEmissions?: NfseEmissionListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -10117,6 +12783,8 @@ export namespace Prisma {
     messagingConfig?: MessagingConfigOrderByWithRelationInput
     projects?: ProjectOrderByRelationAggregateInput
     reminders?: ReminderOrderByRelationAggregateInput
+    nfseTemplates?: NfseTemplateOrderByRelationAggregateInput
+    nfseEmissions?: NfseEmissionOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -10144,6 +12812,8 @@ export namespace Prisma {
     messagingConfig?: XOR<MessagingConfigNullableScalarRelationFilter, MessagingConfigWhereInput> | null
     projects?: ProjectListRelationFilter
     reminders?: ReminderListRelationFilter
+    nfseTemplates?: NfseTemplateListRelationFilter
+    nfseEmissions?: NfseEmissionListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -10775,6 +13445,177 @@ export namespace Prisma {
     resendFromName?: StringNullableWithAggregatesFilter<"MessagingConfig"> | string | null
   }
 
+  export type NfseTemplateWhereInput = {
+    AND?: NfseTemplateWhereInput | NfseTemplateWhereInput[]
+    OR?: NfseTemplateWhereInput[]
+    NOT?: NfseTemplateWhereInput | NfseTemplateWhereInput[]
+    id?: StringFilter<"NfseTemplate"> | string
+    userId?: StringFilter<"NfseTemplate"> | string
+    name?: StringFilter<"NfseTemplate"> | string
+    xml?: StringFilter<"NfseTemplate"> | string
+    businessKey?: StringFilter<"NfseTemplate"> | string
+    createdAt?: DateTimeFilter<"NfseTemplate"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    emissions?: NfseEmissionListRelationFilter
+  }
+
+  export type NfseTemplateOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    xml?: SortOrder
+    businessKey?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    emissions?: NfseEmissionOrderByRelationAggregateInput
+  }
+
+  export type NfseTemplateWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_name?: NfseTemplateUserIdNameCompoundUniqueInput
+    userId_businessKey?: NfseTemplateUserIdBusinessKeyCompoundUniqueInput
+    AND?: NfseTemplateWhereInput | NfseTemplateWhereInput[]
+    OR?: NfseTemplateWhereInput[]
+    NOT?: NfseTemplateWhereInput | NfseTemplateWhereInput[]
+    userId?: StringFilter<"NfseTemplate"> | string
+    name?: StringFilter<"NfseTemplate"> | string
+    xml?: StringFilter<"NfseTemplate"> | string
+    businessKey?: StringFilter<"NfseTemplate"> | string
+    createdAt?: DateTimeFilter<"NfseTemplate"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    emissions?: NfseEmissionListRelationFilter
+  }, "id" | "userId_name" | "userId_businessKey">
+
+  export type NfseTemplateOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    xml?: SortOrder
+    businessKey?: SortOrder
+    createdAt?: SortOrder
+    _count?: NfseTemplateCountOrderByAggregateInput
+    _max?: NfseTemplateMaxOrderByAggregateInput
+    _min?: NfseTemplateMinOrderByAggregateInput
+  }
+
+  export type NfseTemplateScalarWhereWithAggregatesInput = {
+    AND?: NfseTemplateScalarWhereWithAggregatesInput | NfseTemplateScalarWhereWithAggregatesInput[]
+    OR?: NfseTemplateScalarWhereWithAggregatesInput[]
+    NOT?: NfseTemplateScalarWhereWithAggregatesInput | NfseTemplateScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"NfseTemplate"> | string
+    userId?: StringWithAggregatesFilter<"NfseTemplate"> | string
+    name?: StringWithAggregatesFilter<"NfseTemplate"> | string
+    xml?: StringWithAggregatesFilter<"NfseTemplate"> | string
+    businessKey?: StringWithAggregatesFilter<"NfseTemplate"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"NfseTemplate"> | Date | string
+  }
+
+  export type NfseEmissionWhereInput = {
+    AND?: NfseEmissionWhereInput | NfseEmissionWhereInput[]
+    OR?: NfseEmissionWhereInput[]
+    NOT?: NfseEmissionWhereInput | NfseEmissionWhereInput[]
+    id?: StringFilter<"NfseEmission"> | string
+    number?: IntFilter<"NfseEmission"> | number
+    userId?: StringFilter<"NfseEmission"> | string
+    templateId?: StringFilter<"NfseEmission"> | string
+    competence?: StringFilter<"NfseEmission"> | string
+    amount?: StringFilter<"NfseEmission"> | string
+    description?: StringFilter<"NfseEmission"> | string
+    status?: StringFilter<"NfseEmission"> | string
+    dpsId?: StringNullableFilter<"NfseEmission"> | string | null
+    signedXml?: StringNullableFilter<"NfseEmission"> | string | null
+    accessKey?: StringNullableFilter<"NfseEmission"> | string | null
+    response?: JsonNullableFilter<"NfseEmission">
+    createdAt?: DateTimeFilter<"NfseEmission"> | Date | string
+    updatedAt?: DateTimeFilter<"NfseEmission"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    template?: XOR<NfseTemplateScalarRelationFilter, NfseTemplateWhereInput>
+  }
+
+  export type NfseEmissionOrderByWithRelationInput = {
+    id?: SortOrder
+    number?: SortOrder
+    userId?: SortOrder
+    templateId?: SortOrder
+    competence?: SortOrder
+    amount?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    dpsId?: SortOrderInput | SortOrder
+    signedXml?: SortOrderInput | SortOrder
+    accessKey?: SortOrderInput | SortOrder
+    response?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    template?: NfseTemplateOrderByWithRelationInput
+  }
+
+  export type NfseEmissionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    number?: number
+    templateId_competence?: NfseEmissionTemplateIdCompetenceCompoundUniqueInput
+    AND?: NfseEmissionWhereInput | NfseEmissionWhereInput[]
+    OR?: NfseEmissionWhereInput[]
+    NOT?: NfseEmissionWhereInput | NfseEmissionWhereInput[]
+    userId?: StringFilter<"NfseEmission"> | string
+    templateId?: StringFilter<"NfseEmission"> | string
+    competence?: StringFilter<"NfseEmission"> | string
+    amount?: StringFilter<"NfseEmission"> | string
+    description?: StringFilter<"NfseEmission"> | string
+    status?: StringFilter<"NfseEmission"> | string
+    dpsId?: StringNullableFilter<"NfseEmission"> | string | null
+    signedXml?: StringNullableFilter<"NfseEmission"> | string | null
+    accessKey?: StringNullableFilter<"NfseEmission"> | string | null
+    response?: JsonNullableFilter<"NfseEmission">
+    createdAt?: DateTimeFilter<"NfseEmission"> | Date | string
+    updatedAt?: DateTimeFilter<"NfseEmission"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    template?: XOR<NfseTemplateScalarRelationFilter, NfseTemplateWhereInput>
+  }, "id" | "number" | "templateId_competence">
+
+  export type NfseEmissionOrderByWithAggregationInput = {
+    id?: SortOrder
+    number?: SortOrder
+    userId?: SortOrder
+    templateId?: SortOrder
+    competence?: SortOrder
+    amount?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    dpsId?: SortOrderInput | SortOrder
+    signedXml?: SortOrderInput | SortOrder
+    accessKey?: SortOrderInput | SortOrder
+    response?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: NfseEmissionCountOrderByAggregateInput
+    _avg?: NfseEmissionAvgOrderByAggregateInput
+    _max?: NfseEmissionMaxOrderByAggregateInput
+    _min?: NfseEmissionMinOrderByAggregateInput
+    _sum?: NfseEmissionSumOrderByAggregateInput
+  }
+
+  export type NfseEmissionScalarWhereWithAggregatesInput = {
+    AND?: NfseEmissionScalarWhereWithAggregatesInput | NfseEmissionScalarWhereWithAggregatesInput[]
+    OR?: NfseEmissionScalarWhereWithAggregatesInput[]
+    NOT?: NfseEmissionScalarWhereWithAggregatesInput | NfseEmissionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"NfseEmission"> | string
+    number?: IntWithAggregatesFilter<"NfseEmission"> | number
+    userId?: StringWithAggregatesFilter<"NfseEmission"> | string
+    templateId?: StringWithAggregatesFilter<"NfseEmission"> | string
+    competence?: StringWithAggregatesFilter<"NfseEmission"> | string
+    amount?: StringWithAggregatesFilter<"NfseEmission"> | string
+    description?: StringWithAggregatesFilter<"NfseEmission"> | string
+    status?: StringWithAggregatesFilter<"NfseEmission"> | string
+    dpsId?: StringNullableWithAggregatesFilter<"NfseEmission"> | string | null
+    signedXml?: StringNullableWithAggregatesFilter<"NfseEmission"> | string | null
+    accessKey?: StringNullableWithAggregatesFilter<"NfseEmission"> | string | null
+    response?: JsonNullableWithAggregatesFilter<"NfseEmission">
+    createdAt?: DateTimeWithAggregatesFilter<"NfseEmission"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"NfseEmission"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -10797,6 +13638,8 @@ export namespace Prisma {
     messagingConfig?: MessagingConfigCreateNestedOneWithoutUserInput
     projects?: ProjectCreateNestedManyWithoutUserInput
     reminders?: ReminderCreateNestedManyWithoutUserInput
+    nfseTemplates?: NfseTemplateCreateNestedManyWithoutUserInput
+    nfseEmissions?: NfseEmissionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -10821,6 +13664,8 @@ export namespace Prisma {
     messagingConfig?: MessagingConfigUncheckedCreateNestedOneWithoutUserInput
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
     reminders?: ReminderUncheckedCreateNestedManyWithoutUserInput
+    nfseTemplates?: NfseTemplateUncheckedCreateNestedManyWithoutUserInput
+    nfseEmissions?: NfseEmissionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -10845,6 +13690,8 @@ export namespace Prisma {
     messagingConfig?: MessagingConfigUpdateOneWithoutUserNestedInput
     projects?: ProjectUpdateManyWithoutUserNestedInput
     reminders?: ReminderUpdateManyWithoutUserNestedInput
+    nfseTemplates?: NfseTemplateUpdateManyWithoutUserNestedInput
+    nfseEmissions?: NfseEmissionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -10869,6 +13716,8 @@ export namespace Prisma {
     messagingConfig?: MessagingConfigUncheckedUpdateOneWithoutUserNestedInput
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
     reminders?: ReminderUncheckedUpdateManyWithoutUserNestedInput
+    nfseTemplates?: NfseTemplateUncheckedUpdateManyWithoutUserNestedInput
+    nfseEmissions?: NfseEmissionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -11612,6 +14461,187 @@ export namespace Prisma {
     resendFromName?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type NfseTemplateCreateInput = {
+    id?: string
+    name: string
+    xml: string
+    businessKey: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutNfseTemplatesInput
+    emissions?: NfseEmissionCreateNestedManyWithoutTemplateInput
+  }
+
+  export type NfseTemplateUncheckedCreateInput = {
+    id?: string
+    userId: string
+    name: string
+    xml: string
+    businessKey: string
+    createdAt?: Date | string
+    emissions?: NfseEmissionUncheckedCreateNestedManyWithoutTemplateInput
+  }
+
+  export type NfseTemplateUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    xml?: StringFieldUpdateOperationsInput | string
+    businessKey?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutNfseTemplatesNestedInput
+    emissions?: NfseEmissionUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type NfseTemplateUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    xml?: StringFieldUpdateOperationsInput | string
+    businessKey?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emissions?: NfseEmissionUncheckedUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type NfseTemplateCreateManyInput = {
+    id?: string
+    userId: string
+    name: string
+    xml: string
+    businessKey: string
+    createdAt?: Date | string
+  }
+
+  export type NfseTemplateUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    xml?: StringFieldUpdateOperationsInput | string
+    businessKey?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NfseTemplateUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    xml?: StringFieldUpdateOperationsInput | string
+    businessKey?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NfseEmissionCreateInput = {
+    id?: string
+    number?: number
+    competence: string
+    amount: string
+    description: string
+    status?: string
+    dpsId?: string | null
+    signedXml?: string | null
+    accessKey?: string | null
+    response?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutNfseEmissionsInput
+    template: NfseTemplateCreateNestedOneWithoutEmissionsInput
+  }
+
+  export type NfseEmissionUncheckedCreateInput = {
+    id?: string
+    number?: number
+    userId: string
+    templateId: string
+    competence: string
+    amount: string
+    description: string
+    status?: string
+    dpsId?: string | null
+    signedXml?: string | null
+    accessKey?: string | null
+    response?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NfseEmissionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    competence?: StringFieldUpdateOperationsInput | string
+    amount?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    dpsId?: NullableStringFieldUpdateOperationsInput | string | null
+    signedXml?: NullableStringFieldUpdateOperationsInput | string | null
+    accessKey?: NullableStringFieldUpdateOperationsInput | string | null
+    response?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutNfseEmissionsNestedInput
+    template?: NfseTemplateUpdateOneRequiredWithoutEmissionsNestedInput
+  }
+
+  export type NfseEmissionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
+    templateId?: StringFieldUpdateOperationsInput | string
+    competence?: StringFieldUpdateOperationsInput | string
+    amount?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    dpsId?: NullableStringFieldUpdateOperationsInput | string | null
+    signedXml?: NullableStringFieldUpdateOperationsInput | string | null
+    accessKey?: NullableStringFieldUpdateOperationsInput | string | null
+    response?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NfseEmissionCreateManyInput = {
+    id?: string
+    number?: number
+    userId: string
+    templateId: string
+    competence: string
+    amount: string
+    description: string
+    status?: string
+    dpsId?: string | null
+    signedXml?: string | null
+    accessKey?: string | null
+    response?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NfseEmissionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    competence?: StringFieldUpdateOperationsInput | string
+    amount?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    dpsId?: NullableStringFieldUpdateOperationsInput | string | null
+    signedXml?: NullableStringFieldUpdateOperationsInput | string | null
+    accessKey?: NullableStringFieldUpdateOperationsInput | string | null
+    response?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NfseEmissionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
+    templateId?: StringFieldUpdateOperationsInput | string
+    competence?: StringFieldUpdateOperationsInput | string
+    amount?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    dpsId?: NullableStringFieldUpdateOperationsInput | string | null
+    signedXml?: NullableStringFieldUpdateOperationsInput | string | null
+    accessKey?: NullableStringFieldUpdateOperationsInput | string | null
+    response?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -11694,6 +14724,18 @@ export namespace Prisma {
     none?: ReminderWhereInput
   }
 
+  export type NfseTemplateListRelationFilter = {
+    every?: NfseTemplateWhereInput
+    some?: NfseTemplateWhereInput
+    none?: NfseTemplateWhereInput
+  }
+
+  export type NfseEmissionListRelationFilter = {
+    every?: NfseEmissionWhereInput
+    some?: NfseEmissionWhereInput
+    none?: NfseEmissionWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -11708,6 +14750,14 @@ export namespace Prisma {
   }
 
   export type ReminderOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type NfseTemplateOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type NfseEmissionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -12184,6 +15234,159 @@ export namespace Prisma {
     resendFromName?: SortOrder
   }
 
+  export type NfseTemplateUserIdNameCompoundUniqueInput = {
+    userId: string
+    name: string
+  }
+
+  export type NfseTemplateUserIdBusinessKeyCompoundUniqueInput = {
+    userId: string
+    businessKey: string
+  }
+
+  export type NfseTemplateCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    xml?: SortOrder
+    businessKey?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type NfseTemplateMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    xml?: SortOrder
+    businessKey?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type NfseTemplateMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    xml?: SortOrder
+    businessKey?: SortOrder
+    createdAt?: SortOrder
+  }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type NfseTemplateScalarRelationFilter = {
+    is?: NfseTemplateWhereInput
+    isNot?: NfseTemplateWhereInput
+  }
+
+  export type NfseEmissionTemplateIdCompetenceCompoundUniqueInput = {
+    templateId: string
+    competence: string
+  }
+
+  export type NfseEmissionCountOrderByAggregateInput = {
+    id?: SortOrder
+    number?: SortOrder
+    userId?: SortOrder
+    templateId?: SortOrder
+    competence?: SortOrder
+    amount?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    dpsId?: SortOrder
+    signedXml?: SortOrder
+    accessKey?: SortOrder
+    response?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type NfseEmissionAvgOrderByAggregateInput = {
+    number?: SortOrder
+  }
+
+  export type NfseEmissionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    number?: SortOrder
+    userId?: SortOrder
+    templateId?: SortOrder
+    competence?: SortOrder
+    amount?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    dpsId?: SortOrder
+    signedXml?: SortOrder
+    accessKey?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type NfseEmissionMinOrderByAggregateInput = {
+    id?: SortOrder
+    number?: SortOrder
+    userId?: SortOrder
+    templateId?: SortOrder
+    competence?: SortOrder
+    amount?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    dpsId?: SortOrder
+    signedXml?: SortOrder
+    accessKey?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type NfseEmissionSumOrderByAggregateInput = {
+    number?: SortOrder
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
   export type UserCreateskillsInput = {
     set: string[]
   }
@@ -12227,6 +15430,20 @@ export namespace Prisma {
     connect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
   }
 
+  export type NfseTemplateCreateNestedManyWithoutUserInput = {
+    create?: XOR<NfseTemplateCreateWithoutUserInput, NfseTemplateUncheckedCreateWithoutUserInput> | NfseTemplateCreateWithoutUserInput[] | NfseTemplateUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NfseTemplateCreateOrConnectWithoutUserInput | NfseTemplateCreateOrConnectWithoutUserInput[]
+    createMany?: NfseTemplateCreateManyUserInputEnvelope
+    connect?: NfseTemplateWhereUniqueInput | NfseTemplateWhereUniqueInput[]
+  }
+
+  export type NfseEmissionCreateNestedManyWithoutUserInput = {
+    create?: XOR<NfseEmissionCreateWithoutUserInput, NfseEmissionUncheckedCreateWithoutUserInput> | NfseEmissionCreateWithoutUserInput[] | NfseEmissionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NfseEmissionCreateOrConnectWithoutUserInput | NfseEmissionCreateOrConnectWithoutUserInput[]
+    createMany?: NfseEmissionCreateManyUserInputEnvelope
+    connect?: NfseEmissionWhereUniqueInput | NfseEmissionWhereUniqueInput[]
+  }
+
   export type AIConfigUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<AIConfigCreateWithoutUserInput, AIConfigUncheckedCreateWithoutUserInput>
     connectOrCreate?: AIConfigCreateOrConnectWithoutUserInput
@@ -12264,6 +15481,20 @@ export namespace Prisma {
     connectOrCreate?: ReminderCreateOrConnectWithoutUserInput | ReminderCreateOrConnectWithoutUserInput[]
     createMany?: ReminderCreateManyUserInputEnvelope
     connect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+  }
+
+  export type NfseTemplateUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<NfseTemplateCreateWithoutUserInput, NfseTemplateUncheckedCreateWithoutUserInput> | NfseTemplateCreateWithoutUserInput[] | NfseTemplateUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NfseTemplateCreateOrConnectWithoutUserInput | NfseTemplateCreateOrConnectWithoutUserInput[]
+    createMany?: NfseTemplateCreateManyUserInputEnvelope
+    connect?: NfseTemplateWhereUniqueInput | NfseTemplateWhereUniqueInput[]
+  }
+
+  export type NfseEmissionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<NfseEmissionCreateWithoutUserInput, NfseEmissionUncheckedCreateWithoutUserInput> | NfseEmissionCreateWithoutUserInput[] | NfseEmissionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NfseEmissionCreateOrConnectWithoutUserInput | NfseEmissionCreateOrConnectWithoutUserInput[]
+    createMany?: NfseEmissionCreateManyUserInputEnvelope
+    connect?: NfseEmissionWhereUniqueInput | NfseEmissionWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -12355,6 +15586,34 @@ export namespace Prisma {
     deleteMany?: ReminderScalarWhereInput | ReminderScalarWhereInput[]
   }
 
+  export type NfseTemplateUpdateManyWithoutUserNestedInput = {
+    create?: XOR<NfseTemplateCreateWithoutUserInput, NfseTemplateUncheckedCreateWithoutUserInput> | NfseTemplateCreateWithoutUserInput[] | NfseTemplateUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NfseTemplateCreateOrConnectWithoutUserInput | NfseTemplateCreateOrConnectWithoutUserInput[]
+    upsert?: NfseTemplateUpsertWithWhereUniqueWithoutUserInput | NfseTemplateUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: NfseTemplateCreateManyUserInputEnvelope
+    set?: NfseTemplateWhereUniqueInput | NfseTemplateWhereUniqueInput[]
+    disconnect?: NfseTemplateWhereUniqueInput | NfseTemplateWhereUniqueInput[]
+    delete?: NfseTemplateWhereUniqueInput | NfseTemplateWhereUniqueInput[]
+    connect?: NfseTemplateWhereUniqueInput | NfseTemplateWhereUniqueInput[]
+    update?: NfseTemplateUpdateWithWhereUniqueWithoutUserInput | NfseTemplateUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: NfseTemplateUpdateManyWithWhereWithoutUserInput | NfseTemplateUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: NfseTemplateScalarWhereInput | NfseTemplateScalarWhereInput[]
+  }
+
+  export type NfseEmissionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<NfseEmissionCreateWithoutUserInput, NfseEmissionUncheckedCreateWithoutUserInput> | NfseEmissionCreateWithoutUserInput[] | NfseEmissionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NfseEmissionCreateOrConnectWithoutUserInput | NfseEmissionCreateOrConnectWithoutUserInput[]
+    upsert?: NfseEmissionUpsertWithWhereUniqueWithoutUserInput | NfseEmissionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: NfseEmissionCreateManyUserInputEnvelope
+    set?: NfseEmissionWhereUniqueInput | NfseEmissionWhereUniqueInput[]
+    disconnect?: NfseEmissionWhereUniqueInput | NfseEmissionWhereUniqueInput[]
+    delete?: NfseEmissionWhereUniqueInput | NfseEmissionWhereUniqueInput[]
+    connect?: NfseEmissionWhereUniqueInput | NfseEmissionWhereUniqueInput[]
+    update?: NfseEmissionUpdateWithWhereUniqueWithoutUserInput | NfseEmissionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: NfseEmissionUpdateManyWithWhereWithoutUserInput | NfseEmissionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: NfseEmissionScalarWhereInput | NfseEmissionScalarWhereInput[]
+  }
+
   export type AIConfigUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<AIConfigCreateWithoutUserInput, AIConfigUncheckedCreateWithoutUserInput>
     connectOrCreate?: AIConfigCreateOrConnectWithoutUserInput
@@ -12425,6 +15684,34 @@ export namespace Prisma {
     update?: ReminderUpdateWithWhereUniqueWithoutUserInput | ReminderUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ReminderUpdateManyWithWhereWithoutUserInput | ReminderUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ReminderScalarWhereInput | ReminderScalarWhereInput[]
+  }
+
+  export type NfseTemplateUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<NfseTemplateCreateWithoutUserInput, NfseTemplateUncheckedCreateWithoutUserInput> | NfseTemplateCreateWithoutUserInput[] | NfseTemplateUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NfseTemplateCreateOrConnectWithoutUserInput | NfseTemplateCreateOrConnectWithoutUserInput[]
+    upsert?: NfseTemplateUpsertWithWhereUniqueWithoutUserInput | NfseTemplateUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: NfseTemplateCreateManyUserInputEnvelope
+    set?: NfseTemplateWhereUniqueInput | NfseTemplateWhereUniqueInput[]
+    disconnect?: NfseTemplateWhereUniqueInput | NfseTemplateWhereUniqueInput[]
+    delete?: NfseTemplateWhereUniqueInput | NfseTemplateWhereUniqueInput[]
+    connect?: NfseTemplateWhereUniqueInput | NfseTemplateWhereUniqueInput[]
+    update?: NfseTemplateUpdateWithWhereUniqueWithoutUserInput | NfseTemplateUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: NfseTemplateUpdateManyWithWhereWithoutUserInput | NfseTemplateUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: NfseTemplateScalarWhereInput | NfseTemplateScalarWhereInput[]
+  }
+
+  export type NfseEmissionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<NfseEmissionCreateWithoutUserInput, NfseEmissionUncheckedCreateWithoutUserInput> | NfseEmissionCreateWithoutUserInput[] | NfseEmissionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NfseEmissionCreateOrConnectWithoutUserInput | NfseEmissionCreateOrConnectWithoutUserInput[]
+    upsert?: NfseEmissionUpsertWithWhereUniqueWithoutUserInput | NfseEmissionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: NfseEmissionCreateManyUserInputEnvelope
+    set?: NfseEmissionWhereUniqueInput | NfseEmissionWhereUniqueInput[]
+    disconnect?: NfseEmissionWhereUniqueInput | NfseEmissionWhereUniqueInput[]
+    delete?: NfseEmissionWhereUniqueInput | NfseEmissionWhereUniqueInput[]
+    connect?: NfseEmissionWhereUniqueInput | NfseEmissionWhereUniqueInput[]
+    update?: NfseEmissionUpdateWithWhereUniqueWithoutUserInput | NfseEmissionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: NfseEmissionUpdateManyWithWhereWithoutUserInput | NfseEmissionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: NfseEmissionScalarWhereInput | NfseEmissionScalarWhereInput[]
   }
 
   export type CompanyCreateservicesInput = {
@@ -12543,6 +15830,90 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutMessagingConfigInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMessagingConfigInput, UserUpdateWithoutMessagingConfigInput>, UserUncheckedUpdateWithoutMessagingConfigInput>
+  }
+
+  export type UserCreateNestedOneWithoutNfseTemplatesInput = {
+    create?: XOR<UserCreateWithoutNfseTemplatesInput, UserUncheckedCreateWithoutNfseTemplatesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNfseTemplatesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type NfseEmissionCreateNestedManyWithoutTemplateInput = {
+    create?: XOR<NfseEmissionCreateWithoutTemplateInput, NfseEmissionUncheckedCreateWithoutTemplateInput> | NfseEmissionCreateWithoutTemplateInput[] | NfseEmissionUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: NfseEmissionCreateOrConnectWithoutTemplateInput | NfseEmissionCreateOrConnectWithoutTemplateInput[]
+    createMany?: NfseEmissionCreateManyTemplateInputEnvelope
+    connect?: NfseEmissionWhereUniqueInput | NfseEmissionWhereUniqueInput[]
+  }
+
+  export type NfseEmissionUncheckedCreateNestedManyWithoutTemplateInput = {
+    create?: XOR<NfseEmissionCreateWithoutTemplateInput, NfseEmissionUncheckedCreateWithoutTemplateInput> | NfseEmissionCreateWithoutTemplateInput[] | NfseEmissionUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: NfseEmissionCreateOrConnectWithoutTemplateInput | NfseEmissionCreateOrConnectWithoutTemplateInput[]
+    createMany?: NfseEmissionCreateManyTemplateInputEnvelope
+    connect?: NfseEmissionWhereUniqueInput | NfseEmissionWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutNfseTemplatesNestedInput = {
+    create?: XOR<UserCreateWithoutNfseTemplatesInput, UserUncheckedCreateWithoutNfseTemplatesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNfseTemplatesInput
+    upsert?: UserUpsertWithoutNfseTemplatesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNfseTemplatesInput, UserUpdateWithoutNfseTemplatesInput>, UserUncheckedUpdateWithoutNfseTemplatesInput>
+  }
+
+  export type NfseEmissionUpdateManyWithoutTemplateNestedInput = {
+    create?: XOR<NfseEmissionCreateWithoutTemplateInput, NfseEmissionUncheckedCreateWithoutTemplateInput> | NfseEmissionCreateWithoutTemplateInput[] | NfseEmissionUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: NfseEmissionCreateOrConnectWithoutTemplateInput | NfseEmissionCreateOrConnectWithoutTemplateInput[]
+    upsert?: NfseEmissionUpsertWithWhereUniqueWithoutTemplateInput | NfseEmissionUpsertWithWhereUniqueWithoutTemplateInput[]
+    createMany?: NfseEmissionCreateManyTemplateInputEnvelope
+    set?: NfseEmissionWhereUniqueInput | NfseEmissionWhereUniqueInput[]
+    disconnect?: NfseEmissionWhereUniqueInput | NfseEmissionWhereUniqueInput[]
+    delete?: NfseEmissionWhereUniqueInput | NfseEmissionWhereUniqueInput[]
+    connect?: NfseEmissionWhereUniqueInput | NfseEmissionWhereUniqueInput[]
+    update?: NfseEmissionUpdateWithWhereUniqueWithoutTemplateInput | NfseEmissionUpdateWithWhereUniqueWithoutTemplateInput[]
+    updateMany?: NfseEmissionUpdateManyWithWhereWithoutTemplateInput | NfseEmissionUpdateManyWithWhereWithoutTemplateInput[]
+    deleteMany?: NfseEmissionScalarWhereInput | NfseEmissionScalarWhereInput[]
+  }
+
+  export type NfseEmissionUncheckedUpdateManyWithoutTemplateNestedInput = {
+    create?: XOR<NfseEmissionCreateWithoutTemplateInput, NfseEmissionUncheckedCreateWithoutTemplateInput> | NfseEmissionCreateWithoutTemplateInput[] | NfseEmissionUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: NfseEmissionCreateOrConnectWithoutTemplateInput | NfseEmissionCreateOrConnectWithoutTemplateInput[]
+    upsert?: NfseEmissionUpsertWithWhereUniqueWithoutTemplateInput | NfseEmissionUpsertWithWhereUniqueWithoutTemplateInput[]
+    createMany?: NfseEmissionCreateManyTemplateInputEnvelope
+    set?: NfseEmissionWhereUniqueInput | NfseEmissionWhereUniqueInput[]
+    disconnect?: NfseEmissionWhereUniqueInput | NfseEmissionWhereUniqueInput[]
+    delete?: NfseEmissionWhereUniqueInput | NfseEmissionWhereUniqueInput[]
+    connect?: NfseEmissionWhereUniqueInput | NfseEmissionWhereUniqueInput[]
+    update?: NfseEmissionUpdateWithWhereUniqueWithoutTemplateInput | NfseEmissionUpdateWithWhereUniqueWithoutTemplateInput[]
+    updateMany?: NfseEmissionUpdateManyWithWhereWithoutTemplateInput | NfseEmissionUpdateManyWithWhereWithoutTemplateInput[]
+    deleteMany?: NfseEmissionScalarWhereInput | NfseEmissionScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutNfseEmissionsInput = {
+    create?: XOR<UserCreateWithoutNfseEmissionsInput, UserUncheckedCreateWithoutNfseEmissionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNfseEmissionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type NfseTemplateCreateNestedOneWithoutEmissionsInput = {
+    create?: XOR<NfseTemplateCreateWithoutEmissionsInput, NfseTemplateUncheckedCreateWithoutEmissionsInput>
+    connectOrCreate?: NfseTemplateCreateOrConnectWithoutEmissionsInput
+    connect?: NfseTemplateWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutNfseEmissionsNestedInput = {
+    create?: XOR<UserCreateWithoutNfseEmissionsInput, UserUncheckedCreateWithoutNfseEmissionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNfseEmissionsInput
+    upsert?: UserUpsertWithoutNfseEmissionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNfseEmissionsInput, UserUpdateWithoutNfseEmissionsInput>, UserUncheckedUpdateWithoutNfseEmissionsInput>
+  }
+
+  export type NfseTemplateUpdateOneRequiredWithoutEmissionsNestedInput = {
+    create?: XOR<NfseTemplateCreateWithoutEmissionsInput, NfseTemplateUncheckedCreateWithoutEmissionsInput>
+    connectOrCreate?: NfseTemplateCreateOrConnectWithoutEmissionsInput
+    upsert?: NfseTemplateUpsertWithoutEmissionsInput
+    connect?: NfseTemplateWhereUniqueInput
+    update?: XOR<XOR<NfseTemplateUpdateToOneWithWhereWithoutEmissionsInput, NfseTemplateUpdateWithoutEmissionsInput>, NfseTemplateUncheckedUpdateWithoutEmissionsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -12717,6 +16088,29 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type AIConfigCreateWithoutUserInput = {
@@ -12947,6 +16341,76 @@ export namespace Prisma {
 
   export type ReminderCreateManyUserInputEnvelope = {
     data: ReminderCreateManyUserInput | ReminderCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type NfseTemplateCreateWithoutUserInput = {
+    id?: string
+    name: string
+    xml: string
+    businessKey: string
+    createdAt?: Date | string
+    emissions?: NfseEmissionCreateNestedManyWithoutTemplateInput
+  }
+
+  export type NfseTemplateUncheckedCreateWithoutUserInput = {
+    id?: string
+    name: string
+    xml: string
+    businessKey: string
+    createdAt?: Date | string
+    emissions?: NfseEmissionUncheckedCreateNestedManyWithoutTemplateInput
+  }
+
+  export type NfseTemplateCreateOrConnectWithoutUserInput = {
+    where: NfseTemplateWhereUniqueInput
+    create: XOR<NfseTemplateCreateWithoutUserInput, NfseTemplateUncheckedCreateWithoutUserInput>
+  }
+
+  export type NfseTemplateCreateManyUserInputEnvelope = {
+    data: NfseTemplateCreateManyUserInput | NfseTemplateCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type NfseEmissionCreateWithoutUserInput = {
+    id?: string
+    number?: number
+    competence: string
+    amount: string
+    description: string
+    status?: string
+    dpsId?: string | null
+    signedXml?: string | null
+    accessKey?: string | null
+    response?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    template: NfseTemplateCreateNestedOneWithoutEmissionsInput
+  }
+
+  export type NfseEmissionUncheckedCreateWithoutUserInput = {
+    id?: string
+    number?: number
+    templateId: string
+    competence: string
+    amount: string
+    description: string
+    status?: string
+    dpsId?: string | null
+    signedXml?: string | null
+    accessKey?: string | null
+    response?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NfseEmissionCreateOrConnectWithoutUserInput = {
+    where: NfseEmissionWhereUniqueInput
+    create: XOR<NfseEmissionCreateWithoutUserInput, NfseEmissionUncheckedCreateWithoutUserInput>
+  }
+
+  export type NfseEmissionCreateManyUserInputEnvelope = {
+    data: NfseEmissionCreateManyUserInput | NfseEmissionCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -13187,6 +16651,70 @@ export namespace Prisma {
     recurrenceEndDate?: DateTimeNullableFilter<"Reminder"> | Date | string | null
   }
 
+  export type NfseTemplateUpsertWithWhereUniqueWithoutUserInput = {
+    where: NfseTemplateWhereUniqueInput
+    update: XOR<NfseTemplateUpdateWithoutUserInput, NfseTemplateUncheckedUpdateWithoutUserInput>
+    create: XOR<NfseTemplateCreateWithoutUserInput, NfseTemplateUncheckedCreateWithoutUserInput>
+  }
+
+  export type NfseTemplateUpdateWithWhereUniqueWithoutUserInput = {
+    where: NfseTemplateWhereUniqueInput
+    data: XOR<NfseTemplateUpdateWithoutUserInput, NfseTemplateUncheckedUpdateWithoutUserInput>
+  }
+
+  export type NfseTemplateUpdateManyWithWhereWithoutUserInput = {
+    where: NfseTemplateScalarWhereInput
+    data: XOR<NfseTemplateUpdateManyMutationInput, NfseTemplateUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type NfseTemplateScalarWhereInput = {
+    AND?: NfseTemplateScalarWhereInput | NfseTemplateScalarWhereInput[]
+    OR?: NfseTemplateScalarWhereInput[]
+    NOT?: NfseTemplateScalarWhereInput | NfseTemplateScalarWhereInput[]
+    id?: StringFilter<"NfseTemplate"> | string
+    userId?: StringFilter<"NfseTemplate"> | string
+    name?: StringFilter<"NfseTemplate"> | string
+    xml?: StringFilter<"NfseTemplate"> | string
+    businessKey?: StringFilter<"NfseTemplate"> | string
+    createdAt?: DateTimeFilter<"NfseTemplate"> | Date | string
+  }
+
+  export type NfseEmissionUpsertWithWhereUniqueWithoutUserInput = {
+    where: NfseEmissionWhereUniqueInput
+    update: XOR<NfseEmissionUpdateWithoutUserInput, NfseEmissionUncheckedUpdateWithoutUserInput>
+    create: XOR<NfseEmissionCreateWithoutUserInput, NfseEmissionUncheckedCreateWithoutUserInput>
+  }
+
+  export type NfseEmissionUpdateWithWhereUniqueWithoutUserInput = {
+    where: NfseEmissionWhereUniqueInput
+    data: XOR<NfseEmissionUpdateWithoutUserInput, NfseEmissionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type NfseEmissionUpdateManyWithWhereWithoutUserInput = {
+    where: NfseEmissionScalarWhereInput
+    data: XOR<NfseEmissionUpdateManyMutationInput, NfseEmissionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type NfseEmissionScalarWhereInput = {
+    AND?: NfseEmissionScalarWhereInput | NfseEmissionScalarWhereInput[]
+    OR?: NfseEmissionScalarWhereInput[]
+    NOT?: NfseEmissionScalarWhereInput | NfseEmissionScalarWhereInput[]
+    id?: StringFilter<"NfseEmission"> | string
+    number?: IntFilter<"NfseEmission"> | number
+    userId?: StringFilter<"NfseEmission"> | string
+    templateId?: StringFilter<"NfseEmission"> | string
+    competence?: StringFilter<"NfseEmission"> | string
+    amount?: StringFilter<"NfseEmission"> | string
+    description?: StringFilter<"NfseEmission"> | string
+    status?: StringFilter<"NfseEmission"> | string
+    dpsId?: StringNullableFilter<"NfseEmission"> | string | null
+    signedXml?: StringNullableFilter<"NfseEmission"> | string | null
+    accessKey?: StringNullableFilter<"NfseEmission"> | string | null
+    response?: JsonNullableFilter<"NfseEmission">
+    createdAt?: DateTimeFilter<"NfseEmission"> | Date | string
+    updatedAt?: DateTimeFilter<"NfseEmission"> | Date | string
+  }
+
   export type UserCreateWithoutCompanyInput = {
     id?: string
     email: string
@@ -13208,6 +16736,8 @@ export namespace Prisma {
     messagingConfig?: MessagingConfigCreateNestedOneWithoutUserInput
     projects?: ProjectCreateNestedManyWithoutUserInput
     reminders?: ReminderCreateNestedManyWithoutUserInput
+    nfseTemplates?: NfseTemplateCreateNestedManyWithoutUserInput
+    nfseEmissions?: NfseEmissionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCompanyInput = {
@@ -13231,6 +16761,8 @@ export namespace Prisma {
     messagingConfig?: MessagingConfigUncheckedCreateNestedOneWithoutUserInput
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
     reminders?: ReminderUncheckedCreateNestedManyWithoutUserInput
+    nfseTemplates?: NfseTemplateUncheckedCreateNestedManyWithoutUserInput
+    nfseEmissions?: NfseEmissionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCompanyInput = {
@@ -13270,6 +16802,8 @@ export namespace Prisma {
     messagingConfig?: MessagingConfigUpdateOneWithoutUserNestedInput
     projects?: ProjectUpdateManyWithoutUserNestedInput
     reminders?: ReminderUpdateManyWithoutUserNestedInput
+    nfseTemplates?: NfseTemplateUpdateManyWithoutUserNestedInput
+    nfseEmissions?: NfseEmissionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCompanyInput = {
@@ -13293,6 +16827,8 @@ export namespace Prisma {
     messagingConfig?: MessagingConfigUncheckedUpdateOneWithoutUserNestedInput
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
     reminders?: ReminderUncheckedUpdateManyWithoutUserNestedInput
+    nfseTemplates?: NfseTemplateUncheckedUpdateManyWithoutUserNestedInput
+    nfseEmissions?: NfseEmissionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutProjectsInput = {
@@ -13316,6 +16852,8 @@ export namespace Prisma {
     company?: CompanyCreateNestedOneWithoutUserInput
     messagingConfig?: MessagingConfigCreateNestedOneWithoutUserInput
     reminders?: ReminderCreateNestedManyWithoutUserInput
+    nfseTemplates?: NfseTemplateCreateNestedManyWithoutUserInput
+    nfseEmissions?: NfseEmissionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProjectsInput = {
@@ -13339,6 +16877,8 @@ export namespace Prisma {
     company?: CompanyUncheckedCreateNestedOneWithoutUserInput
     messagingConfig?: MessagingConfigUncheckedCreateNestedOneWithoutUserInput
     reminders?: ReminderUncheckedCreateNestedManyWithoutUserInput
+    nfseTemplates?: NfseTemplateUncheckedCreateNestedManyWithoutUserInput
+    nfseEmissions?: NfseEmissionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProjectsInput = {
@@ -13378,6 +16918,8 @@ export namespace Prisma {
     company?: CompanyUpdateOneWithoutUserNestedInput
     messagingConfig?: MessagingConfigUpdateOneWithoutUserNestedInput
     reminders?: ReminderUpdateManyWithoutUserNestedInput
+    nfseTemplates?: NfseTemplateUpdateManyWithoutUserNestedInput
+    nfseEmissions?: NfseEmissionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProjectsInput = {
@@ -13401,6 +16943,8 @@ export namespace Prisma {
     company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     messagingConfig?: MessagingConfigUncheckedUpdateOneWithoutUserNestedInput
     reminders?: ReminderUncheckedUpdateManyWithoutUserNestedInput
+    nfseTemplates?: NfseTemplateUncheckedUpdateManyWithoutUserNestedInput
+    nfseEmissions?: NfseEmissionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutRemindersInput = {
@@ -13424,6 +16968,8 @@ export namespace Prisma {
     company?: CompanyCreateNestedOneWithoutUserInput
     messagingConfig?: MessagingConfigCreateNestedOneWithoutUserInput
     projects?: ProjectCreateNestedManyWithoutUserInput
+    nfseTemplates?: NfseTemplateCreateNestedManyWithoutUserInput
+    nfseEmissions?: NfseEmissionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRemindersInput = {
@@ -13447,6 +16993,8 @@ export namespace Prisma {
     company?: CompanyUncheckedCreateNestedOneWithoutUserInput
     messagingConfig?: MessagingConfigUncheckedCreateNestedOneWithoutUserInput
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
+    nfseTemplates?: NfseTemplateUncheckedCreateNestedManyWithoutUserInput
+    nfseEmissions?: NfseEmissionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRemindersInput = {
@@ -13486,6 +17034,8 @@ export namespace Prisma {
     company?: CompanyUpdateOneWithoutUserNestedInput
     messagingConfig?: MessagingConfigUpdateOneWithoutUserNestedInput
     projects?: ProjectUpdateManyWithoutUserNestedInput
+    nfseTemplates?: NfseTemplateUpdateManyWithoutUserNestedInput
+    nfseEmissions?: NfseEmissionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRemindersInput = {
@@ -13509,6 +17059,8 @@ export namespace Prisma {
     company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     messagingConfig?: MessagingConfigUncheckedUpdateOneWithoutUserNestedInput
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
+    nfseTemplates?: NfseTemplateUncheckedUpdateManyWithoutUserNestedInput
+    nfseEmissions?: NfseEmissionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAppointmentsInput = {
@@ -13532,6 +17084,8 @@ export namespace Prisma {
     messagingConfig?: MessagingConfigCreateNestedOneWithoutUserInput
     projects?: ProjectCreateNestedManyWithoutUserInput
     reminders?: ReminderCreateNestedManyWithoutUserInput
+    nfseTemplates?: NfseTemplateCreateNestedManyWithoutUserInput
+    nfseEmissions?: NfseEmissionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAppointmentsInput = {
@@ -13555,6 +17109,8 @@ export namespace Prisma {
     messagingConfig?: MessagingConfigUncheckedCreateNestedOneWithoutUserInput
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
     reminders?: ReminderUncheckedCreateNestedManyWithoutUserInput
+    nfseTemplates?: NfseTemplateUncheckedCreateNestedManyWithoutUserInput
+    nfseEmissions?: NfseEmissionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAppointmentsInput = {
@@ -13594,6 +17150,8 @@ export namespace Prisma {
     messagingConfig?: MessagingConfigUpdateOneWithoutUserNestedInput
     projects?: ProjectUpdateManyWithoutUserNestedInput
     reminders?: ReminderUpdateManyWithoutUserNestedInput
+    nfseTemplates?: NfseTemplateUpdateManyWithoutUserNestedInput
+    nfseEmissions?: NfseEmissionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAppointmentsInput = {
@@ -13617,6 +17175,8 @@ export namespace Prisma {
     messagingConfig?: MessagingConfigUncheckedUpdateOneWithoutUserNestedInput
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
     reminders?: ReminderUncheckedUpdateManyWithoutUserNestedInput
+    nfseTemplates?: NfseTemplateUncheckedUpdateManyWithoutUserNestedInput
+    nfseEmissions?: NfseEmissionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAiConfigInput = {
@@ -13640,6 +17200,8 @@ export namespace Prisma {
     messagingConfig?: MessagingConfigCreateNestedOneWithoutUserInput
     projects?: ProjectCreateNestedManyWithoutUserInput
     reminders?: ReminderCreateNestedManyWithoutUserInput
+    nfseTemplates?: NfseTemplateCreateNestedManyWithoutUserInput
+    nfseEmissions?: NfseEmissionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAiConfigInput = {
@@ -13663,6 +17225,8 @@ export namespace Prisma {
     messagingConfig?: MessagingConfigUncheckedCreateNestedOneWithoutUserInput
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
     reminders?: ReminderUncheckedCreateNestedManyWithoutUserInput
+    nfseTemplates?: NfseTemplateUncheckedCreateNestedManyWithoutUserInput
+    nfseEmissions?: NfseEmissionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAiConfigInput = {
@@ -13702,6 +17266,8 @@ export namespace Prisma {
     messagingConfig?: MessagingConfigUpdateOneWithoutUserNestedInput
     projects?: ProjectUpdateManyWithoutUserNestedInput
     reminders?: ReminderUpdateManyWithoutUserNestedInput
+    nfseTemplates?: NfseTemplateUpdateManyWithoutUserNestedInput
+    nfseEmissions?: NfseEmissionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAiConfigInput = {
@@ -13725,6 +17291,8 @@ export namespace Prisma {
     messagingConfig?: MessagingConfigUncheckedUpdateOneWithoutUserNestedInput
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
     reminders?: ReminderUncheckedUpdateManyWithoutUserNestedInput
+    nfseTemplates?: NfseTemplateUncheckedUpdateManyWithoutUserNestedInput
+    nfseEmissions?: NfseEmissionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutMessagingConfigInput = {
@@ -13748,6 +17316,8 @@ export namespace Prisma {
     company?: CompanyCreateNestedOneWithoutUserInput
     projects?: ProjectCreateNestedManyWithoutUserInput
     reminders?: ReminderCreateNestedManyWithoutUserInput
+    nfseTemplates?: NfseTemplateCreateNestedManyWithoutUserInput
+    nfseEmissions?: NfseEmissionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMessagingConfigInput = {
@@ -13771,6 +17341,8 @@ export namespace Prisma {
     company?: CompanyUncheckedCreateNestedOneWithoutUserInput
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
     reminders?: ReminderUncheckedCreateNestedManyWithoutUserInput
+    nfseTemplates?: NfseTemplateUncheckedCreateNestedManyWithoutUserInput
+    nfseEmissions?: NfseEmissionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMessagingConfigInput = {
@@ -13810,6 +17382,8 @@ export namespace Prisma {
     company?: CompanyUpdateOneWithoutUserNestedInput
     projects?: ProjectUpdateManyWithoutUserNestedInput
     reminders?: ReminderUpdateManyWithoutUserNestedInput
+    nfseTemplates?: NfseTemplateUpdateManyWithoutUserNestedInput
+    nfseEmissions?: NfseEmissionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMessagingConfigInput = {
@@ -13833,6 +17407,350 @@ export namespace Prisma {
     company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
     reminders?: ReminderUncheckedUpdateManyWithoutUserNestedInput
+    nfseTemplates?: NfseTemplateUncheckedUpdateManyWithoutUserNestedInput
+    nfseEmissions?: NfseEmissionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutNfseTemplatesInput = {
+    id?: string
+    email: string
+    name: string
+    avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    title?: string | null
+    bio?: string | null
+    location?: string | null
+    phone?: string | null
+    website?: string | null
+    linkedin?: string | null
+    github?: string | null
+    twitter?: string | null
+    skills?: UserCreateskillsInput | string[]
+    aiConfig?: AIConfigCreateNestedOneWithoutUserInput
+    appointments?: AppointmentCreateNestedManyWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutUserInput
+    messagingConfig?: MessagingConfigCreateNestedOneWithoutUserInput
+    projects?: ProjectCreateNestedManyWithoutUserInput
+    reminders?: ReminderCreateNestedManyWithoutUserInput
+    nfseEmissions?: NfseEmissionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutNfseTemplatesInput = {
+    id?: string
+    email: string
+    name: string
+    avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    title?: string | null
+    bio?: string | null
+    location?: string | null
+    phone?: string | null
+    website?: string | null
+    linkedin?: string | null
+    github?: string | null
+    twitter?: string | null
+    skills?: UserCreateskillsInput | string[]
+    aiConfig?: AIConfigUncheckedCreateNestedOneWithoutUserInput
+    appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
+    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    messagingConfig?: MessagingConfigUncheckedCreateNestedOneWithoutUserInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutUserInput
+    nfseEmissions?: NfseEmissionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutNfseTemplatesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutNfseTemplatesInput, UserUncheckedCreateWithoutNfseTemplatesInput>
+  }
+
+  export type NfseEmissionCreateWithoutTemplateInput = {
+    id?: string
+    number?: number
+    competence: string
+    amount: string
+    description: string
+    status?: string
+    dpsId?: string | null
+    signedXml?: string | null
+    accessKey?: string | null
+    response?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutNfseEmissionsInput
+  }
+
+  export type NfseEmissionUncheckedCreateWithoutTemplateInput = {
+    id?: string
+    number?: number
+    userId: string
+    competence: string
+    amount: string
+    description: string
+    status?: string
+    dpsId?: string | null
+    signedXml?: string | null
+    accessKey?: string | null
+    response?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NfseEmissionCreateOrConnectWithoutTemplateInput = {
+    where: NfseEmissionWhereUniqueInput
+    create: XOR<NfseEmissionCreateWithoutTemplateInput, NfseEmissionUncheckedCreateWithoutTemplateInput>
+  }
+
+  export type NfseEmissionCreateManyTemplateInputEnvelope = {
+    data: NfseEmissionCreateManyTemplateInput | NfseEmissionCreateManyTemplateInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutNfseTemplatesInput = {
+    update: XOR<UserUpdateWithoutNfseTemplatesInput, UserUncheckedUpdateWithoutNfseTemplatesInput>
+    create: XOR<UserCreateWithoutNfseTemplatesInput, UserUncheckedCreateWithoutNfseTemplatesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutNfseTemplatesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutNfseTemplatesInput, UserUncheckedUpdateWithoutNfseTemplatesInput>
+  }
+
+  export type UserUpdateWithoutNfseTemplatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
+    twitter?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: UserUpdateskillsInput | string[]
+    aiConfig?: AIConfigUpdateOneWithoutUserNestedInput
+    appointments?: AppointmentUpdateManyWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutUserNestedInput
+    messagingConfig?: MessagingConfigUpdateOneWithoutUserNestedInput
+    projects?: ProjectUpdateManyWithoutUserNestedInput
+    reminders?: ReminderUpdateManyWithoutUserNestedInput
+    nfseEmissions?: NfseEmissionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutNfseTemplatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
+    twitter?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: UserUpdateskillsInput | string[]
+    aiConfig?: AIConfigUncheckedUpdateOneWithoutUserNestedInput
+    appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
+    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    messagingConfig?: MessagingConfigUncheckedUpdateOneWithoutUserNestedInput
+    projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutUserNestedInput
+    nfseEmissions?: NfseEmissionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type NfseEmissionUpsertWithWhereUniqueWithoutTemplateInput = {
+    where: NfseEmissionWhereUniqueInput
+    update: XOR<NfseEmissionUpdateWithoutTemplateInput, NfseEmissionUncheckedUpdateWithoutTemplateInput>
+    create: XOR<NfseEmissionCreateWithoutTemplateInput, NfseEmissionUncheckedCreateWithoutTemplateInput>
+  }
+
+  export type NfseEmissionUpdateWithWhereUniqueWithoutTemplateInput = {
+    where: NfseEmissionWhereUniqueInput
+    data: XOR<NfseEmissionUpdateWithoutTemplateInput, NfseEmissionUncheckedUpdateWithoutTemplateInput>
+  }
+
+  export type NfseEmissionUpdateManyWithWhereWithoutTemplateInput = {
+    where: NfseEmissionScalarWhereInput
+    data: XOR<NfseEmissionUpdateManyMutationInput, NfseEmissionUncheckedUpdateManyWithoutTemplateInput>
+  }
+
+  export type UserCreateWithoutNfseEmissionsInput = {
+    id?: string
+    email: string
+    name: string
+    avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    title?: string | null
+    bio?: string | null
+    location?: string | null
+    phone?: string | null
+    website?: string | null
+    linkedin?: string | null
+    github?: string | null
+    twitter?: string | null
+    skills?: UserCreateskillsInput | string[]
+    aiConfig?: AIConfigCreateNestedOneWithoutUserInput
+    appointments?: AppointmentCreateNestedManyWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutUserInput
+    messagingConfig?: MessagingConfigCreateNestedOneWithoutUserInput
+    projects?: ProjectCreateNestedManyWithoutUserInput
+    reminders?: ReminderCreateNestedManyWithoutUserInput
+    nfseTemplates?: NfseTemplateCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutNfseEmissionsInput = {
+    id?: string
+    email: string
+    name: string
+    avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    title?: string | null
+    bio?: string | null
+    location?: string | null
+    phone?: string | null
+    website?: string | null
+    linkedin?: string | null
+    github?: string | null
+    twitter?: string | null
+    skills?: UserCreateskillsInput | string[]
+    aiConfig?: AIConfigUncheckedCreateNestedOneWithoutUserInput
+    appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
+    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    messagingConfig?: MessagingConfigUncheckedCreateNestedOneWithoutUserInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutUserInput
+    nfseTemplates?: NfseTemplateUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutNfseEmissionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutNfseEmissionsInput, UserUncheckedCreateWithoutNfseEmissionsInput>
+  }
+
+  export type NfseTemplateCreateWithoutEmissionsInput = {
+    id?: string
+    name: string
+    xml: string
+    businessKey: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutNfseTemplatesInput
+  }
+
+  export type NfseTemplateUncheckedCreateWithoutEmissionsInput = {
+    id?: string
+    userId: string
+    name: string
+    xml: string
+    businessKey: string
+    createdAt?: Date | string
+  }
+
+  export type NfseTemplateCreateOrConnectWithoutEmissionsInput = {
+    where: NfseTemplateWhereUniqueInput
+    create: XOR<NfseTemplateCreateWithoutEmissionsInput, NfseTemplateUncheckedCreateWithoutEmissionsInput>
+  }
+
+  export type UserUpsertWithoutNfseEmissionsInput = {
+    update: XOR<UserUpdateWithoutNfseEmissionsInput, UserUncheckedUpdateWithoutNfseEmissionsInput>
+    create: XOR<UserCreateWithoutNfseEmissionsInput, UserUncheckedCreateWithoutNfseEmissionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutNfseEmissionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutNfseEmissionsInput, UserUncheckedUpdateWithoutNfseEmissionsInput>
+  }
+
+  export type UserUpdateWithoutNfseEmissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
+    twitter?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: UserUpdateskillsInput | string[]
+    aiConfig?: AIConfigUpdateOneWithoutUserNestedInput
+    appointments?: AppointmentUpdateManyWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutUserNestedInput
+    messagingConfig?: MessagingConfigUpdateOneWithoutUserNestedInput
+    projects?: ProjectUpdateManyWithoutUserNestedInput
+    reminders?: ReminderUpdateManyWithoutUserNestedInput
+    nfseTemplates?: NfseTemplateUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutNfseEmissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
+    twitter?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: UserUpdateskillsInput | string[]
+    aiConfig?: AIConfigUncheckedUpdateOneWithoutUserNestedInput
+    appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
+    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    messagingConfig?: MessagingConfigUncheckedUpdateOneWithoutUserNestedInput
+    projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutUserNestedInput
+    nfseTemplates?: NfseTemplateUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type NfseTemplateUpsertWithoutEmissionsInput = {
+    update: XOR<NfseTemplateUpdateWithoutEmissionsInput, NfseTemplateUncheckedUpdateWithoutEmissionsInput>
+    create: XOR<NfseTemplateCreateWithoutEmissionsInput, NfseTemplateUncheckedCreateWithoutEmissionsInput>
+    where?: NfseTemplateWhereInput
+  }
+
+  export type NfseTemplateUpdateToOneWithWhereWithoutEmissionsInput = {
+    where?: NfseTemplateWhereInput
+    data: XOR<NfseTemplateUpdateWithoutEmissionsInput, NfseTemplateUncheckedUpdateWithoutEmissionsInput>
+  }
+
+  export type NfseTemplateUpdateWithoutEmissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    xml?: StringFieldUpdateOperationsInput | string
+    businessKey?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutNfseTemplatesNestedInput
+  }
+
+  export type NfseTemplateUncheckedUpdateWithoutEmissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    xml?: StringFieldUpdateOperationsInput | string
+    businessKey?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AppointmentCreateManyUserInput = {
@@ -13875,6 +17793,30 @@ export namespace Prisma {
     priority?: string
     recurrence?: string | null
     recurrenceEndDate?: Date | string | null
+  }
+
+  export type NfseTemplateCreateManyUserInput = {
+    id?: string
+    name: string
+    xml: string
+    businessKey: string
+    createdAt?: Date | string
+  }
+
+  export type NfseEmissionCreateManyUserInput = {
+    id?: string
+    number?: number
+    templateId: string
+    competence: string
+    amount: string
+    description: string
+    status?: string
+    dpsId?: string | null
+    signedXml?: string | null
+    accessKey?: string | null
+    response?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type AppointmentUpdateWithoutUserInput = {
@@ -14001,6 +17943,142 @@ export namespace Prisma {
     priority?: StringFieldUpdateOperationsInput | string
     recurrence?: NullableStringFieldUpdateOperationsInput | string | null
     recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type NfseTemplateUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    xml?: StringFieldUpdateOperationsInput | string
+    businessKey?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emissions?: NfseEmissionUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type NfseTemplateUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    xml?: StringFieldUpdateOperationsInput | string
+    businessKey?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emissions?: NfseEmissionUncheckedUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type NfseTemplateUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    xml?: StringFieldUpdateOperationsInput | string
+    businessKey?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NfseEmissionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    competence?: StringFieldUpdateOperationsInput | string
+    amount?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    dpsId?: NullableStringFieldUpdateOperationsInput | string | null
+    signedXml?: NullableStringFieldUpdateOperationsInput | string | null
+    accessKey?: NullableStringFieldUpdateOperationsInput | string | null
+    response?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    template?: NfseTemplateUpdateOneRequiredWithoutEmissionsNestedInput
+  }
+
+  export type NfseEmissionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    templateId?: StringFieldUpdateOperationsInput | string
+    competence?: StringFieldUpdateOperationsInput | string
+    amount?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    dpsId?: NullableStringFieldUpdateOperationsInput | string | null
+    signedXml?: NullableStringFieldUpdateOperationsInput | string | null
+    accessKey?: NullableStringFieldUpdateOperationsInput | string | null
+    response?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NfseEmissionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    templateId?: StringFieldUpdateOperationsInput | string
+    competence?: StringFieldUpdateOperationsInput | string
+    amount?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    dpsId?: NullableStringFieldUpdateOperationsInput | string | null
+    signedXml?: NullableStringFieldUpdateOperationsInput | string | null
+    accessKey?: NullableStringFieldUpdateOperationsInput | string | null
+    response?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NfseEmissionCreateManyTemplateInput = {
+    id?: string
+    number?: number
+    userId: string
+    competence: string
+    amount: string
+    description: string
+    status?: string
+    dpsId?: string | null
+    signedXml?: string | null
+    accessKey?: string | null
+    response?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NfseEmissionUpdateWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    competence?: StringFieldUpdateOperationsInput | string
+    amount?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    dpsId?: NullableStringFieldUpdateOperationsInput | string | null
+    signedXml?: NullableStringFieldUpdateOperationsInput | string | null
+    accessKey?: NullableStringFieldUpdateOperationsInput | string | null
+    response?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutNfseEmissionsNestedInput
+  }
+
+  export type NfseEmissionUncheckedUpdateWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
+    competence?: StringFieldUpdateOperationsInput | string
+    amount?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    dpsId?: NullableStringFieldUpdateOperationsInput | string | null
+    signedXml?: NullableStringFieldUpdateOperationsInput | string | null
+    accessKey?: NullableStringFieldUpdateOperationsInput | string | null
+    response?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NfseEmissionUncheckedUpdateManyWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
+    competence?: StringFieldUpdateOperationsInput | string
+    amount?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    dpsId?: NullableStringFieldUpdateOperationsInput | string | null
+    signedXml?: NullableStringFieldUpdateOperationsInput | string | null
+    accessKey?: NullableStringFieldUpdateOperationsInput | string | null
+    response?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

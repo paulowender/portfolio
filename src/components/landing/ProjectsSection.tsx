@@ -1,10 +1,10 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { usePortfolio } from '@/components/PortfolioData';
-import Image from 'next/image';
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { usePortfolio } from '@/components/PortfolioData';
+import ProjectCard from '@/components/ProjectCard';
 
 interface ProjectsSectionProps {
   innerRef?: React.RefObject<HTMLElement | null>;
@@ -13,135 +13,33 @@ interface ProjectsSectionProps {
 export default function ProjectsSection({ innerRef }: ProjectsSectionProps) {
   const { portfolioData, loading } = usePortfolio();
   const t = useTranslations('projects');
-  const tCommon = useTranslations('common');
-
   const featuredProjects = portfolioData?.featuredProjects?.toReversed() || [];
 
   return (
-    <section ref={innerRef} id="projects" className="py-20 bg-gray-800">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">{t('title')}</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">{t('description')}</p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {loading ? (
-            Array(3)
-              .fill(0)
-              .map((_, index) => (
-                <div
-                  key={index}
-                  className="bg-gray-800 rounded-lg overflow-hidden shadow-lg animate-pulse border border-gray-700"
-                >
-                  <div className="h-48 bg-gray-700"></div>
-                  <div className="p-6">
-                    <div className="h-6 bg-gray-700 rounded mb-4 w-3/4"></div>
-                    <div className="h-20 bg-gray-700 rounded mb-4"></div>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {Array(3)
-                        .fill(0)
-                        .map((_, i) => (
-                          <div key={i} className="h-6 w-16 bg-gray-700 rounded-full"></div>
-                        ))}
-                    </div>
-                  </div>
-                </div>
-              ))
-          ) : featuredProjects.length > 0 ? (
-            featuredProjects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-gray-700 hover:border-indigo-600 hover:scale-105 transition-transform duration-300"
-              >
-                <div className="h-48 bg-gray-700 relative">
-                  {project.imageUrl ? (
-                    <Image
-                      src={project.imageUrl}
-                      width={1920}
-                      height={1080}
-                      alt={project.title}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="flex items-center justify-center h-full">
-                      <span className="text-gray-500">{tCommon('noImage')}</span>
-                    </div>
-                  )}
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2 text-white">{project.title}</h3>
-                  <p className="text-gray-400 mb-4">
-                    {project.description.length > 100
-                      ? `${project.description.substring(0, 100)}...`
-                      : project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.technologies.slice(0, 3).map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-2 py-1 text-xs bg-gray-700 rounded-full text-gray-300"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                    {project.technologies.length > 3 && (
-                      <span className="px-2 py-1 text-xs bg-gray-700 rounded-full text-gray-300">
-                        +{project.technologies.length - 3}
-                      </span>
-                    )}
-                  </div>
-                  <div className="flex space-x-3">
-                    {project.liveUrl && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-indigo-400 hover:text-indigo-300 text-sm"
-                      >
-                        {t('viewLive')}
-                      </a>
-                    )}
-                    {project.githubUrl && (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-indigo-400 hover:text-indigo-300 text-sm"
-                      >
-                        {t('viewCode')}
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
-            ))
-          ) : (
-            <div className="col-span-3 text-center py-12">
-              <p className="text-gray-400">{t('noProjects')}</p>
-            </div>
-          )}
+    <section ref={innerRef} id="projects" className="border-y border-border bg-surface py-24 sm:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+          <div className="max-w-2xl">
+            <h2 className="text-3xl font-semibold tracking-[-0.04em] text-foreground sm:text-5xl">{t('title')}</h2>
+            <p className="mt-4 text-base leading-7 text-muted-foreground">{t('description')}</p>
+          </div>
+          <Link href="/projects" className="inline-flex min-h-11 w-fit items-center gap-2 rounded-xl border border-border bg-card px-4 text-sm font-semibold text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+            {t('viewAllProjects')}<ArrowRight className="size-4" />
+          </Link>
         </div>
 
-        {featuredProjects.length > 0 && (
-          <div className="mt-12 text-center">
-            <Link
-              href="/projects"
-              className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-300"
-            >
-              {t('viewAllProjects') || 'Ver Todos os Projetos'}
-            </Link>
+        {loading ? (
+          <div className="grid gap-5 md:grid-cols-2" aria-label="Carregando projetos">
+            <div className="min-h-[440px] animate-pulse rounded-2xl border border-border bg-card md:col-span-2" />
+            <div className="min-h-80 animate-pulse rounded-2xl border border-border bg-card" />
+            <div className="min-h-80 animate-pulse rounded-2xl border border-border bg-card" />
           </div>
+        ) : featuredProjects.length ? (
+          <div className="grid gap-5 md:grid-cols-2">
+            {featuredProjects.map((project, index) => <ProjectCard key={project.id} project={project} prominent={index === 0} />)}
+          </div>
+        ) : (
+          <div className="rounded-2xl border border-dashed border-border p-12 text-center text-muted-foreground">{t('noProjects')}</div>
         )}
       </div>
     </section>

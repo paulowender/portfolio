@@ -2,9 +2,10 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { FaEnvelope } from 'react-icons/fa';
+import { CheckCircle2, Mail } from 'lucide-react';
 import Button from '@/components/Button';
+import AuthShell from '@/components/auth/AuthShell';
+import { Input } from '@/components/ui/input';
 import { useAuth } from '@/lib/AuthContext';
 
 export default function ForgotPasswordPage() {
@@ -12,108 +13,48 @@ export default function ForgotPasswordPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
-
   const { resetPassword } = useAuth();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
     setLoading(true);
     setError('');
     setSuccess(false);
-
     try {
-      const { error } = await resetPassword(email);
-      if (error) throw error;
+      const result = await resetPassword(email);
+      if (result.error) throw result.error;
       setSuccess(true);
-    } catch (err: any) {
-      setError(err.message || 'An error occurred while sending the reset password email');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'An error occurred while sending the reset password email');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center"
-        >
-          <Link href="/" className="inline-block">
-            <h2 className="text-3xl font-extrabold text-white">Wender Tech</h2>
-          </Link>
-          <h2 className="mt-6 text-3xl font-bold text-white">Reset your password</h2>
-          <p className="mt-2 text-sm text-gray-400">
-            Enter your email address and we'll send you a link to reset your password
-          </p>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-8 bg-gray-800 py-8 px-4 shadow-lg sm:rounded-lg sm:px-10"
-        >
-          {error && (
-            <div className="mb-4 bg-red-900/50 text-red-200 p-3 rounded-md text-sm">{error}</div>
-          )}
-
-          {success ? (
-            <div className="text-center">
-              <div className="mb-4 bg-green-900/50 text-green-200 p-3 rounded-md text-sm">
-                Password reset email sent! Check your inbox for a link to reset your password.
-              </div>
-              <Link
-                href="/login"
-                className="text-indigo-400 hover:text-indigo-300 transition-colors"
-              >
-                Return to login
-              </Link>
+    <AuthShell
+      title="Reset your password"
+      description="Enter your email address and we’ll send you a secure link to choose a new password."
+      footer={<Link href="/login" className="inline-flex min-h-10 items-center rounded-lg px-2 font-semibold text-primary hover:text-primary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Back to login</Link>}
+    >
+      {error ? <div role="alert" className="mb-5 break-words rounded-xl border border-destructive/35 bg-destructive/10 p-3 text-sm text-destructive">{error}</div> : null}
+      {success ? (
+        <div role="status" className="flex gap-3 rounded-xl border border-success/35 bg-success/10 p-4 text-sm leading-6 text-foreground">
+          <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-success" aria-hidden="true" />
+          <div><p className="font-semibold">Password reset email sent</p><p className="mt-1 text-muted-foreground">Check your inbox for the link to reset your password.</p></div>
+        </div>
+      ) : (
+        <form className="space-y-5" onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="email" className="mb-2 block text-sm font-medium text-foreground">Email address</label>
+            <div className="relative">
+              <Mail className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
+              <Input id="email" name="email" type="email" autoComplete="email" required value={email} onChange={(event) => setEmail(event.target.value)} className="pl-10" placeholder="you@company.com" />
             </div>
-          ) : (
-            <form className="space-y-6" onSubmit={handleSubmit}>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-300">
-                  Email address
-                </label>
-                <div className="mt-1 relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FaEnvelope className="h-5 w-5 text-gray-500" />
-                  </div>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="block w-full pl-10 pr-3 py-2 border border-gray-600 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    placeholder="Email address"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <Button type="submit" className="w-full" isLoading={loading}>
-                  Send reset link
-                </Button>
-              </div>
-
-              <div className="text-center mt-4">
-                <Link
-                  href="/login"
-                  className="text-sm text-indigo-400 hover:text-indigo-300 transition-colors"
-                >
-                  Back to login
-                </Link>
-              </div>
-            </form>
-          )}
-        </motion.div>
-      </div>
-    </div>
+          </div>
+          <Button type="submit" className="w-full" isLoading={loading}>Send reset link</Button>
+        </form>
+      )}
+    </AuthShell>
   );
 }

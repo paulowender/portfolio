@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { usePortfolio } from '@/components/PortfolioData';
 import Button from '@/components/Button';
-import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaGlobe } from 'react-icons/fa';
+import { Globe, Mail, MapPin, Phone } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 export default function ContactSection() {
@@ -89,34 +89,34 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-20 bg-gray-900">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contact" className="bg-background py-24 sm:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="mb-12 max-w-2xl"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">{t('title')}</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">{t('description')}</p>
+          <h2 className="text-3xl font-semibold tracking-[-0.04em] sm:text-5xl">{t('title')}</h2>
+          <p className="mt-4 text-muted-foreground">{t('description')}</p>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={false}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
             className="lg:col-span-1"
           >
-            <div className="bg-gray-800 rounded-lg p-8">
+            <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
               <h3 className="text-2xl font-bold mb-6">{t('contactInfo')}</h3>
 
               <div className="space-y-6">
                 <div className="flex items-start">
                   <div className="bg-indigo-600/20 p-3 rounded-lg mr-4">
-                    <FaMapMarkerAlt className="h-6 w-6 text-indigo-400" />
+                    <MapPin className="h-6 w-6 text-indigo-400" />
                   </div>
                   <div>
                     <h4 className="text-lg font-medium mb-1">{t('address')}</h4>
@@ -132,7 +132,7 @@ export default function ContactSection() {
 
                 <div className="flex items-start">
                   <div className="bg-indigo-600/20 p-3 rounded-lg mr-4">
-                    <FaPhone className="h-6 w-6 text-indigo-400" />
+                    <Phone className="h-6 w-6 text-indigo-400" />
                   </div>
                   <div>
                     <h4 className="text-lg font-medium mb-1">{t('phone')}</h4>
@@ -148,7 +148,7 @@ export default function ContactSection() {
 
                 <div className="flex items-start">
                   <div className="bg-indigo-600/20 p-3 rounded-lg mr-4">
-                    <FaEnvelope className="h-6 w-6 text-indigo-400" />
+                    <Mail className="h-6 w-6 text-indigo-400" />
                   </div>
                   <div>
                     <h4 className="text-lg font-medium mb-1">{t('email')}</h4>
@@ -166,7 +166,7 @@ export default function ContactSection() {
 
                 <div className="flex items-start">
                   <div className="bg-indigo-600/20 p-3 rounded-lg mr-4">
-                    <FaGlobe className="h-6 w-6 text-indigo-400" />
+                    <Globe className="h-6 w-6 text-indigo-400" />
                   </div>
                   <div>
                     <h4 className="text-lg font-medium mb-1">{t('website')}</h4>
@@ -195,13 +195,13 @@ export default function ContactSection() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={false}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="lg:col-span-2"
           >
-            <div className="bg-gray-800 rounded-lg p-8">
+            <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
               <h3 className="text-2xl font-bold mb-6">{t('sendMessage')}</h3>
 
               {formStatus.submitted ? (
@@ -279,7 +279,7 @@ export default function ContactSection() {
                   <Button type="submit" className="w-full" disabled={submitting}>
                     {submitting ? (
                       <div className="flex items-center justify-center">
-                        <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white mr-2"></div>
+                        <div className="mr-2 h-5 w-5 animate-spin rounded-full border-2 border-primary-foreground/35 border-t-primary-foreground"></div>
                         {t('sending')}
                       </div>
                     ) : (

@@ -110,7 +110,7 @@ export default function ReminderItem({ reminder, onEdit }: ReminderItemProps) {
   return (
     <motion.div
       layout
-      initial={{ opacity: 0, y: 20 }}
+      initial={false}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.2 }}
@@ -284,7 +284,7 @@ export default function ReminderItem({ reminder, onEdit }: ReminderItemProps) {
 
       {isExpanded && reminder.description && (
         <motion.div
-          initial={{ opacity: 0, height: 0 }}
+          initial={false}
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.2 }}

@@ -20,26 +20,26 @@ export default function Button({
   ...props
 }: ButtonProps) {
   const baseStyles =
-    'inline-flex items-center justify-center font-medium rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500';
+    'inline-flex min-h-10 items-center justify-center rounded-xl font-semibold transition-[background-color,border-color,color,transform] duration-200 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/30 disabled:pointer-events-none disabled:opacity-45';
 
   const variantStyles = {
-    primary: 'bg-indigo-600 hover:bg-indigo-700 text-white',
-    secondary: 'bg-gray-800 hover:bg-gray-700 text-white',
-    outline: 'border border-indigo-600 text-indigo-600 hover:bg-indigo-50 dark:hover:bg-gray-800',
-    ghost: 'text-indigo-600 hover:bg-indigo-50 dark:hover:bg-gray-800',
+    primary: 'bg-primary text-primary-foreground hover:bg-[#b8a7ff]',
+    secondary: 'bg-secondary text-secondary-foreground hover:bg-[#2b2736]',
+    outline: 'border border-border bg-card text-foreground hover:border-[#4a4658] hover:bg-accent',
+    ghost: 'text-muted-foreground hover:bg-accent hover:text-foreground',
   };
 
   const sizeStyles = {
-    sm: 'text-sm px-3 py-1.5',
-    md: 'text-base px-4 py-2',
-    lg: 'text-lg px-6 py-3',
+    sm: 'min-h-9 px-3 text-sm',
+    md: 'min-h-10 px-4 text-sm',
+    lg: 'min-h-11 px-6 text-base',
   };
 
   const buttonClasses = `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`;
 
   return (
     <button
-      className={`${buttonClasses} hover:scale-[1.02] active:scale-[0.98] transition-transform`}
+      className={`${buttonClasses} active:translate-y-px`}
       disabled={isLoading || props.disabled}
       {...props}
     >

@@ -1,121 +1,92 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import {
-  CpuChipIcon,
-  ArrowRightIcon,
-  CalendarDaysIcon,
-  CreditCardIcon,
-  EnvelopeIcon,
-  ChatBubbleLeftRightIcon,
-} from '@heroicons/react/24/outline';
+  ArrowUpRight,
+  Bot,
+  CalendarDays,
+  CreditCard,
+  Mail,
+  MessageCircle,
+} from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import PageHeader from '@/components/dashboard/PageHeader';
+import StatusBadge from '@/components/dashboard/StatusBadge';
 
 export default function IntegrationsPage() {
   const t = useTranslations('integrationsPage');
-
   const integrations = [
-    {
-      id: 'ai',
-      nameKey: 'aiProviders',
-      descriptionKey: 'aiProvidersDescription',
-      icon: CpuChipIcon,
-      href: '/dashboard/integrations/ai',
-      isAvailable: true,
-      badgeKey: 'new',
-    },
-    {
-      id: 'messaging',
-      nameKey: 'messagingServices',
-      descriptionKey: 'messagingServicesDescription',
-      icon: ChatBubbleLeftRightIcon,
-      href: '/dashboard/integrations/evolution',
-      isAvailable: true,
-      badgeKey: 'new',
-    },
-    {
-      id: 'calendar',
-      nameKey: 'calendarServices',
-      descriptionKey: 'calendarServicesDescription',
-      icon: CalendarDaysIcon,
-      href: '/dashboard/integrations/calendar',
-      isAvailable: false,
-      badgeKey: 'comingSoon',
-    },
-    {
-      id: 'payment',
-      nameKey: 'paymentProcessors',
-      descriptionKey: 'paymentProcessorsDescription',
-      icon: CreditCardIcon,
-      href: '/dashboard/integrations/payment',
-      isAvailable: false,
-      badgeKey: 'comingSoon',
-    },
-    {
-      id: 'email',
-      nameKey: 'emailServices',
-      descriptionKey: 'emailServicesDescription',
-      icon: EnvelopeIcon,
-      href: '/dashboard/integrations/resend',
-      isAvailable: true,
-      badgeKey: 'new',
-    },
-  ];
+    { id: 'nfse', nameKey: 'nfse', descriptionKey: 'nfseDescription', icon: CreditCard, href: '/dashboard/integrations/nfse', isAvailable: true },
+    { id: 'ai', nameKey: 'aiProviders', descriptionKey: 'aiProvidersDescription', icon: Bot, href: '/dashboard/integrations/ai', isAvailable: true },
+    { id: 'messaging', nameKey: 'messagingServices', descriptionKey: 'messagingServicesDescription', icon: MessageCircle, href: '/dashboard/integrations/evolution', isAvailable: true },
+    { id: 'email', nameKey: 'emailServices', descriptionKey: 'emailServicesDescription', icon: Mail, href: '/dashboard/integrations/resend', isAvailable: true },
+    { id: 'calendar', nameKey: 'calendarServices', descriptionKey: 'calendarServicesDescription', icon: CalendarDays, href: '/dashboard/integrations/calendar', isAvailable: false },
+    { id: 'payment', nameKey: 'paymentProcessors', descriptionKey: 'paymentProcessorsDescription', icon: CreditCard, href: '/dashboard/integrations/payment', isAvailable: false },
+  ] as const;
+  const available = integrations.filter((integration) => integration.isAvailable);
+  const planned = integrations.filter((integration) => !integration.isAvailable);
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <h1 className="text-3xl font-bold mb-2">{t('title')}</h1>
-        <p className="text-gray-400 mb-8">{t('description')}</p>
+    <div className="mx-auto max-w-6xl">
+      <PageHeader title={t('title')} description={t('description')} />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {integrations.map((integration) => (
-            <div
+      <section aria-labelledby="available-integrations" className="overflow-hidden rounded-2xl border border-border bg-card">
+        <div className="border-b border-border px-5 py-4 sm:px-6">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h2 id="available-integrations" className="text-base font-semibold text-foreground">{t('available')}</h2>
+              <p className="mt-1 text-sm text-muted-foreground">{t('availableDescription')}</p>
+            </div>
+            <StatusBadge tone="success">{available.length} {t('services')}</StatusBadge>
+          </div>
+        </div>
+
+        <div className="divide-y divide-border">
+          {available.map((integration) => (
+            <Link
               key={integration.id}
-              className={`bg-gray-800 rounded-lg p-6 border border-gray-700 transition-all ${integration.isAvailable ? 'hover:border-indigo-500 cursor-pointer' : 'opacity-70'
-                }`}
+              href={integration.href}
+              className="group grid min-h-28 gap-4 px-5 py-5 transition-colors hover:bg-accent/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring sm:grid-cols-[48px_minmax(0,1fr)_auto] sm:items-center sm:px-6"
             >
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-indigo-900 rounded-lg flex items-center justify-center">
-                    <integration.icon className="h-6 w-6 text-indigo-400" />
-                  </div>
-                  <h3 className="text-xl font-semibold">{t(integration.nameKey)}</h3>
+              <span className="flex size-12 items-center justify-center rounded-xl border border-border bg-secondary text-primary">
+                <integration.icon className="size-5" aria-hidden="true" />
+              </span>
+              <span className="min-w-0">
+                <span className="flex flex-wrap items-center gap-2">
+                  <span className="font-semibold text-foreground">{t(integration.nameKey)}</span>
+                  <StatusBadge tone="info">{t('available')}</StatusBadge>
+                </span>
+                <span className="mt-1.5 block max-w-3xl text-sm leading-6 text-muted-foreground">{t(integration.descriptionKey)}</span>
+              </span>
+              <span className="flex items-center gap-2 text-sm font-semibold text-primary">
+                {t('configure')}
+                <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section aria-labelledby="planned-integrations" className="mt-8">
+        <h2 id="planned-integrations" className="text-lg font-semibold text-foreground">{t('comingSoon')}</h2>
+        <p className="mt-1 text-sm text-muted-foreground">{t('plannedDescription')}</p>
+        <div className="mt-4 grid gap-4 md:grid-cols-2">
+          {planned.map((integration) => (
+            <div key={integration.id} className="flex gap-4 rounded-2xl border border-border bg-card/60 p-5 text-muted-foreground">
+              <span className="flex size-11 shrink-0 items-center justify-center rounded-xl border border-border bg-secondary">
+                <integration.icon className="size-5" aria-hidden="true" />
+              </span>
+              <div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <h3 className="font-semibold text-foreground">{t(integration.nameKey)}</h3>
+                  <StatusBadge tone="neutral">{t('comingSoon')}</StatusBadge>
                 </div>
-                <div className="flex space-x-2">
-                  <span
-                    className={`px-2 py-1 text-xs rounded-full ${integration.badgeKey === 'new'
-                      ? 'bg-green-900 text-green-300 border border-green-700'
-                      : 'bg-blue-900 text-blue-300 border border-blue-700'
-                      }`}
-                  >
-                    {t(integration.badgeKey)}
-                  </span>
-                </div>
+                <p className="mt-2 text-sm leading-6">{t(integration.descriptionKey)}</p>
               </div>
-
-              <p className="text-gray-400 mb-4">{t(integration.descriptionKey)}</p>
-
-              {integration.isAvailable ? (
-                <Link
-                  href={integration.href}
-                  className="flex items-center text-indigo-400 hover:text-indigo-300 transition-colors"
-                >
-                  <span>{t('configure')}</span>
-                  <ArrowRightIcon className="h-4 w-4 ml-1" />
-                </Link>
-              ) : (
-                <span className="text-gray-500">{t('comingSoon')}</span>
-              )}
             </div>
           ))}
         </div>
-      </motion.div>
+      </section>
     </div>
   );
 }

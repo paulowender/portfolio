@@ -234,9 +234,40 @@ exports.Prisma.MessagingConfigScalarFieldEnum = {
   resendFromName: 'resendFromName'
 };
 
+exports.Prisma.NfseTemplateScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name',
+  xml: 'xml',
+  businessKey: 'businessKey',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.NfseEmissionScalarFieldEnum = {
+  id: 'id',
+  number: 'number',
+  userId: 'userId',
+  templateId: 'templateId',
+  competence: 'competence',
+  amount: 'amount',
+  description: 'description',
+  status: 'status',
+  dpsId: 'dpsId',
+  signedXml: 'signedXml',
+  accessKey: 'accessKey',
+  response: 'response',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -249,6 +280,12 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+
 
 exports.Prisma.ModelName = {
   User: 'User',
@@ -257,7 +294,9 @@ exports.Prisma.ModelName = {
   Reminder: 'Reminder',
   Appointment: 'Appointment',
   AIConfig: 'AIConfig',
-  MessagingConfig: 'MessagingConfig'
+  MessagingConfig: 'MessagingConfig',
+  NfseTemplate: 'NfseTemplate',
+  NfseEmission: 'NfseEmission'
 };
 
 /**

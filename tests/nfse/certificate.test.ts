@@ -1,0 +1,25 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { syntheticPfx } from './certificate-fixture';
+import { DOMParser, XMLSerializer } from '@xmldom/xmldom';
+import { gunzipSync } from 'node:zlib';
+import { encodeDps } from '../../src/lib/nfse/client';
+import { SignedXml } from 'xml-crypto';
+import { readCertificate, signDps } from '../../src/lib/nfse/certificate';
+import { buildDps } from '../../src/lib/nfse/xml';
+import { sample } from './fixture';
+test('assina DPS com certificado PFX e verifica assinatura sem rede', () => {
+ const pfx = syntheticPfx();
+ const credentials = readCertificate(pfx, 'secret');
+ const dps = buildDps(sample, { competence: '2026-10-01', amount: '7000.00', description: 'Teste', number: 1 });
+ const signed = signDps(dps.xml, credentials);
+ assert.match(signed, /^<\?xml version="1.0" encoding="UTF-8"\?>/);
+ const decoded = gunzipSync(Buffer.from(encodeDps(signed).dpsXmlGZipB64, 'base64')).toString('utf8');
+ assert.equal(decoded, signed);
+ const verifier = new SignedXml({ publicCert: credentials.cert, getCertFromKeyInfo: () => null });
+ const signature = new DOMParser().parseFromString(signed, 'text/xml').getElementsByTagNameNS('http://www.w3.org/2000/09/xmldsig#', 'Signature')[0];
+ verifier.loadSignature(new XMLSerializer().serializeToString(signature));
+ assert.equal(verifier.checkSignature(signed), true);
+ assert.equal(verifier.checkSignature(signed.replace('7000.00', '8000.00')), false);
+ assert.throws(() => readCertificate(pfx, 'wrong'));
+});
